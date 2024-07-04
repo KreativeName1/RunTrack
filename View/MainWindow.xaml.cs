@@ -21,7 +21,7 @@ namespace Klimalauf
          {
             // Check admin password
             string adminPassword = AdminPasswordBox.Password;
-            bool isAdmin = adminPassword == "test" && firstName == "Paul" && lastName == "Fischer";
+            bool isAdmin = adminPassword == "test" && firstName == "admin" && lastName == "admin";
 
             if (isAdmin)
             {
