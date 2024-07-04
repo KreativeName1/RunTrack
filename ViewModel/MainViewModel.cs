@@ -33,8 +33,8 @@ namespace Klimalauf
          }
       }
 
-      private Scanner _selSC;
-      public Scanner selSC
+      private ScanItem _selSC;
+      public ScanItem selSC
       {
          get
          {
@@ -52,8 +52,8 @@ namespace Klimalauf
          }
       }
 
-      private Scanner _selFI;
-      public Scanner selFI
+      private FileItem _selFI;
+      public FileItem selFI
       {
          get
          {
@@ -103,13 +103,10 @@ namespace Klimalauf
 
       }
 
-      public MainViewModel()
-      {
-         // der Konstruktor der ObservableCollection nimmt eine List<...> und
-         // wandelt diese um
-
-         this.LstScanner = new ObservableCollection<ScanItem>(ScanItem.AlleLesen());
-         this.LstFiles = new ObservableCollection<FileItem>(FileItem.AlleLesen());
-      }
+      //public MainViewModel()
+      //{
+      //   this.LstScanner = new ObservableCollection<ScanItem>(ScanItem.AlleLesen());
+      //   this.LstFiles = new ObservableCollection<FileItem>(FileItem.AlleLesen());
+      //}
    }
 }

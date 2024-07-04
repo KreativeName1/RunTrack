@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace Klimalauf
 {
-    class FileItem
+    public class FileItem
     {
       public string fileName { get; set; }
       public DateTime uploadDate { get; set; }
+      public bool IsSelected { get; set; }
 
       public FileItem()
       {
