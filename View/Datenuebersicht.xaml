@@ -1,0 +1,182 @@
+﻿<Window x:Class="Klimalauf.Datenuebersicht"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Klimalauf"
+        mc:Ignorable="d"
+        Title="Datenuebersicht" Height="750" Width="1100">
+    <Window.Resources>
+        <local:WindowHeightConverter x:Key="WindowHeightConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Label Content="Benutzer:" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Height="26" Width="64"/>
+        <Label x:Name="ScannerName" Content="Name, Vorname" HorizontalAlignment="Left" Margin="79,1,0,0" VerticalAlignment="Top" Foreground="White" Height="26" Width="95"/>
+        <Label Content="Admin" HorizontalAlignment="Left" Margin="371,2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Grid.Column="1" Height="26" Width="48"/>
+
+        <Image Source="C:\Users\paulf\Downloads\Klimalauf (1)\Klimalauf\Klimalauf\Images\logout.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" MouseDown="LogoutIcon_MouseDown" Grid.Column="1">
+            <Image.ToolTip>
+                <ToolTip>Logout</ToolTip>
+            </Image.ToolTip>
+        </Image>
+
+        <StackPanel Orientation="Vertical"  Margin="5,33,10,5" Grid.RowSpan="2">
+            <!--Startseite-->
+            <Button x:Name="btnStartseite" Content="Startseite" VerticalAlignment="Top" Width="150" Height="30" Margin="5,30,5,30" Click="btnStartseite_Click" Visibility="Collapsed"/>
+            <Button x:Name="btnStartseiteDisabled" Content="Startseite" VerticalAlignment="Top" Width="150" Height="30" Cursor="No" Margin="5,30,5,30" Background="#00a082" FontWeight="Bold" Foreground="Wheat"/>
+
+            <!--Schule-->
+            <Button x:Name="btnSchule" Content="Schule" VerticalAlignment="Top" Width="150" Height="30" Margin="5" Click="btnSchule_Click"/>
+            <Button x:Name="btnSchuleDisabled" Content="Schule" VerticalAlignment="Top" Width="150" Height="30" Cursor="No" Margin="5" Click="btnSchule_Click" Background="#00a082" FontWeight="Bold" Foreground="Wheat" Visibility="Collapsed"/>
+
+            <!--Klasse-->
+            <Button x:Name="btnKlassen" Content="Klassen" VerticalAlignment="Top" Width="150" Height="30" Margin="5" Click="btnKlassen_Click" />
+            <Button x:Name="btnKlassenDisabled" Content="Klassen" VerticalAlignment="Top" Width="150" Height="30" Cursor="No" Margin="5" Background="#00a082" FontWeight="Bold" Foreground="Wheat" Visibility="Collapsed"/>
+
+            <!--Schüler-->
+            <Button x:Name="btnSchueler" Content="Schüler" VerticalAlignment="Top" Width="150" Height="30" Margin="5" Click="btnSchueler_Click"/>
+            <Button x:Name="btnSchuelerDisabled" Content="Schüler" VerticalAlignment="Top" Width="150" Height="30" Cursor="No" Margin="5" Background="#00a082" FontWeight="Bold" Foreground="Wheat" Visibility="Collapsed"/>
+
+            <!--Runden-->
+            <Button x:Name="btnRunden" Content="Runden" VerticalAlignment="Top" Width="150" Height="30" Margin="5" Click="btnRunden_Click"/>
+            <Button x:Name="btnRundenDisabled" Content="Runden" VerticalAlignment="Top" Width="150" Height="30" Cursor="No" Margin="5" Background="#00a082" FontWeight="Bold" Foreground="Wheat" Visibility="Collapsed"/>
+        </StackPanel>
+
+
+        <Rectangle x:Name="rectAbtrennnung" HorizontalAlignment="Left" Grid.RowSpan="2" Height="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=ActualHeight, Converter={StaticResource WindowHeightConverter}}" Margin="200,27,0,0" Fill="#FF5F5F5F" Stroke="#FF5F5F5F" VerticalAlignment="Top" Width="5"/>
+        <Rectangle Height="5" Margin="0,0,0,0" Stroke="#FF5F5F5F" Fill="#FF5F5F5F" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1"/>
+
+        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="25,10,10,10" Grid.Row="2">
+            <Button x:Name="btnDownload" Content="Export" Click="btnDownload_Click" Width="120" Height="30" Margin="5"/>
+            <Button x:Name="btnBarcodes" Content="Barcodes erstellen" Visibility="Collapsed" Click="btnBarcodes_Click" Width="120" Height="30" Margin="5"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10,10,25,10" Grid.Row="2">
+            <Button Content="Schließen" Click="CloseWindow_Click" Width="120" Height="30" Margin="5"/>
+        </StackPanel>
+
+        <!--Startseite-->
+        <GroupBox x:Name="StartseiteGrid" Margin="17,45,25,17" Grid.Column="1">
+            <Grid>
+                <DataGrid x:Name="lstStartseite" ItemsSource="{Binding lstStartseite}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True">
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="HorizontalContentAlignment" Value="center"/>
+                            <Setter Property="Foreground" Value="#FF3957FF"/>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding id}"/>
+                        <DataGridTextColumn Width="15*" Header="Laufnr." Binding="{Binding laufId}"/>
+                        <DataGridTextColumn Width="25*" Header="Namen" Binding="{Binding name}"/>
+                        <DataGridTextColumn Width="15*" Header="Klasse" Binding="{Binding klasse}"/>
+                        <DataGridTextColumn Width="25*" Header="Schule" Binding="{Binding schule}"/>
+                        <DataGridTextColumn Width="8*" Header="Runden" Binding="{Binding runden}"/>
+                        <DataGridTextColumn Width="15*" Header="Bestzeit" Binding="{Binding rundenBestZeit}"/>
+                        <DataGridTextColumn Width="15*" Header="Rundengröße" Binding="{Binding rundengroesse}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </GroupBox>
+
+        <!--Schulen-->
+        <GroupBox x:Name="SchuleGrid" Margin="17,45,25,17" Grid.Column="1" Visibility="Collapsed">
+            <Grid>
+                <DataGrid x:Name="lstSchule" ItemsSource="{Binding lstSchule}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True">
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="HorizontalContentAlignment" Value="center"/>
+                            <Setter Property="Foreground" Value="#FF3957FF"/>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding id}"/>
+                        <DataGridTextColumn Width="25*" Header="Schule" Binding="{Binding schule}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </GroupBox>
+
+        <!--Klasse-->
+        <GroupBox x:Name="KlasseGrid" Margin="17,45,25,17" Grid.Column="1" Visibility="Collapsed">
+            <Grid>
+                <DataGrid x:Name="lstKlasse" ItemsSource="{Binding lstKlasse}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True">
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="HorizontalContentAlignment" Value="center"/>
+                            <Setter Property="Foreground" Value="#FF3957FF"/>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding id}"/>
+                        <DataGridTextColumn Width="15*" Header="Klasse" Binding="{Binding klasse}"/>
+                        <DataGridTextColumn Width="25*" Header="Schule" Binding="{Binding schule}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </GroupBox>
+
+        <!--Schüler-->
+        <GroupBox x:Name="SchuelerGrid" Margin="17,45,25,17" Grid.Column="1" Visibility="Collapsed">
+            <Grid>
+                <DataGrid x:Name="lstSchueler" ItemsSource="{Binding lstSchueler}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True">
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="HorizontalContentAlignment" Value="center"/>
+                            <Setter Property="Foreground" Value="#FF3957FF"/>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding id}"/>
+                        <DataGridTextColumn Width="15*" Header="Laufnr." Binding="{Binding laufId}"/>
+                        <DataGridTextColumn Width="25*" Header="Namen" Binding="{Binding name}"/>
+                        <DataGridTextColumn Width="15*" Header="Klasse" Binding="{Binding klasse}"/>
+                        <DataGridTextColumn Width="25*" Header="Schule" Binding="{Binding schule}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </GroupBox>
+
+        <!--Runden-->
+        <GroupBox x:Name="RundenGrid" Margin="17,45,25,17" Grid.Column="1" Visibility="Collapsed">
+            <Grid>
+                <DataGrid x:Name="lstRunden" ItemsSource="{Binding lstRunden}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True">
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="HorizontalContentAlignment" Value="center"/>
+                            <Setter Property="Foreground" Value="#FF3957FF"/>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding id}"/>
+                        <DataGridTextColumn Width="15*" Header="Laufnr." Binding="{Binding laufId}"/>
+                        <DataGridTextColumn Width="25*" Header="Namen" Binding="{Binding name}"/>
+                        <DataGridTextColumn Width="11*" Header="Rundenzahl" Binding="{Binding rundenzahl}"/>
+                        <DataGridTextColumn Width="15*" Header="Rundengröße" Binding="{Binding rundengroesse}"/>
+                        <DataGridTextColumn Width="18*" Header="Scanner" Binding="{Binding scannerName}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </GroupBox>
+
+    </Grid>
+</Window>
