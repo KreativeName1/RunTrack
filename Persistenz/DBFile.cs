@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
+using System.IO;
 
 namespace Klimalauf
 {
@@ -12,28 +13,15 @@ namespace Klimalauf
    {
       public static List<FileItem> AlleLesen()
       {
-         List<FileItem> lstFile = new List<FileItem>();
-
-         using (MySqlConnection con = DBZugriff.OpenDB())
-         {
-            string sql = $"SELECT * FROM Pommes;";
-            MySqlDataReader rdr = DBZugriff.ExecuteReader(sql, DBZugriff.OpenDB());
-
-            while (rdr.Read())
+            // get all file items from the directory "Dateien"
+            List<FileItem> files = new List<FileItem>();
+            string[] filePaths = Directory.GetFiles("Dateien");
+            foreach (string filePath in filePaths)
             {
-               FileItem t = GetDataFromReader(rdr);
-               lstFile.Add(t);
+                FileInfo fi = new FileInfo(filePath);
+                files.Add(new FileItem(fi.Name, fi.CreationTime));
             }
-            rdr.Close();
-         }
-         return lstFile;
-      }
-      private static FileItem GetDataFromReader(MySqlDataReader rdr)
-      {
-         FileItem t = new FileItem();
-         t.fileName = rdr.GetString("Name");
-         t.uploadDate = rdr.GetDateTime("Zeit");
-         return t;
-      }
+            return files;
+        }
    }
 }

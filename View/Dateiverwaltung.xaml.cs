@@ -17,20 +17,16 @@ namespace Klimalauf
       public Dateiverwaltung(string firstName, string lastName)
       {
          InitializeComponent();
-         //files = new ObservableCollection<FileItem>();
-         
-         
-         FilesListBox.ItemsSource = files;
 
          this.firstName = firstName;
          this.lastName = lastName;
 
-
+         DataContext = new MainViewModel();
       }
 
       private void Window_Loaded(object sender, RoutedEventArgs e)
       {
-         this.mvmodel = FindResource("mvmodel") as MainViewModel;
+         this.mvmodel = DataContext as MainViewModel;
       }
 
       private void UploadFiles_Click(object sender, RoutedEventArgs e)
@@ -47,10 +43,9 @@ namespace Klimalauf
             {
                string extension = Path.GetExtension(fileName).ToLower();
 
-               // Überprüfen, ob die Dateierweiterung gültig ist
                if (extension == ".asv" || extension == ".db" || extension == ".csv")
                {
-                  files.Add(new FileItem
+                  mvmodel.LstFiles.Add(new FileItem
                   {
                      fileName = Path.GetFileName(fileName),
                      uploadDate = DateTime.Now
@@ -64,36 +59,25 @@ namespace Klimalauf
          }
       }
 
-
       private void DeleteSelectedFiles_Click(object sender, RoutedEventArgs e)
       {
-         var selectedFiles = files.Where(f => f.IsSelected).ToList();
+         var selectedFiles = mvmodel.LstFiles.Where(f => f.IsSelected).ToList();
          foreach (var file in selectedFiles)
          {
-            files.Remove(file);
+            mvmodel.LstFiles.Remove(file);
          }
          SelectAllCheckBox.IsChecked = false;
       }
 
-
       private void SelectAllCheckBox_Click(object sender, RoutedEventArgs e)
       {
          bool newValue = (SelectAllCheckBox.IsChecked == true);
-         foreach (var file in files)
+         foreach (var file in mvmodel.LstFiles)
          {
             file.IsSelected = newValue;
          }
 
-         if (SelectAllCheckBox.IsChecked == true)
-         {
-            SelectAllTextBlock.Text = "Deselect All";
-            // Hier könntest du ggf. alle Elemente in der ListBox auswählen
-         }
-         else
-         {
-            SelectAllTextBlock.Text = "Select All";
-            // Hier könntest du ggf. alle Elemente in der ListBox abwählen
-         }
+         SelectAllTextBlock.Text = SelectAllCheckBox.IsChecked == true ? "Deselect All" : "Select All";
       }
 
       private void CloseWindow_Click(object sender, RoutedEventArgs e)

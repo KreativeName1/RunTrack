@@ -49,7 +49,7 @@
             </Grid>
         </Border>
 
-        <Rectangle Height="28" Margin="0,0,0,0" Stroke="#FF5F5F5F" Fill="#FF5F5F5F" VerticalAlignment="Top"/>
+        <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
 
         <Label Content="Benutzer:" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
         <Label x:Name="ScannerName" Content="Name, Vorname" HorizontalAlignment="Left" Margin="79,1,0,0" VerticalAlignment="Top" Foreground="White"/>

@@ -30,7 +30,7 @@
             <TextBlock Text="Dateiname" FontWeight="Bold" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1"/>
             <TextBlock Text="Uploaddatum" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2"/>
         </Grid>
-        <ListBox x:Name="FilesListBox" Grid.Row="2" Margin="10" BorderBrush="Gray" BorderThickness="1"
+        <ListBox x:Name="FilesListBox" ItemsSource="{Binding LstFiles}" Grid.Row="2" Margin="10" BorderBrush="Gray" BorderThickness="1"
                  HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>

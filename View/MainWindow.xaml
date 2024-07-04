@@ -15,7 +15,7 @@
 
         <Button x:Name="LoginButton" Content="Einloggen" HorizontalAlignment="Center" Margin="0,166,0,0" VerticalAlignment="Top" Width="200" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Click="LoginButton_Click" Height="35"/>
 
-        <Rectangle Height="28" Margin="0,0,0,0" Stroke="#FF5F5F5F" Fill="#FF5F5F5F" VerticalAlignment="Top"/>
+        <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
         <Label Content="Scan Programm für den Klimalauf" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
 
         <Label Content="Admin Passwort:" HorizontalAlignment="Left" Margin="40,132,0,0" VerticalAlignment="Top"/>
