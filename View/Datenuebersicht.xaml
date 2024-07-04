@@ -24,7 +24,7 @@
         <Label x:Name="ScannerName" Content="Name, Vorname" HorizontalAlignment="Left" Margin="79,1,0,0" VerticalAlignment="Top" Foreground="White" Height="26" Width="95"/>
         <Label Content="Admin" HorizontalAlignment="Left" Margin="371,2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Grid.Column="1" Height="26" Width="48"/>
 
-        <Image Source="C:\Users\paulf\Downloads\Klimalauf (1)\Klimalauf\Klimalauf\Images\logout.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" MouseDown="LogoutIcon_MouseDown" Grid.Column="1">
+        <Image Source="/Images/logout.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" MouseDown="LogoutIcon_MouseDown" Grid.Column="1">
             <Image.ToolTip>
                 <ToolTip>Logout</ToolTip>
             </Image.ToolTip>

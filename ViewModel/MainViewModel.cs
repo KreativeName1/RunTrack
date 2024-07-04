@@ -4,10 +4,10 @@ namespace Klimalauf
 {
    public class MainViewModel : BaseModel
    {
-      private ObservableCollection<FileItem> _lstFiles;
-      private ObservableCollection<ScanItem> _lstScanner;
+      private ObservableCollection<FileItem> _lstFiles = new ObservableCollection<FileItem>();
+        private ObservableCollection<ScanItem> _lstScanner = new ObservableCollection<ScanItem>();
 
-      public ObservableCollection<ScanItem> LstScanner
+        public ObservableCollection<ScanItem> LstScanner
       {
          get
          {
@@ -29,7 +29,7 @@ namespace Klimalauf
          set
          {
             this._lstFiles = value;
-            OnPropertyChanged("lstFiles");
+            OnPropertyChanged("LstFiles");
          }
       }
 

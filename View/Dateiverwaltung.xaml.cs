@@ -27,7 +27,10 @@ namespace Klimalauf
       private void Window_Loaded(object sender, RoutedEventArgs e)
       {
          this.mvmodel = DataContext as MainViewModel;
-      }
+
+            mvmodel.LstFiles = new ObservableCollection<FileItem>(FileItem.AlleLesen());
+
+        }
 
       private void UploadFiles_Click(object sender, RoutedEventArgs e)
       {
@@ -43,16 +46,19 @@ namespace Klimalauf
             {
                string extension = Path.GetExtension(fileName).ToLower();
 
-               if (extension == ".asv" || extension == ".db" || extension == ".csv")
-               {
-                  mvmodel.LstFiles.Add(new FileItem
-                  {
-                     fileName = Path.GetFileName(fileName),
-                     uploadDate = DateTime.Now
-                  });
-               }
-               else
-               {
+                    if (extension == ".asv" || extension == ".db" || extension == ".csv")
+                    {
+                        mvmodel.LstFiles.Add(new FileItem
+                        {
+                            fileName = Path.GetFileName(fileName),
+                            uploadDate = DateTime.Now
+                        });
+                        Directory.CreateDirectory("Dateien");
+                        string destPath = Path.Combine("Dateien", Path.GetFileName(fileName));
+                        File.Copy(fileName, destPath, true);
+                    }
+                    else
+                    {
                   MessageBox.Show($"Die Datei {fileName} hat eine ungültige Erweiterung und kann nicht hochgeladen werden.");
                }
             }

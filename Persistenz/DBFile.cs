@@ -15,6 +15,7 @@ namespace Klimalauf
       {
             // get all file items from the directory "Dateien"
             List<FileItem> files = new List<FileItem>();
+            Directory.CreateDirectory("Dateien");
             string[] filePaths = Directory.GetFiles("Dateien");
             foreach (string filePath in filePaths)
             {
