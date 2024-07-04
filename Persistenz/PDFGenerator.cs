@@ -7,8 +7,9 @@ using iText.Layout;
 using iText.Layout.Borders;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using System.IO;
 
-namespace SQLite
+namespace Klimalauf
 {
     public class PDFGenerator
     {

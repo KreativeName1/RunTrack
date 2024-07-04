@@ -1,7 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 
-namespace Klimalauf.Persistenz
+namespace Klimalauf
 {
    internal static class DBZugriff
    {

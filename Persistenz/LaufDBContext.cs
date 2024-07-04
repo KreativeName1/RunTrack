@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-namespace SQLite
+using System.IO;
+namespace Klimalauf
 {
     public class LaufDBContext : DbContext
     {

@@ -10,7 +10,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 
-namespace Klimalauf.Persistenz
+namespace Klimalauf
 {
    internal class DBScanner
    {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SQLite
+namespace Klimalauf
 {
     public class MergedDBContext : DbContext
     {

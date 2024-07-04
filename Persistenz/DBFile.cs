@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 
-namespace Klimalauf.Persistenz
+namespace Klimalauf
 {
    internal class DBFile
    {
