@@ -47,7 +47,7 @@ namespace Klimalauf
                 img.SetWidth(200);
                 img.SetHorizontalAlignment(HorizontalAlignment.CENTER);
                 cell.Add(img);
-                Paragraph p = new Paragraph(klasse.Schueler[i].Name + " - " + klasse.Schueler[i].Id.ToString());
+                Paragraph p = new Paragraph(klasse.Schueler[i].Vorname + " " + klasse.Schueler[i].Nachname +  " - " + klasse.Schueler[i].Id.ToString());
                 p.SetBold();
                 p.SetTextAlignment(TextAlignment.CENTER);
                 cell.Add(p);
@@ -65,12 +65,12 @@ namespace Klimalauf
             string path = $"Dokumente/Bewertungen/{schulename}/{schueler.Klasse.Name}";
             Directory.CreateDirectory(path);
 
-            PdfDocument pdf = new PdfDocument(new PdfWriter(path + $"/{schueler.Name}.pdf"));
+            PdfDocument pdf = new PdfDocument(new PdfWriter(path + $"/{schueler.Vorname} {schueler.Nachname}.pdf"));
             Document document = new Document(pdf, PageSize.A4);
             document.SetMargins(20, 20, 20, 20);
 
             document.Add(new Paragraph(schulename + " " + schueler.Klasse.Name).SetTextAlignment(TextAlignment.CENTER).SetFontSize(12));
-            document.Add(new Paragraph(schueler.Name).SetTextAlignment(TextAlignment.CENTER).SetBold().SetFontSize(14));
+            document.Add(new Paragraph(schueler.Vorname + " " + schueler.Nachname).SetTextAlignment(TextAlignment.CENTER).SetBold().SetFontSize(14));
             document.Add(new Paragraph("Datum: " + DateTime.Now.ToString("dd.MM.yyyy")).SetTextAlignment(TextAlignment.LEFT).SetFontSize(12));
 
             List<TimeSpan> rundenZeiten = new List<TimeSpan>();

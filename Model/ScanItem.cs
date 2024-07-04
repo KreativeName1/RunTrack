@@ -29,7 +29,7 @@ namespace Klimalauf
 
       public static List<ScanItem> AlleLesen()
       {
-         return DBScanner.AlleLesen();
+            return null;
       }
    }
 
