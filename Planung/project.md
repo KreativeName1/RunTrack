@@ -45,14 +45,14 @@ Nach der Bewertung werden die Daten in einer Datenbank auf Server gespeichert
 ## Design
 
 ### Login
-![Login](/images/Login.jpg)
+![Login](./images/Login.jpg)
 
 
 ## Scannen
-![Scanner](/images/Scannen.jpg)
+![Scanner](./images/Scannen.jpg)
 
 ## Verwaltung
-![Verwaltung](/images/Verwaltung.png)
+![Verwaltung](./images/Verwaltung.png)
 ---------------------------------------------------------------------------------------
 
 
