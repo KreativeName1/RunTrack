@@ -64,8 +64,8 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,5,10,10" HorizontalAlignment="Right" Width="235">
-            <Button Content="Löschen" Click="DeleteSelectedFiles_Click" Width="100" Height="20" Margin="5,5,20,5"/>
-            <Button Content="Schließen" Click="CloseWindow_Click" Width="100" Height="20" Margin="5"/>
+            <Button Content="Löschen" Click="DeleteSelectedFiles_Click" Width="100" Height="25" Margin="5,5,20,5"/>
+            <Button Content="Schließen" Click="CloseWindow_Click" Width="100" Height="25" Margin="5"/>
         </StackPanel>
 
 

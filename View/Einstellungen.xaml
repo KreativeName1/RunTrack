@@ -9,5 +9,10 @@
     <Grid>
         <Label Content="Einstellungen" HorizontalAlignment="Left" Margin="167,158,0,0" VerticalAlignment="Top"/>
 
+
+        <StackPanel Orientation="Horizontal" Margin="0,0,10,10" HorizontalAlignment="Right" Width="235" VerticalAlignment="Bottom">
+            <Button Content="Löschen" Click="DeleteSelectedFiles_Click" Width="100" Height="25" Margin="5,5,20,5"/>
+            <Button Content="Schließen" Click="CloseWindow_Click" Width="100" Height="25" Margin="5"/>
+        </StackPanel>
     </Grid>
 </Window>
