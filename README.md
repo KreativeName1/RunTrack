@@ -2,6 +2,8 @@
 ![Logo](./Planung/Logo.png)
 
 ## Mitwirkende
-- [KreativeName1](https://github.com/KreativeName1)
-- [CyberEnte](https://github.com/CyberEnte)
-- [Fuxson](https://github.com/Fuxson)
+- [Sascha Dierl](https://github.com/KreativeName1)
+- [Simon Glisnik](https://github.com/CyberEnte)
+- [Paul Fischer](https://github.com/Fuxson)
+- [Niko Neumeier](https://github.com/user10201)
+- [Giada](https://github.com/GD1900)
