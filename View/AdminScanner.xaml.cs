@@ -1,25 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Klimalauf
 {
-    /// <summary>
-    /// Interaktionslogik für AdminScanner.xaml
-    /// </summary>
-    public partial class AdminScanner : Window
-    {
+   /// <summary>
+   /// Interaktionslogik für AdminScanner.xaml
+   /// </summary>
+   public partial class AdminScanner : Window
+   {
       private MainViewModel mvmodel;
 
       private StringBuilder barcodeInput = new StringBuilder();
@@ -104,14 +93,15 @@ namespace Klimalauf
       private void btnEinstellung_Click(object sender, RoutedEventArgs e)
       {
          // Open admin panel window
-         Einstellungen optionsPanel = new Einstellungen();
+         Einstellungen optionsPanel = new Einstellungen(firstName, lastName);
          optionsPanel.Show();
+         this.Close();
       }
 
       private void btnDateien_Click(object sender, RoutedEventArgs e)
       {
          // Open admin panel window
-         Dateiverwaltung dataPanel = new Dateiverwaltung(firstName,lastName);
+         Dateiverwaltung dataPanel = new Dateiverwaltung(firstName, lastName);
          dataPanel.Show();
          this.Close();
       }

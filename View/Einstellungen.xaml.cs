@@ -1,27 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Klimalauf
 {
-    /// <summary>
-    /// Interaktionslogik für Einstellungen.xaml
-    /// </summary>
-    public partial class Einstellungen : Window
-    {
-        public Einstellungen()
-        {
-            InitializeComponent();
-        }
-    }
+   /// <summary>
+   /// Interaktionslogik für Einstellungen.xaml
+   /// </summary>
+   public partial class Einstellungen : Window
+   {
+      private String firstName;
+      private String lastName;
+
+      public Einstellungen(string firstName, string lastName)
+      {
+         InitializeComponent();
+
+         // Set the ScannerName label with the passed names
+         ScannerName.Content = $"{lastName}, {firstName}";
+         DataContext = this;
+         this.firstName = firstName;
+         this.lastName = lastName;
+      }
+
+      private void LogoutIcon_MouseDown(object sender, MouseButtonEventArgs e)
+      {
+         // Create a new instance of MainWindow
+         MainWindow mainWindow = new MainWindow();
+         mainWindow.Show();
+
+         // Close the current Scanner window
+         this.Close();
+      }
+
+      private void Save_Click(object sender, RoutedEventArgs e)
+      {
+
+      }
+
+      private void CloseWindow_Click(object sender, RoutedEventArgs e)
+      {
+         // Open admin panel window
+         AdminScanner adminPanel = new AdminScanner(firstName, lastName);
+         adminPanel.Show();
+         this.Close();
+      }
+   }
 }
