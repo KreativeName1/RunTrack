@@ -24,5 +24,8 @@
             <Button Content="Speichern" Click="Save_Click" Width="100" Height="25" Margin="5,5,20,5"/>
             <Button Content="Schließen" Click="CloseWindow_Click" Width="100" Height="25" Margin="5"/>
         </StackPanel>
+        <Label Content="Minuten zum Warten zwischen den Scanns nach Rundengröße" HorizontalAlignment="Center" Margin="0,33,0,0" VerticalAlignment="Top"/>
+        <Rectangle Height="5" Margin="0,59,0,0" Stroke="#FF5F5F5F" Fill="#FF5F5F5F" VerticalAlignment="Top"/>
+        <Label Content="Klein" HorizontalAlignment="Left" Margin="352,0,0,0" VerticalAlignment="Center"/>
     </Grid>
 </Window>
