@@ -42,16 +42,6 @@ namespace Klimalauf
          this.mvmodel = FindResource("mvmodel") as MainViewModel;
       }
 
-      private void LogoutButton_Click(object sender, RoutedEventArgs e)
-      {
-         // Create a new instance of MainWindow
-         MainWindow mainWindow = new MainWindow();
-         mainWindow.Show();
-
-         // Close the current Scanner window
-         this.Close();
-      }
-
       private void LogoutIcon_MouseDown(object sender, MouseButtonEventArgs e)
       {
          // Create a new instance of MainWindow
@@ -106,8 +96,9 @@ namespace Klimalauf
       private void btnUebersicht_Click(object sender, RoutedEventArgs e)
       {
          // Open admin panel window
-         Datenuebersicht datenPanel = new Datenuebersicht();
+         Datenuebersicht datenPanel = new Datenuebersicht(firstName, lastName);
          datenPanel.Show();
+         this.Close();
       }
 
       private void btnEinstellung_Click(object sender, RoutedEventArgs e)

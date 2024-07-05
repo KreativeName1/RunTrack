@@ -22,7 +22,7 @@
         <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
         <Label Content="Benutzer:" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Height="26" Width="64"/>
         <Label x:Name="ScannerName" Content="Name, Vorname" HorizontalAlignment="Left" Margin="79,1,0,0" VerticalAlignment="Top" Foreground="White" Height="26" Width="95"/>
-        <Label Content="Admin" HorizontalAlignment="Left" Margin="371,2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Grid.Column="1" Height="26" Width="48"/>
+        <Label Content="Admin" HorizontalAlignment="Center" Margin="0,2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Grid.ColumnSpan="2"/>
 
         <Image Source="/Images/logout.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" MouseDown="LogoutIcon_MouseDown" Grid.Column="1">
             <Image.ToolTip>
@@ -65,7 +65,7 @@
         </StackPanel>
 
         <!--Startseite-->
-        <GroupBox x:Name="StartseiteGrid" Margin="17,45,25,17" Grid.Column="1">
+        <GroupBox x:Name="StartseiteGrid" Header="Startseite" Margin="17,45,25,17" Grid.Column="1">
             <Grid>
                 <DataGrid x:Name="lstStartseite" ItemsSource="{Binding lstStartseite}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True">
                     <DataGrid.Resources>
@@ -91,7 +91,7 @@
         </GroupBox>
 
         <!--Schulen-->
-        <GroupBox x:Name="SchuleGrid" Margin="17,45,25,17" Grid.Column="1" Visibility="Collapsed">
+        <GroupBox x:Name="SchuleGrid" Header="Schulen" Margin="17,45,25,17" Grid.Column="1" Visibility="Collapsed">
             <Grid>
                 <DataGrid x:Name="lstSchule" ItemsSource="{Binding lstSchule}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True">
                     <DataGrid.Resources>
@@ -111,7 +111,7 @@
         </GroupBox>
 
         <!--Klasse-->
-        <GroupBox x:Name="KlasseGrid" Margin="17,45,25,17" Grid.Column="1" Visibility="Collapsed">
+        <GroupBox x:Name="KlasseGrid" Header="Klassen" Margin="17,45,25,17" Grid.Column="1" Visibility="Collapsed">
             <Grid>
                 <DataGrid x:Name="lstKlasse" ItemsSource="{Binding lstKlasse}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True">
                     <DataGrid.Resources>
@@ -132,7 +132,7 @@
         </GroupBox>
 
         <!--Schüler-->
-        <GroupBox x:Name="SchuelerGrid" Margin="17,45,25,17" Grid.Column="1" Visibility="Collapsed">
+        <GroupBox x:Name="SchuelerGrid" Header="Schüler" Margin="17,45,25,17" Grid.Column="1" Visibility="Collapsed">
             <Grid>
                 <DataGrid x:Name="lstSchueler" ItemsSource="{Binding lstSchueler}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True">
                     <DataGrid.Resources>
@@ -155,7 +155,7 @@
         </GroupBox>
 
         <!--Runden-->
-        <GroupBox x:Name="RundenGrid" Margin="17,45,25,17" Grid.Column="1" Visibility="Collapsed">
+        <GroupBox x:Name="RundenGrid" Header="Runden" Margin="17,45,25,17" Grid.Column="1" Visibility="Collapsed">
             <Grid>
                 <DataGrid x:Name="lstRunden" ItemsSource="{Binding lstRunden}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True">
                     <DataGrid.Resources>

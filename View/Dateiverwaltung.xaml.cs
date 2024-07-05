@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Klimalauf
 {
@@ -18,12 +19,25 @@ namespace Klimalauf
       {
          InitializeComponent();
 
+         // Set the ScannerName label with the passed names
+         ScannerName.Content = $"{lastName}, {firstName}";
+         DataContext = this;
          this.firstName = firstName;
          this.lastName = lastName;
 
          DataContext = new MainViewModel();
       }
 
+
+      private void LogoutIcon_MouseDown(object sender, MouseButtonEventArgs e)
+      {
+         // Create a new instance of MainWindow
+         MainWindow mainWindow = new MainWindow();
+         mainWindow.Show();
+
+         // Close the current Scanner window
+         this.Close();
+      }
       private void Window_Loaded(object sender, RoutedEventArgs e)
       {
          this.mvmodel = DataContext as MainViewModel;

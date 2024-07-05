@@ -19,9 +19,18 @@ namespace Klimalauf
    /// </summary>
    public partial class Datenuebersicht : Window
    {
-      public Datenuebersicht()
+      private String firstName;
+      private String lastName;
+
+      public Datenuebersicht(string firstName, string lastName)
       {
          InitializeComponent();
+
+         // Set the ScannerName label with the passed names
+         ScannerName.Content = $"{lastName}, {firstName}";
+         DataContext = this;
+         this.firstName = firstName;
+         this.lastName = lastName;
       }
       private void LogoutIcon_MouseDown(object sender, MouseButtonEventArgs e)
       {
@@ -35,7 +44,10 @@ namespace Klimalauf
 
       private void CloseWindow_Click(object sender, RoutedEventArgs e)
       {
-
+         // Open admin panel window
+         AdminScanner adminPanel = new AdminScanner(firstName, lastName);
+         adminPanel.Show();
+         this.Close();
       }
 
       private void btnBarcodes_Click(object sender, RoutedEventArgs e)

@@ -5,32 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Klimalauf"
         mc:Ignorable="d" Loaded="Window_Loaded"
-        Title="Dateiverwaltung" Height="450" Width="800">
+        Title="Dateiverwaltung" Height="500" Width="800">
     <Grid DataContext="{StaticResource mvmodel}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" MinHeight="79"/>
+            <RowDefinition Height="Auto" MinHeight="22"/>
+            <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
-        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
-            <Button Content="Importieren" Click="UploadFiles_Click" Width="100" Height="25" Margin="5"/>
+
+        <Rectangle Height="28" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
+
+        <Label Content="Benutzer:" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Height="26" Width="64"/>
+        <Label x:Name="ScannerName" Content="Name, Vorname" HorizontalAlignment="Left" Margin="79,1,0,0" VerticalAlignment="Top" Foreground="White" Height="26" Width="95"/>
+
+        <Label Content="Admin" HorizontalAlignment="Center" Margin="0,2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
+        <Image Source="Images\logout.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" MouseDown="LogoutIcon_MouseDown">
+            <Image.ToolTip>
+                <ToolTip>Logout</ToolTip>
+            </Image.ToolTip>
+        </Image>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,25,10,0" HorizontalAlignment="Right">
+            <Button Content="Importieren" Click="UploadFiles_Click" Width="100" Height="25" Margin="5,5,10,5"/>
             <Button Content="Exportieren" Click="DownloadFiles_Click" Width="100" Height="25" Margin="5"/>
         </StackPanel>
-        
+
         <Grid Grid.Row="1" Margin="10,0,10,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="150"/>
             </Grid.ColumnDefinitions>
+
+
             <CheckBox x:Name="SelectAllCheckBox" Margin="18,0,0,0" Click="SelectAllCheckBox_Click" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             <TextBlock x:Name="SelectAllTextBlock" Width="50" VerticalAlignment="Top" Text="Select All" HorizontalAlignment="Left" Margin="1,-13,0,0" Grid.ColumnSpan="2" TextAlignment="Center" FontSize="10"/>
             <TextBlock Text="Dateiname" FontWeight="Bold" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1"/>
             <TextBlock Text="Uploaddatum" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2"/>
         </Grid>
-        <ListBox x:Name="FilesListBox" ItemsSource="{Binding LstFiles}" Grid.Row="2" Margin="10" BorderBrush="Gray" BorderThickness="1"
+        <ListBox x:Name="FilesListBox" ItemsSource="{Binding LstFiles}" Grid.Row="2" Margin="10,5,10,10" BorderBrush="Gray" BorderThickness="1"
                  HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -49,11 +63,11 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,5,10,10" HorizontalAlignment="Right" Width="235">
             <Button Content="Löschen" Click="DeleteSelectedFiles_Click" Width="100" Height="20" Margin="5,5,20,5"/>
             <Button Content="Schließen" Click="CloseWindow_Click" Width="100" Height="20" Margin="5"/>
         </StackPanel>
-        
-        
+
+
     </Grid>
 </Window>
