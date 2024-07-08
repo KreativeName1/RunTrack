@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Klimalauf"
         mc:Ignorable="d"
-        Title="Datenuebersicht" Height="750" Width="1100">
+        Title="Datenuebersicht" Height="750" Width="1100" Loaded="Window_Loaded">
     <Window.Resources>
         <local:WindowHeightConverter x:Key="WindowHeightConverter"/>
     </Window.Resources>
-    <Grid>
+    <Grid  DataContext="{StaticResource dumodel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
@@ -93,7 +93,7 @@
         <!--Schulen-->
         <GroupBox x:Name="SchuleGrid" Header="Schulen" Margin="17,45,25,17" Grid.Column="1" Visibility="Collapsed">
             <Grid>
-                <DataGrid x:Name="lstSchule" ItemsSource="{Binding lstSchule}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True">
+                <DataGrid x:Name="lstSchule" ItemsSource="{Binding LstSchule}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True">
                     <DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="FontWeight" Value="Bold"/>
