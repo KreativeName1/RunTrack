@@ -11,7 +11,7 @@ namespace Klimalauf
          if (value is DateTime timestamp)
          {
             // Konvertiere den Zeitstempel in das gewünschte Format
-            return timestamp.ToString("dd.MM.yyyy" + ", " + "HH:mm:ss");
+            return timestamp.ToString("dd.MM.yyyy" + ",\t" + "HH:mm:ss");
          }
          return value;
       }

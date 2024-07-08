@@ -30,7 +30,7 @@ namespace Klimalauf
 
          // Initialize and configure the timer
          timer = new DispatcherTimer();
-         timer.Interval = TimeSpan.FromSeconds(4); // Adjust the time as needed
+         timer.Interval = TimeSpan.FromSeconds(5); // Adjust the time as needed
          timer.Tick += Timer_Tick;
       }
 
