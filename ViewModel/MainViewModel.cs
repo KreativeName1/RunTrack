@@ -16,6 +16,7 @@ namespace Klimalauf
          }
          set
          {
+         
             this._lstRunden = value;
             OnPropertyChanged("LstRunden");
          }
@@ -27,22 +28,20 @@ namespace Klimalauf
          {
             return this._lstLetzteRunde;
          }
-         set
-         {
-            this._lstLetzteRunde = new ObservableCollection<Runde>();
-            this._lstLetzteRunde = value;
-            OnPropertyChanged("LstLetzteRunden");
-         }
       }
 
-      public Runde ZulestGescannt
+      public void hinzufügeLetzteRunde(Runde runde)
       {
-         get
-         {
-            return LstRunden.Last();
-         }
+         _lstLetzteRunde.Clear();
+         _lstLetzteRunde.Add(runde);
+         OnPropertyChanged("LstLetzteRunden");
+
 
       }
+
+
+
+     
 
       public ObservableCollection<FileItem> LstFiles
       {

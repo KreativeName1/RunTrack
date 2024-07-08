@@ -106,6 +106,7 @@ namespace Klimalauf
             Schueler schueler = db.Schueler.Find(id);
             if (schueler == null)
             {
+
                this.BoxTrue.Visibility = Visibility.Collapsed;
                this.BoxFalse.Visibility = Visibility.Visible;
 
@@ -131,8 +132,10 @@ namespace Klimalauf
                runde.BenutzerName = $"{firstName} {lastName}";
                db.Runden.Add(runde);
                db.SaveChanges();
+               mvmodel.hinzufügeLetzteRunde(runde);
                mvmodel.LstRunden.Add(runde);
-               mvmodel.LstLetzteRunde.Add(runde);
+               
+            
 
                // Start timer to hide status boxes after a delay
                StartHideTimer();
