@@ -16,6 +16,7 @@
         <Storyboard x:Key="ShowBoxFalse">
             <DoubleAnimation Storyboard.TargetName="BoxFalse" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.5"/>
         </Storyboard>
+        <local:TimestampConverter x:Key="TimestampConverter"/>
     </Window.Resources>
     <Grid DataContext="{StaticResource mvmodel}">
         <Grid.ColumnDefinitions>
@@ -47,7 +48,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Width="28*" FontSize="16" Header="Zeitstempel" Binding="{Binding Zeitstempel}">
+                <DataGridTextColumn Width="28*" FontSize="16" Header="Zeitstempel"  Binding="{Binding Zeitstempel, Converter={StaticResource TimestampConverter}}">
                     <DataGridTextColumn.ElementStyle>
                         <Style>
                             <Setter Property="TextBlock.TextAlignment" Value="Center"/>
@@ -82,7 +83,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Width="28*" FontSize="13" Header="Zeitstempel" Binding="{Binding Zeitstempel}">
+                <DataGridTextColumn Width="28*" FontSize="13" Header="Zeitstempel"  Binding="{Binding Zeitstempel, Converter={StaticResource TimestampConverter}}">
                     <DataGridTextColumn.ElementStyle>
                         <Style>
                             <Setter Property="TextBlock.TextAlignment" Value="Center"/>
@@ -95,17 +96,24 @@
         <Label Content="Vorherige Scans:" HorizontalAlignment="Left" Margin="30,161,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="Letzter Scan:" HorizontalAlignment="Left" Margin="30,71,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
 
-        <Border x:Name="BoxTrue" VerticalAlignment="Top" Margin="100,40,100,0" Cursor="" Visibility="Collapsed" Grid.ColumnSpan="2">
+        <Border x:Name="BoxTrue" VerticalAlignment="Top" Margin="100,40,100,0" Visibility="Collapsed" Grid.ColumnSpan="2">
             <Grid>
                 <Rectangle Height="30" Stroke="#FF5F5F5F" Fill="#FF32CC32" VerticalAlignment="Center"/>
                 <Label Content="Erfolgreich" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="Black" FontWeight="Bold"/>
             </Grid>
         </Border>
 
-        <Border x:Name="BoxFalse" VerticalAlignment="Top" Margin="100,40,100,0" Cursor="" Visibility="Collapsed" Grid.ColumnSpan="2">
+        <Border x:Name="BoxFalse" VerticalAlignment="Top" Margin="100,40,100,0" Visibility="Collapsed" Grid.ColumnSpan="2">
             <Grid>
                 <Rectangle Height="30" Stroke="#FF5F5F5F" Fill="#FF0000" VerticalAlignment="Center"/>
                 <Label Content="Schüler nicht gefunden!" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="Black" FontWeight="Bold"/>
+            </Grid>
+        </Border>
+
+        <Border VerticalAlignment="Top" Margin="100,40,100,0" Grid.ColumnSpan="2">
+            <Grid>
+                <Rectangle Height="30" Stroke="#FF5F5F5F" Fill="LightGray" VerticalAlignment="Center"/>
+                <Label Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="Black" FontWeight="Bold"/>
             </Grid>
         </Border>
 
