@@ -6,6 +6,17 @@
         xmlns:local="clr-namespace:Klimalauf"
         mc:Ignorable="d" Loaded="Window_Loaded"
         Title="Scanner" Height="750" Width="1100" MinWidth="550" MinHeight="450" WindowStartupLocation="CenterScreen" PreviewKeyDown="Window_PreviewKeyDown_1"  >
+    <Window.Resources>
+        <!-- Animation für BoxTrue -->
+        <Storyboard x:Key="ShowBoxTrue">
+            <DoubleAnimation Storyboard.TargetName="BoxTrue" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.5"/>
+        </Storyboard>
+
+        <!-- Animation für BoxFalse -->
+        <Storyboard x:Key="ShowBoxFalse">
+            <DoubleAnimation Storyboard.TargetName="BoxFalse" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.5"/>
+        </Storyboard>
+    </Window.Resources>
     <Grid DataContext="{StaticResource mvmodel}">
 
         <DataGrid x:Name="lastScan" ItemsSource="{Binding LstLetzteRunde}" Margin="30,100,30,0" FontFamily="Consolas" CanUserSortColumns="False" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True" Height="50" VerticalAlignment="Top">
