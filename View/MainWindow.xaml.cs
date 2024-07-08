@@ -140,18 +140,19 @@ namespace Klimalauf
       {
          if (e.Key == Key.Enter)
          {
-            TextBox textBox = (TextBox)sender;
-            textBox.Background = new SolidColorBrush(Colors.White);
-            textBox.Foreground = new SolidColorBrush(Colors.Blue);
-
-            // Check if inputs are valid
+            if (sender is TextBox textBox)
+            {
+               textBox.Background = new SolidColorBrush(Colors.White);
+               textBox.Foreground = new SolidColorBrush(Colors.Blue);
+            }
+            else if (sender is PasswordBox passwordBox)
+            {
+               passwordBox.Background = new SolidColorBrush(Colors.White);
+               passwordBox.Foreground = new SolidColorBrush(Colors.Blue);
+            }
             if (ValidateInputs())
             {
-               // Perform login action
                LoginButton_Click(sender, e);
-
-
-
             }
          }
       }
