@@ -7,35 +7,73 @@
         mc:Ignorable="d" Loaded="Window_Loaded"
         Title="Scanner" Height="750" Width="1100" MinWidth="550" MinHeight="450" WindowStartupLocation="CenterScreen" PreviewKeyDown="Window_PreviewKeyDown_1"  >
     <Grid DataContext="{StaticResource mvmodel}">
-        <DataGrid x:Name="lastScan" ItemsSource="{Binding LstRunden}" Margin="30,100,30,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True" Height="50" VerticalAlignment="Top">
+
+        <DataGrid x:Name="lastScan" ItemsSource="{Binding LstRunden}" Margin="30,100,30,0" FontFamily="Consolas" CanUserSortColumns="False" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True" Height="50" VerticalAlignment="Top">
             <DataGrid.Resources>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="FontWeight" Value="Bold"/>
-                    <Setter Property="FontSize" Value="14"/>
-                    <Setter Property="HorizontalContentAlignment" Value="center"/>
+                    <Setter Property="FontSize" Value="15"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
                     <Setter Property="Foreground" Value="#FF3957FF"/>
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Width="10*" Header="Id" Binding="{Binding Schueler.Id}"/>
-                <DataGridTextColumn Width="20*" Header="Namen" Binding="{Binding Schueler.Nachname}"/>
-                <DataGridTextColumn Width="28*" Header="Zeitstempel" Binding="{Binding Zeitstempel}"/>
+                <DataGridTextColumn Width="10*" FontSize="16" Header="Id" Binding="{Binding Schueler.Id}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Width="20*" FontSize="16" Header="Namen" Binding="{Binding Schueler.Nachname}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Width="28*" FontSize="16" Header="Zeitstempel" Binding="{Binding Zeitstempel}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 
-        <DataGrid x:Name="lstlastScan" ItemsSource="{Binding LstRunden}" Margin="30,190,30,30" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True">
+
+        <DataGrid x:Name="lstlastScan" ItemsSource="{Binding LstRunden}" Margin="30,190,30,30" FontFamily="Consolas" CanUserSortColumns="False" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True">
             <DataGrid.Resources>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="FontWeight" Value="Bold"/>
-                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="FontSize" Value="15"/>
                     <Setter Property="HorizontalContentAlignment" Value="center"/>
                     <Setter Property="Foreground" Value="#FF3957FF"/>
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Width="10*" Header="Id" Binding="{Binding Schueler.Id}"/>
-                <DataGridTextColumn Width="20*" Header="Namen" Binding="{Binding Schueler.Nachname}"/>
-                <DataGridTextColumn Width="28*" Header="Zeitstempel" Binding="{Binding Zeitstempel}"/>
+                <DataGridTextColumn Width="10*" FontSize="13" Header="Id" Binding="{Binding Schueler.Id}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Width="20*" FontSize="13" Header="Namen" Binding="{Binding Schueler.Nachname}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Width="28*" FontSize="13" Header="Zeitstempel" Binding="{Binding Zeitstempel}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 
