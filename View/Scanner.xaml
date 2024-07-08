@@ -112,7 +112,7 @@
 
         <Border VerticalAlignment="Top" Margin="100,40,100,0" Grid.ColumnSpan="2">
             <Grid>
-                <Rectangle Height="30" Stroke="#FF5F5F5F" Fill="LightGray" VerticalAlignment="Center"/>
+                <Rectangle Height="30" Stroke="LightGray" VerticalAlignment="Center"/>
                 <Label Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="Black" FontWeight="Bold"/>
             </Grid>
         </Border>
@@ -129,7 +129,7 @@
                 <ToolTip>Logout</ToolTip>
             </Image.ToolTip>
         </Image>
-        <Border x:Name="borderAdmin" HorizontalAlignment="Left" Margin="300,0,0,30" Width="500" Height="67" VerticalAlignment="Bottom" Visibility="Hidden" Grid.ColumnSpan="2">
+        <Border x:Name="borderAdmin" HorizontalAlignment="Center" Width="500" Margin="30" Height="67" VerticalAlignment="Bottom" Visibility="Hidden" Grid.ColumnSpan="2">
             <Grid>
                 <Button x:Name="btnDateien" Content="Dateiverwaltung" Margin="350,0,0,0" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="150"/>
                 <Button x:Name="btnEinstellung" Content="Einstellungen" Margin="0,0,175,0" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="150"/>

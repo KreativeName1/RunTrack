@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Klimalauf"
         mc:Ignorable="d" Loaded="Window_Loaded"
-        Title="Dateiverwaltung" Height="500" Width="800">
+        Title="Dateiverwaltung" Height="500" Width="800"  WindowStartupLocation="CenterScreen">
     <Grid DataContext="{StaticResource mvmodel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" MinHeight="79"/>
