@@ -17,9 +17,9 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Width="10*" Header="Id" Binding="{Binding id}"/>
-                <DataGridTextColumn Width="20*" Header="Namen" Binding="{Binding name}"/>
-                <DataGridTextColumn Width="28*" Header="Schule" Binding="{Binding schule}"/>
+                <DataGridTextColumn Width="10*" Header="Id" Binding="{Binding Id}"/>
+                <DataGridTextColumn Width="20*" Header="Namen" Binding="{Binding Name}"/>
+                <DataGridTextColumn Width="28*" Header="Schule" Binding="{Binding Schule}"/>
             </DataGrid.Columns>
         </DataGrid>
 
