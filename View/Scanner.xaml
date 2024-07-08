@@ -42,20 +42,38 @@
         <Label Content="Vorherige Scans:" HorizontalAlignment="Left" Margin="30,161,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="Letzter Scan:" HorizontalAlignment="Left" Margin="30,71,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
 
-        <Border x:Name="BoxTrue" VerticalAlignment="Top" Margin="100,40,100,0" Cursor="">
+        <Border x:Name="BoxTrue" VerticalAlignment="Top" Margin="100,40,100,0" Cursor="" Visibility="Collapsed">
             <Grid>
                 <Rectangle Height="30" Stroke="#FF5F5F5F" Fill="#FF32CC32" VerticalAlignment="Center"/>
                 <Label Content="Erfolgreich" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="Black" FontWeight="Bold"/>
             </Grid>
         </Border>
 
+        <Border x:Name="BoxFalse" VerticalAlignment="Top" Margin="100,40,100,0" Cursor="" Visibility="Collapsed">
+            <Grid>
+                <Rectangle Height="30" Stroke="#FF5F5F5F" Fill="#FF0000" VerticalAlignment="Center"/>
+                <Label Content="Schüler nicht gefunden!" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="Black" FontWeight="Bold"/>
+            </Grid>
+        </Border>
+
         <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
+        
         <Label Content="Benutzer:" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
         <Label x:Name="ScannerName" Content="Name, Vorname" HorizontalAlignment="Left" Margin="79,1,0,0" VerticalAlignment="Top" Foreground="White"/>
+
+        <Label x:Name="lblAdmin" Content="Admin" HorizontalAlignment="Center" Margin="0,2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Visibility="Hidden"/>
+
         <Image Source="./Images/logout.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" MouseDown="LogoutIcon_MouseDown">
             <Image.ToolTip>
                 <ToolTip>Logout</ToolTip>
             </Image.ToolTip>
         </Image>
+        <Border x:Name="borderAdmin" HorizontalAlignment="Center" Margin="0,0,0,30" Width="500" Height="67" VerticalAlignment="Bottom" Visibility="Hidden">
+            <Grid>
+                <Button x:Name="btnDateien" Content="Dateiverwaltung" Margin="350,0,0,0" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="150"/>
+                <Button x:Name="btnEinstellung" Content="Einstellungen" Margin="0,0,175,0" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="150"/>
+                <Button x:Name="btnUebersicht" Content="Datenübersicht" Margin="0,0,350,0" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="150"/>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

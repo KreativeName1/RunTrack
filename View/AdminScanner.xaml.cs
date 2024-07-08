@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Org.BouncyCastle.Utilities.Encoders;
+using System.Text;
 using System.Windows;
 using System.Windows.Input;
 
@@ -53,9 +54,13 @@ namespace Klimalauf
                 {
                     // Zeigt eine Fehlermeldung an, wenn der Schüler nicht gefunden wurde
                     // TODO
+                    this.BoxTrue.Visibility = Visibility.Collapsed;
+                    this.BoxFalse.Visibility = Visibility.Visible;
                 }
                 else
                 {
+                    this.BoxFalse.Visibility = Visibility.Collapsed;
+                    this.BoxTrue.Visibility = Visibility.Visible;
                     Runde runde = new Runde();
                     runde.Schueler = schueler;
                     runde.Zeitstempel = DateTime.Now;
