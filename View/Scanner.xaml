@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Klimalauf"
         mc:Ignorable="d" Loaded="Window_Loaded"
-        Title="Scanner" Height="750" Width="1100" MinWidth="605" MinHeight="450" WindowStartupLocation="CenterScreen" PreviewKeyDown="Window_PreviewKeyDown_1"  >
+        Title="Scanner" Height="750" Width="1100" MinWidth="578" MinHeight="450" WindowStartupLocation="CenterScreen" PreviewKeyDown="Window_PreviewKeyDown_1"  >
     <Window.Resources>
         <!-- Animation für BoxTrue -->
         <Storyboard x:Key="ShowBoxTrue">
