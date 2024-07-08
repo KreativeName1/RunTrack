@@ -18,8 +18,12 @@
         </Storyboard>
     </Window.Resources>
     <Grid DataContext="{StaticResource mvmodel}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="302*"/>
+            <ColumnDefinition Width="799*"/>
+        </Grid.ColumnDefinitions>
 
-        <DataGrid x:Name="lastScan" ItemsSource="{Binding LstLetzteRunde}" Margin="30,100,30,0" FontFamily="Consolas" CanUserSortColumns="False" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True" Height="50" VerticalAlignment="Top">
+        <DataGrid x:Name="lastScan" ItemsSource="{Binding LstLetzteRunde}" Margin="30,100,30,0" FontFamily="Consolas" CanUserSortColumns="False" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True" Height="50" VerticalAlignment="Top" Grid.ColumnSpan="2">
             <DataGrid.Resources>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="FontWeight" Value="Bold"/>
@@ -54,7 +58,7 @@
         </DataGrid>
 
 
-        <DataGrid x:Name="lstlastScan" ItemsSource="{Binding LstRunden}" Margin="30,190,30,30" FontFamily="Consolas" CanUserSortColumns="False" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True">
+        <DataGrid x:Name="lstlastScan" ItemsSource="{Binding LstRunden}" Margin="30,190,30,30" FontFamily="Consolas" CanUserSortColumns="False" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True" Grid.ColumnSpan="2">
             <DataGrid.Resources>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="FontWeight" Value="Bold"/>
@@ -91,33 +95,33 @@
         <Label Content="Vorherige Scans:" HorizontalAlignment="Left" Margin="30,161,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="Letzter Scan:" HorizontalAlignment="Left" Margin="30,71,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
 
-        <Border x:Name="BoxTrue" VerticalAlignment="Top" Margin="100,40,100,0" Cursor="" Visibility="Collapsed">
+        <Border x:Name="BoxTrue" VerticalAlignment="Top" Margin="100,40,100,0" Cursor="" Visibility="Collapsed" Grid.ColumnSpan="2">
             <Grid>
                 <Rectangle Height="30" Stroke="#FF5F5F5F" Fill="#FF32CC32" VerticalAlignment="Center"/>
                 <Label Content="Erfolgreich" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="Black" FontWeight="Bold"/>
             </Grid>
         </Border>
 
-        <Border x:Name="BoxFalse" VerticalAlignment="Top" Margin="100,40,100,0" Cursor="" Visibility="Collapsed">
+        <Border x:Name="BoxFalse" VerticalAlignment="Top" Margin="100,40,100,0" Cursor="" Visibility="Collapsed" Grid.ColumnSpan="2">
             <Grid>
                 <Rectangle Height="30" Stroke="#FF5F5F5F" Fill="#FF0000" VerticalAlignment="Center"/>
                 <Label Content="Schüler nicht gefunden!" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="Black" FontWeight="Bold"/>
             </Grid>
         </Border>
 
-        <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
-        
-        <Label Content="Benutzer:" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
+        <Rectangle x:Name="rectUser" Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top" Grid.ColumnSpan="2" Visibility="Visible"/>
+
+        <Label x:Name="userName" Content="Benutzer:" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
         <Label x:Name="ScannerName" Content="Name, Vorname" HorizontalAlignment="Left" Margin="79,1,0,0" VerticalAlignment="Top" Foreground="White"/>
 
-        <Label x:Name="lblAdmin" Content="Admin" HorizontalAlignment="Center" Margin="0,2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Visibility="Hidden"/>
+        <Label x:Name="lblAdmin" Content="Admin" HorizontalAlignment="Left" Margin="224,2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Visibility="Hidden" Grid.Column="1"/>
 
-        <Image Source="./Images/logout.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" MouseDown="LogoutIcon_MouseDown">
+        <Image Source="./Images/logout.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" MouseDown="LogoutIcon_MouseDown" Grid.Column="1">
             <Image.ToolTip>
                 <ToolTip>Logout</ToolTip>
             </Image.ToolTip>
         </Image>
-        <Border x:Name="borderAdmin" HorizontalAlignment="Center" Margin="0,0,0,30" Width="500" Height="67" VerticalAlignment="Bottom" Visibility="Hidden">
+        <Border x:Name="borderAdmin" HorizontalAlignment="Left" Margin="300,0,0,30" Width="500" Height="67" VerticalAlignment="Bottom" Visibility="Hidden" Grid.ColumnSpan="2">
             <Grid>
                 <Button x:Name="btnDateien" Content="Dateiverwaltung" Margin="350,0,0,0" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="150"/>
                 <Button x:Name="btnEinstellung" Content="Einstellungen" Margin="0,0,175,0" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="150"/>

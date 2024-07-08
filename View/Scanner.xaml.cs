@@ -49,7 +49,10 @@ namespace Klimalauf
             this.lblAdmin.Visibility = Visibility.Visible;
             this.borderAdmin.Visibility = Visibility.Visible;
 
-            lstlastScan.Margin = new Thickness(lstlastScan.Margin.Left, lstlastScan.Margin.Top, lstlastScan.Margin.Right, 100);
+            this.userName.Visibility = Visibility.Visible;
+            this.rectUser.Visibility = Visibility.Visible;
+
+                lstlastScan.Margin = new Thickness(lstlastScan.Margin.Left, lstlastScan.Margin.Top, lstlastScan.Margin.Right, 100);
 
             btnUebersicht.Click += (sender, e) =>
             {
@@ -76,6 +79,9 @@ namespace Klimalauf
          {
             this.lblAdmin.Visibility = Visibility.Hidden;
             this.borderAdmin.Visibility = Visibility.Hidden;
+
+            this.userName.Visibility = Visibility.Visible;
+            this.rectUser.Visibility = Visibility.Visible;
          }
       }
 
