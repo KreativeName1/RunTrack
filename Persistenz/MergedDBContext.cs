@@ -1,20 +1,26 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Klimalauf
 {
     public class MergedDBContext : DbContext
     {
+        private static string _internalDBPath = "internal.db";
         public MergedDBContext(string[] databases)
         : base(GetDbContextOptions())
         {
             Database.EnsureCreated();
 
-            // get all data from the Runden table
+            // Erst die Daten aus der internen Datenbank laden
+            using (var thisDB = new LaufDBContext())
+            {
+                Schueler.AddRange(thisDB.Schueler);
+                Klassen.AddRange(thisDB.Klassen);
+                Schulen.AddRange(thisDB.Schulen);
+                RundenArten.AddRange(thisDB.RundenArten);
+                SaveChanges();
+            }
+
+            // Alle externen Datenbanken durchgehen und die Runden hinzufügen
             foreach (string db_path in databases)
             {
                 using (var db = new LaufDBContext(db_path))
@@ -22,17 +28,9 @@ namespace Klimalauf
                     foreach (var runde in db.Runden)
                     {
                         runde.Id = 0;
-                        Schueler schueler;
-                        List<Schueler> schuelerList;
-                        using (var db2 = new LaufDBContext())
-                        {
-                            schuelerList = db2.Schueler.AsNoTracking().ToList();
-                        }
-
-                        runde.Schueler = schuelerList.FirstOrDefault(s => s.Id == runde.SchuelerId);
-                        this.Runden.Add(runde);
+                        Runden.Add(runde);
                     }
-                    this.SaveChanges();
+                    SaveChanges();
                 }
             }
         }
@@ -40,7 +38,7 @@ namespace Klimalauf
         private static DbContextOptions GetDbContextOptions()
         {
             var optionsBuilder = new DbContextOptionsBuilder<MergedDBContext>();
-            optionsBuilder.UseSqlite($"Data Source=internal.db");
+            optionsBuilder.UseSqlite($"Data Source={_internalDBPath}");
             optionsBuilder.EnableSensitiveDataLogging();
             return optionsBuilder.Options;
         }
