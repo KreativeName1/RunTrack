@@ -5,18 +5,18 @@ namespace Klimalauf
    public class MainViewModel : BaseModel
    {
       private ObservableCollection<FileItem> _lstFiles = new ObservableCollection<FileItem>();
-        private ObservableCollection<ScanItem> _lstScanner = new ObservableCollection<ScanItem>();
+        private ObservableCollection<Runde> _lstRunden = new ObservableCollection<Runde>();
 
-        public ObservableCollection<ScanItem> LstScanner
+        public ObservableCollection<Runde> LstRunden
       {
          get
          {
-            return this._lstScanner;
+            return this._lstRunden;
          }
          set
          {
-            this._lstScanner = value;
-            OnPropertyChanged("lstScanner");
+            this._lstRunden = value;
+            OnPropertyChanged("LstRunden");
          }
       }
 

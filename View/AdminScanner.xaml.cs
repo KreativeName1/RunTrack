@@ -46,7 +46,7 @@ namespace Klimalauf
       {
          // Beispielhaftes Hinzufügen eines neuen Eintrags. 
          // Die tatsächliche Logik kann je nach Datenformat und Anforderungen variieren.
-         mvmodel.LstScanner.Add(new ScanItem(id));
+         mvmodel.LstRunden.Add(new ScanItem(id));
       }
 
       private void Window_PreviewKeyDown_1(object sender, KeyEventArgs e)
