@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.IO;
 
 namespace Klimalauf
 {
@@ -7,16 +8,16 @@ namespace Klimalauf
         private static string _internalDBPath = "internal.db";
         public MergedDBContext(string[] databases)
         : base(GetDbContextOptions())
-        {
+        {            
             Database.EnsureCreated();
-
+            
             // Erst die Daten aus der internen Datenbank laden
             using (var thisDB = new LaufDBContext())
             {
-                Schueler.AddRange(thisDB.Schueler);
-                Klassen.AddRange(thisDB.Klassen);
+                RundenArten.AddRange(thisDB.RundenArten); 
                 Schulen.AddRange(thisDB.Schulen);
-                RundenArten.AddRange(thisDB.RundenArten);
+                Klassen.AddRange(thisDB.Klassen);
+                Schueler.AddRange(thisDB.Schueler);
                 SaveChanges();
             }
 
@@ -35,9 +36,10 @@ namespace Klimalauf
             }
         }
 
+
         private static DbContextOptions GetDbContextOptions()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<MergedDBContext>();
+                        var optionsBuilder = new DbContextOptionsBuilder<MergedDBContext>();
             optionsBuilder.UseSqlite($"Data Source={_internalDBPath}");
             optionsBuilder.EnableSensitiveDataLogging();
             return optionsBuilder.Options;
@@ -67,7 +69,6 @@ namespace Klimalauf
         public DbSet<Schueler> Schueler { get; set; }
         public DbSet<Runde> Runden { get; set; }
         public DbSet<RundenArt> RundenArten { get; set; }
-
 
     }
 }

@@ -21,7 +21,7 @@
 
         <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top" Grid.ColumnSpan="2" Visibility="Visible"/>
         <Label Content="Benutzer:" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Height="26" Width="64"/>
-        <Label x:Name="ScannerName" Content="Name, Vorname" HorizontalAlignment="Left" Margin="79,1,0,0" VerticalAlignment="Top" Foreground="White" Height="26" Width="95"/>
+        <Label x:Name="ScannerName" Content="Name, Vorname" HorizontalAlignment="Left" Margin="79,1,0,0" VerticalAlignment="Top" Foreground="Wheat" Height="26" Width="95"/>
         <Label Content="Admin" HorizontalAlignment="Center" Margin="0,2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Grid.ColumnSpan="2"/>
 
         <Image Source="/Images/logout.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" MouseDown="LogoutIcon_MouseDown" Grid.Column="1">
@@ -67,7 +67,7 @@
         <!--Startseite-->
         <GroupBox x:Name="StartseiteGrid" Header="Startseite" Margin="17,45,25,17" Grid.Column="1">
             <Grid>
-                <DataGrid x:Name="lstStartseite" ItemsSource="{Binding lstStartseite}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True">
+                <DataGrid x:Name="lstStartseite" ItemsSource="{Binding LstSchueler}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True">
                     <DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="FontWeight" Value="Bold"/>
@@ -77,14 +77,15 @@
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding id}"/>
-                        <DataGridTextColumn Width="15*" Header="Laufnr." Binding="{Binding laufId}"/>
-                        <DataGridTextColumn Width="25*" Header="Namen" Binding="{Binding name}"/>
-                        <DataGridTextColumn Width="15*" Header="Klasse" Binding="{Binding klasse}"/>
-                        <DataGridTextColumn Width="25*" Header="Schule" Binding="{Binding schule}"/>
-                        <DataGridTextColumn Width="8*" Header="Runden" Binding="{Binding runden}"/>
-                        <DataGridTextColumn Width="15*" Header="Bestzeit" Binding="{Binding rundenBestZeit}"/>
-                        <DataGridTextColumn Width="15*" Header="Rundengröße" Binding="{Binding rundengroesse}"/>
+                        <DataGridTextColumn Width="15*" Header="Klasse-Id" Binding="{Binding KlasseId}"/>
+                        <DataGridTextColumn Width="10*" Header="Laufnr." Binding="{Binding Id}"/>
+                        <DataGridTextColumn Width="15*" Header="Vorname" Binding="{Binding Vorname}"/>
+                        <DataGridTextColumn Width="15*" Header="Nachname" Binding="{Binding Nachname}"/>
+                        <DataGridTextColumn Width="15*" Header="Klasse" Binding="{Binding Klasse.Jahrgang}"/>
+                        <DataGridTextColumn Width="20*" Header="Schule" Binding="{Binding Klasse.Schule.Name}"/>
+                        <DataGridTextColumn Width="11*" Header="Runden" Binding="{Binding Runden.Count}"/>
+                        <!--<DataGridTextColumn Width="15*" Header="Bestzeit" Binding="{Binding rundenBestZeit}"/>-->
+                        <DataGridTextColumn Width="15*" Header="Rundengröße" Binding="{Binding Klasse.RundenArt}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
@@ -103,8 +104,8 @@
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding id}"/>
-                        <DataGridTextColumn Width="25*" Header="Schule" Binding="{Binding schule}"/>
+                        <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding Id}"/>
+                        <DataGridTextColumn Width="25*" Header="Schule" Binding="{Binding Name}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
@@ -113,7 +114,7 @@
         <!--Klasse-->
         <GroupBox x:Name="KlasseGrid" Header="Klassen" Margin="17,45,25,17" Grid.Column="1" Visibility="Collapsed">
             <Grid>
-                <DataGrid x:Name="lstKlasse" ItemsSource="{Binding lstKlasse}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True">
+                <DataGrid x:Name="lstKlasse" ItemsSource="{Binding LstKlasse}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True">
                     <DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="FontWeight" Value="Bold"/>
@@ -123,9 +124,9 @@
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding id}"/>
-                        <DataGridTextColumn Width="15*" Header="Klasse" Binding="{Binding klasse}"/>
-                        <DataGridTextColumn Width="25*" Header="Schule" Binding="{Binding schule}"/>
+                        <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding Id}"/>
+                        <DataGridTextColumn Width="15*" Header="Klasse" Binding="{Binding Jahrgang}"/>
+                        <DataGridTextColumn Width="25*" Header="Schule" Binding="{Binding Schule.Name}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
@@ -134,7 +135,7 @@
         <!--Schüler-->
         <GroupBox x:Name="SchuelerGrid" Header="Schüler" Margin="17,45,25,17" Grid.Column="1" Visibility="Collapsed">
             <Grid>
-                <DataGrid x:Name="lstSchueler" ItemsSource="{Binding lstSchueler}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True">
+                <DataGrid x:Name="lstSchueler" ItemsSource="{Binding LstSchueler}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True">
                     <DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="FontWeight" Value="Bold"/>
@@ -144,11 +145,11 @@
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding id}"/>
-                        <DataGridTextColumn Width="15*" Header="Laufnr." Binding="{Binding laufId}"/>
-                        <DataGridTextColumn Width="25*" Header="Namen" Binding="{Binding name}"/>
-                        <DataGridTextColumn Width="15*" Header="Klasse" Binding="{Binding klasse}"/>
-                        <DataGridTextColumn Width="25*" Header="Schule" Binding="{Binding schule}"/>
+                        <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding Id}"/>
+                        <DataGridTextColumn Width="25*" Header="Namen" Binding="{Binding Vorname}"/>
+                        <DataGridTextColumn Width="25*" Header="Namen" Binding="{Binding Nachname}"/>
+                        <DataGridTextColumn Width="15*" Header="Klasse" Binding="{Binding Klasse}"/>
+                        <DataGridTextColumn Width="25*" Header="Schule" Binding="{Binding Klasse.Schule}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
@@ -157,7 +158,7 @@
         <!--Runden-->
         <GroupBox x:Name="RundenGrid" Header="Runden" Margin="17,45,25,17" Grid.Column="1" Visibility="Collapsed">
             <Grid>
-                <DataGrid x:Name="lstRunden" ItemsSource="{Binding lstRunden}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True">
+                <DataGrid x:Name="lstRunden" ItemsSource="{Binding LstRunde}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True">
                     <DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="FontWeight" Value="Bold"/>
@@ -167,12 +168,12 @@
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding id}"/>
-                        <DataGridTextColumn Width="15*" Header="Laufnr." Binding="{Binding laufId}"/>
-                        <DataGridTextColumn Width="25*" Header="Namen" Binding="{Binding name}"/>
-                        <DataGridTextColumn Width="11*" Header="Rundenzahl" Binding="{Binding rundenzahl}"/>
-                        <DataGridTextColumn Width="15*" Header="Rundengröße" Binding="{Binding rundengroesse}"/>
-                        <DataGridTextColumn Width="18*" Header="Scanner" Binding="{Binding scannerName}"/>
+                        <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding Id}"/>
+                        <DataGridTextColumn Width="15*" Header="Laufnr." Binding="{Binding Schueler.Id}"/>
+                        <DataGridTextColumn Width="25*" Header="Vorname" Binding="{Binding Schueler.Vorname}"/>
+                        <DataGridTextColumn Width="25*" Header="Nachname" Binding="{Binding Schueler.Nachname}"/>
+                        <DataGridTextColumn Width="15*" Header="Rundengröße" Binding="{Binding Schueler.Klasse.RundenArt.LaengeInMeter}"/>
+                        <DataGridTextColumn Width="18*" Header="Scanner" Binding="{Binding BenutzerName}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
