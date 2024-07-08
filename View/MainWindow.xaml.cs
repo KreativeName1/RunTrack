@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Klimalauf
@@ -73,13 +74,15 @@ namespace Klimalauf
 
         private void SetInvalidInputStyle(TextBox textBox)
         {
-            textBox.Background = new SolidColorBrush(Colors.Red);
-        }
+         textBox.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#C1121C"));
+         textBox.Foreground = new SolidColorBrush(Colors.White);
+      }
 
         private void SetValidInputStyle(TextBox textBox)
         {
-            textBox.Background = new SolidColorBrush(Colors.White);
-        }
+         textBox.Background = new SolidColorBrush(Colors.White);
+         textBox.Foreground = new SolidColorBrush(Colors.Blue);
+      }
 
         private void FirstNameTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -124,5 +127,39 @@ namespace Klimalauf
             }
             ValidateInputs();
         }
-    }
+
+      private void TextBox_KeyDown(object sender, KeyEventArgs e)
+      {
+         if (e.Key == Key.Enter)
+         {
+            TextBox textBox = (TextBox)sender;
+            textBox.Background = new SolidColorBrush(Colors.White);
+            textBox.Foreground = new SolidColorBrush(Colors.Blue);
+
+            // Check if inputs are valid
+            if (ValidateInputs())
+            {
+               // Perform login action
+               LoginButton_Click(sender, e);
+
+
+
+            }
+         }
+      }
+
+      private void LastNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+      {
+         TextBox textBox = (TextBox)sender;
+         textBox.Background = new SolidColorBrush(Colors.White);
+         textBox.Foreground = new SolidColorBrush(Colors.Blue);
+      }
+
+      private void FirstNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+      {
+         TextBox textBox = (TextBox)sender;
+         textBox.Background = new SolidColorBrush(Colors.White);
+         textBox.Foreground = new SolidColorBrush(Colors.Blue);
+      }
+   }
 }

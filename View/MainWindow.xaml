@@ -5,21 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Klimalauf"
         mc:Ignorable="d"
-        Title="Anmeldung" Height="260" Width="350" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Anmeldung" Height="360" Width="450" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Label Content="Vorname:" Margin="40,56,0,0" HorizontalAlignment="Left" Width="100" FontSize="14" FontWeight="Bold" Height="29" VerticalAlignment="Top"/>
-        <Label Content="Nachname:" HorizontalAlignment="Left" Margin="40,94,0,0" FontSize="14" RenderTransformOrigin="0.529,0.231" FontFamily="72" FontWeight="Bold" Height="26" VerticalAlignment="Top"/>
+        <Label Content="Vorname:" Margin="98,86,0,0" HorizontalAlignment="Left" Width="100" FontSize="14" FontWeight="Bold" Height="29" VerticalAlignment="Top"/>
+        <Label Content="Nachname:" HorizontalAlignment="Left" Margin="98,132,0,0" FontSize="14" RenderTransformOrigin="0.529,0.231" FontFamily="72" FontWeight="Bold" Height="26" VerticalAlignment="Top"/>
 
-        <TextBox x:Name="FirstNameTextBox" Margin="150,55,0,0" TextWrapping="Wrap" HorizontalAlignment="Left" Width="150" FontSize="14" Padding="5" Foreground="Gray" Text="Max" GotFocus="FirstNameTextBox_GotFocus" LostFocus="FirstNameTextBox_LostFocus" Height="31" VerticalAlignment="Top"/>
-        <TextBox x:Name="LastNameTextBox" HorizontalAlignment="Left" Margin="150,91,0,0" TextWrapping="Wrap" Width="150" FontSize="14" Padding="5" Foreground="Gray" Text="Mustermann" GotFocus="LastNameTextBox_GotFocus" LostFocus="LastNameTextBox_LostFocus" Height="31" VerticalAlignment="Top"/>
+        <TextBox x:Name="FirstNameTextBox" Margin="200,85,0,0" TextWrapping="Wrap" HorizontalAlignment="Left" Width="150" FontSize="14" Padding="5" Foreground="Gray" Text="Max" GotFocus="FirstNameTextBox_GotFocus" LostFocus="FirstNameTextBox_LostFocus" Height="31" VerticalAlignment="Top"
+         KeyDown="TextBox_KeyDown" TextChanged="FirstNameTextBox_TextChanged"/>
+        <TextBox x:Name="LastNameTextBox" HorizontalAlignment="Left" Margin="200,130,0,0" TextWrapping="Wrap" Width="150" FontSize="14" Padding="5" Foreground="Gray" Text="Mustermann" GotFocus="LastNameTextBox_GotFocus" LostFocus="LastNameTextBox_LostFocus" Height="30" VerticalAlignment="Top"
+         KeyDown="TextBox_KeyDown" TextChanged="LastNameTextBox_TextChanged"/>
 
-        <Button x:Name="LoginButton" Content="Einloggen" HorizontalAlignment="Center" Margin="0,166,0,0" VerticalAlignment="Top" Width="200" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Click="LoginButton_Click" Height="35"/>
+
+        <Button x:Name="LoginButton" Content="Einloggen" HorizontalAlignment="Center" Margin="0,254,0,0" VerticalAlignment="Top" Width="250" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Click="LoginButton_Click" Height="35" RenderTransformOrigin="0.509,-0.436"/>
 
         <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
         <Label Content="Scan Programm für den Klimalauf" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
 
-        <Label Content="Admin Passwort:" HorizontalAlignment="Left" Margin="40,132,0,0" VerticalAlignment="Top"/>
-        <PasswordBox x:Name="AdminPasswordBox" HorizontalAlignment="Left" Margin="150,136,0,0" VerticalAlignment="Top" Width="150" BorderBrush="Gray"/>
+        <Label Content="Admin Passwort:" HorizontalAlignment="Left" Margin="98,180,0,0" VerticalAlignment="Top"/>
+        <PasswordBox x:Name="AdminPasswordBox" HorizontalAlignment="Left" Margin="200,184,0,0" VerticalAlignment="Top" Width="150" BorderBrush="Gray"/>
 
     </Grid>
 </Window>
