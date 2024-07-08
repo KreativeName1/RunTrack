@@ -40,7 +40,7 @@ namespace Klimalauf
       private void CloseWindow_Click(object sender, RoutedEventArgs e)
       {
          // Open admin panel window
-         AdminScanner adminPanel = new AdminScanner(firstName, lastName);
+         Scanner adminPanel = new Scanner(firstName, lastName, true);
          adminPanel.Show();
          this.Close();
       }
