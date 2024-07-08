@@ -44,10 +44,28 @@ namespace Klimalauf
 
       private void AddScannedData(int id)
       {
-         // Beispielhaftes Hinzufügen eines neuen Eintrags. 
-         // Die tatsächliche Logik kann je nach Datenformat und Anforderungen variieren.
-         mvmodel.LstRunden.Add(new ScanItem(id));
-      }
+            // Beispielhaftes Hinzufügen eines neuen Eintrags. 
+            // Die tatsächliche Logik kann je nach Datenformat und Anforderungen variieren.
+            using (var db = new LaufDBContext())
+            {
+                Schueler schueler = db.Schueler.Find(id);
+                if (schueler == null)
+                {
+                    // Zeigt eine Fehlermeldung an, wenn der Schüler nicht gefunden wurde
+                    // TODO
+                }
+                else
+                {
+                    Runde runde = new Runde();
+                    runde.Schueler = schueler;
+                    runde.Zeitstempel = DateTime.Now;
+                    runde.BenutzerName = $"{firstName} {lastName}";
+                    db.Runden.Add(runde);
+                    db.SaveChanges();
+                    mvmodel.LstRunden.Add(runde);
+                }
+            }
+        }
 
       private void Window_PreviewKeyDown_1(object sender, KeyEventArgs e)
       {

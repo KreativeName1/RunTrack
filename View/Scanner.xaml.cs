@@ -24,15 +24,19 @@ namespace Klimalauf
       private MainViewModel mvmodel;
 
       private StringBuilder barcodeInput = new StringBuilder();
+        private String firstName;
+        private String lastName;
 
-      public Scanner(string firstName, string lastName)
+        public Scanner(string firstName, string lastName)
       {
          InitializeComponent();
 
          // Set the ScannerName label with the passed names
          ScannerName.Content = $"{lastName}, {firstName}";
          DataContext = this;
-      }
+            this.firstName = firstName;
+            this.lastName = lastName;
+        }
 
       private void Window_Loaded(object sender, RoutedEventArgs e)
       {
@@ -78,6 +82,7 @@ namespace Klimalauf
                     Runde runde = new Runde();
                     runde.Schueler = schueler;
                     runde.Zeitstempel = DateTime.Now;
+                    runde.BenutzerName = $"{firstName} {lastName}";
                     db.Runden.Add(runde);
                     db.SaveChanges();
                     mvmodel.LstRunden.Add(runde);
