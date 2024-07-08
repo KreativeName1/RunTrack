@@ -9,8 +9,8 @@ namespace Klimalauf
 {
     public class FileItem
     {
-      public string fileName { get; set; }
-      public DateTime uploadDate { get; set; }
+      public string FileName { get; set; }
+      public DateTime UploadDate { get; set; }
       public bool IsSelected { get; set; }
 
       public FileItem()
@@ -19,8 +19,8 @@ namespace Klimalauf
 
       public FileItem(string fileName, DateTime uploadDate)
       {
-         this.fileName = fileName;
-         this.uploadDate = uploadDate;
+         this.FileName = fileName;
+         this.UploadDate = uploadDate;
       }
 
       public static List<FileItem> AlleLesen()

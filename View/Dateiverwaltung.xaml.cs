@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
@@ -8,12 +9,9 @@ namespace Klimalauf
 {
     public partial class Dateiverwaltung : Window
     {
-        //public ObservableCollection<FileItem> files { get; set; }
-
-        private MainViewModel mvmodel;
-
-        private String firstName;
-        private String lastName;
+        private MainViewModel _mvmodel;
+        private String _firstName;
+        private String _lastName;
 
         public Dateiverwaltung(string firstName, string lastName)
         {
@@ -21,10 +19,10 @@ namespace Klimalauf
 
             // Set the ScannerName label with the passed names
             ScannerName.Content = $"{lastName}, {firstName}";
-            this.firstName = firstName;
-            this.lastName = lastName;
+            _firstName = firstName;
+            _lastName = lastName;
 
-            this.mvmodel = FindResource("mvmodel") as MainViewModel;
+            _mvmodel = FindResource("mvmodel") as MainViewModel;
 
 
         }
@@ -32,16 +30,13 @@ namespace Klimalauf
 
         private void LogoutIcon_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            // Create a new instance of MainWindow
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
-
-            // Close the current Scanner window
             this.Close();
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            mvmodel.LstFiles = new ObservableCollection<FileItem>(FileItem.AlleLesen());
+            _mvmodel.LstFiles = new ObservableCollection<FileItem>(FileItem.AlleLesen());
         }
 
         private void UploadFiles_Click(object sender, RoutedEventArgs e)
@@ -60,11 +55,11 @@ namespace Klimalauf
 
                     if (extension == ".asv" || extension == ".db" || extension == ".csv")
                     {
-                        // Datei in die Liste hinzufügen --> wird nicht im UI angezeigt
-                        mvmodel.LstFiles.Add(new FileItem
+                        // Datei in die Liste hinzufügen
+                        _mvmodel.LstFiles.Add(new FileItem
                         {
-                            fileName = Path.GetFileName(fileName),
-                            uploadDate = DateTime.Now
+                            FileName = Path.GetFileName(fileName),
+                            UploadDate = DateTime.Now
                         });
 
                         // Datei in den Dateien-Ordner kopieren
@@ -82,18 +77,25 @@ namespace Klimalauf
 
         private void DeleteSelectedFiles_Click(object sender, RoutedEventArgs e)
         {
-            var selectedFiles = mvmodel.LstFiles.Where(f => f.IsSelected).ToList();
-            foreach (var file in selectedFiles)
+            for (int i = 0; i < _mvmodel.LstFiles.Count; i++)
             {
-                mvmodel.LstFiles.Remove(file);
+                if (_mvmodel.LstFiles[i].IsSelected)
+                {
+                Trace.WriteLine(_mvmodel.LstFiles[i].FileName);
+                    MessageBoxResult result = MessageBox.Show($"Willst du die Datei '{_mvmodel.LstFiles[i].FileName}' wirklich löschen?", "Datei Löschen", MessageBoxButton.YesNo);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        File.Delete(Path.Combine("Dateien", _mvmodel.LstFiles[i].FileName));
+                        _mvmodel.LstFiles.RemoveAt(i);
+                    }
+                }
             }
-            SelectAllCheckBox.IsChecked = false;
         }
 
         private void SelectAllCheckBox_Click(object sender, RoutedEventArgs e)
         {
             bool newValue = (SelectAllCheckBox.IsChecked == true);
-            foreach (var file in mvmodel.LstFiles)
+            foreach (FileItem file in _mvmodel.LstFiles)
             {
                 file.IsSelected = newValue;
             }
@@ -103,15 +105,31 @@ namespace Klimalauf
 
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
-            // Open admin panel window
-            AdminScanner adminPanel = new AdminScanner(firstName, lastName);
+            AdminScanner adminPanel = new AdminScanner(_firstName, _lastName);
             adminPanel.Show();
             this.Close();
         }
 
         private void DownloadFiles_Click(object sender, RoutedEventArgs e)
         {
+            // get the selected file
+            foreach (FileItem file in _mvmodel.LstFiles)
+            {
+                if (file.IsSelected)
+                {
+                    string sourcePath = Path.Combine("Dateien", file.FileName);
+                    SaveFileDialog saveFileDialog = new SaveFileDialog
+                    {
+                        FileName = file.FileName,
+                        Filter = "files (*.asv;*.db;*.csv)|*.asv;*.db;*.csv"
+                    };
 
+                    if (saveFileDialog.ShowDialog() == true)
+                    {
+                        File.Copy(sourcePath, saveFileDialog.FileName, true);
+                    }
+                }
+            }
         }
     }
 }
