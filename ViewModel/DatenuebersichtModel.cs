@@ -20,10 +20,7 @@ namespace Klimalauf
         {
             get
             {
-                using(var db = new MergedDBContext(pfade)) 
-                {
-                    return new ObservableCollection<Schule>(db.Schulen.ToList());
-                }
+                return _lstSchule;
             }
             set
             {
@@ -36,10 +33,7 @@ namespace Klimalauf
         {
             get
             {
-                using (var db = new LaufDBContext())
-                {
-                    return new ObservableCollection<Schueler>(db.Schueler.ToList());
-                }
+                return _lstSchueler;
             }
             set
             {
@@ -52,10 +46,7 @@ namespace Klimalauf
         {
             get
             {
-                using (var db = new LaufDBContext())
-                {
-                    return new ObservableCollection<Klasse>(db.Klassen.ToList());
-                }
+                return this._lstKlasse;
             }
             set
             {
@@ -68,10 +59,7 @@ namespace Klimalauf
         {
             get
             {
-                using (var db = new LaufDBContext())
-                {
-                    return new ObservableCollection<Runde>(db.Runden.ToList());
-                }
+                return _lstRunde;
             }
             set
             {

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Klimalauf
@@ -41,7 +42,7 @@ namespace Klimalauf
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
             // Open admin panel window
-            AdminScanner adminPanel = new AdminScanner(firstName, lastName);
+            Scanner adminPanel = new Scanner(firstName, lastName, true);
             adminPanel.Show();
             this.Close();
         }
@@ -82,6 +83,18 @@ namespace Klimalauf
 
             btnBarcodes.Visibility = Visibility.Collapsed;
 
+            using (var db = new LaufDBContext())
+            {
+                // hier zugriff auf die Datenbank
+
+                dumodel.LstSchule = new System.Collections.ObjectModel.ObservableCollection<Schule>(db.Schulen.ToList());
+
+                //// List<Schule> lstSchulen = db.Schulen.ToList();
+                // Schule schule = dumodel.LstSchule.First();
+                // schule.ID;
+
+            }
+
         }
 
         private void btnRunden_Click(object sender, RoutedEventArgs e)
@@ -109,6 +122,18 @@ namespace Klimalauf
             StartseiteGrid.Visibility = Visibility.Collapsed;
 
             btnBarcodes.Visibility = Visibility.Collapsed;
+
+            using (var db = new LaufDBContext())
+            {
+                // hier zugriff auf die Datenbank
+
+                dumodel.LstRunde = new System.Collections.ObjectModel.ObservableCollection<Runde>(db.Runden.ToList());
+
+                //// List<Schule> lstSchulen = db.Schulen.ToList();
+                // Schule schule = dumodel.LstSchule.First();
+                // schule.ID;
+
+            }
         }
 
         private void btnSchueler_Click(object sender, RoutedEventArgs e)
@@ -136,6 +161,18 @@ namespace Klimalauf
             StartseiteGrid.Visibility = Visibility.Collapsed;
 
             btnBarcodes.Visibility = Visibility.Visible;
+
+            using (var db = new LaufDBContext())
+            {
+                // hier zugriff auf die Datenbank
+
+                dumodel.LstSchueler = new System.Collections.ObjectModel.ObservableCollection<Schueler>(db.Schueler.ToList());
+
+                //// List<Schule> lstSchulen = db.Schulen.ToList();
+                // Schule schule = dumodel.LstSchule.First();
+                // schule.ID;
+
+            }
         }
 
         private void btnKlassen_Click(object sender, RoutedEventArgs e)
@@ -163,6 +200,18 @@ namespace Klimalauf
             StartseiteGrid.Visibility = Visibility.Collapsed;
 
             btnBarcodes.Visibility = Visibility.Collapsed;
+
+            using (var db = new LaufDBContext())
+            {
+                // hier zugriff auf die Datenbank
+
+                dumodel.LstKlasse = new System.Collections.ObjectModel.ObservableCollection<Klasse>(db.Klassen.ToList());
+
+                //// List<Schule> lstSchulen = db.Schulen.ToList();
+                // Schule schule = dumodel.LstSchule.First();
+                // schule.ID;
+
+            }
         }
 
         private void btnSchule_Click(object sender, RoutedEventArgs e)
@@ -191,15 +240,15 @@ namespace Klimalauf
 
             btnBarcodes.Visibility = Visibility.Collapsed;
 
-
-
             using (var db = new LaufDBContext())
             {
                 // hier zugriff auf die Datenbank
 
                 dumodel.LstSchule = new System.Collections.ObjectModel.ObservableCollection<Schule>(db.Schulen.ToList());
 
-                List<Schule> lstSchulen = db.Schulen.ToList();
+               //// List<Schule> lstSchulen = db.Schulen.ToList();
+               // Schule schule = dumodel.LstSchule.First();
+               // schule.ID;
 
             }
         }
