@@ -118,6 +118,9 @@ namespace Klimalauf
                     db.Runden.Add(runde);
                     db.SaveChanges();
                     mvmodel.LstRunden.Add(runde);
+                    mvmodel.LstLetzteRunde.Add(runde);
+
+
                 }
             }
         }

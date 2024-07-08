@@ -5,9 +5,10 @@ namespace Klimalauf
    public class MainViewModel : BaseModel
    {
       private ObservableCollection<FileItem> _lstFiles = new ObservableCollection<FileItem>();
-        private ObservableCollection<Runde> _lstRunden = new ObservableCollection<Runde>();
+      private ObservableCollection<Runde> _lstRunden = new ObservableCollection<Runde>();
+      private ObservableCollection<Runde> _lstLetzteRunde = new ObservableCollection<Runde>();
 
-        public ObservableCollection<Runde> LstRunden
+      public ObservableCollection<Runde> LstRunden
       {
          get
          {
@@ -20,6 +21,29 @@ namespace Klimalauf
          }
       }
 
+      public ObservableCollection<Runde> LstLetzteRunde
+      {
+         get
+         {
+            return this._lstLetzteRunde;
+         }
+         set
+         {
+            this._lstLetzteRunde = new ObservableCollection<Runde>();
+            this._lstLetzteRunde = value;
+            OnPropertyChanged("LstLetzteRunden");
+         }
+      }
+
+      public Runde ZulestGescannt
+      {
+         get
+         {
+            return LstRunden.Last();
+         }
+
+      }
+
       public ObservableCollection<FileItem> LstFiles
       {
          get
@@ -28,6 +52,7 @@ namespace Klimalauf
          }
          set
          {
+
             this._lstFiles = value;
             OnPropertyChanged("LstFiles");
          }
