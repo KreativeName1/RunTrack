@@ -27,14 +27,27 @@
         <Label Content="Minuten zum Warten zwischen den Scanns nach Rundengröße" HorizontalAlignment="Center" Margin="0,31,0,0" VerticalAlignment="Top" FontSize="14"/>
         <Rectangle Height="5" Margin="0,60,0,0" Stroke="#FF5F5F5F" Fill="#FF5F5F5F" VerticalAlignment="Top"/>
 
-        <Label Content="Klein" Margin="354,173,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.586,0.002" FontSize="14" HorizontalAlignment="Left" Width="40" />
-        <Label Content="Mittel" HorizontalAlignment="Left" Margin="348,0,0,0" VerticalAlignment="Center" FontSize="14" Cursor=""/>
-        <Label Content="Groß" HorizontalAlignment="Left" Margin="354,233,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.389,4.316" FontSize="14"/>
+        <Grid x:Name="GridSettings" Margin="250,100,250,100">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="38*"/>
+                <ColumnDefinition Width="37*"/>
+            </Grid.ColumnDefinitions>
 
-        <Rectangle Width="2" Margin="399,167,399,167" Stroke="#FF5F5F5F" Fill="#FF5F5F5F"/>
+            <StackPanel Orientation="Vertical" Margin="5,33,5,33" Grid.Column="0" VerticalAlignment="Center">
+                <Label Content="Klein"  FontSize="14" HorizontalAlignment="Center" Width="40" Height="29"  />
+                <Label Content="Mittel" HorizontalAlignment="Center" FontSize="14" Cursor="" Height="28" Width="46" Margin="5" Grid.Column="0"/>
+                <Label Content="Groß" HorizontalAlignment="Center" RenderTransformOrigin="0.389,4.316" FontSize="14" Height="29" Width="40" Grid.Column="0"/>
+            </StackPanel>
 
-        <xctk:DoubleUpDown x:Name="klein" Value="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="406,175,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="45"/>
-        <xctk:DoubleUpDown x:Name="mittel" Value="2" Height="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" Margin="406,0,0,0" HorizontalAlignment="Left" Width="45"/>
-        <xctk:DoubleUpDown x:Name="gross" Value="3" Width="45" Height="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="406,235,0,0"/>
+            <Rectangle x:Name="Spacer" Width="2.5" Height="120px" Stroke="#FF5F5F5F" Fill="#FF5F5F5F" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            <StackPanel Orientation="Vertical" Grid.Column="1" Margin="5,33,5,33" VerticalAlignment="Center">
+                <xctk:DoubleUpDown x:Name="klein" Value="1" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="45" Grid.Column="1" Height="25" VerticalAlignment="Top"/>
+                <xctk:DoubleUpDown x:Name="mittel" Value="2" Width="45" Height="26" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="8"/>
+                <xctk:DoubleUpDown x:Name="groß" Value="3" Height="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="45"/>
+            </StackPanel>
+
+        </Grid>
+
     </Grid>
 </Window>
