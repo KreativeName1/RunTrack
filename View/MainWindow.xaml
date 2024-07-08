@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Klimalauf"
-        mc:Ignorable="d"
+        mc:Ignorable="d" Loaded="Window_Loaded"
         Title="Anmeldung" Height="360" Width="450" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Label Content="Vorname:" Margin="98,86,0,0" HorizontalAlignment="Left" Width="100" FontSize="14" FontWeight="Bold" Height="29" VerticalAlignment="Top"/>
@@ -22,7 +22,7 @@
         <Label Content="Scan Programm für den Klimalauf" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
 
         <Label Content="Admin Passwort:" HorizontalAlignment="Left" Margin="98,180,0,0" VerticalAlignment="Top"/>
-        <PasswordBox x:Name="AdminPasswordBox" HorizontalAlignment="Left" Margin="200,184,0,0" VerticalAlignment="Top" Width="150" BorderBrush="Gray"/>
+        <PasswordBox x:Name="AdminPasswordBox" HorizontalAlignment="Left" Margin="200,184,0,0" VerticalAlignment="Top" Width="150" BorderBrush="Gray" KeyDown="TextBox_KeyDown"/>
 
     </Grid>
 </Window>
