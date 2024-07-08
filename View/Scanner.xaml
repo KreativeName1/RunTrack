@@ -7,7 +7,7 @@
         mc:Ignorable="d" Loaded="Window_Loaded"
         Title="Scanner" Height="750" Width="1100" MinWidth="550" MinHeight="450" WindowStartupLocation="CenterScreen" PreviewKeyDown="Window_PreviewKeyDown_1"  >
     <Grid DataContext="{StaticResource mvmodel}">
-        <DataGrid x:Name="lastScan" ItemsSource="{Binding LstScanner}" Margin="30,100,30,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True" Height="50" VerticalAlignment="Top">
+        <DataGrid x:Name="lastScan" ItemsSource="{Binding LstRunden}" Margin="30,100,30,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True" Height="50" VerticalAlignment="Top">
             <DataGrid.Resources>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="FontWeight" Value="Bold"/>
@@ -17,13 +17,13 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Width="10*" Header="Id" Binding="{Binding Id}"/>
-                <DataGridTextColumn Width="20*" Header="Namen" Binding="{Binding Name}"/>
-                <DataGridTextColumn Width="28*" Header="Schule" Binding="{Binding Schule}"/>
+                <DataGridTextColumn Width="10*" Header="Id" Binding="{Binding Schueler.Id}"/>
+                <DataGridTextColumn Width="20*" Header="Namen" Binding="{Binding Schueler.Nachname}"/>
+                <DataGridTextColumn Width="28*" Header="Zeitstempel" Binding="{Binding Zeitstempel}"/>
             </DataGrid.Columns>
         </DataGrid>
 
-        <DataGrid x:Name="lstlastScan" ItemsSource="{Binding LstScanner}" Margin="30,190,30,30" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True">
+        <DataGrid x:Name="lstlastScan" ItemsSource="{Binding LstRunden}" Margin="30,190,30,30" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True">
             <DataGrid.Resources>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="FontWeight" Value="Bold"/>
@@ -33,9 +33,9 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Width="10*" Header="Id" Binding="{Binding Id}"/>
-                <DataGridTextColumn Width="20*" Header="Namen" Binding="{Binding Name}"/>
-                <DataGridTextColumn Width="28*" Header="Schule" Binding="{Binding Schule}"/>
+                <DataGridTextColumn Width="10*" Header="Id" Binding="{Binding Schueler.Id}"/>
+                <DataGridTextColumn Width="20*" Header="Namen" Binding="{Binding Schueler.Nachname}"/>
+                <DataGridTextColumn Width="28*" Header="Zeitstempel" Binding="{Binding Zeitstempel}"/>
             </DataGrid.Columns>
         </DataGrid>
 
