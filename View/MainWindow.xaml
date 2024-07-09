@@ -21,8 +21,10 @@
         <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
         <Label Content="Scan Programm für den Klimalauf" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
 
-        <Label Content="Admin Passwort:" HorizontalAlignment="Left" Margin="98,181,0,0" VerticalAlignment="Top" FontFamily="72 Light"/>
-        <PasswordBox x:Name="AdminPasswordBox" HorizontalAlignment="Left" Margin="200,184,0,0" VerticalAlignment="Top" Width="150" BorderBrush="Gray" KeyDown="TextBox_KeyDown"/>
+        <Label Content="Admin Passwort:" HorizontalAlignment="Left" Margin="98,207,0,0" VerticalAlignment="Top" FontFamily="72 Light"/>
+        <PasswordBox x:Name="AdminPasswordBox" HorizontalAlignment="Left" Margin="200,210,0,0" VerticalAlignment="Top" Width="150" BorderBrush="Gray" KeyDown="TextBox_KeyDown"/>
+        <Label Content="Optional:" HorizontalAlignment="Center" Margin="0,182,0,0" VerticalAlignment="Top" FontFamily="72 Light" FontSize="13"/>
+        <Rectangle HorizontalAlignment="Center" Height="2" Margin="0,203,0,0" Stroke="#7E8182" VerticalAlignment="Top" Width="70"/>
 
     </Grid>
 </Window>
