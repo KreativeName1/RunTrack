@@ -97,26 +97,28 @@
         <Label Content="Vorherige Scans:" HorizontalAlignment="Left" Margin="30,161,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="Letzter Scan:" HorizontalAlignment="Left" Margin="30,71,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
 
-        <Border x:Name="BoxTrue" VerticalAlignment="Top" Margin="100,40,100,0" Visibility="Collapsed" Grid.ColumnSpan="3">
-            <Grid>
-                <Rectangle Height="30" Stroke="#FF5F5F5F" Fill="#FF32CC32" VerticalAlignment="Center"/>
-                <Label Content="Erfolgreich" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="Black" FontWeight="Bold"/>
-            </Grid>
-        </Border>
 
-        <Border x:Name="BoxFalse" VerticalAlignment="Top" Margin="100,40,100,0" Visibility="Collapsed" Grid.ColumnSpan="3">
-            <Grid>
-                <Rectangle Height="30" Stroke="#FF5F5F5F" Fill="#FF0000" VerticalAlignment="Center"/>
-                <Label Content="Schüler nicht gefunden!" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="Black" FontWeight="Bold"/>
-            </Grid>
-        </Border>
-
-        <Border VerticalAlignment="Top" Margin="100,40,100,0" Grid.ColumnSpan="3">
+        <Border x:Name="BoxPruefung" VerticalAlignment="Top" Margin="100,40,100,0" Grid.ColumnSpan="3">
             <Grid>
                 <Rectangle Height="30" Stroke="LightGray" VerticalAlignment="Center"/>
                 <Label Height="30" Content="Überprüfung" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="Black" FontWeight="Bold" FontFamily="72 Light"/>
             </Grid>
         </Border>
+        <Border x:Name="BoxTrue" VerticalAlignment="Top" Margin="100,40,100,0" Visibility="Collapsed" Grid.ColumnSpan="3">
+            <Grid>
+                <Rectangle Height="30" Stroke="#FF5F5F5F" Fill="#FF32CC32" VerticalAlignment="Center"/>
+                <Label Content="Erfolgreich" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0"  VerticalAlignment="Center" Foreground="#0A0A0D" FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+            </Grid>
+        </Border>
+
+        <Border x:Name="BoxFalse" VerticalAlignment="Top" Margin="100,40,100,0" Visibility="Collapsed" Grid.ColumnSpan="3">
+            <Grid>
+                <Rectangle Height="30" Stroke="#FF5F5F5F" Fill="#F70000" VerticalAlignment="Center"/>
+                <Label Content="Schüler nicht gefunden!" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0"  VerticalAlignment="Center" Foreground="WhiteSmoke" FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+            </Grid>
+        </Border>
+
+        
 
         <Rectangle x:Name="rectUser" Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top" Grid.ColumnSpan="3" Visibility="Visible"/>
 
@@ -137,5 +139,6 @@
                 <Button x:Name="btnUebersicht" Content="Datenübersicht" Margin="0,0,350,0" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Right" Cursor="Hand" Width="150"/>
             </Grid>
         </Border>
+
     </Grid>
 </Window>

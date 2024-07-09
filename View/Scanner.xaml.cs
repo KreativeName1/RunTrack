@@ -1,7 +1,5 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
@@ -16,27 +14,26 @@ namespace Klimalauf
       private string lastName;
       private bool isAdmin;
       private DispatcherTimer timer;
+      private DateTime lastKeystroke = DateTime.Now;
+      private const int scannerInputThreshold = 50;
 
       public Scanner(string firstName, string lastName, bool isAdmin)
       {
          InitializeComponent();
 
-         // Set the ScannerName label with the passed names
          ScannerName.Content = $"{lastName}, {firstName}";
          DataContext = this;
          this.firstName = firstName;
          this.lastName = lastName;
          this.isAdmin = isAdmin;
 
-         // Initialize and configure the timer
          timer = new DispatcherTimer();
-         timer.Interval = TimeSpan.FromSeconds(5); // Adjust the time as needed
+         timer.Interval = TimeSpan.FromSeconds(5);
          timer.Tick += Timer_Tick;
       }
 
       private void Timer_Tick(object sender, EventArgs e)
       {
-         // Timer elapsed, hide both BoxTrue and BoxFalse
          HideStatusBoxes();
          timer.Stop();
       }
@@ -52,7 +49,7 @@ namespace Klimalauf
             this.userName.Visibility = Visibility.Visible;
             this.rectUser.Visibility = Visibility.Visible;
 
-                lstlastScan.Margin = new Thickness(lstlastScan.Margin.Left, lstlastScan.Margin.Top, lstlastScan.Margin.Right, 100);
+            lstlastScan.Margin = new Thickness(lstlastScan.Margin.Left, lstlastScan.Margin.Top, lstlastScan.Margin.Right, 100);
 
             btnUebersicht.Click += (sender, e) =>
             {
@@ -114,7 +111,6 @@ namespace Klimalauf
                Storyboard sb = FindResource("ShowBoxFalse") as Storyboard;
                sb.Begin(BoxFalse);
 
-               // Start timer to hide status boxes after a delay
                StartHideTimer();
             }
             else
@@ -134,10 +130,7 @@ namespace Klimalauf
                db.SaveChanges();
                mvmodel.hinzufügeLetzteRunde(runde);
                mvmodel.LstRunden.Add(runde);
-               
-            
 
-               // Start timer to hide status boxes after a delay
                StartHideTimer();
             }
          }
@@ -145,20 +138,26 @@ namespace Klimalauf
 
       private void StartHideTimer()
       {
-         // Restart timer
          timer.Stop();
          timer.Start();
       }
 
       private void HideStatusBoxes()
       {
-         // Hide both BoxTrue and BoxFalse
          this.BoxTrue.Visibility = Visibility.Collapsed;
          this.BoxFalse.Visibility = Visibility.Collapsed;
       }
 
       private void Window_PreviewKeyDown_1(object sender, KeyEventArgs e)
       {
+         TimeSpan timeSinceLastKeystroke = DateTime.Now - lastKeystroke;
+         lastKeystroke = DateTime.Now;
+
+         if (timeSinceLastKeystroke.TotalMilliseconds > scannerInputThreshold)
+         {
+            barcodeInput.Clear();
+         }
+
          if (e.Key == Key.Enter)
          {
             string scannedData = barcodeInput.ToString().Trim();
