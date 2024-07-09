@@ -6,5 +6,6 @@
     <Application.Resources>
         <local:MainViewModel x:Key="mvmodel"/>
         <local:DatenuebersichtModel x:Key="dumodel"/>
+        <local:PDFEditorModel x:Key="pemodel"/>
     </Application.Resources>
 </Application>

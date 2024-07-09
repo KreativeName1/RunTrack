@@ -13,50 +13,59 @@ namespace Klimalauf
 {
     public class PDFGenerator
     {
-        public static void BarcodesPDF(Klasse klasse, string schulename)
+        public static string BarcodesPDF(Klasse klasse, string schulename, Format f)
         {
             string path = $"Dokumente/Barcodes/{schulename}";
             Directory.CreateDirectory(path);
-
             PdfDocument pdf = new PdfDocument(new PdfWriter(path + $"/{klasse.Name}.pdf"));
             Document document = new Document(pdf, PageSize.A4);
-            document.SetMargins(20, 20, 20, 20);
+            document.SetMargins(f.SeitenRandOben, f.SeitenRandRechts, f.SeitenRandUnten, f.SeitenRandLinks);
 
-            document.Add(new Paragraph("Schule: " + schulename).SetTextAlignment(TextAlignment.LEFT).SetBold().SetFontSize(14));
-            document.Add(new Paragraph("Klasse: " + klasse.Name).SetTextAlignment(TextAlignment.LEFT).SetBold().SetFontSize(14));
-            int numColumns = 2;
-            float columnWidth = (PageSize.A4.GetWidth() - document.GetLeftMargin() - document.GetRightMargin()) / numColumns;
+            if (f.HeaderAnzeigen)
+            {
+                document.Add(new Paragraph("Schule: " + schulename).SetTextAlignment(TextAlignment.LEFT).SetBold().SetFontSize(14));
+                document.Add(new Paragraph("Klasse: " + klasse.Name).SetTextAlignment(TextAlignment.LEFT).SetBold().SetFontSize(14));
+            }
+
+            int numColumns = f.SpaltenAnzahl;
+            int numRows = f.ZeilenAnzahl;
+            float columnWidth = f.ZellenBreite;
             Table table = new Table(UnitValue.CreatePointArray(Enumerable.Repeat(columnWidth, numColumns).ToArray()));
+
             table.SetWidth(UnitValue.CreatePercentValue(100));
             table.SetHorizontalAlignment(HorizontalAlignment.CENTER);
-            table.SetMarginTop(10);
-            table.SetMarginBottom(10);
+
 
             for (int i = 0; i < klasse.Schueler.Count; i++)
             {
+
                 Cell cell = new();
                 cell.SetBorder(Border.NO_BORDER);
                 cell.SetTextAlignment(TextAlignment.CENTER);
-                cell.SetPaddingTop(10);
+
+                // Barcode erstellen und in PDF einfügen
                 Barcode39 code39 = new Barcode39(pdf);
                 code39.SetCode(klasse.Schueler[i].Id.ToString().PadLeft(5, '0'));
                 code39.SetFont(null);
                 PdfFormXObject barcode = code39.CreateFormXObject(ColorConstants.BLACK, ColorConstants.BLACK, pdf);
                 Image img = new Image(barcode);
-                img.SetHeight(50);
-                img.SetWidth(200);
+                img.SetHeight(f.ZellenHoehe - 10);
+                img.SetWidth(f.ZellenBreite - 10);
                 img.SetHorizontalAlignment(HorizontalAlignment.CENTER);
                 cell.Add(img);
-                Paragraph p = new Paragraph(klasse.Schueler[i].Vorname + " " + klasse.Schueler[i].Nachname +  " - " + klasse.Schueler[i].Id.ToString());
+
+                // Schülername und ID in PDF einfügen
+                Paragraph p = new Paragraph(klasse.Schueler[i].Vorname + " " + klasse.Schueler[i].Nachname + " - " + klasse.Schueler[i].Id.ToString());
                 p.SetBold();
                 p.SetTextAlignment(TextAlignment.CENTER);
                 cell.Add(p);
                 table.AddCell(cell);
-
             }
-            document.Add(table);
 
+            document.Add(table);
             document.Close();
+
+            return System.IO.Path.GetFullPath(path + $"/{klasse.Name}.pdf");
         }
 
 
