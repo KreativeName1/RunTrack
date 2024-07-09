@@ -1,0 +1,28 @@
+﻿<Window x:Class="Klimalauf.AdminErstellen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Klimalauf"
+        mc:Ignorable="d"
+        Title="AdminErstellen" Height="200" Width="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            
+        </Grid.RowDefinitions>
+        <Label Content="Vorname" Grid.Row="0" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtVorname" Grid.Row="1" HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Nachname" Grid.Row="2" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtNachname" Grid.Row="3" HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Passwort" Grid.Row="4" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+        <PasswordBox x:Name="txtPasswort" Grid.Row="5" HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnErstellen" Grid.Row="6" Content="Erstellen" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="120" />
+    </Grid>
+</Window>
