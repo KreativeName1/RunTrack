@@ -31,11 +31,9 @@ namespace Klimalauf
                 {
                     MessageBox.Show("Bitte Benutzername und Passwort eingeben");
                     return;
-
                 }
                 using (var db = new LaufDBContext())
                 {
-
                     // Benutzer anlegen mit gehashtem Passwort
                     Benutzer benutzer = new Benutzer();
                     benutzer.Vorname = txtVorname.Text;
