@@ -85,7 +85,7 @@
                         <DataGridTextColumn Width="20*" Header="Schule" Binding="{Binding Klasse.Schule.Name}"/>
                         <DataGridTextColumn Width="11*" Header="Runden" Binding="{Binding Runden.Count}"/>
                         <!--<DataGridTextColumn Width="15*" Header="Bestzeit" Binding="{Binding rundenBestZeit}"/>-->
-                        <DataGridTextColumn Width="15*" Header="Rundengröße" Binding="{Binding Klasse.RundenArt.LaengeInMeter, StringFormat={}{0} m}"/>  <!--Binding="{Binding Klasse.RundenArt.LaengeInMeter}"/>-->
+                        <DataGridTextColumn Width="15*" Header="Rundengröße" Binding="{Binding Klasse.RundenArt}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
@@ -148,11 +148,8 @@
                         <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding Id}"/>
                         <DataGridTextColumn Width="25*" Header="Namen" Binding="{Binding Vorname}"/>
                         <DataGridTextColumn Width="25*" Header="Namen" Binding="{Binding Nachname}"/>
-                        <DataGridTextColumn Width="15*" Header="Klasse" Binding="{Binding Klasse.Name}"/>
-                        <DataGridTextColumn Width="25*" Header="Schule" Binding="{Binding Klasse.Schule.Name}"/>
-                        <DataGridTextColumn Width="11*" Header="Runden" Binding="{Binding Runden.Count}"/>
-                        <!--<DataGridTextColumn Width="15*" Header="Bestzeit" Binding="{Binding rundenBestZeit}"/>-->
-                        <DataGridTextColumn Width="15*" Header="Rundengröße" Binding="{Binding Klasse.RundenArt.LaengeInMeter, StringFormat={}{0} m}"/>
+                        <DataGridTextColumn Width="15*" Header="Klasse" Binding="{Binding Klasse}"/>
+                        <DataGridTextColumn Width="25*" Header="Schule" Binding="{Binding Klasse.Schule}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
@@ -175,7 +172,7 @@
                         <DataGridTextColumn Width="15*" Header="Laufnr." Binding="{Binding Schueler.Id}"/>
                         <DataGridTextColumn Width="25*" Header="Vorname" Binding="{Binding Schueler.Vorname}"/>
                         <DataGridTextColumn Width="25*" Header="Nachname" Binding="{Binding Schueler.Nachname}"/>
-                        <DataGridTextColumn Width="15*" Header="Rundengröße" Binding="{Binding Schueler.Klasse.RundenArt.LaengeInMeter, StringFormat= {}{0} m}"/>
+                        <DataGridTextColumn Width="15*" Header="Rundengröße" Binding="{Binding Schueler.Klasse.RundenArt.LaengeInMeter}"/>
                         <DataGridTextColumn Width="18*" Header="Scanner" Binding="{Binding BenutzerName}"/>
                     </DataGrid.Columns>
                 </DataGrid>
