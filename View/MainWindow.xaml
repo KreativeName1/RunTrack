@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Klimalauf"
         mc:Ignorable="d" Loaded="Window_Loaded"
-        Title="Anmeldung" Height="360" Width="450" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="H:\KlimalaufGit\KlimalaufNeuGit\Images\iconRunMan.ico">
+        Title="Anmeldung" Height="360" Width="450" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="C:\Users\glisniks\Desktop\RunTrack\Images\iconRunMan.ico">
     <Grid>
         <Label Content="Vorname:" Margin="98,86,0,0" HorizontalAlignment="Left" Width="100" FontSize="14" FontWeight="Bold" Height="29" VerticalAlignment="Top"/>
         <Label Content="Nachname:" HorizontalAlignment="Left" Margin="98,132,0,0" FontSize="14" RenderTransformOrigin="0.529,0.231" FontFamily="72" FontWeight="Bold" Height="26" VerticalAlignment="Top"/>
