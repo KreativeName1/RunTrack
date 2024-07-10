@@ -9,6 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\iconRunMan.ico" />
+    <None Remove="Images\Logo.png" />
+    <None Remove="Images\logout.png" />
     <None Remove="MainWindow.xaml~RF6d463b42.TMP" />
     <None Remove="View\AdminErstellen.xaml.cs~RF9b0defe3.TMP" />
   </ItemGroup>
@@ -29,12 +32,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Images\iconRunMan.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Images\logout.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Resource Include="Images\iconRunMan.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\logout.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

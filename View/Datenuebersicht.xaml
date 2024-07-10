@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Klimalauf"
         mc:Ignorable="d"
+        Icon="pack://application:,,,/Images/iconRunMan.ico"
         Title="Datenuebersicht" Height="750" Width="1100" Loaded="Window_Loaded">
     <Window.Resources>
         <local:WindowHeightConverter x:Key="WindowHeightConverter"/>
@@ -24,7 +25,7 @@
         <Label x:Name="ScannerName" Content="Name, Vorname" HorizontalAlignment="Left" Margin="79,1,0,0" VerticalAlignment="Top" Foreground="Wheat" Height="26" Width="95"/>
         <Label Content="Admin" HorizontalAlignment="Center" Margin="0,2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Grid.ColumnSpan="2"/>
 
-        <Image Source="/Images/logout.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" MouseDown="LogoutIcon_MouseDown" Grid.Column="1">
+        <Image Source="pack://application:,,,/Images/logout.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" MouseDown="LogoutIcon_MouseDown" Grid.Column="1">
             <Image.ToolTip>
                 <ToolTip>Logout</ToolTip>
             </Image.ToolTip>

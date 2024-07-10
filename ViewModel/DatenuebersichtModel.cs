@@ -9,8 +9,6 @@ namespace Klimalauf
 {
     internal class DatenuebersichtModel : BaseModel
     {
-        private string[] pfade = System.IO.Directory.GetFiles("Dateien", "*.db");
-
         private ObservableCollection<Schule> _lstSchule = new ObservableCollection<Schule>();
         private ObservableCollection<Schueler> _lstSchueler = new ObservableCollection<Schueler>();
         private ObservableCollection<Klasse> _lstKlasse = new ObservableCollection<Klasse>();

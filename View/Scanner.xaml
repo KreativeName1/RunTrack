@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Klimalauf"
         mc:Ignorable="d" Loaded="Window_Loaded"
+        Icon="pack://application:,,,/Images/iconRunMan.ico"
         Title="Scanner" Height="750" Width="1100" MinWidth="578" MinHeight="450" WindowStartupLocation="CenterScreen" PreviewKeyDown="Window_PreviewKeyDown_1"  >
     <Window.Resources>
         <!-- Animation für BoxTrue -->
@@ -126,8 +127,8 @@
         <Label x:Name="ScannerName" Content="Name, Vorname" HorizontalAlignment="Left" Margin="79,1,0,0" VerticalAlignment="Top" Foreground="Wheat"/>
 
         <Label x:Name="lblAdmin" Content="Admin" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Visibility="Hidden" Grid.Column="1" Cursor=""/>
-        
-        <Image Source="./Images/logout.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" MouseDown="LogoutIcon_MouseDown" Grid.Column="2">
+
+        <Image Source="pack://application:,,,/Images/logout.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" MouseDown="LogoutIcon_MouseDown" Grid.Column="2">
             <Image.ToolTip>
                 <ToolTip>Logout</ToolTip>
             </Image.ToolTip>

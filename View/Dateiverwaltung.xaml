@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Klimalauf"
+        Icon="pack://application:,,,/Images/iconRunMan.ico"
         mc:Ignorable="d" Loaded="Window_Loaded"
         Title="Dateiverwaltung" Height="500" Width="800"  WindowStartupLocation="CenterScreen">
     <Grid DataContext="{StaticResource mvmodel}">
@@ -20,7 +21,7 @@
         <Label x:Name="ScannerName" Content="Name, Vorname" Foreground="Wheat" HorizontalAlignment="Left" Margin="79,1,0,0" VerticalAlignment="Top" Height="26" Width="95"/>
 
         <Label Content="Admin" HorizontalAlignment="Center" Margin="0,2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
-        <Image Source="Images\logout.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" MouseDown="LogoutIcon_MouseDown">
+        <Image Source="pack://application:,,,/Images/logout.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" MouseDown="LogoutIcon_MouseDown">
             <Image.ToolTip>
                 <ToolTip>Logout</ToolTip>
             </Image.ToolTip>

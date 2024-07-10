@@ -6,16 +6,39 @@
         xmlns:local="clr-namespace:Klimalauf"
         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d"
-        Title="PDF_Editor" Height="800" Width="1000">
+        Icon="pack://application:,,,/Images/iconRunMan.ico"
+        Title="PDF_Editor" Height="850" Width="1000">
     <Grid DataContext="{StaticResource pemodel}" >
+      
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Grid.ColumnSpan="2">
+
+            <Rectangle x:Name="rectUser" Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top" Grid.ColumnSpan="3" Visibility="Visible"/>
+            <Label x:Name="userName" Content="Benutzer:" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
+            <Label x:Name="ScannerName" Content="Name, Vorname" HorizontalAlignment="Left" Margin="79,1,0,0" VerticalAlignment="Top" Foreground="Wheat"/>
+
+            <Label x:Name="lblAdmin" Content="Admin" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Visibility="Hidden" Grid.Column="1" Cursor=""/>
+
+            <Image Source="pack://application:,,,/Images/logout.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" Grid.Column="2">
+                <Image.ToolTip>
+                    <ToolTip>Logout</ToolTip>
+                </Image.ToolTip>
+            </Image>
+        </Grid>
+
+        <Grid Grid.Column="0" Grid.Row="1" >
             <wv2:WebView2 x:Name="webView" />
         </Grid>
-        <StackPanel Margin="20,0,20,0" Width="140" HorizontalAlignment="Right"  Orientation="Vertical" Grid.Column="1">
+        
+        <StackPanel Margin="20,0,20,0" Width="140" HorizontalAlignment="Right"  Orientation="Vertical" Grid.Column="1" Grid.Row="1">
             
             <Label Content="Format" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top"/>
             <Border BorderBrush="Black" BorderThickness="1">
