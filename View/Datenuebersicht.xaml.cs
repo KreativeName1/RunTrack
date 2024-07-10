@@ -11,25 +11,22 @@ namespace Klimalauf
     /// </summary>
     public partial class Datenuebersicht : Window
     {
-        DatenuebersichtModel dumodel;
-        private string firstName;
-        private string lastName;
+        private DatenuebersichtModel _dumodel;
+        private MainViewModel _mvmodel;
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            this.dumodel = FindResource("dumodel") as DatenuebersichtModel;
+            this._dumodel = FindResource("dumodel") as DatenuebersichtModel;
+            this._mvmodel = FindResource("mvmodel") as MainViewModel;
+
+            ScannerName.Content = $"{_mvmodel.Benutzer.Vorname}, {_mvmodel.Benutzer.Nachname}";
             LoadData();
         }
 
-        public Datenuebersicht(string firstName, string lastName)
+        public Datenuebersicht()
         {
             InitializeComponent();
-
-            // Set the ScannerName label with the passed names
-            ScannerName.Content = $"{lastName}, {firstName}";
             DataContext = this;
-            this.firstName = firstName;
-            this.lastName = lastName;
         }
 
         private void LogoutIcon_MouseDown(object sender, MouseButtonEventArgs e)
@@ -45,7 +42,7 @@ namespace Klimalauf
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
             // Open admin panel window
-            Scanner adminPanel = new Scanner(firstName, lastName, true);
+            Scanner adminPanel = new Scanner();
             adminPanel.Show();
             this.Close();
         }
@@ -66,7 +63,7 @@ namespace Klimalauf
 
             using (var db = new LaufDBContext())
             {
-                dumodel.LstSchule = new ObservableCollection<Schule>(db.Schulen.ToList());
+                _dumodel.LstSchule = new ObservableCollection<Schule>(db.Schulen.ToList());
             }
         }
 
@@ -76,7 +73,7 @@ namespace Klimalauf
 
             using (var db = new LaufDBContext())
             {
-                dumodel.LstRunde = new ObservableCollection<Runde>(db.Runden.Include(r => r.Schueler).ThenInclude(s => s.Klasse).ThenInclude(k => k.Schule).Include(s => s.Schueler.Klasse).ThenInclude(r => r.RundenArt).ToList());
+                _dumodel.LstRunde = new ObservableCollection<Runde>(db.Runden.Include(r => r.Schueler).ThenInclude(s => s.Klasse).ThenInclude(k => k.Schule).Include(s => s.Schueler.Klasse).ThenInclude(r => r.RundenArt).ToList());
             }
         }
 
@@ -86,7 +83,7 @@ namespace Klimalauf
 
             using (var db = new LaufDBContext())
             {
-                dumodel.LstSchueler = new ObservableCollection<Schueler>(db.Schueler
+                _dumodel.LstSchueler = new ObservableCollection<Schueler>(db.Schueler
                     .Include(s => s.Klasse)
                         .ThenInclude(k => k.Schule)
                     .Include(s => s.Klasse)
@@ -108,11 +105,11 @@ namespace Klimalauf
                                           .ThenInclude(s => s.Runden)
                                           .ToList();
 
-                dumodel.LstKlasse = new ObservableCollection<Klasse>(klassenMitDetails);
+                _dumodel.LstKlasse = new ObservableCollection<Klasse>(klassenMitDetails);
 
-                if (dumodel.LstKlasse.Any())
+                if (_dumodel.LstKlasse.Any())
                 {
-                    var ersteSchule = dumodel.LstKlasse.First().Schule;
+                    var ersteSchule = _dumodel.LstKlasse.First().Schule;
                     if (ersteSchule != null)
                     {
                         var schuleId = ersteSchule.Id;
@@ -128,7 +125,7 @@ namespace Klimalauf
 
             using (var db = new LaufDBContext())
             {
-                dumodel.LstSchule = new ObservableCollection<Schule>(db.Schulen.ToList());
+                _dumodel.LstSchule = new ObservableCollection<Schule>(db.Schulen.ToList());
             }
         }
 
@@ -162,10 +159,10 @@ namespace Klimalauf
         {
             using (var db = new LaufDBContext())
             {
-                dumodel.LstSchule = new ObservableCollection<Schule>(db.Schulen.ToList());
-                dumodel.LstKlasse = new ObservableCollection<Klasse>(db.Klassen.Include(k => k.Schule).Include(k => k.Schueler).ThenInclude(s => s.Runden).ToList());
-                dumodel.LstSchueler = new ObservableCollection<Schueler>(db.Schueler.Include(s => s.Klasse).ThenInclude(k => k.Schule).Include(s => s.Runden).ToList());
-                dumodel.LstRunde = new ObservableCollection<Runde>(db.Runden.Include(r => r.Schueler).ThenInclude(s => s.Klasse).ThenInclude(k => k.Schule).ToList());
+                _dumodel.LstSchule = new ObservableCollection<Schule>(db.Schulen.ToList());
+                _dumodel.LstKlasse = new ObservableCollection<Klasse>(db.Klassen.Include(k => k.Schule).Include(k => k.Schueler).ThenInclude(s => s.Runden).ToList());
+                _dumodel.LstSchueler = new ObservableCollection<Schueler>(db.Schueler.Include(s => s.Klasse).ThenInclude(k => k.Schule).Include(s => s.Runden).ToList());
+                _dumodel.LstRunde = new ObservableCollection<Runde>(db.Runden.Include(r => r.Schueler).ThenInclude(s => s.Klasse).ThenInclude(k => k.Schule).ToList());
             }
         }
     }

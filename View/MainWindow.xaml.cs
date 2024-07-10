@@ -5,190 +5,195 @@ using System.Windows.Media;
 
 namespace Klimalauf
 {
-   public partial class MainWindow : Window
-   {
-      public MainWindow()
-      {
-         InitializeComponent();
+	public partial class MainWindow : Window
+	{
+		private MainViewModel _viewModel;
 
-         // Prüfen, ob Admin existiert. Wenn nicht, AdminErstellen öffnen
-         using (var db = new LaufDBContext())
-         {
-            if (db.Benutzer.Count() == 0)
-            {
-               AdminErstellen adminErstellen = new AdminErstellen();
-               adminErstellen.Show();
-               this.Close();
-            }
-         }
-      }
+		public MainWindow()
+		{
+			InitializeComponent();
 
-      private void Window_Loaded(object sender, RoutedEventArgs e)
-      {
-         FirstNameTextBox.Foreground = new SolidColorBrush(Colors.Gray);
-         LastNameTextBox.Foreground = new SolidColorBrush(Colors.Gray);
-      }
+			_viewModel = FindResource("mvmodel") as MainViewModel;
 
-      private void LoginButton_Click(object sender, RoutedEventArgs e)
-      {
-         string firstName = FirstNameTextBox.Text;
-         string lastName = LastNameTextBox.Text;
+			// Prüfen, ob Admin existiert. Wenn nicht, AdminErstellen öffnen
+			using (var db = new LaufDBContext())
+			{
+				if (db.Benutzer.Count() == 0)
+				{
+					AdminErstellen adminErstellen = new AdminErstellen();
+					adminErstellen.Show();
+					this.Close();
+				}
+			}
+		}
 
-         // Check if first name and last name are provided
-         if (ValidateInputs())
-         {
-            // Check admin password
-            string adminPassword = AdminPasswordBox.Password;
-            bool isAdmin = false;
-            using (var db = new LaufDBContext())
-            {
-               var admin = db.Benutzer.FirstOrDefault(b => b.Vorname == firstName && b.Nachname == lastName);
-               if (admin != null && BCrypt.Net.BCrypt.Verify(adminPassword, admin.Passwort))
-               {
-                  isAdmin = true;
-               }
-            }
+		private void Window_Loaded(object sender, RoutedEventArgs e)
+		{
+			FirstNameTextBox.Foreground = new SolidColorBrush(Colors.Gray);
+			LastNameTextBox.Foreground = new SolidColorBrush(Colors.Gray);
+		}
 
-            Scanner scanner = new Scanner(firstName, lastName, isAdmin);
-            scanner.Show();
-            this.Close();
-         }
-      }
+		private void LoginButton_Click(object sender, RoutedEventArgs e)
+		{
+			_viewModel.Benutzer = new Benutzer
+			{
+				Vorname = FirstNameTextBox.Text,
+				Nachname = LastNameTextBox.Text,
+			};
 
-      private bool ValidateInputs()
-      {
-         bool isValid = true;
+			// Check if first name and last name are provided
+			if (ValidateInputs())
+			{
+				// Check admin password
+				_viewModel.Benutzer.Passwort = AdminPasswordBox.Password;
+				using (var db = new LaufDBContext())
+				{
+					Benutzer? admin = db.Benutzer.FirstOrDefault(b => b.Vorname == _viewModel.Benutzer.Vorname && b.Nachname == _viewModel.Benutzer.Nachname);
+					if (admin != null && BCrypt.Net.BCrypt.Verify(_viewModel.Benutzer.Passwort, admin.Passwort))
+					{
+						_viewModel.Benutzer.IsAdmin = true;
+					}
+				}
+				Scanner scanner = new Scanner();
+				scanner.Show();
+				this.Close();
+			}
+		}
 
-         if (!ValidateFirstName())
-         {
-            isValid = false;
-         }
+		private bool ValidateInputs()
+		{
+			bool isValid = true;
 
-         if (!ValidateLastName())
-         {
-            isValid = false;
-         }
+			if (!ValidateFirstName())
+			{
+				isValid = false;
+			}
 
-         return isValid;
-      }
+			if (!ValidateLastName())
+			{
+				isValid = false;
+			}
 
-      private bool ValidateFirstName()
-      {
-         if (string.IsNullOrWhiteSpace(FirstNameTextBox.Text) || FirstNameTextBox.Text == "Max")
-         {
-            SetInvalidInputStyle(FirstNameTextBox);
-            return false;
-         }
-         else
-         {
-            SetValidInputStyle(FirstNameTextBox);
-            return true;
-         }
-      }
+			return isValid;
+		}
 
-      private bool ValidateLastName()
-      {
-         if (string.IsNullOrWhiteSpace(LastNameTextBox.Text) || LastNameTextBox.Text == "Mustermann")
-         {
-            SetInvalidInputStyle(LastNameTextBox);
-            return false;
-         }
-         else
-         {
-            SetValidInputStyle(LastNameTextBox);
-            return true;
-         }
-      }
+		private bool ValidateFirstName()
+		{
+			if (string.IsNullOrWhiteSpace(FirstNameTextBox.Text) || FirstNameTextBox.Text == "Max")
+			{
+				SetInvalidInputStyle(FirstNameTextBox);
+				return false;
+			}
+			else
+			{
+				SetValidInputStyle(FirstNameTextBox);
+				return true;
+			}
+		}
 
-      private void SetInvalidInputStyle(TextBox textBox)
-      {
-         textBox.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#C1121C"));
-         textBox.Foreground = new SolidColorBrush(Colors.White);
-      }
+		private bool ValidateLastName()
+		{
+			if (string.IsNullOrWhiteSpace(LastNameTextBox.Text) || LastNameTextBox.Text == "Mustermann")
+			{
+				SetInvalidInputStyle(LastNameTextBox);
+				return false;
+			}
+			else
+			{
+				SetValidInputStyle(LastNameTextBox);
+				return true;
+			}
+		}
 
-      private void SetValidInputStyle(TextBox textBox)
-      {
-         textBox.Background = new SolidColorBrush(Colors.White);
-         textBox.Foreground = new SolidColorBrush(Colors.Blue);
-      }
+		private void SetInvalidInputStyle(TextBox textBox)
+		{
+			textBox.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#C1121C"));
+			textBox.Foreground = new SolidColorBrush(Colors.White);
+		}
 
-      private void FirstNameTextBox_GotFocus(object sender, RoutedEventArgs e)
-      {
-         TextBox textBox = (TextBox)sender;
-         if (textBox.Text == "Max")
-         {
-            textBox.Text = "";
-            textBox.Foreground = new SolidColorBrush(Colors.Blue);
-         }
-         SetValidInputStyle(textBox);
-      }
+		private void SetValidInputStyle(TextBox textBox)
+		{
+			textBox.Background = new SolidColorBrush(Colors.White);
+			textBox.Foreground = new SolidColorBrush(Colors.Blue);
+		}
 
-      private void FirstNameTextBox_LostFocus(object sender, RoutedEventArgs e)
-      {
-         TextBox textBox = (TextBox)sender;
-         if (string.IsNullOrWhiteSpace(textBox.Text))
-         {
-            textBox.Text = "Max";
-            textBox.Foreground = new SolidColorBrush(Colors.Gray);
-         }
-         ValidateFirstName();
-      }
+		private void FirstNameTextBox_GotFocus(object sender, RoutedEventArgs e)
+		{
+			TextBox textBox = (TextBox)sender;
+			if (textBox.Text == "Max")
+			{
+				textBox.Text = "";
+				textBox.Foreground = new SolidColorBrush(Colors.Blue);
+			}
+			SetValidInputStyle(textBox);
+		}
 
-      private void LastNameTextBox_GotFocus(object sender, RoutedEventArgs e)
-      {
-         TextBox textBox = (TextBox)sender;
-         if (textBox.Text == "Mustermann")
-         {
-            textBox.Text = "";
-            textBox.Foreground = new SolidColorBrush(Colors.Blue);
-         }
-         SetValidInputStyle(textBox);
-      }
+		private void FirstNameTextBox_LostFocus(object sender, RoutedEventArgs e)
+		{
+			TextBox textBox = (TextBox)sender;
+			if (string.IsNullOrWhiteSpace(textBox.Text))
+			{
+				textBox.Text = "Max";
+				textBox.Foreground = new SolidColorBrush(Colors.Gray);
+			}
+			ValidateFirstName();
+		}
 
-      private void LastNameTextBox_LostFocus(object sender, RoutedEventArgs e)
-      {
-         TextBox textBox = (TextBox)sender;
-         if (string.IsNullOrWhiteSpace(textBox.Text))
-         {
-            textBox.Text = "Mustermann";
-            textBox.Foreground = new SolidColorBrush(Colors.Gray);
-         }
-         ValidateLastName();
-      }
+		private void LastNameTextBox_GotFocus(object sender, RoutedEventArgs e)
+		{
+			TextBox textBox = (TextBox)sender;
+			if (textBox.Text == "Mustermann")
+			{
+				textBox.Text = "";
+				textBox.Foreground = new SolidColorBrush(Colors.Blue);
+			}
+			SetValidInputStyle(textBox);
+		}
 
-      private void TextBox_KeyDown(object sender, KeyEventArgs e)
-      {
-         if (e.Key == Key.Enter)
-         {
-            if (sender is TextBox textBox)
-            {
-               textBox.Background = new SolidColorBrush(Colors.White);
-               textBox.Foreground = new SolidColorBrush(Colors.Blue);
-            }
-            else if (sender is PasswordBox passwordBox)
-            {
-               passwordBox.Background = new SolidColorBrush(Colors.White);
-               passwordBox.Foreground = new SolidColorBrush(Colors.Blue);
-            }
-            if (ValidateInputs())
-            {
-               LoginButton_Click(sender, e);
-            }
-         }
-      }
+		private void LastNameTextBox_LostFocus(object sender, RoutedEventArgs e)
+		{
+			TextBox textBox = (TextBox)sender;
+			if (string.IsNullOrWhiteSpace(textBox.Text))
+			{
+				textBox.Text = "Mustermann";
+				textBox.Foreground = new SolidColorBrush(Colors.Gray);
+			}
+			ValidateLastName();
+		}
 
-      private void LastNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
-      {
-         TextBox textBox = (TextBox)sender;
-         textBox.Background = new SolidColorBrush(Colors.White);
-         textBox.Foreground = new SolidColorBrush(Colors.Blue);
-      }
+		private void TextBox_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.Enter)
+			{
+				if (sender is TextBox textBox)
+				{
+					textBox.Background = new SolidColorBrush(Colors.White);
+					textBox.Foreground = new SolidColorBrush(Colors.Blue);
+				}
+				else if (sender is PasswordBox passwordBox)
+				{
+					passwordBox.Background = new SolidColorBrush(Colors.White);
+					passwordBox.Foreground = new SolidColorBrush(Colors.Blue);
+				}
+				if (ValidateInputs())
+				{
+					LoginButton_Click(sender, e);
+				}
+			}
+		}
 
-      private void FirstNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
-      {
-         TextBox textBox = (TextBox)sender;
-         textBox.Background = new SolidColorBrush(Colors.White);
-         textBox.Foreground = new SolidColorBrush(Colors.Blue);
-      }
-   }
+		private void LastNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			TextBox textBox = (TextBox)sender;
+			textBox.Background = new SolidColorBrush(Colors.White);
+			textBox.Foreground = new SolidColorBrush(Colors.Blue);
+		}
+
+		private void FirstNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			TextBox textBox = (TextBox)sender;
+			textBox.Background = new SolidColorBrush(Colors.White);
+			textBox.Foreground = new SolidColorBrush(Colors.Blue);
+		}
+	}
 }

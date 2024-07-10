@@ -8,24 +8,17 @@ namespace Klimalauf
 {
    public partial class Scanner : Window
    {
-      private MainViewModel mvmodel;
+      private MainViewModel _mvmodel;
       private StringBuilder barcodeInput = new StringBuilder();
-      private string firstName;
-      private string lastName;
-      private bool isAdmin;
       private DispatcherTimer timer;
       private DateTime lastKeystroke = DateTime.Now;
       private const int scannerInputThreshold = 50;
 
-      public Scanner(string firstName, string lastName, bool isAdmin)
+      public Scanner()
       {
          InitializeComponent();
 
-         ScannerName.Content = $"{lastName}, {firstName}";
          DataContext = this;
-         this.firstName = firstName;
-         this.lastName = lastName;
-         this.isAdmin = isAdmin;
 
          timer = new DispatcherTimer();
          timer.Interval = TimeSpan.FromSeconds(5);
@@ -40,8 +33,9 @@ namespace Klimalauf
 
       private void Window_Loaded(object sender, RoutedEventArgs e)
       {
-         this.mvmodel = FindResource("mvmodel") as MainViewModel;
-         if (this.isAdmin)
+         this._mvmodel = FindResource("mvmodel") as MainViewModel;
+         ScannerName.Content = $"{_mvmodel.Benutzer.Vorname}, {_mvmodel.Benutzer.Nachname}";
+         if (_mvmodel.Benutzer.IsAdmin)
          {
             this.lblAdmin.Visibility = Visibility.Visible;
             this.borderAdmin.Visibility = Visibility.Visible;
@@ -53,21 +47,21 @@ namespace Klimalauf
 
             btnUebersicht.Click += (sender, e) =>
             {
-               Datenuebersicht datenPanel = new Datenuebersicht(firstName, lastName);
+               Datenuebersicht datenPanel = new Datenuebersicht();
                datenPanel.Show();
                this.Close();
             };
 
             btnEinstellung.Click += (sender, e) =>
             {
-               Einstellungen optionsPanel = new Einstellungen(firstName, lastName);
+               Einstellungen optionsPanel = new Einstellungen();
                optionsPanel.Show();
                this.Close();
             };
 
             btnDateien.Click += (sender, e) =>
             {
-               Dateiverwaltung dataPanel = new Dateiverwaltung(firstName, lastName);
+               Dateiverwaltung dataPanel = new Dateiverwaltung();
                dataPanel.Show();
                this.Close();
             };
@@ -125,11 +119,11 @@ namespace Klimalauf
                Runde runde = new Runde();
                runde.Schueler = schueler;
                runde.Zeitstempel = DateTime.Now;
-               runde.BenutzerName = $"{firstName} {lastName}";
+               runde.BenutzerName = $"{_mvmodel.Benutzer.Vorname} {_mvmodel.Benutzer.Nachname}";
                db.Runden.Add(runde);
                db.SaveChanges();
-               mvmodel.hinzufügeLetzteRunde(runde);
-               mvmodel.LstRunden.Add(runde);
+               _mvmodel.hinzufügeLetzteRunde(runde);
+               _mvmodel.LstRunden.Add(runde);
 
                StartHideTimer();
             }

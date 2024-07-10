@@ -2,135 +2,143 @@
 
 namespace Klimalauf
 {
-   public class MainViewModel : BaseModel
-   {
-      private ObservableCollection<FileItem> _lstFiles = new ObservableCollection<FileItem>();
-      private ObservableCollection<Runde> _lstRunden = new ObservableCollection<Runde>();
-      private ObservableCollection<Runde> _lstLetzteRunde = new ObservableCollection<Runde>();
+	public class MainViewModel : BaseModel
+	{
+		private ObservableCollection<FileItem> _lstFiles = new ObservableCollection<FileItem>();
+		private ObservableCollection<Runde> _lstRunden = new ObservableCollection<Runde>();
+		private ObservableCollection<Runde> _lstLetzteRunde = new ObservableCollection<Runde>();
+		private Benutzer _benutzer;
 
-      public ObservableCollection<Runde> LstRunden
-      {
-         get
-         {
-            return this._lstRunden;
-         }
-         set
-         {
-         
-            this._lstRunden = value;
-            OnPropertyChanged("LstRunden");
-         }
-      }
+		public Benutzer Benutzer
+		{
+			get
+			{
+				return this._benutzer;
+			}
+			set
+			{
+				this._benutzer = value;
+				OnPropertyChanged("Benutzer");
+			}
+		}
 
-      public ObservableCollection<Runde> LstLetzteRunde
-      {
-         get
-         {
-            return this._lstLetzteRunde;
-         }
-      }
+		public ObservableCollection<Runde> LstRunden
+		{
+			get
+			{
+				return this._lstRunden;
+			}
+			set
+			{
 
-      public void hinzufügeLetzteRunde(Runde runde)
-      {
-         _lstLetzteRunde.Clear();
-         _lstLetzteRunde.Add(runde);
-         OnPropertyChanged("LstLetzteRunden");
+				this._lstRunden = value;
+				OnPropertyChanged("LstRunden");
+			}
+		}
 
+		public ObservableCollection<Runde> LstLetzteRunde
+		{
+			get
+			{
+				return this._lstLetzteRunde;
+			}
+		}
 
-      }
-
-
-
-     
-
-      public ObservableCollection<FileItem> LstFiles
-      {
-         get
-         {
-            return this._lstFiles;
-         }
-         set
-         {
-
-            this._lstFiles = value;
-            OnPropertyChanged("LstFiles");
-         }
-      }
-
-      private ScanItem _selSC;
-      public ScanItem selSC
-      {
-         get
-         {
-            return this._selSC;
-         }
-
-         set
-         {
-            this._selSC = value;
-
-            this.isSCSelected = this._selSC != null;
+		public void hinzufügeLetzteRunde(Runde runde)
+		{
+			_lstLetzteRunde.Clear();
+			_lstLetzteRunde.Add(runde);
+			OnPropertyChanged("LstLetzteRunden");
 
 
-            OnPropertyChanged("SelSC");
-         }
-      }
-
-      private FileItem _selFI;
-      public FileItem selFI
-      {
-         get
-         {
-            return this._selFI;
-         }
-
-         set
-         {
-            this._selFI = value;
-
-            this.isFISelected = this._selFI != null;
+		}
 
 
-            OnPropertyChanged("SelFI");
-         }
-      }
 
-      private bool _isSCSelected;
-      public bool isSCSelected
-      {
-         get
-         {
-            return _isSCSelected;
-         }
 
-         set
-         {
-            this._isSCSelected = value;
-            OnPropertyChanged("IsSCSelected");
-         }
 
-      }
+		public ObservableCollection<FileItem> LstFiles
+		{
+			get
+			{
+				return this._lstFiles;
+			}
+			set
+			{
 
-      private bool _isFISelected;
-      public bool isFISelected
-      {
-         get
-         {
-            return _isFISelected;
-         }
+				this._lstFiles = value;
+				OnPropertyChanged("LstFiles");
+			}
+		}
 
-         set
-         {
-            this._isFISelected = value;
-            OnPropertyChanged("IsFISelected");
-         }
+		private ScanItem _selSC;
+		public ScanItem selSC
+		{
+			get
+			{
+				return this._selSC;
+			}
 
-      }
+			set
+			{
+				this._selSC = value;
 
-      //public MainViewModel()
-      //{
-      //   this.LstScanner = new ObservableCollection<ScanItem>(ScanItem.AlleLesen());
-      //   this.LstFiles = new ObservableCollection<FileItem>(FileItem.AlleLesen());
-      //}
-   }
+				this.isSCSelected = this._selSC != null;
+
+
+				OnPropertyChanged("SelSC");
+			}
+		}
+
+		private FileItem _selFI;
+		public FileItem selFI
+		{
+			get
+			{
+				return this._selFI;
+			}
+
+			set
+			{
+				this._selFI = value;
+
+				this.isFISelected = this._selFI != null;
+
+
+				OnPropertyChanged("SelFI");
+			}
+		}
+
+		private bool _isSCSelected;
+		public bool isSCSelected
+		{
+			get
+			{
+				return _isSCSelected;
+			}
+
+			set
+			{
+				this._isSCSelected = value;
+				OnPropertyChanged("IsSCSelected");
+			}
+
+		}
+
+		private bool _isFISelected;
+		public bool isFISelected
+		{
+			get
+			{
+				return _isFISelected;
+			}
+
+			set
+			{
+				this._isFISelected = value;
+				OnPropertyChanged("IsFISelected");
+			}
+
+		}
+	}
 }

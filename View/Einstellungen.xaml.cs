@@ -8,18 +8,15 @@ namespace Klimalauf
    /// </summary>
    public partial class Einstellungen : Window
    {
-      private String firstName;
-      private String lastName;
-
-      public Einstellungen(string firstName, string lastName)
+    private MainViewModel _mvmodel;
+      public Einstellungen()
       {
          InitializeComponent();
 
-         // Set the ScannerName label with the passed names
-         ScannerName.Content = $"{lastName}, {firstName}";
+         _mvmodel = FindResource("mvmodel") as MainViewModel;
+
+         ScannerName.Content = $"{_mvmodel.Benutzer.Vorname}, {_mvmodel.Benutzer.Nachname}";
          DataContext = this;
-         this.firstName = firstName;
-         this.lastName = lastName;
       }
 
       private void LogoutIcon_MouseDown(object sender, MouseButtonEventArgs e)
@@ -40,7 +37,7 @@ namespace Klimalauf
       private void CloseWindow_Click(object sender, RoutedEventArgs e)
       {
          // Open admin panel window
-         Scanner adminPanel = new Scanner(firstName, lastName, true);
+         Scanner adminPanel = new Scanner();
          adminPanel.Show();
          this.Close();
       }

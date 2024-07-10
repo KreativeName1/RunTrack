@@ -10,19 +10,12 @@ namespace Klimalauf
     public partial class Dateiverwaltung : Window
     {
         private MainViewModel _mvmodel;
-        private String _firstName;
-        private String _lastName;
 
-        public Dateiverwaltung(string firstName, string lastName)
+        public Dateiverwaltung()
         {
             InitializeComponent();
-
-            // Set the ScannerName label with the passed names
-            ScannerName.Content = $"{lastName}, {firstName}";
-            _firstName = firstName;
-            _lastName = lastName;
-
             _mvmodel = FindResource("mvmodel") as MainViewModel;
+            ScannerName.Content = $"{_mvmodel.Benutzer.Vorname}, {_mvmodel.Benutzer.Nachname}";
 
 
         }
@@ -105,7 +98,7 @@ namespace Klimalauf
 
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
-            Scanner adminPanel = new Scanner(_firstName, _lastName, true);
+            Scanner adminPanel = new Scanner();
             adminPanel.Show();
             this.Close();
         }
