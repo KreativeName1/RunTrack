@@ -1,67 +1,72 @@
-﻿using iText.Kernel.Font;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Klimalauf
+﻿namespace Klimalauf
 {
 
-    public enum SchriftTyp
-    {
-        Normal,
-        Fett,
-        Kursiv,
-        FettKursiv
-    }
-    public class Format
-    {
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
+	public enum SchriftTyp
+	{
+		Normal,
+		Fett,
+		Kursiv,
+		FettKursiv
+	}
+	public enum Orientierung
+	{
+		Hochformat,
+		Querformat
+	}
 
-        // Seitenränder
-        public float SeitenRandOben { get; set; } = 20;
-        public float SeitenRandUnten { get; set; } = 20;
-        public float SeitenRandLinks { get; set; } = 20;
-        public float SeitenRandRechts { get; set; } = 20;
+	public class Format
+	{
+		public int Id { get; set; }
+		public string Name { get; set; } = string.Empty;
 
-        // Zellen
-        public int ZellenAbstandHorizontal { get; set; } = 0;
-        public int ZellenAbstandVertikal { get; set; } = 0;
-        public int ZellenBreite { get; set; } = 100;
-        public int ZellenHoehe { get; set; } = 100;
+		// Seitenränder
+		public float SeitenRandOben { get; set; } = 20;
+		public float SeitenRandUnten { get; set; } = 20;
+		public float SeitenRandLinks { get; set; } = 20;
+		public float SeitenRandRechts { get; set; } = 20;
 
-        // Schrift
-        public float SchriftGroesse { get; set; } = 12;
-        public SchriftTyp SchriftTyp { get; set; } = SchriftTyp.Fett;
+		// Zellen
+		public int ZellenAbstandHorizontal { get; set; } = 0;
+		public int ZellenAbstandVertikal { get; set; } = 0;
+		public int ZellenBreite { get; set; } = 100;
+		public int ZellenHoehe { get; set; } = 100;
 
-        // Weiteres
-        public bool KopfAnzeigen { get; set; } = true;
-        public int SpaltenAnzahl { get; set; } = 1;
+		// Schrift
+		public float SchriftGroesse { get; set; } = 12;
+		public SchriftTyp SchriftTyp { get; set; } = SchriftTyp.Fett;
 
 
-        public Format(float seitenRandOben, float seitenRandUnten, float seitenRandLinks, float seitenRandRechts, int spaltenAnzahl, int zellenAbstandHorizontal, int zellenAbstandVertikal, int zellenBreite, int zellenHoehe)
-        {
-            this.SeitenRandOben = seitenRandOben;
-            this.SeitenRandUnten = seitenRandUnten;
-            this.SeitenRandLinks = seitenRandLinks;
-            this.SeitenRandRechts = seitenRandRechts;
-            this.SpaltenAnzahl = spaltenAnzahl;
-            this.ZellenAbstandHorizontal = zellenAbstandHorizontal;
-            this.ZellenAbstandVertikal = zellenAbstandVertikal;
-            this.ZellenBreite = zellenBreite;
-            this.ZellenHoehe = zellenHoehe;
-        }
+		public BlattGroesse BlattGroesse { get; set; }
 
-        public Format()
-        {
+		public int BlattGroesseId { get; set; }
 
-        }
+		public Orientierung Orientierung { get; set; } = Orientierung.Hochformat;
 
-        public override string ToString()
-        {
-            return Name;
-        }
-    }
+		// Weiteres
+		public bool KopfAnzeigen { get; set; } = true;
+		public int SpaltenAnzahl { get; set; } = 1;
+
+
+		public Format(float seitenRandOben, float seitenRandUnten, float seitenRandLinks, float seitenRandRechts, int spaltenAnzahl, int zellenAbstandHorizontal, int zellenAbstandVertikal, int zellenBreite, int zellenHoehe)
+		{
+			this.SeitenRandOben = seitenRandOben;
+			this.SeitenRandUnten = seitenRandUnten;
+			this.SeitenRandLinks = seitenRandLinks;
+			this.SeitenRandRechts = seitenRandRechts;
+			this.SpaltenAnzahl = spaltenAnzahl;
+			this.ZellenAbstandHorizontal = zellenAbstandHorizontal;
+			this.ZellenAbstandVertikal = zellenAbstandVertikal;
+			this.ZellenBreite = zellenBreite;
+			this.ZellenHoehe = zellenHoehe;
+		}
+
+		public Format()
+		{
+		}
+
+		public override string ToString()
+		{
+			return Name;
+		}
+	}
 }
