@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Klimalauf"
-        mc:Ignorable="d"
+        mc:Ignorable="d" Loaded="Window_Loaded"
         Title="AdminErstellen" Height="360" Width="450" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
@@ -14,12 +14,12 @@
         <Label Content="Nachname:" HorizontalAlignment="Left" Margin="87,132,0,0" FontSize="14" RenderTransformOrigin="0.529,0.231" FontFamily="72" FontWeight="Bold" Height="26" VerticalAlignment="Top"/>
         <Label Content="Passwort:" HorizontalAlignment="Left" Margin="87,178,0,0" FontSize="14" RenderTransformOrigin="0.529,0.231" FontFamily="72" FontWeight="Bold" Height="26" VerticalAlignment="Top"/>
 
-        <TextBox x:Name="txtVorname" Margin="192,85,0,0" TextWrapping="Wrap" HorizontalAlignment="Left" Width="150" FontSize="14" Padding="5" Foreground="Gray" Text="Max" Height="30" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtVorname" Margin="192,85,0,0" TextWrapping="Wrap" HorizontalAlignment="Left" Width="150" FontSize="14" Padding="5" Foreground="Gray" Text="Max" Height="30" VerticalAlignment="Top" KeyDown="TextBox_KeyDown" TextChanged="txtVorname_TextChanged" GotFocus="txtVorname_GotFocus" LostFocus="txtVorname_LostFocus"/>
 
-        <TextBox x:Name="txtNachname" HorizontalAlignment="Left" Margin="192,130,0,0" TextWrapping="Wrap" Width="150" FontSize="14" Padding="5" Foreground="Gray" Text="Mustermann" Height="30" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtNachname" HorizontalAlignment="Left" Margin="192,130,0,0" TextWrapping="Wrap" Width="150" FontSize="14" Padding="5" Foreground="Gray" Text="Mustermann" Height="30" VerticalAlignment="Top" KeyDown="TextBox_KeyDown" TextChanged="txtNachname_TextChanged" GotFocus="txtNachname_GotFocus" LostFocus="txtNachname_LostFocus"/>
 
-        <PasswordBox x:Name="txtPasswort" HorizontalAlignment="Left" Margin="192,176,0,0" Width="150" FontSize="14" Padding="5" Foreground="Gray" Height="30" VerticalAlignment="Top"/>
+        <PasswordBox x:Name="txtPasswort" HorizontalAlignment="Left" Margin="192,176,0,0" Width="150" FontSize="14" Padding="5" Foreground="Gray" Height="30" VerticalAlignment="Top" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswort_LostFocus"/>
 
-        <Button x:Name="btnErstellen" Content="Erstellen" HorizontalAlignment="Center" Margin="0,245,0,0" VerticalAlignment="Top" Width="250" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35" RenderTransformOrigin="0.509,-0.436"/>
+        <Button x:Name="btnErstellen" Content="Erstellen" HorizontalAlignment="Center" Margin="0,245,0,0" VerticalAlignment="Top" Width="250" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35" RenderTransformOrigin="0.509,-0.436" Click="btnErstellen_Click"/>
     </Grid>
 </Window>
