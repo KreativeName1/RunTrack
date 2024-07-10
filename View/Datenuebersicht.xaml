@@ -85,7 +85,8 @@
                         <DataGridTextColumn Width="20*" Header="Schule" Binding="{Binding Klasse.Schule.Name}"/>
                         <DataGridTextColumn Width="11*" Header="Runden" Binding="{Binding Runden.Count}"/>
                         <!--<DataGridTextColumn Width="15*" Header="Bestzeit" Binding="{Binding rundenBestZeit}"/>-->
-                        <DataGridTextColumn Width="15*" Header="Rundengröße" Binding="{Binding Klasse.RundenArt.LaengeInMeter, StringFormat={}{0} m}"/>  <!--Binding="{Binding Klasse.RundenArt.LaengeInMeter}"/>-->
+                        <DataGridTextColumn Width="15*" Header="Rundengröße" Binding="{Binding Klasse.RundenArt.LaengeInMeter, StringFormat={}{0} m}"/>
+                        <!--Binding="{Binding Klasse.RundenArt.LaengeInMeter}"/>-->
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
