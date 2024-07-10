@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <None Remove="MainWindow.xaml~RF6d463b42.TMP" />
+    <None Remove="View\AdminErstellen.xaml.cs~RF9b0defe3.TMP" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +29,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Images\iconRunMan.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Images\logout.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
