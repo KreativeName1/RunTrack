@@ -76,7 +76,7 @@ namespace Klimalauf
 
             using (var db = new LaufDBContext())
             {
-                dumodel.LstRunde = new ObservableCollection<Runde>(db.Runden.Include(r => r.Schueler).ThenInclude(s => s.Klasse).ThenInclude(k => k.Schule).ToList());
+                dumodel.LstRunde = new ObservableCollection<Runde>(db.Runden.Include(r => r.Schueler).ThenInclude(s => s.Klasse).ThenInclude(k => k.Schule) .Include(s => s.Schueler.Klasse) .ThenInclude(r => r.RundenArt) .ToList());
             }
         }
 
@@ -88,7 +88,9 @@ namespace Klimalauf
             {
                 dumodel.LstSchueler = new ObservableCollection<Schueler>(db.Schueler
                     .Include(s => s.Klasse)
-                    .ThenInclude(k => k.Schule)
+                        .ThenInclude(k => k.Schule)
+                    .Include(s => s.Klasse)
+                        .ThenInclude(r => r.RundenArt)
                     .Include(s => s.Runden)
                     .ToList());
             }
