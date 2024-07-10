@@ -32,15 +32,15 @@ namespace Klimalauf
 
             btnNeuladen.Click += (s, e) =>
             {
-                PDFViewer.Navigate("about:blank");
+                webView.Source = new Uri("about:blank");
                 string pfad  = PDFGenerator.BarcodesPDF(m.Klasse, m.Klasse.Schule.Name, m.Format);
-                PDFViewer.Navigate(pfad);
+                webView.Source = new Uri(pfad);
             };
             this.Loaded += (s, e) =>
             {
-                PDFViewer.Navigate("about:blank");
+                webView.Source = new Uri("about:blank");
                 string pfad = PDFGenerator.BarcodesPDF(m.Klasse, m.Klasse.Schule.Name, m.Format);
-                PDFViewer.Navigate(pfad);
+                webView.Source = new Uri(pfad);
             };
         }
     }

@@ -15,7 +15,6 @@ namespace Klimalauf
         public float SeitenRandLinks { get; set; } = 0;
         public float SeitenRandRechts { get; set; } = 0;
         public int SpaltenAnzahl { get; set; } = 1;
-        public int ZeilenAnzahl { get; set; } = 1;
         public int ZellenAbstandHorizontal { get; set; } = 0;
         public int ZellenAbstandVertikal { get; set; } = 0;
         public int ZellenBreite { get; set; } = 100;
@@ -24,14 +23,13 @@ namespace Klimalauf
 
         public bool HeaderAnzeigen { get; set; } = true;
 
-        public Format(float seitenRandOben, float seitenRandUnten, float seitenRandLinks, float seitenRandRechts, int spaltenAnzahl, int zeilenAnzahl, int zellenAbstandHorizontal, int zellenAbstandVertikal, int zellenBreite, int zellenHoehe, string[] blattgroessen)
+        public Format(float seitenRandOben, float seitenRandUnten, float seitenRandLinks, float seitenRandRechts, int spaltenAnzahl, int zellenAbstandHorizontal, int zellenAbstandVertikal, int zellenBreite, int zellenHoehe, string[] blattgroessen)
         {
             this.SeitenRandOben = seitenRandOben;
             this.SeitenRandUnten = seitenRandUnten;
             this.SeitenRandLinks = seitenRandLinks;
             this.SeitenRandRechts = seitenRandRechts;
             this.SpaltenAnzahl = spaltenAnzahl;
-            this.ZeilenAnzahl = zeilenAnzahl;
             this.ZellenAbstandHorizontal = zellenAbstandHorizontal;
             this.ZellenAbstandVertikal = zellenAbstandVertikal;
             this.ZellenBreite = zellenBreite;

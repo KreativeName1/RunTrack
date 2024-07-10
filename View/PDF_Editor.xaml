@@ -4,49 +4,161 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Klimalauf"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d"
         Title="PDF_Editor" Height="800" Width="1000">
     <Grid DataContext="{StaticResource pemodel}" >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Height="800"  >
+            <wv2:WebView2 x:Name="webView" />
+        </Grid>
+        <StackPanel Margin="20,0,20,0" Width="140" HorizontalAlignment="Right"  Orientation="Vertical" Grid.Column="1">
 
-        <WebBrowser x:Name="PDFViewer" Grid.Column="0" Height="800" Width="600"/>
-        <StackPanel Orientation="Vertical" Grid.Column="1">
-            <!--Blattgröße (a4,a5,..., Eigen-->
+            <Label Content="Format" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top"/>
+            <Border BorderBrush="Black" BorderThickness="1">
+                <Grid>
+                    <!-- Option zum laden und bennenen der Formate-->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Column="0" Grid.Row="0">
+                        <Label Content="Formatname" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <TextBox Text="{Binding Format.FormatName}" x:Name="txtFormatName" HorizontalAlignment="Center" Height="23"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="0" Grid.Row="1">
+                        <Button Content="Speichern" x:Name="btnSpeichern" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Width="70"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
             <Label Content="Blattgröße:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
             <ComboBox ItemsSource="{Binding Format.Blattgroessen}" x:Name="cbBlattgröße" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="120"/>
-            <!--Seitenränder-->
-            <Label Content="Seitenränder:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
-            <Label Content="Oben:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-            <TextBox Text="{Binding Format.SeitenRandOben}" x:Name="txtOben" HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
-            <Label Content="Links:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-            <TextBox Text="{Binding Format.SeitenRandLinks}" x:Name="txtLinks" HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
-            <Label Content="Rechts:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-            <TextBox Text="{Binding Format.SeitenRandRechts}" x:Name="txtRechts" HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
-            <Label Content="Unten:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-            <TextBox Text="{Binding Format.SeitenRandUnten}" x:Name="txtUnten" HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
-            
-            <!--Spalten/Reihen Anzahl-->
-            <Label Content="Spalten/Reihen:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
-            <Label Content="Spalten:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
-            <TextBox Text="{Binding Format.SpaltenAnzahl}" x:Name="txtSpalten" HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
-            <Label Content="Reihen:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
-            <TextBox Text="{Binding Format.ZeilenAnzahl}" x:Name="txtReihen" HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
-               
+
+            <Label Content="Seitenränder" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top"/>
+            <Border BorderBrush="Black" BorderThickness="1">
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Column="0" Grid.Row="0">
+                    <Label Content="Oben" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <TextBox Text="{Binding Format.SeitenRandOben}" x:Name="txtOben" HorizontalAlignment="Center" Height="23" Width="70"  TextWrapping="Wrap" VerticalAlignment="Top" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="0">
+                    <Label Content="Unten" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <TextBox Text="{Binding Format.SeitenRandUnten}" x:Name="txtUnten" HorizontalAlignment="Left" Height="23"  Width="70"  TextWrapping="Wrap" VerticalAlignment="Top"/>
+                </StackPanel>
+                <StackPanel Grid.Column="0" Grid.Row="1">
+                    <Label Content="Links" HorizontalAlignment="Center"  VerticalAlignment="Top"/>
+                    <TextBox Text="{Binding Format.SeitenRandLinks}" x:Name="txtLinks" HorizontalAlignment="Center" Height="23" Width="70" TextWrapping="Wrap" VerticalAlignment="Top" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="1">
+                    <Label Content="Rechts" HorizontalAlignment="Center"  VerticalAlignment="Top"/>
+                    <TextBox Text="{Binding Format.SeitenRandRechts}" x:Name="txtRechts" HorizontalAlignment="Center" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+                </StackPanel>
+            </Grid>
+            </Border>
+           
+
             <!--Zellen: Abstände, Breite, Höhe-->
-            <Label Content="Zellen:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
-            <Label Content="Abstände:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
-            <Label Content="Horizontal:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
-            <TextBox Text="{Binding Format.ZellenAbstandHorizontal}" x:Name="txtAbstandHorizontal" HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
-            <Label Content="Vertikal:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
-            <TextBox Text="{Binding Format.ZellenAbstandVertikal}" x:Name="txtAbstandVertikal" HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
-            <Label Content="Breite:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
-            <TextBox Text="{Binding Format.ZellenBreite}" x:Name="txtBreite" HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
-            <Label Content="Höhe:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
-            <TextBox Text="{Binding Format.ZellenHoehe}" x:Name="txtHöhe" HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
-            <Button Content="Neuladen" x:Name="btnNeuladen" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="120"/>
+            <Label Content="Zellenabstand" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top"/>
+            <Border BorderBrush="Black" BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition  Width="Auto"/>
+                        <ColumnDefinition  Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <Label Content="Horizontal" HorizontalAlignment="Center"  VerticalAlignment="Top"/>
+                        <TextBox Text="{Binding Format.ZellenAbstandHorizontal}" x:Name="txtAbstandHorizontal" HorizontalAlignment="Center" Height="23"  TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <Label Content="Vertikal" HorizontalAlignment="Center"  VerticalAlignment="Top"/>
+                        <TextBox Text="{Binding Format.ZellenAbstandVertikal}" x:Name="txtAbstandVertikal" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Label Content="Zellengröße" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold"/>
+            <Border BorderBrush="Black" BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition  Width="Auto"/>
+                        <ColumnDefinition  Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <Label Content="Breite" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top"/>
+                        <TextBox Text="{Binding Format.ZellenBreite}" x:Name="txtBreite" HorizontalAlignment="Center" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <Label Content="Höhe" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top"/>
+                        <TextBox Text="{Binding Format.ZellenHoehe}" x:Name="txtHöhe" HorizontalAlignment="Center" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Label Content="Schrift" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top"/>
+            <Border  BorderBrush="Black" BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition  Width="Auto"/>
+                        <ColumnDefinition  Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <Label Content="Größe" HorizontalAlignment="Center"  VerticalAlignment="Top"/>
+                        <TextBox Text="{Binding Format.SchriftGroesse}" x:Name="txtGroesse" HorizontalAlignment="Center" Height="23"  TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <Label Content="Typ" HorizontalAlignment="Center"  VerticalAlignment="Top"/>
+                        <ComboBox ItemsSource="{Binding Format.SchriftTypen}" x:Name="cbTyp" HorizontalAlignment="Center" Height="23"  VerticalAlignment="Top" Width="70"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
+                        <Label Content="Schriftart" HorizontalAlignment="Center"  VerticalAlignment="Top"/>
+                        <ComboBox ItemsSource="{Binding Format.SchriftArten}" x:Name="cbArt" HorizontalAlignment="Center" Height="23"  VerticalAlignment="Top" Width="140"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Label Content="Weiteres" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top"/>
+            <Border BorderBrush="Black" BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition  Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0">
+                        <CheckBox IsChecked="{Binding Format.KopfAnzeigen}" x:Name="chkKopf" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center"/>
+                        <Label Content="Kopf Anzeigen"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" >
+                        <Label Content="Spaltenanzahl" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+                        <TextBox Text="{Binding Format.SpaltenAnzahl}" x:Name="txtSpalten" HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+                
+            <Button Content="Neuladen" x:Name="btnNeuladen" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" Width="120"/>
+
         </StackPanel>
 
     </Grid>

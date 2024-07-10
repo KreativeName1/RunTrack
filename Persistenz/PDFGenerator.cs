@@ -28,11 +28,10 @@ namespace Klimalauf
             }
 
             int numColumns = f.SpaltenAnzahl;
-            int numRows = f.ZeilenAnzahl;
             float columnWidth = f.ZellenBreite;
             Table table = new Table(UnitValue.CreatePointArray(Enumerable.Repeat(columnWidth, numColumns).ToArray()));
 
-            table.SetWidth(UnitValue.CreatePercentValue(100));
+            table.SetWidth(numColumns * columnWidth + (numColumns + 1) * f.ZellenAbstandVertikal);
             table.SetHorizontalAlignment(HorizontalAlignment.CENTER);
 
 
