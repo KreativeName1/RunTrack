@@ -154,5 +154,6 @@ namespace Klimalauf
         public DbSet<Runde> Runden { get; set; }
         public DbSet<RundenArt> RundenArten { get; set; }
         public DbSet<Benutzer> Benutzer { get; set; }
+        public DbSet<Format> Formate { get; set; }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using iText.Barcodes;
+using iText.IO.Font;
 using iText.Kernel.Colors;
+using iText.Kernel.Font;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Xobject;
@@ -7,7 +9,9 @@ using iText.Layout;
 using iText.Layout.Borders;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using System.Drawing;
 using System.IO;
+using Image = iText.Layout.Element.Image;
 
 namespace Klimalauf
 {
@@ -21,7 +25,7 @@ namespace Klimalauf
             Document document = new Document(pdf, PageSize.A4);
             document.SetMargins(f.SeitenRandOben, f.SeitenRandRechts, f.SeitenRandUnten, f.SeitenRandLinks);
 
-            if (f.HeaderAnzeigen)
+            if (f.KopfAnzeigen)
             {
                 document.Add(new Paragraph("Schule: " + schulename).SetTextAlignment(TextAlignment.LEFT).SetBold().SetFontSize(14));
                 document.Add(new Paragraph("Klasse: " + klasse.Name).SetTextAlignment(TextAlignment.LEFT).SetBold().SetFontSize(14));
@@ -31,8 +35,8 @@ namespace Klimalauf
             float columnWidth = f.ZellenBreite;
             Table table = new Table(UnitValue.CreatePointArray(Enumerable.Repeat(columnWidth, numColumns).ToArray()));
 
-            table.SetWidth(numColumns * columnWidth + (numColumns + 1) * f.ZellenAbstandVertikal);
-            table.SetHorizontalAlignment(HorizontalAlignment.CENTER);
+            table.SetWidth(numColumns * columnWidth);
+            table.SetHorizontalAlignment(HorizontalAlignment.LEFT);
 
 
             for (int i = 0; i < klasse.Schueler.Count; i++)
@@ -50,14 +54,22 @@ namespace Klimalauf
                 Image img = new Image(barcode);
                 img.SetHeight(f.ZellenHoehe - 10);
                 img.SetWidth(f.ZellenBreite - 10);
+
                 img.SetHorizontalAlignment(HorizontalAlignment.CENTER);
                 cell.Add(img);
 
                 // Schülername und ID in PDF einfügen
                 Paragraph p = new Paragraph(klasse.Schueler[i].Vorname + " " + klasse.Schueler[i].Nachname + " - " + klasse.Schueler[i].Id.ToString());
-                p.SetBold();
+                if (f.SchriftTyp == SchriftTyp.Fett) p.SetBold();
+                if (f.SchriftTyp == SchriftTyp.Kursiv) p.SetItalic();
+                if (f.SchriftTyp == SchriftTyp.FettKursiv) p.SetBold().SetItalic();
+                p.SetFontSize(f.SchriftGroesse);
                 p.SetTextAlignment(TextAlignment.CENTER);
                 cell.Add(p);
+
+                cell.SetPaddingTop(f.ZellenAbstandHorizontal);
+                cell.SetPaddingRight(f.ZellenAbstandVertikal);
+
                 table.AddCell(cell);
             }
 
