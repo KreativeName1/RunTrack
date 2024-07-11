@@ -5,113 +5,120 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Klimalauf"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        mc:Ignorable="d"
-        Title="Auswertung" Height="600" Width="800">
+        mc:Ignorable="d" Icon="pack://application:,,,/Images/iconRunMan.ico"
+        Title="Auswertung" Height="650" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
-            <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top" Grid.ColumnSpan="2" Visibility="Visible"/>
-            <Label Content="Benutzer:" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Height="26" Width="64"/>
-            <Label x:Name="ScannerName" Content="Name, Vorname" HorizontalAlignment="Left" Margin="79,1,0,0" VerticalAlignment="Top" Foreground="Wheat" Height="26" Width="95"/>
-            <Label Content="Admin" HorizontalAlignment="Center" Margin="0,2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Grid.ColumnSpan="2"/>
+        <Grid Grid.Row="0" Grid.ColumnSpan="2">
 
-            <Image Source="pack://application:,,,/Images/logout.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" Grid.Column="1">
+            <Rectangle x:Name="rectUser" Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top" Grid.ColumnSpan="3" Visibility="Visible"/>
+            <Label x:Name="userName" Content="Benutzer:" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
+            <Label x:Name="ScannerName" Content="Name, Vorname" HorizontalAlignment="Left" Margin="79,1,0,0" VerticalAlignment="Top" Foreground="Wheat"/>
+
+            <Label x:Name="lblAdmin" Content="Admin" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Visibility="Hidden" Grid.Column="1" Cursor=""/>
+
+            <Image Source="pack://application:,,,/Images/logout.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" Grid.Column="2">
                 <Image.ToolTip>
                     <ToolTip>Logout</ToolTip>
                 </Image.ToolTip>
             </Image>
         </Grid>
+        
         <StackPanel Grid.Row="1" Grid.Column="0" Margin="10,0,10,0">
-            <Label Content="Auswertung" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="2"/>
-            <GroupBox x:Name="gbAuswahl" BorderThickness="0" >
-            <Border BorderBrush="Black" BorderThickness="1" Padding="10" Margin="0,0,0,20">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+            <Label Content="Auswertung"  HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="2"/>
+            <Border BorderBrush="Black" BorderThickness="1" Padding="10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
-                    <StackPanel Grid.Row="0" Margin="0,10,0,0" Orientation="Horizontal">
-                        <RadioButton x:Name="rbInsgesamt" Content="Insgesamt" IsChecked="True" VerticalAlignment="Center"/>
-                    </StackPanel>
-                    
-                    <Grid Grid.Row="1" Margin="0,10,0,10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="150"/>
-                        </Grid.ColumnDefinitions>
-                        <RadioButton x:Name="rbSchule" Grid.Column="0" Content="Schule" VerticalAlignment="Center"/>
-                        <ComboBox x:Name="cbSchule"  HorizontalAlignment="Right" Grid.Column="1" Width="145"  VerticalAlignment="Center"/>
+                        <StackPanel Grid.Row="0" Margin="0,10,0,0" Orientation="Horizontal">
+                            <RadioButton GroupName="Wer" x:Name="rbInsgesamt" Content="Insgesamt" IsChecked="True" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <Grid Grid.Row="1" Margin="0,10,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
+                            <RadioButton GroupName="Wer" x:Name="rbSchule" Grid.Column="0" Content="Schule" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="cbSchule"  HorizontalAlignment="Right" Grid.Column="1" Width="145"  VerticalAlignment="Center"/>
+                        </Grid>
+
+                        <Grid Grid.Row="2" Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
+                            <RadioButton GroupName="Wer" x:Name="rbKlasse" Grid.Column="0" Content="Klasse" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="cbKlasse" HorizontalAlignment="Right" Grid.Column="1" Width="145"  Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        </Grid>
+
+                        <Grid Grid.Row="3" Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
+                            <RadioButton GroupName="Wer" Grid.Column="0" Content="Jahrgang" VerticalAlignment="Center"/>
+                            <xctk:IntegerUpDown HorizontalAlignment="Right" Grid.Column="1" Width="145" x:Name="iudJahrgang" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        </Grid>
                     </Grid>
-                    
-                    <Grid Grid.Row="2" Margin="0,0,0,10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="150"/>
-                        </Grid.ColumnDefinitions>
-                        <RadioButton x:Name="rbKlasse" Grid.Column="0" Content="Klasse" VerticalAlignment="Center"/>
-                        <ComboBox x:Name="cbKlasse" HorizontalAlignment="Right" Grid.Column="1" Width="145"  Margin="5,0,0,0" VerticalAlignment="Center"/>
-                    </Grid>
-                    
-                    <Grid Grid.Row="3" Margin="0,0,0,10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="150"/>
-                        </Grid.ColumnDefinitions>
-                        <RadioButton Grid.Column="0" Content="Jahrgang" VerticalAlignment="Center"/>
-                        <xctk:IntegerUpDown HorizontalAlignment="Right" Grid.Column="1" Width="145" x:Name="iudJahrgang" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                    </Grid>
-                </Grid>
-            </Border>
-            </GroupBox>
-            <Border BorderBrush="Black" BorderThickness="1" Padding="10" Margin="0,0,0,20">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <RadioButton x:Name="rbAnzahl" Grid.Row="0" Content="Rundenanzahl" IsChecked="True" VerticalAlignment="Center"/>
-                    <RadioButton x:Name="rbZeit" Grid.Row="1" Content="Zeit" VerticalAlignment="Center" Margin="0,0,0,0"/>
-                    <RadioButton x:Name="rbDistanz" Grid.Row="2" Content="Distanz" VerticalAlignment="Center" Margin="0,0,0,0"/>
-                </Grid>
+                </Border>
+
+            <Label Content="Runden" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="16"/>
+
+            <Border BorderBrush="Black" BorderThickness="1" Padding="10">
+                <StackPanel>
+                    <RadioButton GroupName="Typ" Name="Anzahl" Grid.Row="0" Content="Rundenanzahl" IsChecked="True" VerticalAlignment="Center"/>
+                    <RadioButton GroupName="Typ" Name="Zeit" Grid.Row="1" Content="Zeit" VerticalAlignment="Center" />
+                    <RadioButton GroupName="Typ" Name="Distanz" Grid.Row="2" Content="Distanz" VerticalAlignment="Center" />
+                </StackPanel>
             </Border>
 
-            <Border BorderBrush="Black" BorderThickness="1" Padding="10" Margin="0,0,0,20">
-                <Grid>
-                    <!-- Geschlecht-->
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <RadioButton x:Name="rbGeschlecht" Grid.Row="0" Content="Gesamt" IsChecked="True" VerticalAlignment="Center"/>
-                    <RadioButton x:Name="rbMaenlich" Grid.Row="1" Content="Männlich" VerticalAlignment="Center" Margin="0,0,0,0"/>
-                    <RadioButton x:Name="rbWeiblich" Grid.Row="2" Content="Weiblich" VerticalAlignment="Center" Margin="0,0,0,0"/>
-                </Grid>
+            <Label Content="Geschlecht" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="16"/>
+
+            <Border BorderBrush="Black" BorderThickness="1" Padding="10">
+                <StackPanel>
+                    <RadioButton GroupName="Geschlecht" Name="Gesamt" Content="Gesamt" IsChecked="True" VerticalAlignment="Center"/>
+                    <RadioButton GroupName="Geschlecht" Name="Maennlich"  Content="Männlich" VerticalAlignment="Center"/>
+                    <RadioButton GroupName="Geschlecht" Name="Weiblich"  Content="Weiblich" VerticalAlignment="Center"/>
+                </StackPanel>
             </Border>
 
-            <Border BorderBrush="Black" BorderThickness="1">
+            <Label Content="Rundenart"  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="16"/>
+
+            <Border BorderBrush="Black" BorderThickness="1" MinHeight="30" Padding="10">
                 <StackPanel x:Name="RundenGroesse">
+                    <!-- Wird im Code gefüllt-->
                 </StackPanel>
             </Border>
             
         </StackPanel>
 
-        <DataGrid>
+        <DataGrid Grid.Row="1" Grid.Column="1">
         </DataGrid>
+
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2" Grid.ColumnSpan="2" >
+            <Grid >
+            <StackPanel Orientation="Horizontal" Margin="10,0,10,0">
+                <Button x:Name="btnImport" Content="Exportieren" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="100" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+                <Button x:Name="btnExport" Content="Exportieren" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="100" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+            </StackPanel>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

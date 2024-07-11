@@ -26,6 +26,8 @@ namespace Klimalauf
             InitializeComponent();
             pfade = System.IO.Directory.GetFiles("Dateien", "*.db");
             LoadData();
+
+            
         }
 
         public void LoadData()
@@ -33,7 +35,8 @@ namespace Klimalauf
             using (var db = new MergedDBContext(pfade))
             {
                 bool first = true;
-                foreach (RundenArt rundenArt in db.RundenArten)
+                if (db.RundenArten.Count() == 0) RundenGroesse.Children.Add(new Label {Content = "Keine Rundenarten vorhanden" });
+                else foreach (RundenArt rundenArt in db.RundenArten)
                 {
                     RadioButton rb = new RadioButton
                     {
