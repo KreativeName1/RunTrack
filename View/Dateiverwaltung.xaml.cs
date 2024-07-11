@@ -3,7 +3,9 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Klimalauf
 {
@@ -124,5 +126,63 @@ namespace Klimalauf
                 }
             }
         }
-    }
+
+      private bool sortByFileNameAscending = true;
+      private bool sortByUploadDateAscending = true;
+
+      private void FileNameLabel_MouseDown(object sender, MouseButtonEventArgs e)
+      {
+         SortFilesByPropertyName("FileName", ref sortByFileNameAscending);
+      }
+
+      private void UploadDateLabel_MouseDown(object sender, MouseButtonEventArgs e)
+      {
+         SortFilesByPropertyName("UploadDate", ref sortByUploadDateAscending);
+      }
+
+      private void SortFilesByPropertyName(string propertyName, ref bool ascending)
+      {
+         List<FileItem> sortedList;
+         if (propertyName == "FileName")
+         {
+            sortedList = ascending ? _mvmodel.LstFiles.OrderBy(f => f.FileName).ToList()
+                                   : _mvmodel.LstFiles.OrderByDescending(f => f.FileName).ToList();
+            sortByFileNameAscending = !ascending;
+         }
+         else if (propertyName == "UploadDate")
+         {
+            sortedList = ascending ? _mvmodel.LstFiles.OrderBy(f => f.UploadDate).ToList()
+                                   : _mvmodel.LstFiles.OrderByDescending(f => f.UploadDate).ToList();
+            sortByUploadDateAscending = !ascending;
+         }
+         else
+         {
+            return;
+         }
+
+         _mvmodel.LstFiles.Clear();
+         foreach (var item in sortedList)
+         {
+            _mvmodel.LstFiles.Add(item);
+         }
+      }
+
+
+      private void Label_MouseEnter(object sender, MouseEventArgs e)
+      {
+         if (sender is TextBlock label)
+         {
+            label.Foreground = Brushes.Green; // Ändere die Textfarbe oder andere Eigenschaften für die Hervorhebung
+         }
+      }
+
+      private void Label_MouseLeave(object sender, MouseEventArgs e)
+      {
+         if (sender is TextBlock label)
+         {
+            label.Foreground = Brushes.Black; // Setze die Textfarbe oder andere Eigenschaften zurück
+         }
+      }
+
+   }
 }

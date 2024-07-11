@@ -58,14 +58,41 @@ namespace Klimalauf
         }
 
         private void btnStartseite_Click(object sender, RoutedEventArgs e)
-        {
-            SetVisibility(Visibility.Collapsed, Visibility.Collapsed, Visibility.Collapsed, Visibility.Collapsed, Visibility.Visible);
+{
+    SetVisibility(Visibility.Collapsed, Visibility.Collapsed, Visibility.Collapsed, Visibility.Collapsed, Visibility.Visible);
 
-            using (var db = new LaufDBContext())
+    using (var db = new LaufDBContext())
+    {
+        // Lade die Schulen
+        _dumodel.LstSchule = new ObservableCollection<Schule>(db.Schulen.ToList());
+
+        // Lade die Klassen mit ihren Rundengrößen
+        /*var klassenMitRundengroesse = db.Klassen
+            .Include(k => k.RundenArt)
+            .ToList();
+
+        foreach (var schule in _dumodel.LstSchule)
+        {
+            schule.Klassen = new ObservableCollection<Klasse>(klassenMitRundengroesse.Where(k => k.SchuleId == schule.Id));
+        }
+
+        // Lade die Schüler
+        var schuelerMitKlassen = db.Schueler
+            .Include(s => s.Klasse)
+                .ThenInclude(k => k.RundenArt)
+            .ToList();
+
+        foreach (var schule in _dumodel.LstSchule)
+        {
+            foreach (var klasse in schule.Klassen)
             {
-                _dumodel.LstSchule = new ObservableCollection<Schule>(db.Schulen.ToList());
+                klasse.Schueler = new ObservableCollection<Schueler>(schuelerMitKlassen.Where(s => s.KlasseId == klasse.Id));
             }
         }
+        */
+    }
+}
+
 
         private void btnRunden_Click(object sender, RoutedEventArgs e)
         {
@@ -116,6 +143,21 @@ namespace Klimalauf
                         Console.WriteLine($"Die ID der ersten Schule ist: {schuleId}");
                     }
                 }
+
+                this.btnBarcodes.Click += (sender, e) =>
+                {
+                    if(lstKlasse.SelectedItem != null)
+                    { 
+                        PDFEditor pdfEditor = new PDFEditor(lstKlasse.SelectedItem as Klasse);
+                        pdfEditor.Show();
+                        this.Close();
+                    }
+                    else
+                        MessageBox.Show("Bitte wählen Sie eine Klasse aus!", "Klasse nicht ausgewählt", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    
+                    
+                };
+
             }
         }
 
@@ -152,7 +194,7 @@ namespace Klimalauf
             btnStartseite.Visibility = startseiteGrid == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
             btnStartseiteDisabled.Visibility = startseiteGrid == Visibility.Visible ? Visibility.Visible : Visibility.Collapsed;
 
-            btnBarcodes.Visibility = schuelerGrid == Visibility.Visible ? Visibility.Visible : Visibility.Collapsed;
+            btnBarcodes.Visibility = klasseGrid == Visibility.Visible ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void LoadData()
@@ -160,7 +202,7 @@ namespace Klimalauf
             using (var db = new LaufDBContext())
             {
                 _dumodel.LstSchule = new ObservableCollection<Schule>(db.Schulen.ToList());
-                _dumodel.LstKlasse = new ObservableCollection<Klasse>(db.Klassen.Include(k => k.Schule).Include(k => k.Schueler).ThenInclude(s => s.Runden).ToList());
+                _dumodel.LstKlasse = new ObservableCollection<Klasse>(db.Klassen.Include(k => k.Schule).Include(r => r.RundenArt) .Include(k => k.Schueler).ThenInclude(s => s.Runden).ToList());
                 _dumodel.LstSchueler = new ObservableCollection<Schueler>(db.Schueler.Include(s => s.Klasse).ThenInclude(k => k.Schule).Include(s => s.Runden).ToList());
                 _dumodel.LstRunde = new ObservableCollection<Runde>(db.Runden.Include(r => r.Schueler).ThenInclude(s => s.Klasse).ThenInclude(k => k.Schule).ToList());
             }

@@ -5,13 +5,13 @@ namespace Klimalauf
 	/// <summary>
 	/// Interaktionslogik für PDF_Editor.xaml
 	/// </summary>
-	public partial class PDF_Editor : Window
+	public partial class PDFEditor : Window
 	{
 		private PDFEditorModel? _pemodel;
 		private MainViewModel? _mvmodel;
 		private string? pfad;
 
-		public PDF_Editor(Klasse klasse) : base()
+		public PDFEditor(Klasse klasse) : base()
 		{
 			InitializeComponent();
 			_pemodel = FindResource("pemodel") as PDFEditorModel;
@@ -109,5 +109,11 @@ namespace Klimalauf
 			};
 		}
 
-	}
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Scanner scanner = new Scanner();
+			scanner.Show();
+            this.Close();
+        }
+    }
 }

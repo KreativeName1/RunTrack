@@ -36,14 +36,15 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="128.5"/>
             </Grid.ColumnDefinitions>
 
 
             <CheckBox x:Name="SelectAllCheckBox" Margin="18,0,0,0" Click="SelectAllCheckBox_Click" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             <TextBlock x:Name="SelectAllTextBlock" Width="50" VerticalAlignment="Top" Text="Select All" HorizontalAlignment="Left" Margin="1,-13,0,0" Grid.ColumnSpan="2" TextAlignment="Center" FontSize="10"/>
-            <TextBlock Text="Dateiname" FontWeight="Bold" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1"/>
-            <TextBlock Text="Uploaddatum" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2"/>
+            <TextBlock Text="Dateiname ⇅" FontWeight="Bold" Margin="38,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1" MouseDown="FileNameLabel_MouseDown" MouseEnter="Label_MouseEnter" MouseLeave="Label_MouseLeave" x:Name="FileNameLabel" Cursor="Hand"/>
+
+            <TextBlock Text="Uploaddatum ⇅" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" MouseDown="UploadDateLabel_MouseDown" MouseEnter="Label_MouseEnter" MouseLeave="Label_MouseLeave" x:Name="UploadDateLabel" Cursor="Hand"/>
         </Grid>
         <ListBox x:Name="FilesListBox" ItemsSource="{Binding LstFiles}" Grid.Row="2" Margin="10,5,10,10" BorderBrush="Gray" BorderThickness="1"
                  HorizontalContentAlignment="Stretch">
