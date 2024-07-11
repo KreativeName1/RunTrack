@@ -1,5 +1,4 @@
-﻿using System.Data.Entity;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
@@ -99,28 +98,30 @@ namespace Klimalauf
             {
                 Schueler schueler = db.Schueler.FirstOrDefault(s => s.Id == id);
 
-                // Interval in Sekunden holen
-                Klasse klasse = db.Klassen.FirstOrDefault(k => k.Schueler.Contains(schueler));
-                RundenArt rundenArt = db.RundenArten.Find(klasse.RundenArtId);
-                List<Runde> runden  = db.Runden.Where(r => r.SchuelerId == schueler.Id).ToList();
-                int IntervalInSekunden = rundenArt.MaxScanIntervalInSekunden;
-
                 bool isSchuelerAlreadyScanned = false;
-                if (runden.Count > 0)
+                int IntervalInSekunden = 0;
+                if (schueler != null)
                 {
-                    foreach (Runde runde in runden)
+                    Klasse klasse = db.Klassen.FirstOrDefault(k => k.Schueler.Contains(schueler));
+                    RundenArt rundenArt = db.RundenArten.Find(klasse.RundenArtId);
+                    List<Runde> runden = db.Runden.Where(r => r.SchuelerId == schueler.Id).ToList();
+                    IntervalInSekunden = rundenArt.MaxScanIntervalInSekunden;
+
+                    if (runden.Count > 0)
                     {
-                        TimeSpan difference = DateTime.Now - runde.Zeitstempel;
-                        Trace.WriteLine($"Between {DateTime.Now} and {runde.Zeitstempel}: {difference.TotalSeconds}");
-                        if (difference.TotalSeconds < IntervalInSekunden)
+                        foreach (Runde runde in runden)
                         {
-                            isSchuelerAlreadyScanned = true;
-                            schueler = null;
-                            break;
+                            TimeSpan difference = DateTime.Now - runde.Zeitstempel;
+                            Trace.WriteLine($"Between {DateTime.Now} and {runde.Zeitstempel}: {difference.TotalSeconds}");
+                            if (difference.TotalSeconds < IntervalInSekunden)
+                            {
+                                isSchuelerAlreadyScanned = true;
+                                schueler = null;
+                                break;
+                            }
                         }
                     }
                 }
-
 
                 // check if Schueler with given ID exists
                 if (schueler == null)
