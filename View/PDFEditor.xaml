@@ -4,22 +4,24 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Klimalauf"
-        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Icon="pack://application:,,,/Images/iconRunMan.ico"
-        Title="PDF_Editor" Height="900" Width="1000">
+        Title="PDF_Editor" Height="950" Width="1200" WindowStartupLocation="CenterScreen">
+
     <Grid DataContext="{StaticResource pemodel}" >
-      
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="28"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Grid.ColumnSpan="2">
+        <Grid Grid.Row="0" Grid.ColumnSpan="3">
 
             <Rectangle x:Name="rectUser" Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top" Grid.ColumnSpan="3" Visibility="Visible"/>
             <Label x:Name="userName" Content="Benutzer:" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
@@ -37,13 +39,173 @@
         <Grid Grid.Column="0" Grid.Row="1" >
             <wv2:WebView2 x:Name="webView" />
         </Grid>
-        
-        <StackPanel Margin="20,0,20,0" Width="140" HorizontalAlignment="Right"  Orientation="Vertical" Grid.Column="1" Grid.Row="1">
-            
-            <Label Content="Format" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top"/>
+
+        <StackPanel Margin="20,0,20,0"  Orientation="Vertical" Grid.Column="1" Grid.Row="1">
+
+
+
+
+            <Label Content="Papierformat" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top" Margin="0,20,0,0"/>
             <Border BorderBrush="Black" BorderThickness="1">
                 <Grid>
-                    <!-- Option zum laden und bennenen der Formate-->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Column="0" Grid.Row="0" Margin="0,5,0,2.5" HorizontalAlignment="Center">
+                        <Label Content="Blattgröße" HorizontalAlignment="Center"/>
+                        <ComboBox x:Name="cbBlattgroessee" HorizontalAlignment="Center" Height="23" VerticalAlignment="Top" Width="120" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Margin="0,2.5,0,10" HorizontalAlignment="Center">
+                        <Label Content="Orientierung" HorizontalAlignment="Center"/>
+                        <ComboBox x:Name="cbOrientierung" HorizontalAlignment="Center" Height="23" VerticalAlignment="Top" Width="120" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+
+            <Label Content="Seitenränder" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top" Margin="0,20,0,0"/>
+            <Border BorderBrush="Black" BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Oben -->
+                    <StackPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,2.5">
+                        <Label Content="Oben" HorizontalAlignment="Center"/>
+                        <xctk:DoubleUpDown Text="{Binding Format.SeitenRandOben}" x:Name="txtOben" Width="70" Height="23" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- Unten -->
+                    <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,3.5,2.5">
+                        <Label Content="Unten" HorizontalAlignment="Center"/>
+                        <xctk:DoubleUpDown Text="{Binding Format.SeitenRandUnten}" x:Name="txtUnten" Width="70" Height="23" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- Links -->
+                    <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,10">
+                        <Label Content="Links" HorizontalAlignment="Center"/>
+                        <xctk:DoubleUpDown Text="{Binding Format.SeitenRandLinks}" x:Name="txtLinks" Width="70" Height="23" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- Rechts -->
+                    <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,3.5,10">
+                        <Label Content="Rechts" HorizontalAlignment="Center"/>
+                        <xctk:DoubleUpDown Text="{Binding Format.SeitenRandRechts}" x:Name="txtRechts" Width="70" Height="23" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    </StackPanel>
+
+                </Grid>
+            </Border>
+
+            <Label Content="Schrift" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top" Margin="0,20,0,0"/>
+            <Border  BorderBrush="Black" BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition  Width="80"/>
+                        <ColumnDefinition  Width="80"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,10">
+                        <Label Content="Größe" HorizontalAlignment="Center"/>
+                        <xctk:DoubleUpDown Text="{Binding Format.SchriftGroesse}" x:Name="txtGroesse" Width="70" Height="23" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,3.5,10">
+                        <Label Content="Typ" HorizontalAlignment="Center"/>
+                        <ComboBox x:Name="cbTyp" HorizontalAlignment="Center" Width="70" Height="23" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+
+
+            <!--<Button Content="Neuladen" x:Name="btnNeuladen" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" Width="120"/>
+            <Button x:Name="btnCancel" Content="Abbrechen" Margin="0,5,0,0" Width="120" Click="btnCancel_Click" />-->
+        </StackPanel>
+        <StackPanel Margin="20,0,20,0"  Orientation="Vertical" Grid.Column="2" Grid.Row="2">
+            <!--Zellen: Abstände, Breite, Höhe-->
+            <Label Content="Zellenabstand" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top"  Margin="0,20,0,0"/>
+            <Border BorderBrush="Black" BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition  Width="80"/>
+                        <ColumnDefinition  Width="80"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,10">
+                        <Label Content="Horizontal" HorizontalAlignment="Center"/>
+                        <xctk:DoubleUpDown Text="{Binding Format.ZellenAbstandHorizontal}" x:Name="txtAbstandHorizontal" Width="70" Height="23" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,3.5,10">
+                        <Label Content="Vertikal" HorizontalAlignment="Center"/>
+                        <xctk:DoubleUpDown Text="{Binding Format.ZellenAbstandVertikal}" x:Name="txtAbstandVertikal" Width="70" Height="23" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Label Content="Zellengröße" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="0,41,0,0"/>
+            <Border BorderBrush="Black" BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition  Width="80"/>
+                        <ColumnDefinition  Width="80"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,10">
+                        <Label Content="Breite" HorizontalAlignment="Center"/>
+                        <xctk:DoubleUpDown Text="{Binding Format.ZellenBreite}" x:Name="txtBreite" Width="70" Height="23" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,3.5,10">
+                        <Label Content="Höhe" HorizontalAlignment="Center"/>
+                        <xctk:DoubleUpDown Text="{Binding Format.ZellenHoehe}" x:Name="txtHöhe" Width="70" Height="23" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+
+
+            <Label Content="Weiteres" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top" Margin="0,40.5,0,0"/>
+            <Border BorderBrush="Black" BorderThickness="1">
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,5,0,1" HorizontalAlignment="Center">
+                        <CheckBox IsChecked="{Binding Format.KopfAnzeigen}" x:Name="chkKopf" VerticalAlignment="Center"/>
+                        <Label Content="Kopf Anzeigen" VerticalAlignment="Center" Width="120"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,1,0,5" HorizontalAlignment="Center">
+                        <CheckBox IsChecked="{Binding Format.Zentriert}" x:Name="chkZentriert" VerticalAlignment="Center"/>
+                        <Label Content="Zentrierte Barcodes" VerticalAlignment="Center" Width="120"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Margin="0,5,0,10" HorizontalAlignment="Center">
+                        <Label Content="Spaltenanzahl" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <xctk:DoubleUpDown Text="{Binding Format.SpaltenAnzahl}" x:Name="txtSpalten" HorizontalAlignment="Center" Height="23" VerticalAlignment="Center" Width="148" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </StackPanel>
+
+        <Rectangle Height="2" Margin="75,500,75,0" Stroke="#FF5F5F5F" Fill="#FF5F5F5F" VerticalAlignment="Top" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="1"/>
+
+
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="1" Margin="100,520,100,0" Height="186" VerticalAlignment="Top">
+            <Label Content="Format speichern" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top" Margin="0,0,0,0"/>
+            <Border BorderBrush="Black" BorderThickness="1">
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <!-- Option zum Laden und Benennen der Formate -->
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
@@ -54,158 +216,27 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <StackPanel Grid.Column="0" Grid.Row="0">
-                        <Label Content="Formatname" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                        <TextBox Text="{Binding Format.Name}" x:Name="txtFormatName" HorizontalAlignment="Center" Height="23"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+                    <StackPanel Grid.Column="0" Grid.Row="0" Margin="0,5,0,2.5" HorizontalAlignment="Center">
+                        <Label Content="Formatname" HorizontalAlignment="Center"/>
+                        <TextBox Text="{Binding Format.Name}" x:Name="txtFormatName" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                     </StackPanel>
-                    <StackPanel Grid.Row="1" >
-                        <Label Content="Formate" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                        <ComboBox x:Name="cbFormate" HorizontalAlignment="Center" Height="23"  VerticalAlignment="Top" Width="120"/>
+
+                    <StackPanel Grid.Row="1" Margin="0,2.5,0,5" HorizontalAlignment="Center">
+                        <Label Content="Formate" HorizontalAlignment="Center"/>
+                        <ComboBox x:Name="cbFormate" HorizontalAlignment="Center" Height="23" VerticalAlignment="Top" Width="120" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0" Grid.Row="2">
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,10">
                         <Button Content="Speichern" x:Name="btnSpeichern" HorizontalAlignment="Center" VerticalAlignment="Top" Width="140"/>
                     </StackPanel>
                 </Grid>
             </Border>
+        </StackPanel>
 
-            <Label Content="Papierformat" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top"/>
-            <Border BorderBrush="Black" BorderThickness="1">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0">
-                        <Label Content="Blattgröße" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top"/>
-                        <ComboBox x:Name="cbBlattgroessee" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Width="140"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="1">
-                        <Label Content="Orientierung" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top"/>
-                        <ComboBox x:Name="cbOrientierung" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Width="140"/>
-                    </StackPanel>
-                </Grid>
-            </Border>
-            
-
-            <Label Content="Seitenränder" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top"/>
-            <Border BorderBrush="Black" BorderThickness="1">
-            <Grid >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Grid.Column="0" Grid.Row="0">
-                    <Label Content="Oben" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                    <TextBox Text="{Binding Format.SeitenRandOben}" x:Name="txtOben" HorizontalAlignment="Center" Height="23" Width="70"  TextWrapping="Wrap" VerticalAlignment="Top" />
-                </StackPanel>
-                <StackPanel Grid.Column="1" Grid.Row="0">
-                    <Label Content="Unten" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                    <TextBox Text="{Binding Format.SeitenRandUnten}" x:Name="txtUnten" HorizontalAlignment="Left" Height="23"  Width="70"  TextWrapping="Wrap" VerticalAlignment="Top"/>
-                </StackPanel>
-                <StackPanel Grid.Column="0" Grid.Row="1">
-                    <Label Content="Links" HorizontalAlignment="Center"  VerticalAlignment="Top"/>
-                    <TextBox Text="{Binding Format.SeitenRandLinks}" x:Name="txtLinks" HorizontalAlignment="Center" Height="23" Width="70" TextWrapping="Wrap" VerticalAlignment="Top" />
-                </StackPanel>
-                <StackPanel Grid.Column="1" Grid.Row="1">
-                    <Label Content="Rechts" HorizontalAlignment="Center"  VerticalAlignment="Top"/>
-                    <TextBox Text="{Binding Format.SeitenRandRechts}" x:Name="txtRechts" HorizontalAlignment="Center" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
-                </StackPanel>
-            </Grid>
-            </Border>
-           
-
-            <!--Zellen: Abstände, Breite, Höhe-->
-            <Label Content="Zellenabstand" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top"/>
-            <Border BorderBrush="Black" BorderThickness="1">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition  Width="Auto"/>
-                        <ColumnDefinition  Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0">
-                        <Label Content="Horizontal" HorizontalAlignment="Center"  VerticalAlignment="Top"/>
-                        <TextBox Text="{Binding Format.ZellenAbstandHorizontal}" x:Name="txtAbstandHorizontal" HorizontalAlignment="Center" Height="23"  TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="1">
-                        <Label Content="Vertikal" HorizontalAlignment="Center"  VerticalAlignment="Top"/>
-                        <TextBox Text="{Binding Format.ZellenAbstandVertikal}" x:Name="txtAbstandVertikal" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
-                    </StackPanel>
-                </Grid>
-            </Border>
-
-            <Label Content="Zellengröße" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold"/>
-            <Border BorderBrush="Black" BorderThickness="1">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition  Width="Auto"/>
-                        <ColumnDefinition  Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0">
-                        <Label Content="Breite" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top"/>
-                        <TextBox Text="{Binding Format.ZellenBreite}" x:Name="txtBreite" HorizontalAlignment="Center" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="1">
-                        <Label Content="Höhe" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top"/>
-                        <TextBox Text="{Binding Format.ZellenHoehe}" x:Name="txtHöhe" HorizontalAlignment="Center" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
-                    </StackPanel>
-                </Grid>
-            </Border>
-
-            <Label Content="Schrift" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top"/>
-            <Border  BorderBrush="Black" BorderThickness="1">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition  Width="Auto"/>
-                        <ColumnDefinition  Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Grid.Column="0">
-                        <Label Content="Größe" HorizontalAlignment="Center"  VerticalAlignment="Top"/>
-                        <TextBox Text="{Binding Format.SchriftGroesse}" x:Name="txtGroesse" HorizontalAlignment="Center" Height="23"  TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="1">
-                        <Label Content="Typ" HorizontalAlignment="Center"  VerticalAlignment="Top"/>
-                        <ComboBox x:Name="cbTyp" HorizontalAlignment="Center" Height="23"  VerticalAlignment="Top" Width="70"/>
-                    </StackPanel>
-                </Grid>
-            </Border>
-
-            <Label Content="Weiteres" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top"/>
-            <Border BorderBrush="Black" BorderThickness="1">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition  Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Orientation="Horizontal" Grid.Row="0">
-                        <CheckBox IsChecked="{Binding Format.KopfAnzeigen}" x:Name="chkKopf" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center"/>
-                        <Label Content="Kopf Anzeigen"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Grid.Row="1">
-                        <CheckBox IsChecked="{Binding Format.Zentriert}" x:Name="chkZentriert" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center"/>
-                        <Label Content="Zentrierte Barcodes"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    </StackPanel>
-                    
-                    <StackPanel Grid.Row="2" >
-                        <Label Content="Spaltenanzahl" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top"/>
-                        <TextBox Text="{Binding Format.SpaltenAnzahl}" x:Name="txtSpalten" HorizontalAlignment="Center" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140"/>
-                    </StackPanel>
-                </Grid>
-            </Border>
-                
-            <Button Content="Neuladen" x:Name="btnNeuladen" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" Width="120"/>
-            <Button x:Name="btnCancel" Content="Abbrechen" Margin="0,5,0,0" Width="120" Click="btnCancel_Click" />
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="1" Orientation="Horizontal" Margin="0,5,10,10" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="235">
+            <Button  Content="Neuladen" x:Name="btnNeuladen" HorizontalAlignment="Center" Margin="5,5,20,5" VerticalAlignment="Top"  Width="100" Height="25"/>
+            <Button  x:Name="btnCancel" Content="Abbrechen"  Click="btnCancel_Click" Width="100" Height="25" Margin="5"/>
         </StackPanel>
 
     </Grid>

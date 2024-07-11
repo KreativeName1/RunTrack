@@ -26,10 +26,10 @@
 		public float SeitenRandRechts { get; set; } = 20;
 
 		// Zellen
-		public int ZellenAbstandHorizontal { get; set; } = 0;
+		public int ZellenAbstandHorizontal { get; set; } = 20;
 		public int ZellenAbstandVertikal { get; set; } = 0;
-		public int ZellenBreite { get; set; } = 100;
-		public int ZellenHoehe { get; set; } = 100;
+		public int ZellenBreite { get; set; } = 150;
+		public int ZellenHoehe { get; set; } = 50;
 
 		// Schrift
 		public float SchriftGroesse { get; set; } = 12;
@@ -45,8 +45,8 @@
 
 		// Weiteres
 		public bool KopfAnzeigen { get; set; } = true;
-		public bool Zentriert { get; set; } = false;
-        public int SpaltenAnzahl { get; set; } = 1;
+		public bool Zentriert { get; set; } = true;
+        public int SpaltenAnzahl { get; set; } = 3;
 
 
 		public Format()
