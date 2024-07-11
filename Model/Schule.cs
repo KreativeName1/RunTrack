@@ -17,5 +17,10 @@ namespace Klimalauf
         public Schule()
         {
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }
