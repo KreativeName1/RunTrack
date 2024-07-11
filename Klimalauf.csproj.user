@@ -19,7 +19,7 @@
     <Compile Update="View\Einstellungen.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\PDF_Editor.xaml.cs">
+    <Compile Update="View\PDFEditor.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\Scanner.xaml.cs">
@@ -42,7 +42,7 @@
     <Page Update="View\MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\PDF_Editor.xaml">
+    <Page Update="View\PDFEditor.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Scanner.xaml">
