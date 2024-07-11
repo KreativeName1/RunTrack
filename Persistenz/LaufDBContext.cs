@@ -126,24 +126,6 @@ namespace Klimalauf
 					db.Schueler.Add(schueler);
 					db.SaveChanges();
 				}
-
-				foreach (Schueler schueler in db.Schueler)
-				{
-					Random random = new Random();
-					int rounds = random.Next(8, 20);
-					DateTime lastTimestamp = DateTime.Now;
-					for (int i = 0; i < rounds; i++)
-					{
-						Runde runde = new Runde
-						{
-							Schueler = schueler,
-							BenutzerName = benutzer.Vorname + " " + benutzer.Nachname,
-							Zeitstempel = lastTimestamp.AddSeconds(random.Next(60, 1000))
-						};
-						db.Runden.Add(runde);
-						db.SaveChanges();
-					}
-				}
 			}
 		}
 

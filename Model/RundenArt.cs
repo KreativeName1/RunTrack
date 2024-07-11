@@ -11,5 +11,6 @@ namespace Klimalauf
         public int Id { get; set; }
         public String Name { get; set; }
         public int LaengeInMeter { get; set; }
+        public int MaxScanIntervalInSekunden { get; set; } = 60;
     }
 }

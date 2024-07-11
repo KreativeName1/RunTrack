@@ -115,7 +115,7 @@
         <Border x:Name="BoxFalse" VerticalAlignment="Top" Margin="100,40,100,0" Visibility="Collapsed" Grid.ColumnSpan="3">
             <Grid>
                 <Rectangle Height="30" Stroke="#FF5F5F5F" Fill="#F70000" VerticalAlignment="Center"/>
-                <Label Content="Schüler nicht gefunden!" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0"  VerticalAlignment="Center" Foreground="WhiteSmoke" FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+                <Label x:Name="Fehlermeldung" Content="Schüler nicht gefunden!" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0"  VerticalAlignment="Center" Foreground="WhiteSmoke" FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
             </Grid>
         </Border>
 
