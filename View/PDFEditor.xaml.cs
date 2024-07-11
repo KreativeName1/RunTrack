@@ -40,8 +40,7 @@ namespace Klimalauf
             string pfad = PDFGenerator.BarcodesPDF(_pemodel.Klasse, _pemodel.Klasse.Schule.Name, _pemodel.Format);
             webView.Source = new Uri(pfad);
 
-            // Setzen der Zoomstufe auf 80% (0.8)
-            webView.ZoomFactor = 0.74;
+            webView.ZoomFactor = 0.62;
          };
 
          btnSpeichern.Click += (s, e) =>
