@@ -7,7 +7,7 @@
         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d"
         Icon="pack://application:,,,/Images/iconRunMan.ico"
-        Title="PDF_Editor" Height="850" Width="1000">
+        Title="PDF_Editor" Height="900" Width="1000">
     <Grid DataContext="{StaticResource pemodel}" >
       
         <Grid.ColumnDefinitions>
@@ -186,14 +186,20 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal" Grid.Row="0">
                         <CheckBox IsChecked="{Binding Format.KopfAnzeigen}" x:Name="chkKopf" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center"/>
                         <Label Content="Kopf Anzeigen"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
                     </StackPanel>
-                    <StackPanel Grid.Row="1" >
-                        <Label Content="Spaltenanzahl" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
-                        <TextBox Text="{Binding Format.SpaltenAnzahl}" x:Name="txtSpalten" HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1">
+                        <CheckBox IsChecked="{Binding Format.Zentriert}" x:Name="chkZentriert" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center"/>
+                        <Label Content="Zentrierte Barcodes"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    </StackPanel>
+                    
+                    <StackPanel Grid.Row="2" >
+                        <Label Content="Spaltenanzahl" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top"/>
+                        <TextBox Text="{Binding Format.SpaltenAnzahl}" x:Name="txtSpalten" HorizontalAlignment="Center" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140"/>
                     </StackPanel>
                 </Grid>
             </Border>

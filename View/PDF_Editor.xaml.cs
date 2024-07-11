@@ -15,7 +15,8 @@ namespace Klimalauf
 		{
 			InitializeComponent();
 			_pemodel = FindResource("pemodel") as PDFEditorModel;
-			_pemodel.Klasse = klasse;
+            _mvmodel = FindResource("mvmodel") as MainViewModel;
+            _pemodel.Klasse = klasse;
 			_pemodel.Format = new Format();
 
 			ScannerName.Content =  $"{_mvmodel.Benutzer.Vorname}, {_mvmodel.Benutzer.Nachname}";

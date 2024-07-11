@@ -16,32 +16,39 @@ namespace Klimalauf
 	{
 		public static string BarcodesPDF(Klasse klasse, string schulename, Format f)
 		{
-			string path = $"Dokumente/Barcodes/{schulename}";
+			// PDF Dokument erstellen
+			string path = $"Temp/";
 			Directory.CreateDirectory(path);
 			PdfDocument pdf = new(new PdfWriter(path + $"/{klasse.Name}.pdf"));
 
-			// create document with custom page size
+			// Blattgröße und Orientierung setzen
 			PageSize pageSize = new(f.BlattGroesse.Breite, f.BlattGroesse.Hoehe);
 			Document document;
 			if (f.Orientierung == Orientierung.Hochformat) document = new Document(pdf, pageSize);
 			else document = new Document(pdf, pageSize.Rotate());
 
+			// Seitenrand
 			document.SetMargins(f.SeitenRandOben, f.SeitenRandRechts, f.SeitenRandUnten, f.SeitenRandLinks);
 
+			// Schule/Klasse Anzeigen
 			if (f.KopfAnzeigen)
 			{
 				document.Add(new Paragraph("Schule: " + schulename).SetTextAlignment(TextAlignment.LEFT).SetBold().SetFontSize(14));
 				document.Add(new Paragraph("Klasse: " + klasse.Name).SetTextAlignment(TextAlignment.LEFT).SetBold().SetFontSize(14));
 			}
 
+			// Tabelle erstellen
 			int numColumns = f.SpaltenAnzahl;
 			float columnWidth = f.ZellenBreite;
 			Table table = new Table(UnitValue.CreatePointArray(Enumerable.Repeat(columnWidth, numColumns).ToArray()));
-
-			table.SetWidth(numColumns * columnWidth);
+			
+			// Tabelle Zentrieren oder nicht
+			if (f.Zentriert) table.SetWidth(UnitValue.CreatePercentValue(100));
+			else table.SetWidth(numColumns * columnWidth);
+			
 			table.SetHorizontalAlignment(HorizontalAlignment.LEFT);
 
-
+			// Zellen erstellen
 			for (int i = 0; i < klasse.Schueler.Count; i++)
 			{
 
@@ -57,7 +64,6 @@ namespace Klimalauf
 				Image img = new Image(barcode);
 				img.SetHeight(f.ZellenHoehe - 10);
 				img.SetWidth(f.ZellenBreite - 10);
-
 				img.SetHorizontalAlignment(HorizontalAlignment.CENTER);
 				cell.Add(img);
 
@@ -70,6 +76,7 @@ namespace Klimalauf
 				p.SetTextAlignment(TextAlignment.CENTER);
 				cell.Add(p);
 
+				// Zellenabstand
 				cell.SetPaddingTop(f.ZellenAbstandHorizontal);
 				cell.SetPaddingRight(f.ZellenAbstandVertikal);
 
@@ -79,13 +86,14 @@ namespace Klimalauf
 			document.Add(table);
 			document.Close();
 
+			// Pfad der Datei
 			return System.IO.Path.GetFullPath(path + $"/{klasse.Name}.pdf");
 		}
 
 
 		public static void SchuelerBewertungPDF(Schueler schueler, string schulename)
 		{
-			string path = $"Dokumente/Bewertungen/{schulename}/{schueler.Klasse.Name}";
+			string path = $"Bewertungen/{schulename}/{schueler.Klasse.Name}";
 			Directory.CreateDirectory(path);
 
 			PdfDocument pdf = new PdfDocument(new PdfWriter(path + $"/{schueler.Vorname} {schueler.Nachname}.pdf"));

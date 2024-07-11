@@ -36,6 +36,7 @@
 		public SchriftTyp SchriftTyp { get; set; } = SchriftTyp.Fett;
 
 
+		// Blattformat
 		public BlattGroesse BlattGroesse { get; set; }
 
 		public int BlattGroesseId { get; set; }
@@ -44,21 +45,9 @@
 
 		// Weiteres
 		public bool KopfAnzeigen { get; set; } = true;
-		public int SpaltenAnzahl { get; set; } = 1;
+		public bool Zentriert { get; set; } = false;
+        public int SpaltenAnzahl { get; set; } = 1;
 
-
-		public Format(float seitenRandOben, float seitenRandUnten, float seitenRandLinks, float seitenRandRechts, int spaltenAnzahl, int zellenAbstandHorizontal, int zellenAbstandVertikal, int zellenBreite, int zellenHoehe)
-		{
-			this.SeitenRandOben = seitenRandOben;
-			this.SeitenRandUnten = seitenRandUnten;
-			this.SeitenRandLinks = seitenRandLinks;
-			this.SeitenRandRechts = seitenRandRechts;
-			this.SpaltenAnzahl = spaltenAnzahl;
-			this.ZellenAbstandHorizontal = zellenAbstandHorizontal;
-			this.ZellenAbstandVertikal = zellenAbstandVertikal;
-			this.ZellenBreite = zellenBreite;
-			this.ZellenHoehe = zellenHoehe;
-		}
 
 		public Format()
 		{
