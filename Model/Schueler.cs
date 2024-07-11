@@ -21,5 +21,10 @@ namespace Klimalauf
         public Schueler()
         {
         }
+
+        public override string ToString()
+        {
+            return Vorname + " " + Nachname;
+        }
     }
 }

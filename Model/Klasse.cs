@@ -23,6 +23,11 @@ namespace Klimalauf
         {
         }
 
+        public override string ToString()
+        {
+            return Name;
+        }
+
 
 
     }

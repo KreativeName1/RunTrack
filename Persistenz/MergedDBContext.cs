@@ -8,16 +8,17 @@ namespace Klimalauf
         private static string _internalDBPath = "internal.db";
         public MergedDBContext(string[] databases)
         : base(GetDbContextOptions())
-        {            
+        {
+            Database.EnsureDeleted();
             Database.EnsureCreated();
             
             // Erst die Daten aus der internen Datenbank laden
             using (var thisDB = new LaufDBContext())
             {
-                RundenArten.AddRange(thisDB.RundenArten); 
-                Schulen.AddRange(thisDB.Schulen);
-                Klassen.AddRange(thisDB.Klassen);
-                Schueler.AddRange(thisDB.Schueler);
+                RundenArten.AddRange(thisDB.RundenArten.ToList()); 
+                Schulen.AddRange(thisDB.Schulen.ToList());
+                Klassen.AddRange(thisDB.Klassen.ToList());
+                Schueler.AddRange(thisDB.Schueler.ToList());
                 SaveChanges();
             }
 

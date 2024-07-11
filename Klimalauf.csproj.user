@@ -10,6 +10,9 @@
     <Compile Update="View\AdminErstellen.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\Auswertung.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\Dateiverwaltung.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -25,6 +28,9 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="View\AdminErstellen.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Auswertung.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Dateiverwaltung.xaml">
