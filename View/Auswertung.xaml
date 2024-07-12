@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:Klimalauf"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d" Icon="pack://application:,,,/Images/iconRunMan.ico"
-        Title="Auswertung" Height="650" Width="800">
-    <Grid>
+        Title="Auswertung" Height="650" Width="900">
+    <Grid DataContext="{StaticResource amodel}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="*"/>
@@ -47,7 +47,7 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel Grid.Row="0" Margin="0,10,0,0" Orientation="Horizontal">
-                            <RadioButton GroupName="Wer" x:Name="rbInsgesamt" Content="Insgesamt" IsChecked="True" VerticalAlignment="Center"/>
+                        <RadioButton GroupName="Wer"  Checked="change" x:Name="rbInsgesamt" Content="Insgesamt" IsChecked="{Binding IsInsgesamt}" VerticalAlignment="Center"/>
                         </StackPanel>
 
                         <Grid Grid.Row="1" Margin="0,10,0,10">
@@ -55,8 +55,8 @@
                                 <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="150"/>
                             </Grid.ColumnDefinitions>
-                            <RadioButton GroupName="Wer" x:Name="rbSchule" Grid.Column="0" Content="Schule" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="cbSchule"  HorizontalAlignment="Right" Grid.Column="1" Width="145"  VerticalAlignment="Center"/>
+                        <RadioButton GroupName="Wer"  Checked="change" IsChecked="{Binding IsSchule}" x:Name="rbSchule" Grid.Column="0" Content="Schule" VerticalAlignment="Center"/>
+                            <ComboBox SelectionChanged="SelectionChanged" x:Name="cbSchule" ItemsSource="{Binding Schulen}" SelectedItem="{Binding SelectedSchule}"  HorizontalAlignment="Right" Grid.Column="1" Width="145"  VerticalAlignment="Center"/>
                         </Grid>
 
                         <Grid Grid.Row="2" Margin="0,0,0,10">
@@ -64,8 +64,8 @@
                                 <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="150"/>
                             </Grid.ColumnDefinitions>
-                            <RadioButton GroupName="Wer" x:Name="rbKlasse" Grid.Column="0" Content="Klasse" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="cbKlasse" HorizontalAlignment="Right" Grid.Column="1" Width="145"  Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <RadioButton GroupName="Wer"  Checked="change" IsChecked="{Binding IsKlasse}" x:Name="rbKlasse" Grid.Column="0" Content="Klasse" VerticalAlignment="Center"/>
+                        <ComboBox SelectionChanged="SelectionChanged" x:Name="cbKlasse" ItemsSource="{Binding Klassen}" SelectedItem="{Binding SelectedKlasse}" HorizontalAlignment="Right" Grid.Column="1" Width="145"  Margin="5,0,0,0" VerticalAlignment="Center"/>
                         </Grid>
 
                         <Grid Grid.Row="3" Margin="0,0,0,10">
@@ -73,8 +73,8 @@
                                 <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="150"/>
                             </Grid.ColumnDefinitions>
-                            <RadioButton GroupName="Wer" Grid.Column="0" Content="Jahrgang" VerticalAlignment="Center"/>
-                            <xctk:IntegerUpDown HorizontalAlignment="Right" Grid.Column="1" Width="145" x:Name="iudJahrgang" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <RadioButton GroupName="Wer"  Checked="change" IsChecked="{Binding IsJahrgang}" Grid.Column="0" Content="Jahrgang" VerticalAlignment="Center"/>
+                            <xctk:IntegerUpDown ValueChanged="iudJahrgang_ValueChanged" HorizontalAlignment="Right" Value="{Binding Jahrgang}" Grid.Column="1" Width="145" x:Name="iudJahrgang" Margin="5,0,0,0" VerticalAlignment="Center"/>
                         </Grid>
                     </Grid>
                 </Border>
@@ -83,9 +83,16 @@
 
             <Border BorderBrush="Black" BorderThickness="1" Padding="10">
                 <StackPanel>
-                    <RadioButton GroupName="Typ" Name="Anzahl" Grid.Row="0" Content="Rundenanzahl" IsChecked="True" VerticalAlignment="Center"/>
-                    <RadioButton GroupName="Typ" Name="Zeit" Grid.Row="1" Content="Zeit" VerticalAlignment="Center" />
-                    <RadioButton GroupName="Typ" Name="Distanz" Grid.Row="2" Content="Distanz" VerticalAlignment="Center" />
+                    <RadioButton GroupName="Typ" Name="Anzahl" IsChecked="{Binding IsAnzahl}" Grid.Row="0" Content="Anzahl" VerticalAlignment="Center"  Checked="change" />
+                    <RadioButton GroupName="Typ" Name="Zeit" Grid.Row="1" IsChecked="{Binding IsZeit}" Content="Zeit" VerticalAlignment="Center"  Checked="change"/>
+                    <GroupBox>
+                        <StackPanel>
+                            <RadioButton GroupName="NachZeit"  Name="ZeitGesamt" IsChecked="{Binding IsZeitSchnellste}" Content="Schnellste" VerticalAlignment="Center" Checked="change" />
+                            <RadioButton GroupName="NachZeit"  Name="ZeitLangsamste" IsChecked="{Binding IsZeitLangsamste}" Content="Langsamste" VerticalAlignment="Center" Checked="change" />
+                            <RadioButton GroupName="NachZeit"  Name="ZeitDurchschnitt" IsChecked="{Binding IsZeitDurchschnitt}" Content="Durchschnitt" VerticalAlignment="Center" Checked="change" />
+                        </StackPanel>
+                    </GroupBox>
+                    <RadioButton GroupName="Typ" Name="Distanz" Grid.Row="2" IsChecked="{Binding IsDistanz}" Content="Distanz" VerticalAlignment="Center" Checked="change" />
                 </StackPanel>
             </Border>
 
@@ -93,9 +100,9 @@
 
             <Border BorderBrush="Black" BorderThickness="1" Padding="10">
                 <StackPanel>
-                    <RadioButton GroupName="Geschlecht" Name="Gesamt" Content="Gesamt" IsChecked="True" VerticalAlignment="Center"/>
-                    <RadioButton GroupName="Geschlecht" Name="Maennlich"  Content="Männlich" VerticalAlignment="Center"/>
-                    <RadioButton GroupName="Geschlecht" Name="Weiblich"  Content="Weiblich" VerticalAlignment="Center"/>
+                    <RadioButton  GroupName="Geschlecht" Name="Gesamt" IsChecked="{Binding IsGesamt}" Content="Gesamt" VerticalAlignment="Center" Checked="change"/>
+                    <RadioButton GroupName="Geschlecht" Name="Maennlich" IsChecked="{Binding IsMaennlich}"  Content="Männlich" VerticalAlignment="Center"  Checked="change"/>
+                    <RadioButton GroupName="Geschlecht" Name="Weiblich" IsChecked="{Binding IsWeiblich}"  Content="Weiblich" VerticalAlignment="Center"  Checked="change"/>
                 </StackPanel>
             </Border>
 
@@ -109,15 +116,28 @@
             
         </StackPanel>
 
-        <DataGrid Grid.Row="1" Grid.Column="1">
+        <DataGrid Grid.Row="1" Grid.Column="1" x:Name="Daten" ItemsSource="{Binding Liste}" SelectedItem="{Binding SelectedItem}" AutoGenerateColumns="True"  >
         </DataGrid>
 
         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2" Grid.ColumnSpan="2" >
-            <Grid >
-            <StackPanel Orientation="Horizontal" Margin="10,0,10,0">
-                <Button x:Name="btnImport" Content="Exportieren" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="100" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+            <Grid VerticalAlignment="Center" Margin="10,0,10,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="280"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="120"/>
+                </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <Button x:Name="btnImport" Content="Importieren" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="100" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
                 <Button x:Name="btnExport" Content="Exportieren" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="100" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
             </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Button x:Name="btnSchuelerWertung" Content="Schülerwertung" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="100" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+                    <Button x:Name="btnWertung" Content="Momentane Wertung" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="130" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+                    <Button x:Name="btnDiagramm" Content="Diagramm" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="130" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+                </StackPanel>
+                <StackPanel Grid.Column="3" HorizontalAlignment="Right">
+                    <Button x:Name="btnSchliessen" Content="Schließen" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="100" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+                </StackPanel>
             </Grid>
         </Border>
     </Grid>
