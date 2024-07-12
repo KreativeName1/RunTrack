@@ -1,8 +1,7 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
-using Microsoft.EntityFrameworkCore;
 
 namespace Klimalauf
 {
@@ -23,7 +22,15 @@ namespace Klimalauf
             LoadData();
         }
 
-        public Datenuebersicht()
+      private void LstKlasse_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+      {
+            // Barcode erstellen Fenster öffnen
+            PDFEditor pdfEditor = new PDFEditor(lstKlasse.SelectedItem as Klasse);
+            pdfEditor.Show();
+            this.Close();
+      }
+
+      public Datenuebersicht()
         {
             InitializeComponent();
             DataContext = this;
@@ -58,40 +65,40 @@ namespace Klimalauf
         }
 
         private void btnStartseite_Click(object sender, RoutedEventArgs e)
-{
-    SetVisibility(Visibility.Collapsed, Visibility.Collapsed, Visibility.Collapsed, Visibility.Collapsed, Visibility.Visible);
-
-    using (var db = new LaufDBContext())
-    {
-        // Lade die Schulen
-        _dumodel.LstSchule = new ObservableCollection<Schule>(db.Schulen.ToList());
-
-        // Lade die Klassen mit ihren Rundengrößen
-        /*var klassenMitRundengroesse = db.Klassen
-            .Include(k => k.RundenArt)
-            .ToList();
-
-        foreach (var schule in _dumodel.LstSchule)
         {
-            schule.Klassen = new ObservableCollection<Klasse>(klassenMitRundengroesse.Where(k => k.SchuleId == schule.Id));
-        }
+            SetVisibility(Visibility.Collapsed, Visibility.Collapsed, Visibility.Collapsed, Visibility.Collapsed, Visibility.Visible);
 
-        // Lade die Schüler
-        var schuelerMitKlassen = db.Schueler
-            .Include(s => s.Klasse)
-                .ThenInclude(k => k.RundenArt)
-            .ToList();
-
-        foreach (var schule in _dumodel.LstSchule)
-        {
-            foreach (var klasse in schule.Klassen)
+            using (var db = new LaufDBContext())
             {
-                klasse.Schueler = new ObservableCollection<Schueler>(schuelerMitKlassen.Where(s => s.KlasseId == klasse.Id));
+                // Lade die Schulen
+                _dumodel.LstSchule = new ObservableCollection<Schule>(db.Schulen.ToList());
+
+                // Lade die Klassen mit ihren Rundengrößen
+                /*var klassenMitRundengroesse = db.Klassen
+                    .Include(k => k.RundenArt)
+                    .ToList();
+
+                foreach (var schule in _dumodel.LstSchule)
+                {
+                    schule.Klassen = new ObservableCollection<Klasse>(klassenMitRundengroesse.Where(k => k.SchuleId == schule.Id));
+                }
+
+                // Lade die Schüler
+                var schuelerMitKlassen = db.Schueler
+                    .Include(s => s.Klasse)
+                        .ThenInclude(k => k.RundenArt)
+                    .ToList();
+
+                foreach (var schule in _dumodel.LstSchule)
+                {
+                    foreach (var klasse in schule.Klassen)
+                    {
+                        klasse.Schueler = new ObservableCollection<Schueler>(schuelerMitKlassen.Where(s => s.KlasseId == klasse.Id));
+                    }
+                }
+                */
             }
         }
-        */
-    }
-}
 
 
         private void btnRunden_Click(object sender, RoutedEventArgs e)
@@ -146,16 +153,16 @@ namespace Klimalauf
 
                 this.btnBarcodes.Click += (sender, e) =>
                 {
-                    if(lstKlasse.SelectedItem != null)
-                    { 
+                    if (lstKlasse.SelectedItem != null)
+                    {
                         PDFEditor pdfEditor = new PDFEditor(lstKlasse.SelectedItem as Klasse);
-                        pdfEditor.Show();
+                        pdfEditor.ShowDialog();
                         this.Close();
                     }
                     else
                         MessageBox.Show("Bitte wählen Sie eine Klasse aus!", "Klasse nicht ausgewählt", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    
-                    
+
+
                 };
 
             }
@@ -202,10 +209,212 @@ namespace Klimalauf
             using (var db = new LaufDBContext())
             {
                 _dumodel.LstSchule = new ObservableCollection<Schule>(db.Schulen.ToList());
-                _dumodel.LstKlasse = new ObservableCollection<Klasse>(db.Klassen.Include(k => k.Schule).Include(r => r.RundenArt) .Include(k => k.Schueler).ThenInclude(s => s.Runden).ToList());
+                _dumodel.LstKlasse = new ObservableCollection<Klasse>(db.Klassen.Include(k => k.Schule).Include(r => r.RundenArt).Include(k => k.Schueler).ThenInclude(s => s.Runden).ToList());
                 _dumodel.LstSchueler = new ObservableCollection<Schueler>(db.Schueler.Include(s => s.Klasse).ThenInclude(k => k.Schule).Include(s => s.Runden).ToList());
                 _dumodel.LstRunde = new ObservableCollection<Runde>(db.Runden.Include(r => r.Schueler).ThenInclude(s => s.Klasse).ThenInclude(k => k.Schule).ToList());
             }
         }
+
+        public void UpdateSchule(int schuleId, string neuerName)
+        {
+            using (var db = new LaufDBContext())
+            {
+                var schule = db.Schueler.FirstOrDefault(s => s.Id == schuleId);
+                if (schule != null)
+                {
+                    schule = db.Schueler.FirstOrDefault(s => s.Id == schuleId);
+                    db.SaveChanges();
+
+                    // Überprüfen der Aktualisierung
+                    var aktualisierteSchule = db.Schueler.FirstOrDefault(s => s.Id == schuleId);
+                    if (aktualisierteSchule != null)
+                    {
+                        Console.WriteLine("Die Schule wurde erfolgreich aktualisiert.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Fehler beim Aktualisieren der Schule.");
+                    }
+                }
+            }
+        }
+
+        private void btnSpeichernAlt_Click(object sender, RoutedEventArgs e)
+        {
+            if (btnStartseite.Visibility == Visibility.Collapsed)
+            {
+                using (var db = new LaufDBContext())
+                {
+                    foreach (Schueler s in lstStartseite.Items)
+                    {
+                        var schueler = db.Schueler.SingleOrDefault(x => x.Id == s.Id);
+                        if (schueler != null)
+                        {
+                            schueler.Nachname = s.Nachname;
+                            schueler.Vorname = s.Vorname;
+                            // Weitere Aktualisierungen
+                        }
+                        else
+                        {
+                            db.Schueler.Attach(s);
+                            db.Entry(s).State = EntityState.Modified;
+                        }
+                    }
+                    db.SaveChanges();
+                }
+            }
+            else if (btnSchule.Visibility == Visibility.Visible)
+            {
+                // Logik zum Speichern der Schule
+            }
+            else if (btnKlassen.Visibility == Visibility.Visible)
+            {
+                // Logik zum Speichern der Klassen
+            }
+            else if (btnSchueler.Visibility == Visibility.Visible)
+            {
+                // Logik zum Speichern der Schüler
+            }
+            else if (btnRunden.Visibility == Visibility.Visible)
+            {
+                // Logik zum Speichern der Runden
+            }
+        }
+        private void btnSpeichern_Click(object sender, RoutedEventArgs e)
+        {
+            if (btnStartseite.Visibility == Visibility.Collapsed)
+            {
+                using (var db = new LaufDBContext())
+                {
+                    foreach (Schueler s in lstStartseite.Items)
+                    {
+                        var schueler = db.Schueler.SingleOrDefault(x => x.Id == s.Id);
+                        if (schueler != null)
+                        {
+                            schueler.Nachname = s.Nachname;
+                            schueler.Vorname = s.Vorname;
+                            // Weitere Aktualisierungen
+
+                            db.Schueler.Update(schueler);
+                        }
+                    }
+                    db.SaveChanges();
+                }
+            }
+            else if (btnSchule.Visibility == Visibility.Visible)
+            {
+                // Logik zum Speichern der Schule
+            }
+            else if (btnKlassen.Visibility == Visibility.Visible)
+            {
+                // Logik zum Speichern der Klassen
+            }
+            else if (btnSchueler.Visibility == Visibility.Visible)
+            {
+                // Logik zum Speichern der Schüler
+            }
+            else if (btnRunden.Visibility == Visibility.Visible)
+            {
+                // Logik zum Speichern der Runden
+            }
+        }
+
+        private void btnNeu_Click(object sender, RoutedEventArgs e)
+        {
+            Schueler s = new Schueler();
+            bool saved = false;
+            // this.lstSchueler.Items.Add(s);
+            while(saved == false)
+            {
+                    saved = Neu(s);
+                
+            }
+        }
+
+        private bool Neu(Schueler newEntry)
+        {
+            bool saved = false;
+
+            using (var db = new LaufDBContext())
+            {
+                //newEntry.Id = _dumodel.LstSchueler.Count +1;
+                newEntry.Vorname = "";
+                newEntry.Nachname = "";
+                newEntry.Geschlecht = Geschlecht.Maennlich;
+                //newEntry.Klasse = _dumodel.LstKlasse.First();
+                newEntry.Klasse = db.Klassen.Find(_dumodel.LstKlasse.First().Id);
+
+                //_dumodel.LstSchueler.
+                int maxId = _dumodel.LstSchueler.Max(x => x.Id);
+                _dumodel.LstSchueler.Add(newEntry);
+
+                //lstSchueler.Items.Insert(lstSchueler.Items.Count,newEntry);
+                db.Schueler.Add(newEntry);
+                db.SaveChanges();
+
+                newEntry = db.Schueler.OrderBy(x => x.Id).Last();
+
+                if(newEntry.Id > maxId)
+                {
+                    return true;
+                }
+            }
+
+            return saved;
+        }
+
+        private void btnDel_Click(object sender, RoutedEventArgs e)
+        {
+            if (lstSchueler.SelectedItem != null)
+            {
+                Schueler s = lstSchueler.SelectedItem as Schueler;
+                
+                using(var db = new LaufDBContext())
+                {
+                    Schueler delS = db.Schueler.Find(s.Id);
+                    db.Schueler.Remove(delS);
+                    _dumodel.LstSchueler.Remove(delS);
+                    db.SaveChanges();
+                };
+            }
+            else
+                MessageBox.Show("Bitte wählen Sie eine Klasse aus!", "Klasse nicht ausgewählt", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+        }
+
+
+        /*private void btnSpeichern_Click(object sender, RoutedEventArgs e)
+        {
+            if (btnStartseite.Visibility == Visibility.Collapsed)
+            {
+                foreach (
+                    Schueler s in lstStartseite.Items)
+                {
+                    using (var db = new LaufDBContext())
+                    {
+                        db.Schueler.Update(s);
+
+                        UpdateSchule(s.Id, s.Nachname);
+                    }
+                }
+            }
+            else if (btnSchule.Visibility == Visibility.Visible)
+            {
+
+            }
+            else if (btnKlassen.Visibility == Visibility.Visible)
+            {
+
+            }
+            else if (btnSchueler.Visibility == Visibility.Visible)
+            {
+
+            }
+            else if (btnRunden.Visibility == Visibility.Visible)
+            {
+
+            }
+        }
+        */
     }
 }
