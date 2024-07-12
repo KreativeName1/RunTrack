@@ -1,5 +1,5 @@
 # RunTrack
-![Logo](./Planung/RunTrack_transparent.png)
+![Logo](./Images/RunTrack_transparent.png)
 
 ## Beschreibung
 Dieses Projekt wurde erstellt für den Klimalauf
