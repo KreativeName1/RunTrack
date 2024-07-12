@@ -1,23 +1,23 @@
 # RunTrack
-![Logo](./Planung/Logo.png)
+![Logo](./Planung/RunTrack_transparent.png)
 
 ## Beschreibung
-Dieses Projekt wurde erstellt für den Klimalauf
-und ist auch eine Übung für die Projektarbeit in der 12. Klasse.
-Das Projekt ist ein Programm für die Verwaltung von Schülerläufen.
-Dieses Programm ist gedacht für Schulen, die einen Lauf veranstalten.
+Dieses Projekt wurde erstellt fÃ¼r den Klimalauf
+und ist auch eine Ãœbung fÃ¼r die Projektarbeit in der 12. Klasse.
+Das Projekt ist ein Programm fÃ¼r die Verwaltung von SchÃ¼lerlÃ¤ufen.
+Dieses Programm ist gedacht fÃ¼r Schulen, die einen Lauf veranstalten.
 Es ist in C# WPF geschrieben und verwendet eine SQLite Datenbank, die mit Entity Framework Core verwaltet wird.
 In diesem Projekt haben wir auch gelernt, wie man mit Git und GitHub zusammenarbeitet.
 
 ## Features
 - Login System mit einen Admin der beim Ersten Start erstellt wird
-- Datenübersicht für Schulen, Klassen, Schüler, Rundenarten, etc
-- Generierung von Barcodes der Schüler in einem eingebauten PDF-Editor
-- Scannen von Barcodes und speichern der Runden mit Liste der zuletzt gescannten Schüler
+- DatenÃ¼bersicht fÃ¼r Schulen, Klassen, SchÃ¼ler, Rundenarten, etc
+- Generierung von Barcodes der SchÃ¼ler in einem eingebauten PDF-Editor
+- Scannen von Barcodes und speichern der Runden mit Liste der zuletzt gescannten SchÃ¼ler
 - Auswertung der Daten in Diagrammen und Tabellen
-- Erstellung von Urkunden und Bewertungen für die Schüler als PDF
+- Erstellung von Urkunden und Bewertungen fÃ¼r die SchÃ¼ler als PDF
 - Export und Import von Daten und Datenbank
-- Einstellungen für das Programm
+- Einstellungen fÃ¼r das Programm
 
 ## Anleitung
 TODO
