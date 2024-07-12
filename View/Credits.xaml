@@ -6,21 +6,19 @@
         xmlns:local="clr-namespace:Klimalauf.View"
         mc:Ignorable="d"
         Icon="pack://application:,,,/Images/iconRunMan.ico"
-        Title="Credits" Height="460" Width="600">
+        Title="Credits" Height="490" Width="600">
+
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
 
         <Grid Margin="0,0,0,20" Grid.Row="0">
             <!-- Logo Background Rectangle -->
             <Rectangle Height="100" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
             <!-- Logo Image -->
             <Image Source="pack://application:,,,/Images/RunTrack_transparent.png" Width="300" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+
         </Grid>
 
-        <StackPanel Margin="20,100,20,20">
+        <StackPanel Margin="20,100,20,55">
             <!-- Logo -->
             <!--<Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>-->
             <!--<Image Source="pack://application:,,,/Images/RunTrack_transparent.png" Width="200"/>-->
@@ -30,40 +28,22 @@
 
             <!-- Beschreibung -->
             <TextBlock TextWrapping="Wrap"><Run FontWeight="Bold" Text="RunTrack"/><LineBreak/><Run Text="Dieses Projekt wurde für den Klimalauf entwickelt und dient gleichzeitig als Übung für die Projektarbeit in der 12. Klasse. Es handelt sich um ein Programm zur Verwaltung von Schülerläufen, konzipiert für Schulen, die solche Veranstaltungen organisieren. Die Anwendung ist in C# WPF geschrieben und nutzt eine SQLite-Datenbank, die über das Entity Framework Core verwaltet wird. Im Rahmen dieses Projekts haben wir außerdem Kenntnisse über die Zusammenarbeit mit Git und GitHub erworben."/></TextBlock>
+            <TextBlock><Run FontWeight="Bold" Text="Mitwirkende"/><LineBreak/><Run Text="- "/><Run Text=" "/><Hyperlink NavigateUri="https://github.com/Fuxson" RequestNavigate="Hyperlink_RequestNavigate"><Run Text="Paul Fischer"/></Hyperlink><LineBreak/><Run Text="- "/><Run Text=" "/><Hyperlink NavigateUri="https://github.com/KreativeName1" RequestNavigate="Hyperlink_RequestNavigate"><Run Text="Sascha Dierl"/></Hyperlink><LineBreak/><Run Text="- "/><Run Text=" "/><Hyperlink NavigateUri="https://github.com/CyberEnte" RequestNavigate="Hyperlink_RequestNavigate"><Run Text="Simon Glisnik"/></Hyperlink><LineBreak/><Run Text="- "/><Run Text=" "/><Hyperlink NavigateUri="https://github.com/GD1900" RequestNavigate="Hyperlink_RequestNavigate"><Run Text="Giada D'Aleo"/></Hyperlink><LineBreak/><Run Text="- "/><Run Text=" "/><Hyperlink NavigateUri="https://github.com/user10201" RequestNavigate="Hyperlink_RequestNavigate"><Run Text="Niko Neumeier"/></Hyperlink></TextBlock>
 
             <!-- Mitwirkende -->
-            <TextBlock Margin="0,10,0,0">
-                <Run FontWeight="Bold" Text="Mitwirkende"/><LineBreak/>
-                <Run Text="- "/>
-                <Hyperlink NavigateUri="https://github.com/Fuxson" RequestNavigate="Hyperlink_RequestNavigate">
-                    <Run Text="Paul Fischer"/>
-                </Hyperlink><LineBreak/>
-                <Run Text="- "/>
-                <Hyperlink NavigateUri="https://github.com/KreativeName1" RequestNavigate="Hyperlink_RequestNavigate">
-                    <Run Text="Sascha Dierl"/>
-                </Hyperlink><LineBreak/>
-                <Run Text="- "/>
-                <Hyperlink NavigateUri="https://github.com/CyberEnte" RequestNavigate="Hyperlink_RequestNavigate">
-                    <Run Text="Simon Glisnik"/>
-                </Hyperlink><LineBreak/>
-                <Run Text="- "/>
-                <Hyperlink NavigateUri="https://github.com/GD1900" RequestNavigate="Hyperlink_RequestNavigate">
-                    <Run Text="Giada D'Aleo"/>
-                </Hyperlink><LineBreak/>
-                <Run Text="- "/>
-                <Hyperlink NavigateUri="https://github.com/user10201" RequestNavigate="Hyperlink_RequestNavigate">
-                    <Run Text="Niko Neumeier"/>
-                </Hyperlink>
-            </TextBlock>
 
             <!-- RunTrack GitHub -->
-            <TextBlock Margin="0,10,0,0">
+            <TextBlock Margin="0,10,400,0">
                 <Run FontWeight="Bold" Text="RunTrack GitHub"/><LineBreak/>
                 <Run Text="- "/>
                 <Hyperlink NavigateUri="https://github.com/KreativeName1/RunTrack/tree/main" RequestNavigate="Hyperlink_RequestNavigate">
                     <Run Text="RunTrack"/>
                 </Hyperlink>
             </TextBlock>
+
         </StackPanel>
+
+        <Button Content="Schließen" HorizontalAlignment="Right" Margin="0,0,10,11" VerticalAlignment="Bottom" Height="28" Width="100" Click="Button_Click"/>
+
     </Grid>
 </Window>

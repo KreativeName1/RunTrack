@@ -31,6 +31,11 @@ namespace Klimalauf.View
          Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
          e.Handled = true;
       }
+
+      private void Button_Click(object sender, RoutedEventArgs e)
+      {
+         this.Close();
+      }
    }
 
    
