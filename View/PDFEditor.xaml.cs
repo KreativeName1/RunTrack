@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Klimalauf.View;
+using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
 namespace Klimalauf
@@ -36,12 +38,15 @@ namespace Klimalauf
 
          this.Loaded += (s, e) =>
          {
+            // Webview mit PDF füllen
             webView.Source = new Uri("about:blank");
             string pfad = PDFGenerator.BarcodesPDF(_pemodel.Klasse, _pemodel.Klasse.Schule.Name, _pemodel.Format);
             webView.Source = new Uri(pfad);
 
             webView.ZoomFactor = 0.62;
          };
+
+
 
          btnSpeichern.Click += (s, e) =>
          {
@@ -242,6 +247,17 @@ namespace Klimalauf
          this.Close();
       }
 
+      private void LogoutIcon_MouseDown(object sender, MouseButtonEventArgs e)
+      {
+         MainWindow mainWindow = new MainWindow();
+         mainWindow.Show();
+         this.Close();
+      }
 
+      //private void btnCredits_Click(object sender, RoutedEventArgs e)
+      //{
+      //   Credits credits = new Credits();
+      //   credits.Show();
+      //}
    }
 }

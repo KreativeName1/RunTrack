@@ -13,6 +13,9 @@
     <Compile Update="View\Auswertung.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\Credits.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\Dateiverwaltung.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -31,6 +34,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Auswertung.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Credits.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Dateiverwaltung.xaml">
