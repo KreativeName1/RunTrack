@@ -203,5 +203,15 @@ namespace Klimalauf
             Credits cr = new Credits();
             cr.ShowDialog();
         }
+
+        private void btnAdmin_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+			string firstName = FirstNameTextBox.Text;
+			string lastName = LastNameTextBox.Text;
+			string pwd = AdminPasswordBox.Password.ToString();
+
+
+			AdminEinstellungen admin = new AdminEinstellungen(firstName, lastName, pwd);
+        }
     }
 }
