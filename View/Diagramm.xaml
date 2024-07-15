@@ -1,0 +1,19 @@
+﻿<Window x:Class="Klimalauf.Diagramm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Klimalauf"
+        mc:Ignorable="d"
+        Title="Diagrammm" Height="450" Width="800">
+    <Grid SizeChanged="Grid_SizeChanged_1">
+        <Canvas x:Name="Diagrammcanvas" Margin="34,40,34,40">
+            <Label x:Name="label" Height="35" Canvas.Left="292" Canvas.Top="10" Width="216" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        </Canvas>
+
+
+
+
+
+    </Grid>
+</Window>

@@ -13,12 +13,26 @@
         </Grid.RowDefinitions>
         <local:TopBar x:Name="Leiste" Benutzername="Sascha, Dierl" HorizontalAlignment="Center" VerticalAlignment="Top" Width="800"/>
         <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
         <!-- Eingabe der Schulname oder auswahl aus ComboBox -->
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Grid.Row="0">
                 <Label Content="Schulname:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
                 <ComboBox x:Name="SchoolComboBox" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="200" Height="30" FontSize="14"/>
                 <TextBox x:Name="SchoolTextBox" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="200" Height="30" FontSize="14"/>
             </StackPanel>
+            <Grid  Grid.Row="1">
+                <StackPanel x:Name="OrderPanel" Drop="StackPanel_Drop" AllowDrop="True" Orientation="Horizontal" Height="50">
+                    <TextBlock MouseLeftButtonDown="TextBlock_MouseDown" Text="Test" Width="100" Background="Beige"/>
+                    <TextBlock MouseLeftButtonDown="TextBlock_MouseDown" Text="Test2" Width="100" Background="Aqua"/>
+                    <TextBlock MouseLeftButtonDown="TextBlock_MouseDown" Text="Test3" Width="100" Background="Bisque"/>
+                </StackPanel>
+            </Grid>
+            <!--<DataGrid x:Name="CSV_Grid" Grid.Row="1">
+                
+            </DataGrid>-->
         </Grid>
     </Grid>
 </Window>

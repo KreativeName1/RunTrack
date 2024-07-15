@@ -54,6 +54,9 @@
     <Page Update="View\Datenuebersicht.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\Diagramm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\Einstellungen.xaml">
       <SubType>Designer</SubType>
     </Page>
