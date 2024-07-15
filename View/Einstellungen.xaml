@@ -25,24 +25,22 @@
             <Button Content="Speichern" Click="Save_Click" Width="100" Height="25" Margin="5,5,20,5"/>
             <Button Content="Schließen" Click="CloseWindow_Click" Width="100" Height="25" Margin="5"/>
         </StackPanel>
-        <Label Content="Sekunden zum Warten zwischen den Scanns nach Rundenart" HorizontalAlignment="Center" Margin="0,31,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <Rectangle Height="5" Margin="0,60,0,0" Stroke="#FF5F5F5F" Fill="#FF5F5F5F" VerticalAlignment="Top"/>
+        <Label Content="Sekunden zum Warten zwischen den Scans nach Rundenart" HorizontalAlignment="Center" Margin="0,31,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Rectangle Height="2" Margin="0,60,0,0" Stroke="#FF5F5F5F" Fill="#FF5F5F5F" VerticalAlignment="Top"/>
 
-        <Grid x:Name="GridSettings" Margin="250,100,250,100">
+        <Grid x:Name="GridSettings" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="38*"/>
-                <ColumnDefinition Width="37*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <!-- Hier wird eine Spalte für die Löschen-Schaltfläche hinzugefügt -->
             </Grid.ColumnDefinitions>
-
-            <StackPanel x:Name="Rundengroesse" Orientation="Vertical" Margin="5,33,5,33" Grid.Column="0" VerticalAlignment="Center">
-            </StackPanel>
-
-            <Rectangle x:Name="Spacer" Width="2.5" Height="120px" Stroke="#FF5F5F5F" Fill="#FF5F5F5F" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-            <StackPanel x:Name="RundengroesseInputs" Orientation="Vertical" Grid.Column="1" Margin="5,33,5,33" VerticalAlignment="Center">
-            </StackPanel>
-
+            <Grid.RowDefinitions>
+                <!-- Dynamische Zeilen werden im Code-Behind hinzugefügt -->
+            </Grid.RowDefinitions>
         </Grid>
-
     </Grid>
 </Window>
