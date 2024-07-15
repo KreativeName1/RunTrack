@@ -34,6 +34,9 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <!-- Hier wird eine Spalte für die Löschen-Schaltfläche hinzugefügt -->
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <!-- Dynamische Zeilen werden im Code-Behind hinzugefügt -->
