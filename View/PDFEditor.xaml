@@ -129,7 +129,7 @@
 
         <Rectangle Height="451" Width="2" Margin="75,20,75,0" Stroke="#ababab" Fill="#ababab" VerticalAlignment="Top" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="1"/>
 
-        <StackPanel Margin="20,0,20,0"  Orientation="Vertical" Grid.Column="2" Grid.Row="2">
+        <StackPanel Margin="20,0,20,0"  Orientation="Vertical" x:Name="PanelRight" Grid.Column="2" Grid.Row="2">
             <!--Zellen: Abstände, Breite, Höhe-->
             <Label Content="Barcodeabstand:" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top"  Margin="0,20,0,0"/>
             <Border BorderBrush="Black" BorderThickness="1">

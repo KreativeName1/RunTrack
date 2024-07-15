@@ -91,20 +91,31 @@ namespace Klimalauf
 		}
 
 
-		public static void SchuelerBewertungPDF(Schueler schueler, string schulename)
+		public static string SchuelerBewertungPDF(Schueler schueler, Format format)
 		{
-			string path = $"Bewertungen/{schulename}/{schueler.Klasse.Name}";
+			string path = $"Temp";
 			Directory.CreateDirectory(path);
 
 			PdfDocument pdf = new PdfDocument(new PdfWriter(path + $"/{schueler.Vorname} {schueler.Nachname}.pdf"));
-			Document document = new Document(pdf, PageSize.A4);
-			document.SetMargins(20, 20, 20, 20);
+            // Blattgröße und Orientierung setzen
+            PageSize pageSize = new(format.BlattGroesse.Breite, format.BlattGroesse.Hoehe);
+            Document document;
+            if (format.Orientierung == Orientierung.Hochformat) document = new Document(pdf, pageSize);
+            else document = new Document(pdf, pageSize.Rotate());
 
-			document.Add(new Paragraph(schulename + " " + schueler.Klasse.Name).SetTextAlignment(TextAlignment.CENTER).SetFontSize(12));
-			document.Add(new Paragraph(schueler.Vorname + " " + schueler.Nachname).SetTextAlignment(TextAlignment.CENTER).SetBold().SetFontSize(14));
-			document.Add(new Paragraph("Datum: " + DateTime.Now.ToString("dd.MM.yyyy")).SetTextAlignment(TextAlignment.LEFT).SetFontSize(12));
+            // Seitenrand
+            document.SetMargins(format.SeitenRandOben, format.SeitenRandRechts, format.SeitenRandUnten, format.SeitenRandLinks);
+            if (format.SchriftTyp == SchriftTyp.Fett) document.SetBold();
+            if (format.SchriftTyp == SchriftTyp.Kursiv) document.SetItalic();
+            if (format.SchriftTyp == SchriftTyp.FettKursiv) document.SetBold().SetItalic();
+            document.SetFontSize(format.SchriftGroesse);
 
-			List<TimeSpan> rundenZeiten = new List<TimeSpan>();
+            document.Add(new Paragraph(DateTime.Now.ToString("dd.MM.yyyy")).SetTextAlignment(TextAlignment.LEFT).SetFontSize(format.SchriftGroesse * 0.8f));
+            document.Add(new Paragraph(schueler.Klasse.Schule.Name + " " + schueler.Klasse.Name).SetTextAlignment(TextAlignment.CENTER).SetFontSize(format.SchriftGroesse * 1.2f));
+            document.Add(new Paragraph(schueler.Vorname + " " + schueler.Nachname).SetTextAlignment(TextAlignment.CENTER).SetBold().SetFontSize(format.SchriftGroesse * 1.5f));
+
+
+            List<TimeSpan> rundenZeiten = new List<TimeSpan>();
 
 			for (int i = 1; i < schueler.Runden.Count; i++)
 			{
@@ -115,34 +126,21 @@ namespace Klimalauf
 			if (rundenZeiten.Count > 0)
 			{
 				TimeSpan schnellsteRunde = rundenZeiten[0];
-				TimeSpan langsamsteRunde = rundenZeiten[0];
 				int indexSchnellsteRunde = 0;
-				int indexLangsamsteRunde = 0;
-				TimeSpan gesamtZeit = new TimeSpan(0, 0, 0);
 
 				for (int i = 1; i < rundenZeiten.Count; i++)
 				{
-					gesamtZeit += rundenZeiten[i];
 
 					if (rundenZeiten[i] < schnellsteRunde)
 					{
 						schnellsteRunde = rundenZeiten[i];
 						indexSchnellsteRunde = i;
 					}
-
-					if (rundenZeiten[i] > langsamsteRunde)
-					{
-						langsamsteRunde = rundenZeiten[i];
-						indexLangsamsteRunde = i;
-					}
 				}
 
-				TimeSpan durchschnittsZeit = new TimeSpan(gesamtZeit.Ticks / rundenZeiten.Count);
-
-				document.Add(new Paragraph("Schnellste Runde: Runde " + (indexSchnellsteRunde + 1) + " mit " + schnellsteRunde).SetTextAlignment(TextAlignment.LEFT).SetFontSize(12));
-				document.Add(new Paragraph("Langsamste Runde: Runde " + (indexLangsamsteRunde + 1) + " mit " + langsamsteRunde).SetTextAlignment(TextAlignment.LEFT).SetFontSize(12));
-				document.Add(new Paragraph("Durchschnittszeit: " + durchschnittsZeit.ToString(@"hh\:mm\:ss")).SetTextAlignment(TextAlignment.LEFT).SetFontSize(12));
-				document.Add(new Paragraph("Gelaufene Meter: " + (rundenZeiten.Count * schueler.Klasse.RundenArt.LaengeInMeter).ToString()).SetTextAlignment(TextAlignment.LEFT).SetFontSize(12));
+				document.Add(new Paragraph("Schnellste Runde: Runde " + (indexSchnellsteRunde + 1) + " mit " + schnellsteRunde.ToString(@"mm\:ss")).SetTextAlignment(TextAlignment.LEFT).SetFontSize(format.SchriftGroesse));
+				document.Add(new Paragraph("Gelaufene Meter: " + ((rundenZeiten.Count-1) * schueler.Klasse.RundenArt.LaengeInMeter).ToString()).SetTextAlignment(TextAlignment.LEFT).SetFontSize(format.SchriftGroesse));
+				document.Add(new Paragraph("Anzahl Runden: " + (rundenZeiten.Count-1).ToString()).SetTextAlignment(TextAlignment.LEFT).SetFontSize(format.SchriftGroesse));
 
 			}
 			else
@@ -184,7 +182,9 @@ namespace Klimalauf
 
 			document.Close();
 
+            return System.IO.Path.GetFullPath(path + $"/{schueler.Vorname} {schueler.Nachname}.pdf");
 
-		}
+
+        }
 	}
 }

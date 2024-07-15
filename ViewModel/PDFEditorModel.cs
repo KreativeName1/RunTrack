@@ -11,6 +11,7 @@ namespace Klimalauf
         private Format _format;
 
         private Klasse _klasse;
+        private Schueler _schueler;
 
         public Format Format
         {
@@ -29,6 +30,15 @@ namespace Klimalauf
             {
                 _klasse = value;
                 OnPropertyChanged("Klasse");
+            }
+        }
+        public Schueler Schueler
+        {
+            get { return _schueler; }
+            set
+            {
+                _schueler = value;
+                OnPropertyChanged("Schueler");
             }
         }
 

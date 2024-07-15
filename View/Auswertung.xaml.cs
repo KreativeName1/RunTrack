@@ -64,6 +64,21 @@ namespace Klimalauf
             };
             btnSchuelerWertung.Click += (s, e) =>
             {
+                // get selected Item
+                if (_amodel.SelectedItem != null)
+                {
+                    int? id = (int)_amodel.SelectedItem.GetType().GetProperty("SchuelerId").GetValue(_amodel.SelectedItem, null);
+                    if (id == null) return;
+
+                    Schueler schueler;
+                    using (var db = new MergedDBContext(_pfade))
+                    {
+                        schueler = db.Schueler.Include(s => s.Runden).Include(s => s.Klasse).FirstOrDefault(s => s.Id == id);
+                    }
+                    if (schueler == null) return;
+                    PDFEditor schuelerWertung = new PDFEditor(schueler);
+                    schuelerWertung.Show();
+                }
 
             };
         }
@@ -120,7 +135,7 @@ namespace Klimalauf
 
                         
 
-                        _amodel.Liste.Add(new { Name = schueler.Vorname + " " + schueler.Nachname, Schule = schueler.Klasse.Schule.Name, Klasse = schueler.Klasse.Name, Bewertung = bewertung, Geschlecht = geschlecht });
+                        _amodel.Liste.Add(new {SchuelerId = schueler.Id, Name = schueler.Vorname + " " + schueler.Nachname, Schule = schueler.Klasse.Schule.Name, Klasse = schueler.Klasse.Name, Bewertung = bewertung, Geschlecht = geschlecht });
                     }
                 }
                 else if (_amodel.IsSchule)
@@ -136,7 +151,7 @@ namespace Klimalauf
                         if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
                         if (_amodel.IsDivers && schueler.Geschlecht != Geschlecht.Divers) continue;
-                        _amodel.Liste.Add(new { Name = schueler.Vorname + " " + schueler.Nachname, Klasse = schueler.Klasse.Name, Bewertung = bewertung, Geschlecht = geschlecht });
+                        _amodel.Liste.Add(new { SchuelerId = schueler.Id, Name = schueler.Vorname + " " + schueler.Nachname, Klasse = schueler.Klasse.Name, Bewertung = bewertung, Geschlecht = geschlecht });
                     }
                 }
                 else if (_amodel.IsKlasse)
@@ -152,7 +167,7 @@ namespace Klimalauf
                         if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
                         if (_amodel.IsDivers && schueler.Geschlecht != Geschlecht.Divers) continue;
-                        _amodel.Liste.Add(new { Name = schueler.Vorname + " " + schueler.Nachname, Bewertung = bewertung, Geschlecht = geschlecht });
+                        _amodel.Liste.Add(new { SchuelerId = schueler.Id, Name = schueler.Vorname + " " + schueler.Nachname, Bewertung = bewertung, Geschlecht = geschlecht });
                     }
                 }
                 else if (_amodel.IsJahrgang)
@@ -168,7 +183,7 @@ namespace Klimalauf
                         if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
                         if (_amodel.IsDivers && schueler.Geschlecht != Geschlecht.Divers) continue;
-                        _amodel.Liste.Add(new { Name = schueler.Vorname + " " + schueler.Nachname, Klasse = schueler.Klasse.Name, Schule = schueler.Klasse.Schule.Name, Bewertung = bewertung, Geschlecht = geschlecht });
+                        _amodel.Liste.Add(new { SchuelerId = schueler.Id, Name = schueler.Vorname + " " + schueler.Nachname, Klasse = schueler.Klasse.Name, Schule = schueler.Klasse.Schule.Name, Bewertung = bewertung, Geschlecht = geschlecht });
                     }
                 }
             }
