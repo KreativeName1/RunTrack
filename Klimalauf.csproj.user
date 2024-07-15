@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="View\CSVImport.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\AdminErstellen.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -28,8 +31,14 @@
     <Compile Update="View\Scanner.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\TopBar.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="View\CSVImport.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\AdminErstellen.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -52,6 +61,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Scanner.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\TopBar.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

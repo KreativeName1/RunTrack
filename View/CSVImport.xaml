@@ -1,0 +1,24 @@
+﻿<Window x:Class="Klimalauf.CSVImport"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Klimalauf"
+        mc:Ignorable="d"
+        Title="CSVImport" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <local:TopBar x:Name="Leiste" Benutzername="Sascha, Dierl" HorizontalAlignment="Center" VerticalAlignment="Top" Width="800"/>
+        <Grid Grid.Row="1">
+        <!-- Eingabe der Schulname oder auswahl aus ComboBox -->
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Schulname:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+                <ComboBox x:Name="SchoolComboBox" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="200" Height="30" FontSize="14"/>
+                <TextBox x:Name="SchoolTextBox" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="200" Height="30" FontSize="14"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
