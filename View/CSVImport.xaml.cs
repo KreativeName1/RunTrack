@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -46,7 +47,7 @@ namespace Klimalauf
             if (e.Data.GetDataPresent("OriginalIndex"))
             {
                 int originalIndex = (int)e.Data.GetData("OriginalIndex");
-                int newIndex = GetNewIndexFromMousePosition(e.GetPosition(OrderPanel)); // Implement logic to determine new index based on mouse position
+                int newIndex = GetNewIndexFromMousePosition(e.GetPosition(OrderPanel), sender); // Implement logic to determine new index based on mouse position
 
                 if (originalIndex != newIndex && originalIndex >= 0 && newIndex < StackPanelItems.Count)
                 {
@@ -57,10 +58,21 @@ namespace Klimalauf
             }
         }
 
-        private int GetNewIndexFromMousePosition(Point point)
+        private int GetNewIndexFromMousePosition(Point point, object sender)
         {
-            // Implement logic to determine new index based on mouse position
-            return 0;
+            double totalWidth = OrderPanel.ActualWidth;
+            int newIndex = 0;
+
+            foreach (TextBlock child in OrderPanel.Children)
+            {
+                if (child != sender && point.X < child.ActualWidth + child.TranslatePoint(new Point(0, 0), OrderPanel).X)
+                {
+                    break;
+                }
+                newIndex++;
+            }
+
+            return Math.Min(newIndex, StackPanelItems.Count - 1);
         }
     }
 }
