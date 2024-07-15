@@ -21,58 +21,39 @@ namespace Klimalauf
     /// </summary>
     public partial class CSVImport : Window
     {
-        public ObservableCollection<string> StackPanelItems { get; set; }
         private MainViewModel _mvmodel;
         public CSVImport()
         {
             _mvmodel = FindResource("mvmodel") as MainViewModel;
             InitializeComponent();
-            StackPanelItems = new ObservableCollection<string> { "Item 1", "Item 2", "Item 3" };
+            TextBlock item1 = new TextBlock { Text = "Item 1", Background= Brushes.Aqua};
+            item1.MouseDown += TextBlock_MouseDown;
+            TextBlock item2 = new TextBlock { Text = "Item 2", Background = Brushes.IndianRed };
+            item2.MouseDown += TextBlock_MouseDown;
+            TextBlock item3 = new TextBlock { Text = "Item 3", Background = Brushes.DarkOrange };
+            item3.MouseDown += TextBlock_MouseDown;
+
+            OrderPanel.Children.Add(item1);
+            OrderPanel.Children.Add(item2);
+            OrderPanel.Children.Add(item3);
+
             Leiste.Benutzername = _mvmodel.Benutzer.Vorname + ", " + _mvmodel.Benutzer.Nachname;
         }
 
         private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                TextBlock draggedTextBlock = (TextBlock)sender;
-                DataObject dataObject = new DataObject();
-                dataObject.SetData("OriginalIndex", StackPanelItems.IndexOf(draggedTextBlock.Text));
-                DragDrop.DoDragDrop(draggedTextBlock, dataObject, DragDropEffects.Move);
-            }
+            TextBlock textBlock = (TextBlock)sender;
+            DragDrop.DoDragDrop(textBlock, textBlock.Text, DragDropEffects.Move);
         }
 
         private void StackPanel_Drop(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent("OriginalIndex"))
+            if (e.Data.GetDataPresent(DataFormats.Text))
             {
-                int originalIndex = (int)e.Data.GetData("OriginalIndex");
-                int newIndex = GetNewIndexFromMousePosition(e.GetPosition(OrderPanel), sender); // Implement logic to determine new index based on mouse position
-
-                if (originalIndex != newIndex && originalIndex >= 0 && newIndex < StackPanelItems.Count)
-                {
-                    string draggedText = StackPanelItems[originalIndex];
-                    StackPanelItems.RemoveAt(originalIndex);
-                    StackPanelItems.Insert(newIndex, draggedText);
-                }
+                string data = (string)e.Data.GetData(DataFormats.Text);
+                OrderPanel.Children.Add(new TextBlock { Text = data });
             }
         }
 
-        private int GetNewIndexFromMousePosition(Point point, object sender)
-        {
-            double totalWidth = OrderPanel.ActualWidth;
-            int newIndex = 0;
-
-            foreach (TextBlock child in OrderPanel.Children)
-            {
-                if (child != sender && point.X < child.ActualWidth + child.TranslatePoint(new Point(0, 0), OrderPanel).X)
-                {
-                    break;
-                }
-                newIndex++;
-            }
-
-            return Math.Min(newIndex, StackPanelItems.Count - 1);
-        }
     }
 }

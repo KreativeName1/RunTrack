@@ -25,9 +25,7 @@
             </StackPanel>
             <Grid  Grid.Row="1">
                 <StackPanel x:Name="OrderPanel" Drop="StackPanel_Drop" AllowDrop="True" Orientation="Horizontal" Height="50">
-                    <TextBlock MouseLeftButtonDown="TextBlock_MouseDown" Text="Test" Width="100" Background="Beige"/>
-                    <TextBlock MouseLeftButtonDown="TextBlock_MouseDown" Text="Test2" Width="100" Background="Aqua"/>
-                    <TextBlock MouseLeftButtonDown="TextBlock_MouseDown" Text="Test3" Width="100" Background="Bisque"/>
+                   
                 </StackPanel>
             </Grid>
             <!--<DataGrid x:Name="CSV_Grid" Grid.Row="1">
