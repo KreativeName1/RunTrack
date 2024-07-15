@@ -11,6 +11,7 @@ namespace Klimalauf
     /// </summary>
     public partial class AdminErstellen : Window
     {
+
         public AdminErstellen()
         {
             InitializeComponent();
@@ -96,6 +97,19 @@ namespace Klimalauf
 
         private bool ValidatePasswort()
         {
+            if(txtPasswort.Password != txtPasswortWdh.Password)
+            {
+                SetInvalidInputStyle(txtPasswort);
+                MessageBox.Show("Passwörter stimmen nicht überein!", "Invalid Passwords", MessageBoxButton.OK, MessageBoxImage.Error/*, MediaElement*/);
+
+                return false;
+            }
+            if(txtPasswort.Password == txtPasswortWdh.Password)
+            {
+                SetValidInputStyle(txtPasswort);
+                return true;
+            }
+
             if (string.IsNullOrEmpty(txtPasswort.Password))
             {
                 SetInvalidInputStyle(txtPasswort);
@@ -134,6 +148,29 @@ namespace Klimalauf
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
+            if (sender is PasswordBox pwBox)
+            {
+                this.lblPasswortWdh.Visibility = Visibility.Visible;
+                this.txtPasswortWdh.Visibility = Visibility.Visible;
+
+                txtPasswortWdh.Background = new SolidColorBrush(Colors.White);
+                txtPasswortWdh.Foreground = new SolidColorBrush(Colors.Blue);
+
+                // lstlastScan.Margin = new Thickness(lstlastScan.Margin.Left, lstlastScan.Margin.Top, lstlastScan.Margin.Right, 100);
+
+                this.btnErstellen.Margin = new Thickness(btnErstellen.Margin.Left, btnErstellen.Margin.Top, btnErstellen.Margin.Right, 30);
+            }
+            else
+            {
+                this.btnErstellen.Margin = new Thickness(btnErstellen.Margin.Left, btnErstellen.Margin.Top, btnErstellen.Margin.Right, 40);
+
+                if(txtPasswortWdh.Password.ToString()  == "")
+                {
+                    this.lblPasswortWdh.Visibility = Visibility.Collapsed;
+                    this.txtPasswortWdh.Visibility = Visibility.Collapsed;
+                }
+            }
+
             if (e.Key == Key.Enter)
             {
                 if (sender is TextBox textBox)
