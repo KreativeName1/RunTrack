@@ -12,6 +12,7 @@ namespace Klimalauf
         private bool _isMaennlich { get; set; } = false;
         private bool _isWeiblich { get; set; } = false;
         private bool _isGesamt { get; set; } = true;
+        private bool _isDivers { get; set; } = false;
 
         private bool _isAnzahl { get; set; } = true;
         private bool _isZeit { get; set; } = false;
@@ -22,9 +23,6 @@ namespace Klimalauf
         private bool _isKlasse { get; set; } = false;
         private bool _isJahrgang { get; set; } = false;
 
-        private bool _isZeitSchnellste { get; set; } = true;
-        private bool _isZeitLangsamste { get; set; } = false;
-        private bool _isZeitDurchschnitt { get; set; } = false;
 
         private ObservableCollection<object> _liste { get; set; } = new ObservableCollection<object>();
         private object _selectedItem { get; set; } = null;
@@ -49,6 +47,11 @@ namespace Klimalauf
         {
             get { return _isGesamt; }
             set { _isGesamt = value; OnPropertyChanged("IsGesamt"); }
+        }
+        public bool IsDivers
+        {
+            get { return _isDivers; }
+            set { _isDivers = value; OnPropertyChanged("IsDivers"); }
         }
 
         public bool IsAnzahl
@@ -88,23 +91,6 @@ namespace Klimalauf
             get { return _isJahrgang; }
             set { _isJahrgang = value; OnPropertyChanged("IsJahrgang"); }
         }
-
-        public bool IsZeitSchnellste
-        {
-            get { return _isZeitSchnellste; }
-            set { _isZeitSchnellste = value; OnPropertyChanged("IsZeitSchnellste"); }
-        }
-        public bool IsZeitLangsamste
-        {
-            get { return _isZeitLangsamste; }
-            set { _isZeitLangsamste = value; OnPropertyChanged("IsZeitLangsamste"); }
-        }
-        public bool IsZeitDurchschnitt
-        {
-            get { return _isZeitDurchschnitt; }
-            set { _isZeitDurchschnitt = value; OnPropertyChanged("IsZeitDurchschnitt"); }
-        }
-
 
 
         public int Jahrgang

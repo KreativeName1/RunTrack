@@ -3,6 +3,7 @@
     public enum Geschlecht
     {
         Maennlich,
-        Weiblich
+        Weiblich,
+        Divers
     }
 }

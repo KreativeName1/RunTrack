@@ -85,13 +85,6 @@
                 <StackPanel>
                     <RadioButton GroupName="Typ" Name="Anzahl" IsChecked="{Binding IsAnzahl}" Grid.Row="0" Content="Anzahl" VerticalAlignment="Center"  Checked="change" />
                     <RadioButton GroupName="Typ" Name="Zeit" Grid.Row="1" IsChecked="{Binding IsZeit}" Content="Zeit" VerticalAlignment="Center"  Checked="change"/>
-                    <GroupBox>
-                        <StackPanel>
-                            <RadioButton GroupName="NachZeit"  Name="ZeitGesamt" IsChecked="{Binding IsZeitSchnellste}" Content="Schnellste" VerticalAlignment="Center" Checked="change" />
-                            <RadioButton GroupName="NachZeit"  Name="ZeitLangsamste" IsChecked="{Binding IsZeitLangsamste}" Content="Langsamste" VerticalAlignment="Center" Checked="change" />
-                            <RadioButton GroupName="NachZeit"  Name="ZeitDurchschnitt" IsChecked="{Binding IsZeitDurchschnitt}" Content="Durchschnitt" VerticalAlignment="Center" Checked="change" />
-                        </StackPanel>
-                    </GroupBox>
                     <RadioButton GroupName="Typ" Name="Distanz" Grid.Row="2" IsChecked="{Binding IsDistanz}" Content="Distanz" VerticalAlignment="Center" Checked="change" />
                 </StackPanel>
             </Border>
@@ -103,6 +96,7 @@
                     <RadioButton  GroupName="Geschlecht" Name="Gesamt" IsChecked="{Binding IsGesamt}" Content="Gesamt" VerticalAlignment="Center" Checked="change"/>
                     <RadioButton GroupName="Geschlecht" Name="Maennlich" IsChecked="{Binding IsMaennlich}"  Content="Männlich" VerticalAlignment="Center"  Checked="change"/>
                     <RadioButton GroupName="Geschlecht" Name="Weiblich" IsChecked="{Binding IsWeiblich}"  Content="Weiblich" VerticalAlignment="Center"  Checked="change"/>
+                    <RadioButton GroupName="Geschlecht" Name="Divers" IsChecked="{Binding IsDivers}"  Content="Divers" VerticalAlignment="Center"  Checked="change"/>
                 </StackPanel>
             </Border>
 

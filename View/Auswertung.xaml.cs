@@ -17,19 +17,17 @@ namespace Klimalauf
         private MainViewModel _mvmodel;
         public Auswertung()
         {
+            if (!System.IO.Directory.Exists("Dateien")) System.IO.Directory.CreateDirectory("Dateien");
             _pfade = System.IO.Directory.GetFiles("Dateien", "*.db");
             _amodel = FindResource("amodel") as AuswertungModel;
             _mvmodel = FindResource("mvmodel") as MainViewModel;
+            _amodel.Liste = new ObservableCollection<object>();
 
             InitializeComponent();
-
-
-            _amodel.Liste = new ObservableCollection<object>();
             LoadData();
             init();
-
-
         }
+
         public void init()
         {
             btnImport.Click += (s, e) =>
@@ -84,8 +82,10 @@ namespace Klimalauf
                             Name = rundenArt.Name.Replace(" ", "_"),
                             IsChecked = first
                         };
+                        rb.Checked += change;
                         _rundenArten.Add(rb);
                         RundenGroesse.Children.Add(rb);
+
                         first = false;
                     }
 
@@ -100,17 +100,27 @@ namespace Klimalauf
 
         private void change(object sender, RoutedEventArgs e)
         {
+            if (RundenGroesse == null) return;
             using (var db = new MergedDBContext(_pfade))
             {
 
                 if (_amodel.IsInsgesamt)
                 {
                     _amodel.newList();
-                    // get schueler with runden, klasse, klasse->rundenart with intersect/include
                     foreach (Schueler schueler in db.Schueler.Include(s => s.Runden).Include(s => s.Klasse).Where(s => s.Runden.Count() > 1))
                     {
                         string bewertung = GetBewertung(schueler);
-                        _amodel.Liste.Add(new { Name = schueler.Vorname + " " + schueler.Nachname, Schule = schueler.Klasse.Schule.Name, Klasse = schueler.Klasse.Name, Bewertung = bewertung });
+                        string geschlecht = GetGeschlecht(schueler);
+
+                        if (GetRundenArt(schueler)) continue;
+
+                        if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
+                        if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
+                        if (_amodel.IsDivers && schueler.Geschlecht != Geschlecht.Divers) continue;
+
+                        
+
+                        _amodel.Liste.Add(new { Name = schueler.Vorname + " " + schueler.Nachname, Schule = schueler.Klasse.Schule.Name, Klasse = schueler.Klasse.Name, Bewertung = bewertung, Geschlecht = geschlecht });
                     }
                 }
                 else if (_amodel.IsSchule)
@@ -118,8 +128,15 @@ namespace Klimalauf
                     _amodel.newList();
                     foreach (Schueler schueler in db.Schueler.Include(s => s.Runden).Include(s => s.Klasse).Where(s => s.Klasse.Schule == _amodel.SelectedSchule && s.Runden.Count() > 1))
                     {
+                        string geschlecht = GetGeschlecht(schueler);
                         string bewertung = GetBewertung(schueler);
-                        _amodel.Liste.Add(new { Name = schueler.Vorname + " " + schueler.Nachname, Klasse = schueler.Klasse.Name, Bewertung = bewertung });
+
+                        if (GetRundenArt(schueler)) continue;
+
+                        if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
+                        if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
+                        if (_amodel.IsDivers && schueler.Geschlecht != Geschlecht.Divers) continue;
+                        _amodel.Liste.Add(new { Name = schueler.Vorname + " " + schueler.Nachname, Klasse = schueler.Klasse.Name, Bewertung = bewertung, Geschlecht = geschlecht });
                     }
                 }
                 else if (_amodel.IsKlasse)
@@ -127,8 +144,15 @@ namespace Klimalauf
                     _amodel.newList();
                     foreach (Schueler schueler in db.Schueler.Include(s => s.Runden).Include(s => s.Klasse).Where(s => s.Klasse == _amodel.SelectedKlasse && s.Runden.Count() > 1))
                     {
+                        string geschlecht = GetGeschlecht(schueler);
                         string bewertung = GetBewertung(schueler);
-                        _amodel.Liste.Add(new { Name = schueler.Vorname + " " + schueler.Nachname, Bewertung = bewertung });
+
+                        if (GetRundenArt(schueler)) continue;
+
+                        if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
+                        if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
+                        if (_amodel.IsDivers && schueler.Geschlecht != Geschlecht.Divers) continue;
+                        _amodel.Liste.Add(new { Name = schueler.Vorname + " " + schueler.Nachname, Bewertung = bewertung, Geschlecht = geschlecht });
                     }
                 }
                 else if (_amodel.IsJahrgang)
@@ -136,8 +160,15 @@ namespace Klimalauf
                     _amodel.newList();
                     foreach (Schueler schueler in db.Schueler.Include(s => s.Runden).Include(s => s.Klasse).Where(s => s.Klasse.Jahrgang == _amodel.Jahrgang && s.Runden.Count > 1))
                     {
+                        string geschlecht = GetGeschlecht(schueler);
                         string bewertung = GetBewertung(schueler);
-                        _amodel.Liste.Add(new { Name = schueler.Vorname + " " + schueler.Nachname, Klasse = schueler.Klasse.Name, Schule = schueler.Klasse.Schule.Name, Bewertung = bewertung });
+
+                        if (GetRundenArt(schueler)) continue;
+
+                        if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
+                        if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
+                        if (_amodel.IsDivers && schueler.Geschlecht != Geschlecht.Divers) continue;
+                        _amodel.Liste.Add(new { Name = schueler.Vorname + " " + schueler.Nachname, Klasse = schueler.Klasse.Name, Schule = schueler.Klasse.Schule.Name, Bewertung = bewertung, Geschlecht = geschlecht });
                     }
                 }
             }
@@ -153,6 +184,38 @@ namespace Klimalauf
             change(sender, e);
         }
 
+        private string GetGeschlecht(Schueler schueler)
+        {
+            switch (schueler.Geschlecht)
+            {
+                case Geschlecht.Maennlich:
+                    return "Männlich";
+                case Geschlecht.Weiblich:
+                    return "Weiblich";
+                case Geschlecht.Divers:
+                    return "Divers";
+                default:
+                    return "";
+            }
+        }
+        private bool GetRundenArt(Schueler schueler)
+        {
+            string rundenArtName = "";
+            foreach (RadioButton rb in RundenGroesse.Children)
+            {
+                if (rb.IsChecked == true)
+                {
+                    rundenArtName = rb.Content.ToString();
+                    break;
+                }
+            }
+
+            if (rundenArtName != "")
+            {
+                if (schueler.Klasse.RundenArt.Name != rundenArtName) return true;
+            }
+            return false;
+        }
         private string GetBewertung(Schueler schueler)
         {
             string Bewertung = "";
@@ -174,33 +237,18 @@ namespace Klimalauf
                 if (rundenZeiten.Count > 0)
                 {
                     TimeSpan schnellsteRunde = rundenZeiten[0];
-                    TimeSpan langsamsteRunde = rundenZeiten[0];
                     int indexSchnellsteRunde = 0;
-                    int indexLangsamsteRunde = 0;
-                    TimeSpan gesamtZeit = new TimeSpan(0, 0, 0);
 
                     for (int i = 1; i < rundenZeiten.Count; i++)
                     {
-                        gesamtZeit += rundenZeiten[i];
-
                         if (rundenZeiten[i] < schnellsteRunde)
                         {
                             schnellsteRunde = rundenZeiten[i];
                             indexSchnellsteRunde = i;
                         }
-
-                        if (rundenZeiten[i] > langsamsteRunde)
-                        {
-                            langsamsteRunde = rundenZeiten[i];
-                            indexLangsamsteRunde = i;
-                        }
                     }
 
-                    TimeSpan durchschnittsZeit = new TimeSpan(gesamtZeit.Ticks / rundenZeiten.Count);
-                    if (_amodel.IsZeitSchnellste) Bewertung = schnellsteRunde.ToString(@"mm\:ss");
-                    else if (_amodel.IsZeitLangsamste) Bewertung = langsamsteRunde.ToString(@"mm\:ss");
-                    else if (_amodel.IsZeitDurchschnitt && durchschnittsZeit.Ticks > 0) Bewertung = durchschnittsZeit.ToString(@"mm\:ss");
-                    else Bewertung = "--:--";
+                    Bewertung = schnellsteRunde.ToString(@"mm\:ss");
                 }
                 else
                 {
