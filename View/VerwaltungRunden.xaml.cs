@@ -23,5 +23,25 @@ namespace Klimalauf.View
         {
             InitializeComponent();
         }
-    }
+
+      private void txtDauer_GotFocus(object sender, RoutedEventArgs e)
+      {
+         rectSek.Stroke = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#5fa2e6"));
+      }
+
+      private void txtDauer_LostFocus(object sender, RoutedEventArgs e)
+      {
+         rectSek.Stroke = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#abadb3"));
+      }
+
+      private void txtDauer_MouseEnter(object sender, MouseEventArgs e)
+      {
+         rectSek.Stroke = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#5fa2e6"));
+      }
+
+      private void txtDauer_MouseLeave(object sender, MouseEventArgs e)
+      {
+         rectSek.Stroke = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#abadb3"));
+      }
+   }
 }

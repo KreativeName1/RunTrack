@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Klimalauf.View;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -101,7 +102,7 @@ namespace Klimalauf
                Grid.SetColumn(deleteButton, 4);
                GridSettings.Children.Add(deleteButton);
 
-
+               
                // Einstellungen
                Button optionsButton = new Button
                {
@@ -149,6 +150,9 @@ namespace Klimalauf
       private void AddButton_Click(object sender, RoutedEventArgs e)
       {
          System.Windows.MessageBox.Show("Neue Rundenart hinzufügen", "Hinzufügen", MessageBoxButton.OK, MessageBoxImage.Information);
+
+         VerwaltungRunden verwaltungRunden = new VerwaltungRunden();
+         verwaltungRunden.ShowDialog();
       }
 
       private void OptionsButton_Click(object sender, RoutedEventArgs e)
