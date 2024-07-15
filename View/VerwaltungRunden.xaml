@@ -1,0 +1,31 @@
+﻿<Window x:Class="Klimalauf.View.VerwaltungRunden"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Klimalauf.View"
+        mc:Ignorable="d"
+        Title="VerwaltungRunden" Height="450" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid>
+        <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
+        <Label x:Name="operationName" Content="Bearbeiten / Hinzufügen" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
+
+
+        <Label Content="Bezeichnung:" HorizontalAlignment="Left" Margin="40,56,0,0" VerticalAlignment="Top"/>
+        <TextBox Margin="0,60,40,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100"/>
+
+
+        <Label Content="Ca. Länge:" HorizontalAlignment="Left" Margin="40,96,0,0" VerticalAlignment="Top"/>
+        <TextBox Margin="0,100,40,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100"/>
+
+
+        <Label Content="Interval zwischen dem Gleichen Läufer:" HorizontalAlignment="Left" Margin="22,133,0,0" VerticalAlignment="Top"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="234,376,0,0" VerticalAlignment="Top"/>
+
+
+
+
+
+
+    </Grid>
+</Window>
