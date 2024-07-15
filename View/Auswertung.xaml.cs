@@ -56,7 +56,8 @@ namespace Klimalauf
             };
             btnDiagramm.Click += (s, e) =>
             {
-
+                Diagrammm diagrammm = new Diagrammm();
+                diagrammm.Show();
             };
             btnWertung.Click += (s, e) =>
             {

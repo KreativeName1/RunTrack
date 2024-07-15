@@ -1,0 +1,36 @@
+﻿<Window x:Class="Klimalauf.View.AdminEinstellungen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Klimalauf.View"
+        mc:Ignorable="d"
+        Title="AdminEinstellungen" Height="360" Width="450" ResizeMode="NoResize">
+    <Grid>
+        <Grid x:Name="grdStandard">
+            <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
+            <Label Content="Scan Programm für den Klimalauf" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
+
+            <Image Source="/Images/credits.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" Grid.Column="2">
+                <Image.ToolTip>
+                    <ToolTip Cursor="" Content="Credits"/>
+                </Image.ToolTip>
+            </Image>
+
+            <Label Content="Vorname:" Margin="87,86,0,0" HorizontalAlignment="Left" Width="100" FontSize="14" FontWeight="Bold" Height="28" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtVorname" Margin="192,85,0,0" TextWrapping="Wrap" HorizontalAlignment="Left" Width="150" FontSize="14" Padding="5" Foreground="Gray" Text="Max" Height="30" VerticalAlignment="Top"/>
+
+            <Label Content="Nachname:" HorizontalAlignment="Left" Margin="87,132,0,0" FontSize="14" RenderTransformOrigin="0.529,0.231" FontFamily="72" FontWeight="Bold" Height="26" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtNachname" HorizontalAlignment="Left" Margin="192,130,0,0" TextWrapping="Wrap" Width="150" FontSize="14" Padding="5" Foreground="Gray" Text="Mustermann" Height="30" VerticalAlignment="Top"/>
+
+            <Label Content="Passwort:" HorizontalAlignment="Left" Margin="87,178,0,0" FontSize="14" RenderTransformOrigin="0.529,0.231" FontFamily="72" FontWeight="Bold" Height="26" VerticalAlignment="Top"/>
+            <PasswordBox x:Name="txtPasswort" HorizontalAlignment="Left" Margin="192,176,0,0" Width="150" FontSize="14" Padding="5" Foreground="Gray" Height="30" VerticalAlignment="Top"/>
+
+            <Label x:Name="lblPasswortWdh" Content="Passwort wdh:" HorizontalAlignment="Left" Margin="87,215,0,0" FontSize="14" RenderTransformOrigin="0.529,0.231" FontFamily="72" Height="26" VerticalAlignment="Top" FontWeight="Bold" Visibility="Collapsed"/>
+            <PasswordBox x:Name="txtPasswortWdh" HorizontalAlignment="Left" Margin="192,213,0,0" Width="150" FontSize="14" Padding="5" Foreground="Gray" Height="30" VerticalAlignment="Top" Visibility="Collapsed"/>
+
+            <Button x:Name="btnErstellen" Content="Erstellen" HorizontalAlignment="Center" Margin="0,245,0,60" VerticalAlignment="Bottom" Width="250" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35" RenderTransformOrigin="0.509,-0.436"/>
+        </Grid>
+
+    </Grid>
+</Window>

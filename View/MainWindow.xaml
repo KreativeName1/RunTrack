@@ -21,16 +21,22 @@
         <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
         <Label Content="Scan Programm für den Klimalauf" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
 
-        <Image Source="pack://application:,,,/Images/credits.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" MouseDown="btnCredits_Click" Grid.Column="2">
+        <Image Source="pack://application:,,,/Images/credits.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,45,0" HorizontalAlignment="Right" MouseDown="btnCredits_Click" Grid.Column="2">
             <Image.ToolTip>
                 <ToolTip Cursor="">Credits</ToolTip>
             </Image.ToolTip>
         </Image>
 
-        <Label Content="Admin Passwort:" HorizontalAlignment="Left" Margin="98,207,0,0" VerticalAlignment="Top" FontFamily="72 Light"/>
-        <PasswordBox x:Name="AdminPasswordBox" HorizontalAlignment="Left" Margin="200,210,0,0" VerticalAlignment="Top" Width="150" BorderBrush="Gray" KeyDown="TextBox_KeyDown"/>
+        <Image Source="/Images/output.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" MouseDown="btnAdmin_MouseDown">
+            <Image.ToolTip>
+                <ToolTip Cursor="" Content="Admin"/>
+            </Image.ToolTip>
+        </Image>
+
         <Label Content="Optional:" HorizontalAlignment="Center" Margin="0,182,0,0" VerticalAlignment="Top" FontFamily="72 Light" FontSize="13"/>
         <Rectangle HorizontalAlignment="Center" Height="2" Margin="0,203,0,0" Stroke="#7E8182" VerticalAlignment="Top" Width="70"/>
 
+        <Label Content="Admin Passwort:" HorizontalAlignment="Left" Margin="98,207,0,0" VerticalAlignment="Top" FontFamily="72 Light"/>
+        <PasswordBox x:Name="AdminPasswordBox" HorizontalAlignment="Left" Margin="200,210,0,0" VerticalAlignment="Top" Width="150" BorderBrush="Gray" KeyDown="TextBox_KeyDown"/>
     </Grid>
 </Window>
