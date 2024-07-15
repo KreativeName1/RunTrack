@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using System.Linq;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -82,9 +80,124 @@ namespace Klimalauf
                Grid.SetColumn(labelSeconds, 3);
                GridSettings.Children.Add(labelSeconds);
 
+
+               // Löschen
+               Button deleteButton = new Button
+               {
+                  Content = "🗑️",
+                  FontSize = 12,
+                  Width = 25,
+                  Height = 25,
+                  VerticalAlignment = VerticalAlignment.Center,
+                  HorizontalAlignment = HorizontalAlignment.Left,
+                  Margin = new Thickness(30, 3, 5, 5),
+                  Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F4F8F4")),
+                  ToolTip = "Löschen",
+                  Tag = rundenArt.Name
+               };
+               deleteButton.Click += DeleteButton_Click;
+
+               Grid.SetRow(deleteButton, rowIndex);
+               Grid.SetColumn(deleteButton, 4);
+               GridSettings.Children.Add(deleteButton);
+
+
+               // Einstellungen
+               Button optionsButton = new Button
+               {
+                  Content = "⚙️",
+                  FontSize = 12,
+                  Width = 25,
+                  Height = 25,
+                  VerticalAlignment = VerticalAlignment.Center,
+                  HorizontalAlignment = HorizontalAlignment.Left,
+                  Margin = new Thickness(0, 3, 0, 5),
+                  Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F4F8F4")),
+                  ToolTip = "Einstellungen",
+                  Tag = rundenArt.Name
+               };
+               optionsButton.Click += OptionsButton_Click;
+
+               Grid.SetRow(optionsButton, rowIndex);
+               Grid.SetColumn(optionsButton, 5);
+               GridSettings.Children.Add(optionsButton);
+
                rowIndex++;
             }
+            GridSettings.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+
+            Button addButton = new Button
+            {
+               Content = "➕",
+               FontSize = 12,
+               Width = 25,
+               Height = 25,
+               VerticalAlignment = VerticalAlignment.Center,
+               HorizontalAlignment = HorizontalAlignment.Center,
+               Margin = new Thickness(0, 20, 0, 0),
+               ToolTip = "Neue Rundenart",
+               Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F4F8F4"))
+            };
+            addButton.Click += AddButton_Click;
+
+            Grid.SetRow(addButton, rowIndex);
+            Grid.SetColumnSpan(addButton, 6);
+            GridSettings.Children.Add(addButton);
          }
+      }
+
+      private void AddButton_Click(object sender, RoutedEventArgs e)
+      {
+         System.Windows.MessageBox.Show("Neue Rundenart hinzufügen", "Hinzufügen", MessageBoxButton.OK, MessageBoxImage.Information);
+      }
+
+      private void OptionsButton_Click(object sender, RoutedEventArgs e)
+      {
+         Button optionsButton = sender as Button;
+         string rundenartName = optionsButton.Tag as string;
+         System.Windows.MessageBox.Show("Rundenart " + rundenartName + " wurde 'bearbeitet'", "Bearbeiten Testen", MessageBoxButton.OK, MessageBoxImage.Information);
+      }
+
+      private void DeleteButton_Click(object sender, RoutedEventArgs e)
+      {
+         Button deleteButton = sender as Button;
+         if (deleteButton != null)
+         {
+            string rundenartName = deleteButton.Tag as string;
+            if (!string.IsNullOrEmpty(rundenartName))
+            {
+               DeleteRundenart(rundenartName);
+
+               //RefreshGridSettings();
+            }
+         }
+      }
+
+      private void RefreshGridSettings()
+      {
+         // Logik zum Aktualisieren fehlt hier noch
+         GridSettings.Children.Clear();
+         GridSettings.RowDefinitions.Clear();
+
+
+      }
+
+
+      private void DeleteRundenart(string rundenartName)
+      {
+         // Logig Funktioniert nur auskommentiert, da Aktuallisieren noch nicht vorhanden ist
+         System.Windows.MessageBox.Show("Rundenart " + rundenartName + " wurde 'gelöscht'", "Löschen Testen", MessageBoxButton.OK, MessageBoxImage.Information);
+
+
+         //using (var db = new LaufDBContext())
+         //{
+         //   var rundenart = db.RundenArten.FirstOrDefault(r => r.Name == rundenartName);
+         //   if (rundenart != null)
+         //   {
+         //      db.RundenArten.Remove(rundenart);
+         //      db.SaveChanges();
+         //   }
+         //}
       }
 
       private void LogoutIcon_MouseDown(object sender, MouseButtonEventArgs e)
