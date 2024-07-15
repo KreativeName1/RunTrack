@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Klimalauf.View;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -29,6 +30,7 @@ namespace Klimalauf
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
+			FirstNameTextBox.Focus();
 			FirstNameTextBox.Foreground = new SolidColorBrush(Colors.Gray);
 			LastNameTextBox.Foreground = new SolidColorBrush(Colors.Gray);
 		}
@@ -195,5 +197,11 @@ namespace Klimalauf
 			textBox.Background = new SolidColorBrush(Colors.White);
 			textBox.Foreground = new SolidColorBrush(Colors.Blue);
 		}
-	}
+
+        private void btnCredits_Click(object sender, RoutedEventArgs e)
+        {
+            Credits cr = new Credits();
+            cr.ShowDialog();
+        }
+    }
 }

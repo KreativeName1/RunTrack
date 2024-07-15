@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using Klimalauf.View;
+using System.Diagnostics;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
@@ -207,6 +208,12 @@ namespace Klimalauf
                 char c = (char)KeyInterop.VirtualKeyFromKey(e.Key);
                 barcodeInput.Append(c);
             }
+        }
+
+        private void btnCredits_Click(object sender, RoutedEventArgs e)
+        {
+            Credits cr = new Credits();
+            cr.ShowDialog();
         }
     }
 }
