@@ -245,6 +245,13 @@ namespace Klimalauf
          Datenuebersicht datenuebersicht = new Datenuebersicht();
          datenuebersicht.Show();
          this.Close();
+
+         datenuebersicht.StartseiteGrid.Visibility = Visibility.Collapsed;
+         datenuebersicht.btnStartseite.Visibility = Visibility.Visible;
+         datenuebersicht.btnStartseiteDisabled.Visibility = Visibility.Collapsed;
+         datenuebersicht.KlasseGrid.Visibility = Visibility.Visible;
+         datenuebersicht.btnKlassen.Visibility = Visibility.Collapsed;
+         datenuebersicht.btnKlassenDisabled.Visibility = Visibility.Visible;
       }
 
       private void LogoutIcon_MouseDown(object sender, MouseButtonEventArgs e)
