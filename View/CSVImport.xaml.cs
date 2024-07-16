@@ -48,11 +48,11 @@ namespace Klimalauf
 
         private void StackPanel_Drop(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.Text))
-            {
-                string data = (string)e.Data.GetData(DataFormats.Text);
-                OrderPanel.Children.Add(new TextBlock { Text = data });
-            }
+            // insert the item at the between the two items where the drop happened
+            TextBlock textBlock = new TextBlock { Text = (string)e.Data.GetData(DataFormats.Text) };
+            textBlock.MouseDown += TextBlock_MouseDown;
+            StackPanel stackPanel = (StackPanel)sender;
+            stackPanel.Children.Insert(stackPanel.Children.IndexOf((UIElement)e.Source), textBlock);
         }
 
     }

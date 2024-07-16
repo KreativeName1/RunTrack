@@ -68,6 +68,12 @@ namespace Klimalauf
                     dataPanel.Show();
                     this.Close();
                 };
+                btnAuswertung.Click += (sender, e) =>
+                {
+                    Auswertung evaluationPanel = new Auswertung();
+                    evaluationPanel.Show();
+                    this.Close();
+                };
             }
             else
             {
