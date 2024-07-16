@@ -26,7 +26,7 @@ namespace Klimalauf
     {
         public string name;
         public int wert;
-        private Brush Farbe;
+        public Brush Farbe;
     }
     public partial class Diagramm : Window
     {
@@ -85,6 +85,8 @@ namespace Klimalauf
                 DiagrammWert d = new DiagrammWert();
                 d.name = name;
                 d.wert = bewertungzr;
+                Random r = new Random();
+                d.Farbe = new SolidColorBrush(Color.FromRgb((byte)r.Next(0, 255), (byte)r.Next(0, 255), (byte)r.Next(0, 255)));
                 diagrammliste.Add(d);
      
 
@@ -105,6 +107,8 @@ namespace Klimalauf
                 {
                     maxWert = dgwert.wert;
                 }
+              
+
                 // Oder Alternative Lösung
                 // maxWert = Math.Max(maxWert, data.Wert);
             }
@@ -143,6 +147,7 @@ namespace Klimalauf
 
                     Label label = new Label()
                     {
+                        Background = d.Farbe,
                         Content = d.name,
                     Width = balkenBreite,
                     Height = balkenHoehe,
@@ -156,10 +161,10 @@ namespace Klimalauf
 
                 Canvas.SetLeft(label, i * (balkenBreite + balkenAbstand) + 10);
                 Canvas.SetBottom(label, 0);
-                    Random r = new Random();
                     
                     
-                    label.Background = new SolidColorBrush(Color.FromRgb((byte)r.Next(0, 255), (byte)r.Next(0, 255), (byte)r.Next(0, 255)));
+                    
+               
                     Diagrammcanvas.Children.Add(label);
                 }
             }
