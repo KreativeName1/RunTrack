@@ -1,4 +1,5 @@
 ﻿using Klimalauf.View;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -14,6 +15,8 @@ namespace Klimalauf
    public partial class Einstellungen : Window
    {
       private MainViewModel _mvmodel;
+      private bool _changesMade; // Flagge für Änderungen
+
       public Einstellungen()
       {
          InitializeComponent();
@@ -22,11 +25,18 @@ namespace Klimalauf
 
          ScannerName.Content = $"{_mvmodel.Benutzer.Vorname}, {_mvmodel.Benutzer.Nachname}";
          DataContext = this;
+
+         LoadContent();
+      }
+
+      private void LoadContent()
+      {
          using (var db = new LaufDBContext())
          {
+            var sortedRundenArten = db.RundenArten.OrderBy(r => r.MaxScanIntervalInSekunden).ToList();
             int rowIndex = 0;
 
-            foreach (RundenArt rundenArt in db.RundenArten)
+            foreach (RundenArt rundenArt in sortedRundenArten)
             {
                // Zeilen hinzufügen
                GridSettings.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -65,6 +75,7 @@ namespace Klimalauf
                   HorizontalContentAlignment = HorizontalAlignment.Center,
                   Foreground = new SolidColorBrush(Colors.Blue)
                };
+               integerUpDown.ValueChanged += IntegerUpDown_ValueChanged;
 
                Grid.SetRow(integerUpDown, rowIndex);
                Grid.SetColumn(integerUpDown, 2);
@@ -161,19 +172,42 @@ namespace Klimalauf
          }
       }
 
+
+      private void IntegerUpDown_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+      {
+         // Wenn sich der Wert ändert, setze die Flagge auf true
+         _changesMade = true;
+      }
+
       private void AddButton_Click(object sender, RoutedEventArgs e)
       {
-         System.Windows.MessageBox.Show("Neue Rundenart hinzufügen", "Hinzufügen", MessageBoxButton.OK, MessageBoxImage.Information);
-
-         VerwaltungRunden verwaltungRunden = new VerwaltungRunden();
+         VerwaltungRunden verwaltungRunden = new VerwaltungRunden(DialogMode.Neu);
          verwaltungRunden.ShowDialog();
+         RefreshGridSettings();
       }
 
       private void OptionsButton_Click(object sender, RoutedEventArgs e)
       {
          Button optionsButton = sender as Button;
-         string rundenartName = optionsButton.Tag as string;
-         System.Windows.MessageBox.Show("Rundenart " + rundenartName + " wurde 'bearbeitet'", "Bearbeiten Testen", MessageBoxButton.OK, MessageBoxImage.Information);
+         string rundenartName = optionsButton?.Tag as string;
+
+         if (!string.IsNullOrEmpty(rundenartName))
+         {
+            using (var db = new LaufDBContext())
+            {
+               var rundenArt = db.RundenArten.FirstOrDefault(r => r.Name == rundenartName);
+               if (rundenArt != null)
+               {
+                  VerwaltungRunden verwaltungRunden = new VerwaltungRunden(DialogMode.Bearbeiten, rundenArt);
+                  verwaltungRunden.ShowDialog();
+                  RefreshGridSettings();
+               }
+               else
+               {
+                  System.Windows.MessageBox.Show($"Rundenart '{rundenartName}' nicht gefunden", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+               }
+            }
+         }
       }
 
       private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -185,10 +219,26 @@ namespace Klimalauf
             if (!string.IsNullOrEmpty(rundenartName))
             {
                DeleteRundenart(rundenartName);
-
-               //RefreshGridSettings();
             }
          }
+      }
+
+      private void DeleteRundenart(string rundenartName)
+      {
+         if (System.Windows.MessageBox.Show("Wollen Sie wirklich " + rundenartName + " löschen?", "Löschne", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+         {
+            using (var db = new LaufDBContext())
+            {
+               var rundenart = db.RundenArten.FirstOrDefault(r => r.Name == rundenartName);
+               if (rundenart != null)
+               {
+                  db.RundenArten.Remove(rundenart);
+                  db.SaveChanges();
+               }
+            }
+         }
+
+         RefreshGridSettings();
       }
 
       private void RefreshGridSettings()
@@ -196,22 +246,9 @@ namespace Klimalauf
          // Logik zum Aktualisieren fehlt hier noch
          GridSettings.Children.Clear();
          GridSettings.RowDefinitions.Clear();
-      }
 
-      private void DeleteRundenart(string rundenartName)
-      {
-         // Logig Funktioniert nur auskommentiert, da Aktuallisieren noch nicht vorhanden ist
-         System.Windows.MessageBox.Show("Rundenart " + rundenartName + " wurde 'gelöscht'", "Löschen Testen", MessageBoxButton.OK, MessageBoxImage.Information);
-
-         //using (var db = new LaufDBContext())
-         //{
-         //   var rundenart = db.RundenArten.FirstOrDefault(r => r.Name == rundenartName);
-         //   if (rundenart != null)
-         //   {
-         //      db.RundenArten.Remove(rundenart);
-         //      db.SaveChanges();
-         //   }
-         //}
+         LoadContent();
+         _changesMade = false; // Änderungen zurücksetzen
       }
 
       private void LogoutIcon_MouseDown(object sender, MouseButtonEventArgs e)
@@ -223,19 +260,26 @@ namespace Klimalauf
 
       private void Save_Click(object sender, RoutedEventArgs e)
       {
-         using (var db = new LaufDBContext())
+         if (_changesMade)
          {
-            foreach (var item in GridSettings.Children)
+            using (var db = new LaufDBContext())
             {
-               if (item is IntegerUpDown integerUpDown)
+               foreach (var item in GridSettings.Children)
                {
-                  db.RundenArten.First(r => r.Name.Replace(" ", "_") == integerUpDown.Name).MaxScanIntervalInSekunden = integerUpDown.Value ?? 0;
+                  if (item is IntegerUpDown integerUpDown)
+                  {
+                     db.RundenArten.First(r => r.Name.Replace(" ", "_") == integerUpDown.Name).MaxScanIntervalInSekunden = integerUpDown.Value ?? 0;
+                  }
                }
+               db.SaveChanges();
             }
-            db.SaveChanges();
-         }
 
-         System.Windows.MessageBox.Show("Einstellungen wurden gespeichert", "Einstellungen gespeichert", MessageBoxButton.OK, MessageBoxImage.Information);
+            System.Windows.MessageBox.Show("Einstellungen wurden gespeichert", "Einstellungen gespeichert", MessageBoxButton.OK, MessageBoxImage.Information);
+         }
+         else
+         {
+            System.Windows.MessageBox.Show("Keine Änderungen zum Speichern gefunden", "Keine Änderungen", MessageBoxButton.OK, MessageBoxImage.Information);
+         }
       }
 
       private void CloseWindow_Click(object sender, RoutedEventArgs e)

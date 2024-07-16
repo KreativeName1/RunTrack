@@ -1,57 +1,147 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Xceed.Wpf.Toolkit;
 
 namespace Klimalauf.View
 {
-    /// <summary>
-    /// Interaktionslogik für VerwaltungRunden.xaml
-    /// </summary>
-    public partial class VerwaltungRunden : Window
-    {
-        public VerwaltungRunden()
-        {
-            InitializeComponent();
-        }
+   public enum DialogMode { Neu, Bearbeiten };
 
-      private void txtDauer_GotFocus(object sender, RoutedEventArgs e)
+   public partial class VerwaltungRunden : Window
+   {
+      private DialogMode mode;
+      private RundenArt rundenArt;
+
+      private string originalBezeichnung;
+      private int originalLength;
+      private int originalDauer;
+      private bool isSaveClicked = false;
+
+      public VerwaltungRunden(DialogMode mode, RundenArt rundenArt = null)
       {
-         rectSek.Stroke = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#5fa2e6"));
+         InitializeComponent();
+         this.Loaded += VerwaltungRunden_Loaded;
+
+         this.mode = mode;
+         this.rundenArt = rundenArt;
+         SetDialogMode();
       }
 
-      private void txtDauer_LostFocus(object sender, RoutedEventArgs e)
+      private void SetDialogMode()
       {
-         rectSek.Stroke = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#abadb3"));
+         if (mode == DialogMode.Neu)
+         {
+            this.Title = "Hinzufügen";
+            this.operationName.Content = "Hinzufügen";
+         }
+         else if (mode == DialogMode.Bearbeiten && rundenArt != null)
+         {
+            this.Title = "Bearbeiten";
+            this.operationName.Content = "Bearbeiten";
+
+            // Set the text of the BezeichnungTextBox to the name of the RundenArt passed in
+            this.BezeichnungTextBox.Text = rundenArt.Name;
+            ((IntegerUpDown)this.FindName("txtLength")).Value = rundenArt.LaengeInMeter;
+            ((IntegerUpDown)this.FindName("txtDauer")).Value = rundenArt.MaxScanIntervalInSekunden;
+         }
       }
 
-      private void txtDauer_MouseEnter(object sender, MouseEventArgs e)
+      private void VerwaltungRunden_Loaded(object sender, RoutedEventArgs e)
       {
-         rectSek.Stroke = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#5fa2e6"));
-      }
-
-      private void txtDauer_MouseLeave(object sender, MouseEventArgs e)
-      {
-         rectSek.Stroke = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#abadb3"));
+         // Speichern der ursprünglichen Werte
+         originalBezeichnung = ((TextBox)this.FindName("BezeichnungTextBox")).Text;
+         originalLength = ((IntegerUpDown)this.FindName("txtLength")).Value ?? 0;
+         originalDauer = ((IntegerUpDown)this.FindName("txtDauer")).Value ?? 0;
       }
 
       private void btnCancel_Click(object sender, RoutedEventArgs e)
       {
+         if (IsDataChanged())
+         {
+            if (System.Windows.MessageBox.Show("Sie haben nicht gespeichert!", "Wirklich Beenden?", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            {
+               return;
+            }
+         }
          this.Close();
+      }
+
+      private bool IsDataChanged()
+      {
+         var currentBezeichnung = ((TextBox)this.FindName("BezeichnungTextBox")).Text;
+         var currentLength = ((IntegerUpDown)this.FindName("txtLength")).Value ?? 0;
+         var currentDauer = ((IntegerUpDown)this.FindName("txtDauer")).Value ?? 0;
+
+         return currentBezeichnung != originalBezeichnung || currentLength != originalLength || currentDauer != originalDauer;
       }
 
       private void btnSave_Click(object sender, RoutedEventArgs e)
       {
+         isSaveClicked = true;
+         using (var db = new LaufDBContext())
+         {
+            // Normalisierte Version des Eingabenames ohne Leerzeichen am Anfang, Ende und innen
+            string inputName = BezeichnungTextBox.Text.Trim();
+            string inputNameNormalized = inputName.Replace(" ", "").ToLower();
 
+            if (mode == DialogMode.Neu)
+            {
+               // Überprüfen, ob der Name nach der Normalisierung bereits existiert
+               var existingRundenArt = db.RundenArten.FirstOrDefault(ra =>
+                   ra.Name.Trim().Replace(" ", "").ToLower() == inputNameNormalized);
+
+               if (existingRundenArt != null)
+               {
+                  // Eintrag mit diesem Namen existiert bereits
+                  System.Windows.MessageBox.Show("Eine RundenArt mit diesem Namen existiert bereits. Bitte wählen Sie einen anderen Namen.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                  return;
+               }
+
+               // Erstellen einer neuen RundenArt und Hinzufügen zur Datenbank 
+               RundenArt newRundenArt = new RundenArt
+               {
+                  Name = inputName, // Hier den bereinigten Namen verwenden
+                  LaengeInMeter = (int)txtLength.Value,
+                  MaxScanIntervalInSekunden = (int)txtDauer.Value
+               };
+
+               db.RundenArten.Add(newRundenArt);
+               db.SaveChanges();
+
+               System.Windows.MessageBox.Show("Neue RundenArt wurde erfolgreich hinzugefügt.", "Erfolgreich", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else if (mode == DialogMode.Bearbeiten && rundenArt != null)
+            {
+               // Bearbeiten einer bestehenden RundenArt
+               rundenArt.Name = inputName; // Hier den bereinigten Namen verwenden
+               rundenArt.LaengeInMeter = (int)txtLength.Value;
+               rundenArt.MaxScanIntervalInSekunden = (int)txtDauer.Value;
+
+               db.RundenArten.Update(rundenArt);
+               db.SaveChanges();
+
+               System.Windows.MessageBox.Show("RundenArt wurde erfolgreich aktualisiert.", "Erfolgreich", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+         }
+
+         this.Close();
       }
+
+
+
+
+
+
+      private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+      {
+         if (!isSaveClicked && IsDataChanged())
+         {
+            var result = System.Windows.MessageBox.Show("Sie haben nicht gespeichert!", "Wirklich Beenden?", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.No)
+            {
+               e.Cancel = true; // Cancel the closing action
+            }
+         }
+      }
+
    }
 }
