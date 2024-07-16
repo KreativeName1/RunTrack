@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Klimalauf"
+        xmlns:local="clr-namespace:Klimalauf" xmlns:fc="http://devpelux.github.io/fullcontrols"
         mc:Ignorable="d" Loaded="Window_Loaded"
         Icon="pack://application:,,,/Images/iconRunMan.ico"
         Title="AdminErstellen" Height="360" Width="450" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
@@ -39,6 +39,10 @@
 
 
         <Label Content="Passwort:" HorizontalAlignment="Left" Margin="87,178,0,0" FontSize="14" RenderTransformOrigin="0.529,0.231" FontFamily="72" FontWeight="Bold" Height="26" VerticalAlignment="Top"/>
+        
+        <!--Noch einbauen-->
+        <fc:PasswordBoxPlus x:Name="txtPassworttem" HorizontalAlignment="Left" EnablePeekButton="True" CornerRadius="0" Margin="17,145,0,0" Width="150" FontSize="14" Padding="5" Foreground="Gray" Height="30" VerticalAlignment="Top"/>
+        
         <PasswordBox x:Name="txtPasswort" HorizontalAlignment="Left" Margin="192,176,0,0" Width="150" FontSize="14" Padding="5" Foreground="Gray" Height="30" VerticalAlignment="Top" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswort_LostFocus" PasswordChanged="txtPasswort_PasswordChanged"/>
         <Label Content="⚠️" FontSize="18" HorizontalAlignment="Left" Margin="342,174,0,0" VerticalAlignment="Top" Foreground="Red" Cursor="Help">
             <Label.ToolTip>
@@ -55,7 +59,7 @@
         </Grid>
 
         <Button x:Name="btnErstellen" Content="Erstellen" HorizontalAlignment="Center" Margin="0,238,0,0" VerticalAlignment="Top" Width="250" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35" RenderTransformOrigin="0.509,-0.436" Click="btnErstellen_Click"/>
-        
+
 
     </Grid>
 </Window>
