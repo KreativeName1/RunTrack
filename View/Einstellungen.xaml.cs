@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Shapes;
 using Xceed.Wpf.Toolkit;
 
 namespace Klimalauf
@@ -81,7 +82,6 @@ namespace Klimalauf
                Grid.SetColumn(labelSeconds, 3);
                GridSettings.Children.Add(labelSeconds);
 
-
                // Löschen
                Button deleteButton = new Button
                {
@@ -102,7 +102,6 @@ namespace Klimalauf
                Grid.SetColumn(deleteButton, 4);
                GridSettings.Children.Add(deleteButton);
 
-               
                // Einstellungen
                Button optionsButton = new Button
                {
@@ -112,7 +111,7 @@ namespace Klimalauf
                   Height = 25,
                   VerticalAlignment = VerticalAlignment.Center,
                   HorizontalAlignment = HorizontalAlignment.Left,
-                  Margin = new Thickness(0, 3, 0, 5),
+                  Margin = new Thickness(0, 3, 10, 5),
                   Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F4F8F4")),
                   ToolTip = "Einstellungen",
                   Tag = rundenArt.Name
@@ -125,7 +124,22 @@ namespace Klimalauf
 
                rowIndex++;
             }
+
             GridSettings.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+
+            // Add Rectangle
+            Rectangle rect = new Rectangle
+            {
+               Height = 1,
+               Fill = new SolidColorBrush(Colors.Gray),
+               Margin = new Thickness(0, 5, 0, 30)
+            };
+
+            Grid.SetRow(rect, rowIndex);
+            Grid.SetColumnSpan(rect, 6);
+            GridSettings.Children.Add(rect);
+
+            rowIndex++;
 
             Button addButton = new Button
             {
@@ -182,16 +196,12 @@ namespace Klimalauf
          // Logik zum Aktualisieren fehlt hier noch
          GridSettings.Children.Clear();
          GridSettings.RowDefinitions.Clear();
-
-
       }
-
 
       private void DeleteRundenart(string rundenartName)
       {
          // Logig Funktioniert nur auskommentiert, da Aktuallisieren noch nicht vorhanden ist
          System.Windows.MessageBox.Show("Rundenart " + rundenartName + " wurde 'gelöscht'", "Löschen Testen", MessageBoxButton.OK, MessageBoxImage.Information);
-
 
          //using (var db = new LaufDBContext())
          //{
