@@ -1,5 +1,5 @@
 # RunTrack
-![Logo](https://raw.githubusercontent.com/KreativeName1/RunTrack/main/Images/RunTrack_transparent.png)
+![Logo](https://raw.githubusercontent.com/KreativeName1/RunTrack/main/Images/RunTrack_Logo_Farbe.png)
 
 ## Beschreibung
 Dieses Projekt wurde erstellt für den Klimalauf
