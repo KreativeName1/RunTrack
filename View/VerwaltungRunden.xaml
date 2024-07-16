@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Klimalauf.View" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="VerwaltungRunden" Height="350" Width="330" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="VerwaltungRunden" Height="345" Width="320.5" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
         <Label x:Name="operationName" Content="Bearbeiten / Hinzufügen" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
@@ -35,6 +35,9 @@
 
 
 
-        <Button Content="Button" HorizontalAlignment="Left" Margin="234,376,0,0" VerticalAlignment="Top"/>
+        <StackPanel Orientation="Horizontal" Margin="0,5,10,10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button  Content="Speichern" x:Name="btnSave" HorizontalAlignment="Center" Margin="5,5,10,5" VerticalAlignment="Top"  Width="100" Height="25"/>
+            <Button  x:Name="btnCancel" Content="Abbrechen"  Click="btnCancel_Click" Width="100" Height="25" Margin="5"/>
+        </StackPanel>
     </Grid>
 </Window>

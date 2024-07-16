@@ -287,10 +287,10 @@ namespace Klimalauf
             this.Close();
         }
 
-        //private void btnCredits_Click(object sender, RoutedEventArgs e)
-        //{
-        //   Credits credits = new Credits();
-        //   credits.Show();
-        //}
-    }
+      //private void btnCredits_Click(object sender, RoutedEventArgs e)
+      //{
+      //   Credits credits = new Credits();
+      //   credits.Show();
+      //}
+   }
 }

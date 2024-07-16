@@ -92,7 +92,10 @@ namespace Klimalauf
 
             }
             label.Content = Diagrammtitel;
+
             drawCanvas();
+            
+          
         }
 
         private void drawCanvas()
@@ -116,6 +119,7 @@ namespace Klimalauf
             double canvasHeight = Diagrammcanvas.ActualHeight;
             
             double canvasWidth = Diagrammcanvas.ActualWidth - 20;
+            if(canvasHeight > 10 && canvasWidth > 10) { 
             double balkenAbstand = 10;
             double balkenBreite = canvasWidth / diagrammliste.Count;
 
@@ -166,6 +170,7 @@ namespace Klimalauf
                     
                
                     Diagrammcanvas.Children.Add(label);
+                }
                 }
             }
         }
