@@ -1,30 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Klimalauf
+﻿namespace Klimalauf
 {
-    public class Schueler
-    {
-        public int Id { get; set; }
-        public string Vorname { get; set; }
-        public string Nachname { get; set; }
-        public Klasse Klasse { get; set;  }
-        public Geschlecht? Geschlecht { get; set; }
+   public class Schueler
+   {
+      public int Id { get; set; }
+      public string Vorname { get; set; }
+      public string Nachname { get; set; }
+      public Klasse Klasse { get; set; }
+      public Geschlecht? Geschlecht { get; set; }
 
-        public int KlasseId { get; set; }
+      public int KlasseId { get; set; }
 
-        public virtual List<Runde> Runden { get; set; }
+      public virtual List<Runde> Runden { get; set; }
 
-        public Schueler()
-        {
-        }
+      public Schueler()
+      {
+      }
 
-        public override string ToString()
-        {
-            return Vorname + " " + Nachname;
-        }
-    }
+      public override string ToString()
+      {
+         return Vorname + " " + Nachname;
+      }
+   }
 }

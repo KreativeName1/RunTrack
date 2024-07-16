@@ -1,11 +1,4 @@
-﻿using Klimalauf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Klimalauf
+﻿namespace Klimalauf
 {
    public class ScanItem
    {
@@ -29,7 +22,7 @@ namespace Klimalauf
 
       public static List<ScanItem> AlleLesen()
       {
-            return null;
+         return null;
       }
    }
 

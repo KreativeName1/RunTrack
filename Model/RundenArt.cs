@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Klimalauf
+﻿namespace Klimalauf
 {
-    public class RundenArt
-    {
-        public int Id { get; set; }
-        public String Name { get; set; }
-        public int LaengeInMeter { get; set; }
-        public int MaxScanIntervalInSekunden { get; set; } = 60;
+   public class RundenArt
+   {
+      public int Id { get; set; }
+      public String Name { get; set; }
+      public int LaengeInMeter { get; set; }
+      public int MaxScanIntervalInSekunden { get; set; } = 60;
 
-        public override string ToString()
-        {
-            return Name;
-        }
-    }
+      public override string ToString()
+      {
+         return Name;
+      }
+   }
 }

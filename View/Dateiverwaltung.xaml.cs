@@ -9,121 +9,121 @@ using System.Windows.Media;
 
 namespace Klimalauf
 {
-    public partial class Dateiverwaltung : Window
-    {
-        private MainViewModel _mvmodel;
+   public partial class Dateiverwaltung : Window
+   {
+      private MainViewModel _mvmodel;
 
-        public Dateiverwaltung()
-        {
-            InitializeComponent();
-            _mvmodel = FindResource("mvmodel") as MainViewModel;
+      public Dateiverwaltung()
+      {
+         InitializeComponent();
+         _mvmodel = FindResource("mvmodel") as MainViewModel;
 
 
-        }
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            _mvmodel.LstFiles = new ObservableCollection<FileItem>(FileItem.AlleLesen());
-        }
+      }
+      private void Window_Loaded(object sender, RoutedEventArgs e)
+      {
+         _mvmodel.LstFiles = new ObservableCollection<FileItem>(FileItem.AlleLesen());
+      }
 
-        private void UploadFiles_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog
+      private void UploadFiles_Click(object sender, RoutedEventArgs e)
+      {
+         OpenFileDialog openFileDialog = new OpenFileDialog
+         {
+            Multiselect = true,
+            Filter = "files (*.asv;*.db;*.csv)|*.asv;*.db;*.csv"
+         };
+
+         if (openFileDialog.ShowDialog() == true)
+         {
+            foreach (string fileName in openFileDialog.FileNames)
             {
-                Multiselect = true,
-                Filter = "files (*.asv;*.db;*.csv)|*.asv;*.db;*.csv"
-            };
+               string extension = Path.GetExtension(fileName).ToLower();
 
-            if (openFileDialog.ShowDialog() == true)
-            {
-                foreach (string fileName in openFileDialog.FileNames)
-                {
-                    string extension = Path.GetExtension(fileName).ToLower();
+               if (extension == ".asv" || extension == ".db" || extension == ".csv")
+               {
+                  // Datei in die Liste hinzufügen
+                  _mvmodel.LstFiles.Add(new FileItem
+                  {
+                     FileName = Path.GetFileName(fileName),
+                     UploadDate = DateTime.Now
+                  });
 
-                    if (extension == ".asv" || extension == ".db" || extension == ".csv")
-                    {
-                        // Datei in die Liste hinzufügen
-                        _mvmodel.LstFiles.Add(new FileItem
-                        {
-                            FileName = Path.GetFileName(fileName),
-                            UploadDate = DateTime.Now
-                        });
+                  // Datei in den Dateien-Ordner kopieren
+                  Directory.CreateDirectory("Dateien");
+                  string destPath = Path.Combine("Dateien", Path.GetFileName(fileName));
+                  File.Copy(fileName, destPath, true);
 
-                        // Datei in den Dateien-Ordner kopieren
-                        Directory.CreateDirectory("Dateien");
-                        string destPath = Path.Combine("Dateien", Path.GetFileName(fileName));
-                        File.Copy(fileName, destPath, true);
-
-                        // if asv/csv file , open the CSVImport window with the path of the file
-                        if (extension == ".asv" || extension == ".csv")
-                        {
-                            CSVImport csvImport = new CSVImport(destPath);
-                            csvImport.Show();
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show($"Die Datei {fileName} hat eine ungültige Erweiterung und kann nicht hochgeladen werden.");
-                    }
-                }
+                  // if asv/csv file , open the CSVImport window with the path of the file
+                  if (extension == ".asv" || extension == ".csv")
+                  {
+                     CSVImport csvImport = new CSVImport(destPath);
+                     csvImport.Show();
+                  }
+               }
+               else
+               {
+                  MessageBox.Show($"Die Datei {fileName} hat eine ungültige Erweiterung und kann nicht hochgeladen werden.");
+               }
             }
-        }
+         }
+      }
 
-        private void DeleteSelectedFiles_Click(object sender, RoutedEventArgs e)
-        {
-            for (int i = 0; i < _mvmodel.LstFiles.Count; i++)
+      private void DeleteSelectedFiles_Click(object sender, RoutedEventArgs e)
+      {
+         for (int i = 0; i < _mvmodel.LstFiles.Count; i++)
+         {
+            if (_mvmodel.LstFiles[i].IsSelected)
             {
-                if (_mvmodel.LstFiles[i].IsSelected)
-                {
-                Trace.WriteLine(_mvmodel.LstFiles[i].FileName);
-                    MessageBoxResult result = MessageBox.Show($"Willst du die Datei '{_mvmodel.LstFiles[i].FileName}' wirklich löschen?", "Datei Löschen", MessageBoxButton.YesNo);
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        File.Delete(Path.Combine("Dateien", _mvmodel.LstFiles[i].FileName));
-                        _mvmodel.LstFiles.RemoveAt(i);
-                    }
-                }
+               Trace.WriteLine(_mvmodel.LstFiles[i].FileName);
+               MessageBoxResult result = MessageBox.Show($"Willst du die Datei '{_mvmodel.LstFiles[i].FileName}' wirklich löschen?", "Datei Löschen", MessageBoxButton.YesNo);
+               if (result == MessageBoxResult.Yes)
+               {
+                  File.Delete(Path.Combine("Dateien", _mvmodel.LstFiles[i].FileName));
+                  _mvmodel.LstFiles.RemoveAt(i);
+               }
             }
-        }
+         }
+      }
 
-        private void SelectAllCheckBox_Click(object sender, RoutedEventArgs e)
-        {
-            bool newValue = (SelectAllCheckBox.IsChecked == true);
-            foreach (FileItem file in _mvmodel.LstFiles)
+      private void SelectAllCheckBox_Click(object sender, RoutedEventArgs e)
+      {
+         bool newValue = (SelectAllCheckBox.IsChecked == true);
+         foreach (FileItem file in _mvmodel.LstFiles)
+         {
+            file.IsSelected = newValue;
+         }
+
+         SelectAllTextBlock.Text = SelectAllCheckBox.IsChecked == true ? "Deselect All" : "Select All";
+      }
+
+      private void CloseWindow_Click(object sender, RoutedEventArgs e)
+      {
+         Scanner adminPanel = new Scanner();
+         adminPanel.Show();
+         this.Close();
+      }
+
+      private void DownloadFiles_Click(object sender, RoutedEventArgs e)
+      {
+         // get the selected file
+         foreach (FileItem file in _mvmodel.LstFiles)
+         {
+            if (file.IsSelected)
             {
-                file.IsSelected = newValue;
+               string sourcePath = Path.Combine("Dateien", file.FileName);
+               SaveFileDialog saveFileDialog = new SaveFileDialog
+               {
+                  FileName = file.FileName,
+                  Filter = "files (*.asv;*.db;*.csv)|*.asv;*.db;*.csv"
+               };
+
+               if (saveFileDialog.ShowDialog() == true)
+               {
+                  File.Copy(sourcePath, saveFileDialog.FileName, true);
+               }
             }
-
-            SelectAllTextBlock.Text = SelectAllCheckBox.IsChecked == true ? "Deselect All" : "Select All";
-        }
-
-        private void CloseWindow_Click(object sender, RoutedEventArgs e)
-        {
-            Scanner adminPanel = new Scanner();
-            adminPanel.Show();
-            this.Close();
-        }
-
-        private void DownloadFiles_Click(object sender, RoutedEventArgs e)
-        {
-            // get the selected file
-            foreach (FileItem file in _mvmodel.LstFiles)
-            {
-                if (file.IsSelected)
-                {
-                    string sourcePath = Path.Combine("Dateien", file.FileName);
-                    SaveFileDialog saveFileDialog = new SaveFileDialog
-                    {
-                        FileName = file.FileName,
-                        Filter = "files (*.asv;*.db;*.csv)|*.asv;*.db;*.csv"
-                    };
-
-                    if (saveFileDialog.ShowDialog() == true)
-                    {
-                        File.Copy(sourcePath, saveFileDialog.FileName, true);
-                    }
-                }
-            }
-        }
+         }
+      }
 
       private bool sortByFileNameAscending = true;
       private bool sortByUploadDateAscending = true;
