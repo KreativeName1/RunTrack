@@ -23,7 +23,6 @@ namespace Klimalauf
 
          _mvmodel = FindResource("mvmodel") as MainViewModel;
 
-         ScannerName.Content = $"{_mvmodel.Benutzer.Vorname}, {_mvmodel.Benutzer.Nachname}";
          DataContext = this;
 
          LoadContent();

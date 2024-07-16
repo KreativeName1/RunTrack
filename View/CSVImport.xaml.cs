@@ -1,4 +1,6 @@
-﻿using System;
+﻿using iText.StyledXmlParser.Node;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -21,37 +23,79 @@ namespace Klimalauf
     /// </summary>
     public partial class CSVImport : Window
     {
+        private DraggableItem _draggedItem;
         private MainViewModel _mvmodel;
         public CSVImport(string pfad)
         {
             _mvmodel = FindResource("mvmodel") as MainViewModel;
             InitializeComponent();
-            TextBlock item1 = new TextBlock { Text = "Item 1", Background= Brushes.Aqua};
-            item1.MouseDown += TextBlock_MouseDown;
-            TextBlock item2 = new TextBlock { Text = "Item 2", Background = Brushes.IndianRed };
-            item2.MouseDown += TextBlock_MouseDown;
-            TextBlock item3 = new TextBlock { Text = "Item 3", Background = Brushes.DarkOrange };
-            item3.MouseDown += TextBlock_MouseDown;
+
+
+            DraggableItem item1 = new DraggableItem { TextContent = "Vorname"};
+            item1.MouseDown += DraggableItem_MouseDown;
+            DraggableItem item2 = new DraggableItem { TextContent = "Nachname"};
+            item2.MouseDown += DraggableItem_MouseDown;
+            DraggableItem item3 = new DraggableItem { TextContent = "Geschlecht"};
+            item3.MouseDown += DraggableItem_MouseDown;
+            DraggableItem item4 = new DraggableItem { TextContent = "Geburtsjahrgang"};
+            item4.MouseDown += DraggableItem_MouseDown;
+            DraggableItem item5 = new DraggableItem { TextContent = "Klasse"};
+            item5.MouseDown += DraggableItem_MouseDown;
 
             OrderPanel.Children.Add(item1);
             OrderPanel.Children.Add(item2);
             OrderPanel.Children.Add(item3);
+            OrderPanel.Children.Add(item4);
+            OrderPanel.Children.Add(item5);
+
+            using (var db = new LaufDBContext())
+            {
+                List<Schule> schulen = db.Schulen.ToList();
+                SchoolComboBox.ItemsSource = schulen;
+                SchoolComboBox.DisplayMemberPath = "Name";
+                SchoolComboBox.SelectedValuePath = "Id";
+            }
+
+            //CSV_Grid.ItemsSource = CSVReader.ReadToList(pfad);
 
         }
 
-        private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+        private void DraggableItem_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            TextBlock textBlock = (TextBlock)sender;
-            DragDrop.DoDragDrop(textBlock, textBlock.Text, DragDropEffects.Move);
+            DraggableItem draggableItem = (DraggableItem)sender;
+            DragDrop.DoDragDrop(draggableItem, draggableItem.Content, DragDropEffects.Move);
+            _draggedItem = draggableItem;
         }
 
         private void StackPanel_Drop(object sender, DragEventArgs e)
         {
-            // insert the item at the between the two items where the drop happened
-            TextBlock textBlock = new TextBlock { Text = (string)e.Data.GetData(DataFormats.Text) };
-            textBlock.MouseDown += TextBlock_MouseDown;
-            StackPanel stackPanel = (StackPanel)sender;
-            stackPanel.Children.Insert(stackPanel.Children.IndexOf((UIElement)e.Source), textBlock);
+
+            if (_draggedItem != null)
+            {
+                OrderPanel.Children.Remove(_draggedItem);
+                StackPanel panel = (StackPanel)sender;
+                int index = GetCurrentMouseIndex(panel, e.GetPosition(panel));
+                panel.Children.Insert(index, _draggedItem);
+            }
+        }
+
+        private int GetCurrentMouseIndex(StackPanel panel, Point point )
+        {
+            double totalWidth = 0;
+            int index = 0;
+            foreach (DraggableItem item in panel.Children)
+            {
+                totalWidth += item.ActualWidth;
+                if (totalWidth > point.X)
+                {
+                    return index;
+                }
+                index++;
+            }
+
+            return panel.Children.Count;
+
+
         }
     }
 }

@@ -15,22 +15,28 @@
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
         <!-- Eingabe der Schulname oder auswahl aus ComboBox -->
-            <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,20,0,0">
                 <Label Content="Schulname:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
                 <ComboBox x:Name="SchoolComboBox" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="200" Height="30" FontSize="14"/>
+                <CheckBox Content="Neue Schule anlegen"  HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="200" Height="30" FontSize="14"/>
                 <TextBox x:Name="SchoolTextBox" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="200" Height="30" FontSize="14"/>
             </StackPanel>
             <Grid  Grid.Row="1">
                 <StackPanel x:Name="OrderPanel" Drop="StackPanel_Drop" AllowDrop="True" Orientation="Horizontal" Height="50">
-                   
                 </StackPanel>
             </Grid>
-            <!--<DataGrid x:Name="CSV_Grid" Grid.Row="1">
-                
-            </DataGrid>-->
+            <DataGrid x:Name="CSV_Grid" Grid.Row="2">
+            </DataGrid>
+
+            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,5,10,10" HorizontalAlignment="Right">
+                <Button Content="Importieren" Width="100" Height="25" Margin="5,5,10,5"/>
+                <Button Content="Abbrechen" Width="100" Height="25" Margin="5"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>
