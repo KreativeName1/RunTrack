@@ -97,30 +97,31 @@ namespace Klimalauf
 
       private bool ValidatePasswort()
       {
-         if (txtPasswort.Password != txtPasswortWdh.Password)
-         {
-            SetInvalidInputStyle(txtPasswort);
-            MessageBox.Show("Passwörter stimmen nicht überein!", "Invalid Passwords", MessageBoxButton.OK, MessageBoxImage.Error/*, MediaElement*/);
-
-            return false;
-         }
-         if (txtPasswort.Password == txtPasswortWdh.Password)
-         {
-            SetValidInputStyle(txtPasswort);
-            return true;
-         }
-
          if (string.IsNullOrEmpty(txtPasswort.Password))
          {
             SetInvalidInputStyle(txtPasswort);
             return false;
          }
-         else
+
+         // Nur überprüfen, wenn txtPasswortWdh nicht leer ist
+         if (!string.IsNullOrEmpty(txtPasswortWdh.Password))
          {
-            SetValidInputStyle(txtPasswort);
-            return true;
+            if (txtPasswort.Password != txtPasswortWdh.Password)
+            {
+               SetInvalidInputStyle(txtPasswort);
+               SetInvalidInputStyle(txtPasswortWdh);
+               MessageBox.Show("Die Passwörter stimmen nicht überein!", "Passwortfehler", MessageBoxButton.OK, MessageBoxImage.Error);
+               return false;
+            }
          }
+
+         SetValidInputStyle(txtPasswort);
+         SetValidInputStyle(txtPasswortWdh);
+         return true;
       }
+
+
+
 
       private void SetInvalidInputStyle(TextBox textBox)
       {
@@ -148,28 +149,28 @@ namespace Klimalauf
 
       private void TextBox_KeyDown(object sender, KeyEventArgs e)
       {
-         if (sender is PasswordBox pwBox)
-         {
-            this.lblPasswortWdh.Visibility = Visibility.Visible;
-            this.txtPasswortWdh.Visibility = Visibility.Visible;
+         //if (sender is PasswordBox pwBox)
+         //{
+         //   this.lblPasswortWdh.Visibility = Visibility.Visible;
+         //   this.txtPasswortWdh.Visibility = Visibility.Visible;
 
-            txtPasswortWdh.Background = new SolidColorBrush(Colors.White);
-            txtPasswortWdh.Foreground = new SolidColorBrush(Colors.Blue);
+         //   txtPasswortWdh.Background = new SolidColorBrush(Colors.White);
+         //   txtPasswortWdh.Foreground = new SolidColorBrush(Colors.Blue);
 
-            // lstlastScan.Margin = new Thickness(lstlastScan.Margin.Left, lstlastScan.Margin.Top, lstlastScan.Margin.Right, 100);
+         //   // lstlastScan.Margin = new Thickness(lstlastScan.Margin.Left, lstlastScan.Margin.Top, lstlastScan.Margin.Right, 100);
 
-            this.btnErstellen.Margin = new Thickness(btnErstellen.Margin.Left, btnErstellen.Margin.Top, btnErstellen.Margin.Right, 30);
-         }
-         else
-         {
-            this.btnErstellen.Margin = new Thickness(btnErstellen.Margin.Left, btnErstellen.Margin.Top, btnErstellen.Margin.Right, 40);
+         //   this.btnErstellen.Margin = new Thickness(btnErstellen.Margin.Left, btnErstellen.Margin.Top, btnErstellen.Margin.Right, 30);
+         //}
+         //else
+         //{
+         //   this.btnErstellen.Margin = new Thickness(btnErstellen.Margin.Left, btnErstellen.Margin.Top, btnErstellen.Margin.Right, 40);
 
-            if (txtPasswortWdh.Password.ToString() == "")
-            {
-               this.lblPasswortWdh.Visibility = Visibility.Collapsed;
-               this.txtPasswortWdh.Visibility = Visibility.Collapsed;
-            }
-         }
+         //   if (txtPasswortWdh.Password.ToString() == "")
+         //   {
+         //      this.lblPasswortWdh.Visibility = Visibility.Collapsed;
+         //      this.txtPasswortWdh.Visibility = Visibility.Collapsed;
+         //   }
+         //}
 
          if (e.Key == Key.Enter)
          {
@@ -257,13 +258,34 @@ namespace Klimalauf
       private void txtPasswort_LostFocus(object sender, RoutedEventArgs e)
       {
          PasswordBox passwordBox = (PasswordBox)sender;
-         ValidatePasswort();
+         SetValidInputStyle(passwordBox);
+      }
+
+
+      private void txtPasswort_PasswordChanged(object sender, RoutedEventArgs e)
+      {
+         PasswordBox passwordBox = (PasswordBox)sender;
+         if (!string.IsNullOrEmpty(passwordBox.Password))
+         {
+            gridPasswortWdh.Visibility = Visibility.Visible;
+            btnErstellen.Margin = new Thickness(0, 260, 0, 0); // Move the button down
+         }
+         else
+         {
+            gridPasswortWdh.Visibility = Visibility.Collapsed;
+            btnErstellen.Margin = new Thickness(0, 238, 0, 0); // Move the button up
+         }
       }
 
       private void btnCredits_Click(object sender, RoutedEventArgs e)
       {
          Credits cr = new Credits();
          cr.ShowDialog();
+      }
+
+      private void txtPasswortWdh_LostFocus(object sender, RoutedEventArgs e)
+      {
+         ValidatePasswort();
       }
    }
 }
