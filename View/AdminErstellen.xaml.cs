@@ -1,4 +1,5 @@
-﻿using Klimalauf.View;
+﻿using FullControls.Controls;
+using Klimalauf.View;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -110,7 +111,6 @@ namespace Klimalauf
             {
                SetInvalidInputStyle(txtPasswort);
                SetInvalidInputStyle(txtPasswortWdh);
-               MessageBox.Show("Die Passwörter stimmen nicht überein!", "Passwortfehler", MessageBoxButton.OK, MessageBoxImage.Error);
                return false;
             }
          }
@@ -120,8 +120,17 @@ namespace Klimalauf
          return true;
       }
 
+      private void SetValidInputStyle(PasswordBoxPlus txtPasswort)
+      {
+         warningPassword.Visibility = Visibility.Collapsed;
+         txtPasswort.UnderlineBrush = new SolidColorBrush(Colors.Blue);
+      }
 
-
+      private void SetInvalidInputStyle(PasswordBoxPlus txtPasswort)
+      {
+         warningPassword.Visibility = Visibility.Visible;
+         txtPasswort.UnderlineBrush = new SolidColorBrush(Colors.Red);
+      }
 
       private void SetInvalidInputStyle(TextBox textBox)
       {
@@ -251,20 +260,20 @@ namespace Klimalauf
 
       private void txtPasswort_GotFocus(object sender, RoutedEventArgs e)
       {
-         PasswordBox passwordBox = (PasswordBox)sender;
+         PasswordBoxPlus passwordBox = (PasswordBoxPlus)sender;
          SetValidInputStyle(passwordBox);
       }
 
       private void txtPasswort_LostFocus(object sender, RoutedEventArgs e)
       {
-         PasswordBox passwordBox = (PasswordBox)sender;
+         PasswordBoxPlus passwordBox = (PasswordBoxPlus)sender;
          SetValidInputStyle(passwordBox);
       }
 
 
       private void txtPasswort_PasswordChanged(object sender, RoutedEventArgs e)
       {
-         PasswordBox passwordBox = (PasswordBox)sender;
+         PasswordBoxPlus passwordBox = (PasswordBoxPlus)sender;
          if (!string.IsNullOrEmpty(passwordBox.Password))
          {
             gridPasswortWdh.Visibility = Visibility.Visible;
