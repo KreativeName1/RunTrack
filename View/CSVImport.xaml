@@ -11,7 +11,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <local:TopBar x:Name="Leiste" Benutzername="Sascha, Dierl" HorizontalAlignment="Center" VerticalAlignment="Top" Width="800"/>
+        <local:TopBar x:Name="Leiste"  HorizontalAlignment="Stretch" VerticalAlignment="Top" />
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>

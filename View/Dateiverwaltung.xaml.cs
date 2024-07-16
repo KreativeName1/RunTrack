@@ -17,17 +17,8 @@ namespace Klimalauf
         {
             InitializeComponent();
             _mvmodel = FindResource("mvmodel") as MainViewModel;
-            ScannerName.Content = $"{_mvmodel.Benutzer.Vorname}, {_mvmodel.Benutzer.Nachname}";
 
 
-        }
-
-
-        private void LogoutIcon_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
-            this.Close();
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -61,6 +52,13 @@ namespace Klimalauf
                         Directory.CreateDirectory("Dateien");
                         string destPath = Path.Combine("Dateien", Path.GetFileName(fileName));
                         File.Copy(fileName, destPath, true);
+
+                        // if asv/csv file , open the CSVImport window with the path of the file
+                        if (extension == ".asv" || extension == ".csv")
+                        {
+                            CSVImport csvImport = new CSVImport(destPath);
+                            csvImport.Show();
+                        }
                     }
                     else
                     {

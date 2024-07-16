@@ -37,14 +37,9 @@ namespace Klimalauf
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this._mvmodel = FindResource("mvmodel") as MainViewModel;
-            ScannerName.Content = $"{_mvmodel.Benutzer.Vorname}, {_mvmodel.Benutzer.Nachname}";
             if (_mvmodel.Benutzer.IsAdmin)
             {
-                this.lblAdmin.Visibility = Visibility.Visible;
                 this.borderAdmin.Visibility = Visibility.Visible;
-
-                this.userName.Visibility = Visibility.Visible;
-                this.rectUser.Visibility = Visibility.Visible;
 
                 lstlastScan.Margin = new Thickness(lstlastScan.Margin.Left, lstlastScan.Margin.Top, lstlastScan.Margin.Right, 100);
 
@@ -77,11 +72,7 @@ namespace Klimalauf
             }
             else
             {
-                this.lblAdmin.Visibility = Visibility.Hidden;
                 this.borderAdmin.Visibility = Visibility.Hidden;
-
-                this.userName.Visibility = Visibility.Visible;
-                this.rectUser.Visibility = Visibility.Visible;
             }
         }
 
@@ -91,14 +82,6 @@ namespace Klimalauf
             mainWindow.Show();
             this.Close();
         }
-
-        private void LogoutIcon_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
-            this.Close();
-        }
-
         private void AddScannedData(int id)
         {
             using (var db = new LaufDBContext())

@@ -17,8 +17,6 @@ namespace Klimalauf
         {
             this._dumodel = FindResource("dumodel") as DatenuebersichtModel;
             this._mvmodel = FindResource("mvmodel") as MainViewModel;
-
-            ScannerName.Content = $"{_mvmodel.Benutzer.Vorname}, {_mvmodel.Benutzer.Nachname}";
             LoadData();
         }
 
@@ -36,15 +34,6 @@ namespace Klimalauf
             DataContext = this;
         }
 
-        private void LogoutIcon_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            // Create a new instance of MainWindow
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
-
-            // Close the current Scanner window
-            this.Close();
-        }
 
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {

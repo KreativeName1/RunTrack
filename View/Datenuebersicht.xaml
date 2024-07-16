@@ -19,17 +19,7 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
-        <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top" Grid.ColumnSpan="2" Visibility="Visible"/>
-        <Label Content="Benutzer:" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Height="26" Width="64"/>
-        <Label x:Name="ScannerName" Content="Name, Vorname" HorizontalAlignment="Left" Margin="79,1,0,0" VerticalAlignment="Top" Foreground="Wheat" Height="26" Width="95"/>
-        <Label Content="Admin" HorizontalAlignment="Center" Margin="0,2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Grid.ColumnSpan="2"/>
-
-        <Image Source="pack://application:,,,/Images/logout.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" MouseDown="LogoutIcon_MouseDown" Grid.Column="1">
-            <Image.ToolTip>
-                <ToolTip>Logout</ToolTip>
-            </Image.ToolTip>
-        </Image>
+        <local:TopBar Grid.ColumnSpan="2" x:Name="Leiste" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
 
         <StackPanel Orientation="Vertical"  Margin="5,33,10,5" Grid.RowSpan="2">
             <!--Startseite-->

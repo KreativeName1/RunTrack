@@ -17,5 +17,13 @@ namespace Klimalauf
         public Benutzer()
         {
         }
+
+        public string Benutzername
+        {
+            get
+            {
+                return $"{Vorname}, {Nachname}";
+            }
+        }
     }
 }

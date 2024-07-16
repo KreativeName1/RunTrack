@@ -22,7 +22,7 @@ namespace Klimalauf
     public partial class CSVImport : Window
     {
         private MainViewModel _mvmodel;
-        public CSVImport()
+        public CSVImport(string pfad)
         {
             _mvmodel = FindResource("mvmodel") as MainViewModel;
             InitializeComponent();
@@ -37,7 +37,6 @@ namespace Klimalauf
             OrderPanel.Children.Add(item2);
             OrderPanel.Children.Add(item3);
 
-            Leiste.Benutzername = _mvmodel.Benutzer.Vorname + ", " + _mvmodel.Benutzer.Nachname;
         }
 
         private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
@@ -54,6 +53,5 @@ namespace Klimalauf
             StackPanel stackPanel = (StackPanel)sender;
             stackPanel.Children.Insert(stackPanel.Children.IndexOf((UIElement)e.Source), textBlock);
         }
-
     }
 }

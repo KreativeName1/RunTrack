@@ -32,7 +32,6 @@ namespace Klimalauf
         {
 
             _pemodel.Format = new Format();
-            ScannerName.Content = $"{_mvmodel.Benutzer.Vorname}, {_mvmodel.Benutzer.Nachname}";
 
             using (var db = new LaufDBContext())
             {

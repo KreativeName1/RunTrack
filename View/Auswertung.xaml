@@ -17,21 +17,8 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Grid.ColumnSpan="2">
+        <local:TopBar Grid.Row="0" Grid.ColumnSpan="2" x:Name="Leiste"  HorizontalAlignment="Stretch" VerticalAlignment="Top" />
 
-            <Rectangle x:Name="rectUser" Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top" Grid.ColumnSpan="3" Visibility="Visible"/>
-            <Label x:Name="userName" Content="Benutzer:" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
-            <Label x:Name="ScannerName" Content="Name, Vorname" HorizontalAlignment="Left" Margin="79,1,0,0" VerticalAlignment="Top" Foreground="Wheat"/>
-
-            <Label x:Name="lblAdmin" Content="Admin" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Visibility="Hidden" Grid.Column="1" Cursor=""/>
-
-            <Image Source="pack://application:,,,/Images/logout.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" Grid.Column="2">
-                <Image.ToolTip>
-                    <ToolTip>Logout</ToolTip>
-                </Image.ToolTip>
-            </Image>
-        </Grid>
-        
         <StackPanel Grid.Row="1" Grid.Column="0" Margin="10,0,10,0">
             <Label Content="Auswertung"  HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="2"/>
             <Border BorderBrush="Black" BorderThickness="1" Padding="10">

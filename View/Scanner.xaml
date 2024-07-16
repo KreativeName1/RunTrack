@@ -120,27 +120,8 @@
         </Border>
 
 
-
-        <Rectangle x:Name="rectUser" Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top" Grid.ColumnSpan="3" Visibility="Visible"/>
-        <!--<Button x:Name="btnCredits" Content="Credits" Height="20" VerticalAlignment="Top" Visibility="Visible" Margin="0,4,60,0" Grid.Column="2" Click="btnCredits_Click" HorizontalAlignment="Right" Width="96"/>-->
-      
-        <Label x:Name="userName" Content="Benutzer:" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
-        <Label x:Name="ScannerName" Content="Name, Vorname" HorizontalAlignment="Left" Margin="79,1,0,0" VerticalAlignment="Top" Foreground="Wheat"/>
-
-        <Label x:Name="lblAdmin" Content="Admin" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Visibility="Hidden" Grid.Column="1" Cursor=""/>
-
-        <Image Source="pack://application:,,,/Images/credits.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,50,0" HorizontalAlignment="Right" MouseDown="btnCredits_Click" Grid.Column="2">
-            <Image.ToolTip>
-                <ToolTip Cursor="">Credits</ToolTip>
-            </Image.ToolTip>
-        </Image>
+        <local:TopBar x:Name="Leiste" Grid.ColumnSpan="3"  HorizontalAlignment="Stretch" VerticalAlignment="Top" />
         
-        
-        <Image Source="pack://application:,,,/Images/logout.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" MouseDown="LogoutIcon_MouseDown" Grid.Column="2">
-            <Image.ToolTip>
-                <ToolTip>Logout</ToolTip>
-            </Image.ToolTip>
-        </Image>
         <Border x:Name="borderAdmin" Height="67" HorizontalAlignment="Center" Margin="30" VerticalAlignment="Bottom" Visibility="visible" Grid.ColumnSpan="3">
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnDateien" Content="Dateiverwaltung" Margin="0,0,10,0" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Left" Cursor="Hand" Width="150"/>
