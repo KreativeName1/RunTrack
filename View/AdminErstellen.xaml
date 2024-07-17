@@ -51,7 +51,7 @@
 
         <Grid x:Name="gridPasswortWdh"  HorizontalAlignment="Left" Height="30" Margin="87,210,0,0" VerticalAlignment="Top" Width="258" Visibility="Collapsed" Background="#7FECECEC">
             <Label x:Name="lblPasswortWdh" Content="Wiederholen:" HorizontalAlignment="Left" FontSize="11" RenderTransformOrigin="0.529,0.231" FontFamily="72" Height="20" VerticalAlignment="Center" FontWeight="Bold"/>
-            <fc:PasswordBoxPlus x:Name="txtPasswortWdh" EnablePeekButton="True" CornerRadius="3" HorizontalAlignment="Left" Margin="105,0,0,0" Width="150" FontSize="11" Padding="5" Foreground="Gray" Height="25" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswortWdh_LostFocus"/>
+            <fc:PasswordBoxPlus x:Name="txtPasswortWdh" EnablePeekButton="True" CornerRadius="3" HorizontalAlignment="Left" Margin="105,0,0,0" Width="150" FontSize="11" Padding="5" Foreground="Gray" Height="25" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswortWdh_LostFocus" PasswordChanged="txtPasswortWdh_PasswordChanged" Cursor=""/>
         </Grid>
 
         <Button x:Name="btnErstellen" Content="Erstellen" HorizontalAlignment="Center" Margin="0,238,0,0" VerticalAlignment="Top" Width="250" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35" RenderTransformOrigin="0.509,-0.436" Click="btnErstellen_Click"/>
