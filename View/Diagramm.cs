@@ -38,6 +38,9 @@ namespace Klimalauf
             string Diagrammtitel = "";
             InitializeComponent();
             _amodel = FindResource("amodel") as AuswertungModel;
+
+            btnClose.Click += (s, e) => Close();
+
             foreach (object item in _amodel.Liste)
             {
                 string name, bewertung, bewertung2 = "";
