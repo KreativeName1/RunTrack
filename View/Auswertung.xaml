@@ -7,6 +7,9 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d" Icon="pack://application:,,,/Images/iconRunMan.ico"
         Title="Auswertung" Height="650" Width="900">
+    <Window.Resources>
+        <local:ObjectToBoolConverter x:Key="otbcon"/>
+    </Window.Resources>
     <Grid DataContext="{StaticResource amodel}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
@@ -97,7 +100,7 @@
             
         </StackPanel>
 
-        <DataGrid Grid.Row="1" Grid.Column="1" x:Name="Daten" ItemsSource="{Binding Liste}" SelectedItem="{Binding SelectedItem}" AutoGenerateColumns="True"  >
+        <DataGrid Grid.Row="1" SelectionMode="Extended"  Grid.Column="1" x:Name="Daten" ItemsSource="{Binding Liste}" SelectedItem="{Binding SelectedItem}" AutoGenerateColumns="True"  >
         </DataGrid>
 
         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2" Grid.ColumnSpan="2" >
@@ -112,7 +115,7 @@
                 <Button x:Name="btnExport" Content="Exportieren" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="100" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
             </StackPanel>
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
-                    <Button x:Name="btnSchuelerWertung" Content="Schülerwertung" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="100" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+                    <Button x:Name="btnSchuelerWertung" IsEnabled="{Binding SelectedItem, Converter={StaticResource otbcon}}" Content="Schülerwertung" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="100" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
                     <Button x:Name="btnWertung" Content="Momentane Wertung" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="130" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
                     <Button x:Name="btnDiagramm" Content="Diagramm" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="130" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
                 </StackPanel>

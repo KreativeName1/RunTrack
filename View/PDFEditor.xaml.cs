@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Klimalauf
@@ -17,15 +19,23 @@ namespace Klimalauf
          _pemodel.Klasse = klasse;
          init();
       }
-      public PDFEditor(Schueler schueler) : base()
+      public PDFEditor(List<Schueler> schueler) : base()
       {
          InitializeComponent();
          _pemodel = FindResource("pemodel") as PDFEditorModel;
          _mvmodel = FindResource("mvmodel") as MainViewModel;
-         _pemodel.Schueler = schueler;
+         _pemodel.Schueler = new ObservableCollection<Schueler>(schueler);
 
-         PanelRight.Visibility = Visibility.Collapsed;
-         init();
+            for (int i = PanelRight.Children.Count - 1; i >= 0; i--)
+            {
+                if (PanelRight.Children[i] != SchuelerBewertungPanel)
+                {
+                    PanelRight.Children.RemoveAt(i);
+                }
+            }
+
+            SchuelerBewertungPanel.Visibility = Visibility.Visible;
+            init();
 
       }
       public void init()
@@ -51,7 +61,7 @@ namespace Klimalauf
             webView.Source = new Uri("about:blank");
             string pfad;
             if (_pemodel.Klasse != null) pfad = PDFGenerator.BarcodesPDF(_pemodel.Klasse, _pemodel.Klasse.Schule.Name, _pemodel.Format);
-            else pfad = PDFGenerator.SchuelerBewertungPDF(_pemodel.Schueler, _pemodel.Format);
+            else pfad = PDFGenerator.SchuelerBewertungPDF(new List<Schueler>(_pemodel.Schueler), _pemodel.Format, _pemodel.NeueSeiteProSchueler);
             webView.Source = new Uri(pfad);
 
             webView.ZoomFactor = 0.62;
@@ -120,6 +130,15 @@ namespace Klimalauf
             _pemodel.Format.Orientierung = (Orientierung)cbOrientierung.SelectedIndex;
             AktualisierePDF();
          };
+
+            cbNeueSeite.Unchecked += (s, e) =>
+            {
+                AktualisierePDF();
+            };
+            cbNeueSeite.Checked += (s, e) =>
+            {
+                AktualisierePDF();
+            };
 
          // Speichere die aktuellen Werte
          string currentOben = txtOben.Text;
@@ -262,12 +281,14 @@ namespace Klimalauf
          webView.Source = new Uri("about:blank");
          string pfad;
          if (_pemodel.Klasse != null) pfad = PDFGenerator.BarcodesPDF(_pemodel.Klasse, _pemodel.Klasse.Schule.Name, _pemodel.Format);
-         else pfad = PDFGenerator.SchuelerBewertungPDF(_pemodel.Schueler, _pemodel.Format);
+         else pfad = PDFGenerator.SchuelerBewertungPDF(new List<Schueler>(_pemodel.Schueler), _pemodel.Format, _pemodel.NeueSeiteProSchueler);
          webView.Source = new Uri(pfad);
       }
 
       private void btnCancel_Click(object sender, RoutedEventArgs e)
       {
+        _pemodel.Schueler = null;
+        _pemodel.Klasse = null;
          Datenuebersicht datenuebersicht = new Datenuebersicht();
          datenuebersicht.Show();
          this.Close();
@@ -280,17 +301,10 @@ namespace Klimalauf
          datenuebersicht.btnKlassenDisabled.Visibility = Visibility.Visible;
       }
 
-      private void LogoutIcon_MouseDown(object sender, MouseButtonEventArgs e)
-      {
-         MainWindow mainWindow = new MainWindow();
-         mainWindow.Show();
-         this.Close();
-      }
-
-      //private void btnCredits_Click(object sender, RoutedEventArgs e)
-      //{
-      //   Credits credits = new Credits();
-      //   credits.Show();
-      //}
-   }
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            _pemodel.Schueler = null;
+            _pemodel.Klasse = null;
+        }
+    }
 }

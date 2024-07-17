@@ -1,11 +1,15 @@
-﻿namespace Klimalauf
+﻿using System.Collections.ObjectModel;
+
+namespace Klimalauf
 {
    public class PDFEditorModel : BaseModel
    {
       private Format _format;
 
       private Klasse _klasse;
-      private Schueler _schueler;
+      private ObservableCollection<Schueler> _schueler;
+
+        private bool _neueSeiteProSchueler = true;
 
       public Format Format
       {
@@ -17,6 +21,8 @@
          }
       }
 
+        
+
       public Klasse Klasse
       {
          get { return _klasse; }
@@ -26,7 +32,7 @@
             OnPropertyChanged("Klasse");
          }
       }
-      public Schueler Schueler
+      public ObservableCollection<Schueler> Schueler
       {
          get { return _schueler; }
          set
@@ -37,5 +43,15 @@
       }
 
 
-   }
+        public bool NeueSeiteProSchueler
+        {
+            get { return _neueSeiteProSchueler; }
+            set
+            {
+                _neueSeiteProSchueler = value;
+                OnPropertyChanged("NeueSeiteProSchueler");
+            }
+        }
+
+    }
 }

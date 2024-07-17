@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Klimalauf"
         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
+        Closed="Window_Closed"
         Icon="pack://application:,,,/Images/iconRunMan.ico"
         Title="PDF_Editor" Height="825" Width="1000" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
@@ -120,6 +121,14 @@
         <Rectangle Height="451" Width="2" Margin="75,20,75,0" Stroke="#ababab" Fill="#ababab" VerticalAlignment="Top" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="1"/>
 
         <StackPanel Margin="20,0,20,0"  Orientation="Vertical" x:Name="PanelRight" Grid.Column="2" Grid.Row="2">
+            <StackPanel x:Name="SchuelerBewertungPanel" Visibility="Collapsed">
+                <Label Content="Schülerbewertung:" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top" Margin="0,0,0,0"/>
+                <Border BorderBrush="Black" BorderThickness="1" Padding="10">
+                    <Grid>
+                        <CheckBox Content="Neue Seite pro Schüler" x:Name="cbNeueSeite" IsChecked="{Binding NeueSeiteProSchueler}" HorizontalAlignment="Center"  VerticalAlignment="Top" Margin="0,5,0,0"/>
+                    </Grid>
+                </Border>
+            </StackPanel>
             <!--Zellen: Abstände, Breite, Höhe-->
             <Label Content="Barcodeabstand:" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top"  Margin="0,20,0,0"/>
             <Border BorderBrush="Black" BorderThickness="1">

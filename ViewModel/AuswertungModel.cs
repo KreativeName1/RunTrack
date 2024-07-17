@@ -22,11 +22,13 @@ namespace Klimalauf
       private ObservableCollection<object> _liste { get; set; } = new ObservableCollection<object>();
       private object _selectedItem { get; set; } = null;
 
-      private int _jahrgang { get; set; } = 0;
+        private int _jahrgang { get; set; } = 0;
       private ObservableCollection<Schule> _schulen { get; set; } = new ObservableCollection<Schule>();
       private Schule? _selectedSchule { get; set; } = null;
       private ObservableCollection<Klasse> _klassen { get; set; } = new ObservableCollection<Klasse>();
       private Klasse? _selectedKlasse { get; set; } = null;
+
+
 
       public bool IsMaennlich
       {
@@ -134,6 +136,8 @@ namespace Klimalauf
       {
          Liste = new ObservableCollection<object>();
       }
+
+
    }
 
 }

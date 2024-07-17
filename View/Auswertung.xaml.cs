@@ -65,21 +65,30 @@ namespace Klimalauf
          };
          btnSchuelerWertung.Click += (s, e) =>
          {
-            // get selected Item
             if (_amodel.SelectedItem != null)
             {
-               int? id = (int)_amodel.SelectedItem.GetType().GetProperty("SchuelerId").GetValue(_amodel.SelectedItem, null);
-               if (id == null) return;
+                 // get all schueler from selected items
+                 List<Schueler> schuelerList = new List<Schueler>();
+                 using (var db = new MergedDBContext(_pfade))
+                 {
+                     foreach (object item in Daten.SelectedItems)
+                     {
+                         int? id = (int)item.GetType().GetProperty("SchuelerId").GetValue(item, null);
+                         if (id == null) continue;
 
-               Schueler schueler;
-               using (var db = new MergedDBContext(_pfade))
-               {
-                  schueler = db.Schueler.Include(s => s.Runden).Include(s => s.Klasse).FirstOrDefault(s => s.Id == id);
-               }
-               if (schueler == null) return;
-               PDFEditor schuelerWertung = new PDFEditor(schueler);
-               schuelerWertung.Show();
-            }
+                         Schueler schueler = db.Schueler.Include(s => s.Runden).Include(s => s.Klasse).FirstOrDefault(s => s.Id == id);
+                         if (schueler != null)
+                         {
+                             schuelerList.Add(schueler);
+                         }
+                     }
+                 }
+
+                 // create PDF for all schueler
+                 PDFEditor schuelerWertung = new PDFEditor(schuelerList);
+                 schuelerWertung.Show();
+
+             }
 
          };
       }
