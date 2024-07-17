@@ -47,7 +47,7 @@ namespace Klimalauf
 
                 if (_amodel.IsDistanz)
                 {
-                    Diagrammtitel = "Distanz";
+                    Diagrammtitel = "Diagramm nach Distanz";
                         foreach(char a in bewertung)
                         {
                             if(a != '.' &&  a != ' ' && a != 'm')
@@ -68,12 +68,12 @@ namespace Klimalauf
 
                 }else if(_amodel.IsAnzahl)
                 {
-                    Diagrammtitel = "RundenAnzahl";
+                    Diagrammtitel = "Diagramm nach RundenAnzahl";
                     bewertungzr = Convert.ToInt32(bewertung);
                 }
                 else if(_amodel.IsZeit)
                 {
-                    Diagrammtitel = "Schnellste Runde";
+                    Diagrammtitel = "Diagramm nach Schnellster Runde";
                     string[] split = new string[2];
                     split = bewertung.Split(':');
                     split[0] = split[0].Trim();
@@ -100,6 +100,8 @@ namespace Klimalauf
 
         private void drawCanvas()
         {
+            
+           
             Diagrammcanvas.Children.Clear();
 
             double maxWert = 0;
@@ -116,17 +118,60 @@ namespace Klimalauf
                 // maxWert = Math.Max(maxWert, data.Wert);
             }
 
+            if (canvascanvas.ActualHeight > 10)
+            {
+                canvascanvas.Children.Clear();
+                Label a = new Label();
+
+                a.Height = canvascanvas.ActualHeight - 10;
+                a.Width = 2;
+                a.Background = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+
+                Canvas.SetLeft(a, canvascanvas.ActualWidth / 2);
+                Canvas.SetBottom(a, 0);
+                canvascanvas.Children.Add(a);
+
+                Label b = new Label();
+
+                b.Height = 2;
+                b.Width = canvascanvas.ActualWidth;
+                b.Background = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+
+                Canvas.SetLeft(b, 0);
+                Canvas.SetBottom(b, 0);
+                canvascanvas.Children.Add(b);
+
+                Label c = new Label();
+
+                c.Height = 2;
+                c.Width = canvascanvas.ActualWidth;
+                c.Background = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+
+                Canvas.SetLeft(c, 0);
+                Canvas.SetTop(c, 10);
+                canvascanvas.Children.Add(c);
+
+                Label d = new Label();
+
+                d.Height = 2;
+                d.Width = canvascanvas.ActualWidth;
+                d.Background = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+
+                Canvas.SetLeft(d, 0);
+                Canvas.SetBottom(d, (canvascanvas.ActualHeight - 10) / 2);
+                canvascanvas.Children.Add(d);
+            }
+
+
             double canvasHeight = Diagrammcanvas.ActualHeight;
             
             double canvasWidth = Diagrammcanvas.ActualWidth - 20;
             if(canvasHeight > 10 && canvasWidth > 10) { 
             double balkenAbstand = 10;
-            double balkenBreite = canvasWidth / diagrammliste.Count;
+            double balkenBreite = (canvasWidth - 20) / diagrammliste.Count;
+             
 
-            if(canvasWidth > 0)
-            {
 
-           
             for (int i = 0; i < diagrammliste.Count; i++)
             {
                     DiagrammWert d = diagrammliste[i];
@@ -171,7 +216,7 @@ namespace Klimalauf
                
                     Diagrammcanvas.Children.Add(label);
                 }
-                }
+                
             }
         }
         private void Grid_SizeChanged(object sender, SizeChangedEventArgs e)

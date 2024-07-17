@@ -7,10 +7,9 @@
         mc:Ignorable="d"
         Title="Diagrammm" Height="450" Width="800">
     <Grid SizeChanged="Grid_SizeChanged_1">
-        <Canvas x:Name="Diagrammcanvas" Margin="34,40,34,40">
-            <Label x:Name="label" Height="35" Canvas.Left="292" Canvas.Top="10" Width="216" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        </Canvas>
-
+        <Canvas x:Name="Diagrammcanvas" Margin="34,40,34,40" Background="LightGray"/>
+        <Label x:Name="label" HorizontalContentAlignment="Center"  Height="35" Width="732" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="16" FontFamily="Segoe UI Emoji" Background="White" Foreground="#FF0079FF"/>
+        <Canvas x:Name="canvascanvas" Margin="0,40,34,40" Width="34" HorizontalAlignment="Left"/>
 
 
 
