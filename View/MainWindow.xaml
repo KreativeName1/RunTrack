@@ -37,6 +37,6 @@
         <Rectangle HorizontalAlignment="Center" Height="2" Margin="0,203,0,0" Stroke="#7E8182" VerticalAlignment="Top" Width="70"/>
 
         <Label Content="Admin Passwort:" HorizontalAlignment="Left" Margin="98,207,0,0" VerticalAlignment="Top" FontFamily="72 Light"/>
-        <PasswordBox x:Name="AdminPasswordBox" HorizontalAlignment="Left" Margin="200,210,0,0" VerticalAlignment="Top" Width="150" BorderBrush="Gray" KeyDown="TextBox_KeyDown"/>
+        <PasswordBox x:Name="AdminPasswordBox" HorizontalAlignment="Left" Margin="200,210,0,0" VerticalAlignment="Top" Width="150" BorderBrush="Gray" Foreground="Blue" KeyDown="TextBox_KeyDown"/>
     </Grid>
 </Window>

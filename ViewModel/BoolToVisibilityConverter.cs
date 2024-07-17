@@ -1,18 +1,14 @@
 ﻿using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
 
 namespace Klimalauf
 {
-   public class TimestampConverter : IValueConverter
+   public class BoolToVisibilityConverter : IValueConverter
    {
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-         if (value is DateTime timestamp)
-         {
-            // Konvertiere den Zeitstempel in das gewünschte Format
-            return timestamp.ToString("dd.MM.yyyy" + ",\t" + "HH:mm:ss");
-         }
-         return value;
+         return (bool)value ? Visibility.Visible : Visibility.Collapsed;
       }
 
       public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -9,30 +9,22 @@
         Title="Dateiverwaltung" Height="500" Width="800"  WindowStartupLocation="CenterScreen">
     <Grid DataContext="{StaticResource mvmodel}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" MinHeight="79"/>
-            <RowDefinition Height="Auto" MinHeight="22"/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" MinHeight="80"/>
+            <RowDefinition Height="Auto" MinHeight="20"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Rectangle Height="28" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
+        <local:TopBar x:Name="Leiste" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
 
-        <Label Content="Benutzer:" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Height="26" Width="64"/>
-        <Label x:Name="ScannerName" Content="Name, Vorname" Foreground="Wheat" HorizontalAlignment="Left" Margin="79,1,0,0" VerticalAlignment="Top" Height="26" Width="95"/>
 
-        <Label Content="Admin" HorizontalAlignment="Center" Margin="0,2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
-        <Image Source="pack://application:,,,/Images/logout.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" MouseDown="LogoutIcon_MouseDown">
-            <Image.ToolTip>
-                <ToolTip>Logout</ToolTip>
-            </Image.ToolTip>
-        </Image>
-
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,25,10,0" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,25,10,0" HorizontalAlignment="Right">
             <Button Content="Importieren" Click="UploadFiles_Click" Width="100" Height="25" Margin="5,5,10,5"/>
             <Button Content="Exportieren" Click="DownloadFiles_Click" Width="100" Height="25" Margin="5"/>
         </StackPanel>
 
-        <Grid Grid.Row="1" Margin="10,0,10,0">
+        <Grid Grid.Row="2" Margin="10,0,10,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
@@ -46,7 +38,7 @@
 
             <TextBlock Text="Uploaddatum ⇅" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" MouseDown="UploadDateLabel_MouseDown" MouseEnter="Label_MouseEnter" MouseLeave="Label_MouseLeave" x:Name="UploadDateLabel" Cursor="Hand"/>
         </Grid>
-        <ListBox x:Name="FilesListBox" ItemsSource="{Binding LstFiles}" Grid.Row="2" Margin="10,5,10,10" BorderBrush="Gray" BorderThickness="1"
+        <ListBox x:Name="FilesListBox" ItemsSource="{Binding LstFiles}" Grid.Row="3" Margin="10,5,10,10" BorderBrush="Gray" BorderThickness="1"
                  HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -65,7 +57,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,5,10,10" HorizontalAlignment="Right" Width="235">
+        <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,5,10,10" HorizontalAlignment="Right" Width="235">
             <Button Content="Löschen" Click="DeleteSelectedFiles_Click" Width="100" Height="25" Margin="5,5,20,5"/>
             <Button Content="Schließen" Click="CloseWindow_Click" Width="100" Height="25" Margin="5"/>
         </StackPanel>
