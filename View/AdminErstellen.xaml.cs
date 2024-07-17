@@ -12,7 +12,6 @@ namespace Klimalauf
    /// </summary>
    public partial class AdminErstellen : Window
    {
-
       public AdminErstellen()
       {
          InitializeComponent();
@@ -130,6 +129,7 @@ namespace Klimalauf
       {
          warningPassword.Visibility = Visibility.Visible;
          txtPasswort.UnderlineBrush = new SolidColorBrush(Colors.Red);
+         txtPasswort.UnderlineThickness = new Thickness(0,0,0,2.5);
       }
 
       private void SetInvalidInputStyle(TextBox textBox)
