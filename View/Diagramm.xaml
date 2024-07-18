@@ -21,7 +21,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-            <Canvas x:Name="canvascanvas" Width="35" Grid.Column="0" Background="LightGray"/>
+            <Canvas x:Name="canvascanvas" Width="50" Grid.Column="0" Background="LightGray"/>
                 <Canvas x:Name="Diagrammcanvas" Grid.Column="1" Background="LightGray"/>
         </Grid>
         </Border>
