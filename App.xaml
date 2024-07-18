@@ -8,5 +8,6 @@
         <local:DatenuebersichtModel x:Key="dumodel"/>
         <local:PDFEditorModel x:Key="pemodel"/>
         <local:AuswertungModel x:Key="amodel"/>
+        <local:ImportModel x:Key="imodel"/>
     </Application.Resources>
 </Application>

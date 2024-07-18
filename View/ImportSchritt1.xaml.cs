@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -8,16 +9,17 @@ namespace Klimalauf
     /// <summary>
     /// Interaktionslogik für CSVImport.xaml
     /// </summary>
-    public partial class CSVImport : Window
+    public partial class ImportSchritt1 : Window
     {
         private DraggableItem _draggedItem;
         private MainViewModel _mvmodel;
+        private ImportModel _imodel;
 
-        private List<object> _data;
 
-        public CSVImport(string pfad)
+        public ImportSchritt1(string pfad)
         {
             _mvmodel = FindResource("mvmodel") as MainViewModel;
+            _imodel = FindResource("imodel") as ImportModel;
             InitializeComponent();
 
             int width = 120;
@@ -40,15 +42,14 @@ namespace Klimalauf
             
             using (var db = new LaufDBContext())
             {
-                List<Schule> schulen = db.Schulen.ToList();
-                cmbSchule.ItemsSource = schulen;
-                cmbSchule.DisplayMemberPath = "Name";
-                cmbSchule.SelectedValuePath = "Id";
+                ObservableCollection<Schule> schulen = new(db.Schulen.ToList());
+                schulen.Insert(0, new Schule { Id = 0, Name = "Neue Schule" });
+                _imodel.SchuleListe = schulen;
             }
+
             try
             {
-                _data = CSVReader.ReadToList(pfad);
-                CSV_Grid.ItemsSource = _data;
+                _imodel.CSVListe = new(CSVReader.ReadToList(pfad));
             }
             catch (FileNotFoundException) { MessageBox.Show("Datei wurde nicht gefunden."); this.Close(); }
             catch (FileLoadException) { MessageBox.Show("Datei konnte nicht geladen werden."); this.Close(); }
@@ -58,32 +59,21 @@ namespace Klimalauf
 
             btnWeiter.Click += (s, e) =>
             {
-                if (cmbSchule.SelectedItem == null || (cbSchule.IsChecked == true && string.IsNullOrWhiteSpace(tbSchule.Text)))
+                if (_imodel.Schule == null || _imodel.Schule.Name == "Neue Schule" && string.IsNullOrWhiteSpace(tbSchule.Text))
                 {
                     MessageBox.Show("Bitte wählen Sie eine Schule aus.");
                     return;
                 }
 
-                List<string> reihenfolge = new List<string>();
-                foreach (DraggableItem item in OrderPanel.Children)
-                {
-                    reihenfolge.Add(item.TextContent);
-                }
+                _imodel.Reihenfolge = new();
+                foreach (DraggableItem item in OrderPanel.Children) _imodel.Reihenfolge.Add(item.TextContent);
+                if (_imodel.Schule.Id == 0) _imodel.Schule = new Schule { Name = tbSchule.Text };
 
-                string schule = cmbSchule.SelectedItem.ToString();
-                // get schule. if the checkbox is checked, create a new schule 
-                if (cbSchule.IsChecked == true)
-                {
-                    if (string.IsNullOrWhiteSpace(tbSchule.Text))
-                    {
-                        schule = tbSchule.Text;
-                    }
-                }
-                // weiter zur klassenerstellung, danach zeigt es die daten an, die importiert werden
-                CSVImport2 csvImport2 = new CSVImport2(pfad, reihenfolge, schule, _data);
+                // weiter zur klassenerstellung
+                ImportSchritt2 csvImport2 = new();
                 csvImport2.Show();
                 this.Close();
-            };  
+            };
 
         }
 
