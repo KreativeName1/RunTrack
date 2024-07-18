@@ -28,7 +28,7 @@ namespace Klimalauf
                Benutzer benutzer = new Benutzer();
                benutzer.Vorname = txtVorname.Text;
                benutzer.Nachname = txtNachname.Text;
-               benutzer.Passwort = BCrypt.Net.BCrypt.HashPassword(txtPasswort.Password);
+               benutzer.Passwort = BCrypt.Net.BCrypt.HashPassword(txtPassword.Password);
                db.Benutzer.Add(benutzer);
                db.SaveChanges();
             }
@@ -41,8 +41,8 @@ namespace Klimalauf
       private void Window_Loaded(object sender, RoutedEventArgs e)
       {
          txtVorname.Focus();
-         txtVorname.Foreground = new SolidColorBrush(Colors.Gray);
-         txtNachname.Foreground = new SolidColorBrush(Colors.Gray);
+         txtVorname.ForegroundBrush = new SolidColorBrush(Colors.Gray);
+         txtNachname.ForegroundBrush = new SolidColorBrush(Colors.Gray);
       }
 
       private bool ValidateInputs()
@@ -59,7 +59,7 @@ namespace Klimalauf
             isValid = false;
          }
 
-         if (!ValidatePasswort())
+         if (!ValidatePassword())
          {
             isValid = false;
          }
@@ -95,32 +95,32 @@ namespace Klimalauf
          }
       }
 
-      private bool ValidatePasswort()
+      private bool ValidatePassword()
       {
          bool isValid = true;
 
          // Passwortfelder leeren, wenn das Passwort leer ist
-         if (string.IsNullOrEmpty(txtPasswort.Password))
+         if (string.IsNullOrEmpty(txtPassword.Password))
          {
-            SetInvalidInputStyle(txtPasswort);
-            txtPasswortWdh.Password = "";
+            SetInvalidInputStyle(txtPassword);
+            txtPasswordWdh.Password = "";
             isValid = false;
          }
          else
          {
-            SetValidInputStyle(txtPasswort);
+            SetValidInputStyle(txtPassword);
          }
 
          // Überprüfen, ob das wiederholte Passwort leer ist oder nicht mit dem Passwort übereinstimmt
-         if (string.IsNullOrEmpty(txtPasswortWdh.Password) || txtPasswort.Password != txtPasswortWdh.Password)
+         if (string.IsNullOrEmpty(txtPasswordWdh.Password) || txtPassword.Password != txtPasswordWdh.Password)
          {
-            SetInvalidInputStyle(txtPasswortWdh);
+            SetInvalidInputStyle(txtPasswordWdh);
             isValid = false;
             warningPassword.Visibility = Visibility.Visible; // Warning anzeigen, wenn die Passwörter nicht übereinstimmen
          }
          else
          {
-            SetValidInputStyle(txtPasswortWdh);
+            SetValidInputStyle(txtPasswordWdh);
             warningPassword.Visibility = Visibility.Collapsed; // Warning ausblenden, wenn die Passwörter übereinstimmen
          }
 
@@ -165,53 +165,16 @@ namespace Klimalauf
             warningNachname.Visibility = Visibility.Collapsed;
       }
 
-      private void SetInvalidInputStyle(PasswordBox passwordBox)
-      {
-         passwordBox.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#C1121C"));
-         passwordBox.Foreground = new SolidColorBrush(Colors.White);
-      }
-
-      private void SetValidInputStyle(PasswordBox passwordBox)
-      {
-         passwordBox.Background = new SolidColorBrush(Colors.White);
-         passwordBox.Foreground = new SolidColorBrush(Colors.Blue);
-      }
-
       private void TextBox_KeyDown(object sender, KeyEventArgs e)
       {
-         //if (sender is PasswordBox pwBox)
-         //{
-         //   this.lblPasswortWdh.Visibility = Visibility.Visible;
-         //   this.txtPasswortWdh.Visibility = Visibility.Visible;
-
-         //   txtPasswortWdh.Background = new SolidColorBrush(Colors.White);
-         //   txtPasswortWdh.Foreground = new SolidColorBrush(Colors.Blue);
-
-         //   // lstlastScan.Margin = new Thickness(lstlastScan.Margin.Left, lstlastScan.Margin.Top, lstlastScan.Margin.Right, 100);
-
-         //   this.btnErstellen.Margin = new Thickness(btnErstellen.Margin.Left, btnErstellen.Margin.Top, btnErstellen.Margin.Right, 30);
-         //}
-         //else
-         //{
-         //   this.btnErstellen.Margin = new Thickness(btnErstellen.Margin.Left, btnErstellen.Margin.Top, btnErstellen.Margin.Right, 40);
-
-         //   if (txtPasswortWdh.Password.ToString() == "")
-         //   {
-         //      this.lblPasswortWdh.Visibility = Visibility.Collapsed;
-         //      this.txtPasswortWdh.Visibility = Visibility.Collapsed;
-         //   }
-         //}
-
          if (e.Key == Key.Enter)
          {
-            if (sender is TextBox textBox)
+            if (sender is TextBoxPlus textBox)
             {
-               textBox.Background = new SolidColorBrush(Colors.White);
-               textBox.Foreground = new SolidColorBrush(Colors.Blue);
+               textBox.ForegroundBrush = new SolidColorBrush(Colors.Blue);
             }
-            else if (sender is PasswordBox passwordBox)
+            else if (sender is PasswordBoxPlus passwordBox)
             {
-               passwordBox.Background = new SolidColorBrush(Colors.White);
                passwordBox.Foreground = new SolidColorBrush(Colors.Blue);
             }
             if (ValidateInputs())
@@ -223,16 +186,14 @@ namespace Klimalauf
 
       private void txtVorname_TextChanged(object sender, TextChangedEventArgs e)
       {
-         TextBox textBox = (TextBox)sender;
-         textBox.Background = new SolidColorBrush(Colors.White);
-         textBox.Foreground = new SolidColorBrush(Colors.Blue);
+         TextBoxPlus textBox = (TextBoxPlus)sender;
+         textBox.ForegroundBrush = new SolidColorBrush(Colors.Blue);
       }
 
       private void txtNachname_TextChanged(object sender, TextChangedEventArgs e)
       {
-         TextBox textBox = (TextBox)sender;
-         textBox.Background = new SolidColorBrush(Colors.White);
-         textBox.Foreground = new SolidColorBrush(Colors.Blue);
+         TextBoxPlus textBox = (TextBoxPlus)sender;
+         textBox.ForegroundBrush = new SolidColorBrush(Colors.Blue);
       }
 
       private void txtVorname_GotFocus(object sender, RoutedEventArgs e)
@@ -241,18 +202,17 @@ namespace Klimalauf
          if (textBox.Text == "Max")
          {
             textBox.Text = "";
-            textBox.Foreground = new SolidColorBrush(Colors.Blue);
          }
          SetValidInputStyle(textBox);
       }
 
       private void txtVorname_LostFocus(object sender, RoutedEventArgs e)
       {
-         TextBox textBox = (TextBox)sender;
+         TextBoxPlus textBox = (TextBoxPlus)sender;
          if (string.IsNullOrWhiteSpace(textBox.Text))
          {
             textBox.Text = "Max";
-            textBox.Foreground = new SolidColorBrush(Colors.Gray);
+            textBox.ForegroundBrush = new SolidColorBrush(Colors.Gray);
          }
          ValidateVorname();
       }
@@ -263,18 +223,17 @@ namespace Klimalauf
          if (textBox.Text == "Mustermann")
          {
             textBox.Text = "";
-            textBox.Foreground = new SolidColorBrush(Colors.Blue);
          }
          SetValidInputStyle(textBox);
       }
 
       private void txtNachname_LostFocus(object sender, RoutedEventArgs e)
       {
-         TextBox textBox = (TextBox)sender;
+         TextBoxPlus textBox = (TextBoxPlus)sender;
          if (string.IsNullOrWhiteSpace(textBox.Text))
          {
             textBox.Text = "Mustermann";
-            textBox.Foreground = new SolidColorBrush(Colors.Gray);
+            textBox.ForegroundBrush = new SolidColorBrush(Colors.Gray);
          }
          ValidateNachname();
       }
@@ -295,18 +254,20 @@ namespace Klimalauf
       private void txtPasswort_PasswordChanged(object sender, RoutedEventArgs e)
       {
          PasswordBoxPlus passwordBox = (PasswordBoxPlus)sender;
+         passwordBox.Foreground = new SolidColorBrush(Colors.Blue);
+
          if (!string.IsNullOrEmpty(passwordBox.Password))
          {
-            gridPasswortWdh.Visibility = Visibility.Visible;
+            borderPasswordWdh.Visibility = Visibility.Visible;
             btnErstellen.Margin = new Thickness(0, 260, 0, 0); // Move the button down
          }
          else
          {
-            gridPasswortWdh.Visibility = Visibility.Collapsed;
+            borderPasswordWdh.Visibility = Visibility.Collapsed;
             btnErstellen.Margin = new Thickness(0, 238, 0, 0); // Move the button up
          }
 
-         ValidatePasswort();
+         ValidatePassword();
       }
 
       private void btnCredits_Click(object sender, RoutedEventArgs e)
@@ -317,12 +278,14 @@ namespace Klimalauf
 
       private void txtPasswortWdh_LostFocus(object sender, RoutedEventArgs e)
       {
-         ValidatePasswort();
+         ValidatePassword();
       }
 
       private void txtPasswortWdh_PasswordChanged(object sender, RoutedEventArgs e)
       {
-         ValidatePasswort();
+         PasswordBoxPlus passwordBox = (PasswordBoxPlus)sender;
+         passwordBox.Foreground = new SolidColorBrush(Colors.Blue);
+         ValidatePassword();
       }
    }
 }
