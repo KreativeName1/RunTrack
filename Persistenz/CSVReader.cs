@@ -1,40 +1,37 @@
-﻿namespace Klimalauf
+﻿using System.IO;
+
+namespace Klimalauf
 {
-   public class CSVReader
-   {
+    public class CSVReader
+    {
 
-      // example file:
-      // Vorname;Nachname;Klasse
-      // Sascha;Dierl;10A
-      // Paul;Fischer;10B
-      public static List<object> ReadToList(string path)
-      {
-         // return a list of objects. the first row of the csv file is used to determine the name of the properties
+        // example file:
+        // Vorname;Nachname;Klasse
+        // Sascha;Dierl;10A
+        // Paul;Fischer;10B
+        public static List<object> ReadToList(string path)
+        {
+            if (!File.Exists(path)) throw new FileNotFoundException();
+            if (Path.GetExtension(path).ToLower() != ".csv") throw new FileLoadException();
+            if (new FileInfo(path).Length == 0) throw new FileLoadException();
 
-         // the following rows are used to create objects with the propertiy names of the first row
-         // the objects are then added to the list
+            List<object> list = new List<object>();
 
-         // the list is then returned
+            string[] lines = File.ReadAllLines(path);
+            List<List<string>> parts = new List<List<string>>();
+            foreach (string line in lines) parts.Add(line.Split(';').ToList());
+            List<string> first = parts[0];
 
-         List<object> list = new List<object>();
+            if (first.Count != 5) throw new Exception("Die Datei hat nicht die richtige Anzahl an Spalten.");
+            parts.RemoveAt(0);
 
-         List<string> lines = System.IO.File.ReadAllLines(path).ToList();
-
-         string[] first = lines[0].Split(';');
-         lines.RemoveAt(0);
-
-         foreach (string line in lines)
-         {
-            string[] parts = line.Split(';');
-            object obj = new object();
-            for (int i = 0; i < first.Length; i++)
+            foreach (List<string> line in parts)
             {
-               obj.GetType().GetProperty(first[i]).SetValue(obj, parts[i]);
+                if (line.Count != first.Count) throw new Exception("Die Datei hat nicht die richtige Anzahl an Spalten.");
+                list.Add(new { Spalte1 = line[0], Spalte2 = line[1], Spalte3 = line[2], Spalte4 = line[3], Spalte5 = line[4] });
             }
-            list.Add(obj);
-         }
 
-         return list;
-      }
-   }
+            return list;
+        }
+    }
 }

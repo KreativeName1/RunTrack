@@ -13,13 +13,13 @@ namespace Klimalauf
          InitializeComponent();
          this.DataContext = this;
 
-         btnRemove.Click += (s, e) =>
-         {
-            if (Parent is Panel panel)
-            {
-               panel.Children.Remove(this);
-            }
-         };
+         //btnRemove.Click += (s, e) =>
+         //{
+         //   if (Parent is Panel panel)
+         //   {
+         //      panel.Children.Remove(this);
+         //   }
+         //};
       }
    }
 }
