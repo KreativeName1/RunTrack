@@ -11,6 +11,8 @@ namespace Klimalauf
 
         private bool _neueSeiteProSchueler = true;
 
+        private ObservableCollection<object> _liste;
+
       public Format Format
       {
          get { return _format; }
@@ -41,6 +43,16 @@ namespace Klimalauf
             OnPropertyChanged("Schueler");
          }
       }
+
+        public ObservableCollection<object> Liste
+        {
+            get { return _liste; }
+            set
+            {
+                _liste = value;
+                OnPropertyChanged("Liste");
+            }
+        }
 
 
         public bool NeueSeiteProSchueler

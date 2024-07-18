@@ -8,42 +8,34 @@ using iText.Layout.Borders;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using System.IO;
+using System.Reflection;
+using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 using Image = iText.Layout.Element.Image;
 
 namespace Klimalauf
 {
     public class PDFGenerator
     {
-        public static string BarcodesPDF(Klasse klasse, string schulename, Format f)
+        public static string Pfad = $"Temp/";
+        public static PdfDocument PDFDokument;
+        public static Document Dokument;
+        public static string BarcodesPDF(Klasse klasse, string schulename, Format format)
         {
-            // PDF Dokument erstellen
-            string path = $"Temp/";
-            Directory.CreateDirectory(path);
-            PdfDocument pdf = new(new PdfWriter(path + $"/{klasse.Name}.pdf"));
-
-            // Blattgröße und Orientierung setzen
-            PageSize pageSize = new(f.BlattGroesse.Breite, f.BlattGroesse.Hoehe);
-            Document document;
-            if (f.Orientierung == Orientierung.Hochformat) document = new Document(pdf, pageSize);
-            else document = new Document(pdf, pageSize.Rotate());
-
-            // Seitenrand
-            document.SetMargins(f.SeitenRandOben, f.SeitenRandRechts, f.SeitenRandUnten, f.SeitenRandLinks);
-
+            string datei = DokumentErstellen(format);
             // Schule/Klasse Anzeigen
-            if (f.KopfAnzeigen)
+            if (format.KopfAnzeigen)
             {
-                document.Add(new Paragraph("Schule: " + schulename).SetTextAlignment(TextAlignment.LEFT).SetBold().SetFontSize(14));
-                document.Add(new Paragraph("Klasse: " + klasse.Name).SetTextAlignment(TextAlignment.LEFT).SetBold().SetFontSize(14));
+                Dokument.Add(new Paragraph("Schule: " + schulename).SetTextAlignment(TextAlignment.LEFT).SetBold().SetFontSize(14));
+                Dokument.Add(new Paragraph("Klasse: " + klasse.Name).SetTextAlignment(TextAlignment.LEFT).SetBold().SetFontSize(14));
             }
 
             // Tabelle erstellen
-            int numColumns = f.SpaltenAnzahl;
-            float columnWidth = f.ZellenBreite;
+            int numColumns = format.SpaltenAnzahl;
+            float columnWidth = format.ZellenBreite;
             Table table = new Table(UnitValue.CreatePointArray(Enumerable.Repeat(columnWidth, numColumns).ToArray()));
 
             // Tabelle Zentrieren oder nicht
-            if (f.Zentriert) table.SetWidth(UnitValue.CreatePercentValue(100));
+            if (format.Zentriert) table.SetWidth(UnitValue.CreatePercentValue(100));
             else table.SetWidth(numColumns * columnWidth);
 
             table.SetHorizontalAlignment(HorizontalAlignment.LEFT);
@@ -57,65 +49,71 @@ namespace Klimalauf
                 cell.SetTextAlignment(TextAlignment.CENTER);
 
                 // Barcode erstellen und in PDF einfügen
-                Barcode39 code39 = new Barcode39(pdf);
+                Barcode39 code39 = new Barcode39(PDFDokument);
                 code39.SetCode(klasse.Schueler[i].Id.ToString().PadLeft(5, '0'));
                 code39.SetFont(null);
-                PdfFormXObject barcode = code39.CreateFormXObject(ColorConstants.BLACK, ColorConstants.BLACK, pdf);
+                PdfFormXObject barcode = code39.CreateFormXObject(ColorConstants.BLACK, ColorConstants.BLACK, PDFDokument);
                 Image img = new Image(barcode);
-                img.SetHeight(f.ZellenHoehe - 10);
-                img.SetWidth(f.ZellenBreite - 10);
+                img.SetHeight(format.ZellenHoehe - 10);
+                img.SetWidth(format.ZellenBreite - 10);
                 img.SetHorizontalAlignment(HorizontalAlignment.CENTER);
                 cell.Add(img);
 
                 // Schülername und ID in PDF einfügen
                 Paragraph p = new Paragraph(klasse.Schueler[i].Vorname + " " + klasse.Schueler[i].Nachname + " - " + klasse.Schueler[i].Id.ToString());
-                if (f.SchriftTyp == SchriftTyp.Fett) p.SetBold();
-                if (f.SchriftTyp == SchriftTyp.Kursiv) p.SetItalic();
-                if (f.SchriftTyp == SchriftTyp.FettKursiv) p.SetBold().SetItalic();
-                p.SetFontSize(f.SchriftGroesse);
+                if (format.SchriftTyp == SchriftTyp.Fett) p.SetBold();
+                if (format.SchriftTyp == SchriftTyp.Kursiv) p.SetItalic();
+                if (format.SchriftTyp == SchriftTyp.FettKursiv) p.SetBold().SetItalic();
+                p.SetFontSize(format.SchriftGroesse);
                 p.SetTextAlignment(TextAlignment.CENTER);
                 cell.Add(p);
 
                 // Zellenabstand
-                cell.SetPaddingTop(f.ZellenAbstandHorizontal);
-                cell.SetPaddingRight(f.ZellenAbstandVertikal);
+                cell.SetPaddingTop(format.ZellenAbstandHorizontal);
+                cell.SetPaddingRight(format.ZellenAbstandVertikal);
 
                 table.AddCell(cell);
             }
 
-            document.Add(table);
-            document.Close();
+            Dokument.Add(table);
+            Dokument.Close();
 
-            // Pfad der Datei
-            return System.IO.Path.GetFullPath(path + $"/{klasse.Name}.pdf");
+            return datei;
+        }
+
+        public static string DokumentErstellen(Format format)
+        {
+            string name = DateTime.Now.ToString("dd.MM.yyyy") + "_" + new Random().Next(1000, 9999);
+            string file = Pfad + $"{name}.pdf";
+            Directory.CreateDirectory(Pfad);
+            PDFDokument = new(new PdfWriter(file));
+
+            // Blattgröße und Orientierung setzen
+            PageSize pageSize = new(format.BlattGroesse.Breite, format.BlattGroesse.Hoehe);
+
+            if (format.Orientierung == Orientierung.Hochformat) Dokument = new Document(PDFDokument, pageSize);
+            else Dokument = new Document(PDFDokument, pageSize.Rotate());
+
+            // Seitenrand
+            Dokument.SetMargins(format.SeitenRandOben, format.SeitenRandRechts, format.SeitenRandUnten, format.SeitenRandLinks);
+            return System.IO.Path.GetFullPath(file);
         }
 
 
         public static string SchuelerBewertungPDF(List<Schueler> schuelerListe, Format format, bool NeueSeiteProSchueler)
         {
-            string path = $"Temp";
-            Directory.CreateDirectory(path);
-            // date and random number to avoid overwriting
-            string file = DateTime.Now.ToString("dd.MM.yyyy") + "_" + new Random().Next(1000, 9999);
-            PdfDocument pdf = new PdfDocument(new PdfWriter(path + $"/{file}.pdf"));
-            // Blattgröße und Orientierung setzen
-            PageSize pageSize = new(format.BlattGroesse.Breite, format.BlattGroesse.Hoehe);
-            Document document;
-            if (format.Orientierung == Orientierung.Hochformat) document = new Document(pdf, pageSize);
-            else document = new Document(pdf, pageSize.Rotate());
+            string datei = DokumentErstellen(format);
 
-            // Seitenrand
-            document.SetMargins(format.SeitenRandOben, format.SeitenRandRechts, format.SeitenRandUnten, format.SeitenRandLinks);
-            if (format.SchriftTyp == SchriftTyp.Fett) document.SetBold();
-            if (format.SchriftTyp == SchriftTyp.Kursiv) document.SetItalic();
-            if (format.SchriftTyp == SchriftTyp.FettKursiv) document.SetBold().SetItalic();
-            document.SetFontSize(format.SchriftGroesse);
+            if (format.SchriftTyp == SchriftTyp.Fett) Dokument.SetBold();
+            if (format.SchriftTyp == SchriftTyp.Kursiv) Dokument.SetItalic();
+            if (format.SchriftTyp == SchriftTyp.FettKursiv) Dokument.SetBold().SetItalic();
+            Dokument.SetFontSize(format.SchriftGroesse);
 
             foreach (Schueler schueler in schuelerListe)
             {
-                document.Add(new Paragraph(DateTime.Now.ToString("dd.MM.yyyy")).SetTextAlignment(TextAlignment.LEFT).SetFontSize(format.SchriftGroesse * 0.8f));
-                document.Add(new Paragraph(schueler.Klasse.Schule.Name + " " + schueler.Klasse.Name).SetTextAlignment(TextAlignment.CENTER).SetFontSize(format.SchriftGroesse * 1.2f));
-                document.Add(new Paragraph(schueler.Vorname + " " + schueler.Nachname).SetTextAlignment(TextAlignment.CENTER).SetBold().SetFontSize(format.SchriftGroesse * 1.5f));
+                Dokument.Add(new Paragraph(DateTime.Now.ToString("dd.MM.yyyy")).SetTextAlignment(TextAlignment.LEFT).SetFontSize(format.SchriftGroesse * 0.8f));
+                Dokument.Add(new Paragraph(schueler.Klasse.Schule.Name + " " + schueler.Klasse.Name).SetTextAlignment(TextAlignment.CENTER).SetFontSize(format.SchriftGroesse * 1.2f));
+                Dokument.Add(new Paragraph(schueler.Vorname + " " + schueler.Nachname).SetTextAlignment(TextAlignment.CENTER).SetBold().SetFontSize(format.SchriftGroesse * 1.5f));
 
 
                 List<TimeSpan> rundenZeiten = new List<TimeSpan>();
@@ -141,17 +139,14 @@ namespace Klimalauf
                         }
                     }
 
-                    document.Add(new Paragraph("Schnellste Runde: Runde " + (indexSchnellsteRunde + 1) + " mit " + schnellsteRunde.ToString(@"mm\:ss")).SetTextAlignment(TextAlignment.LEFT).SetFontSize(format.SchriftGroesse));
-                    document.Add(new Paragraph("Gelaufene Meter: " + ((rundenZeiten.Count - 1) * schueler.Klasse.RundenArt.LaengeInMeter).ToString()).SetTextAlignment(TextAlignment.LEFT).SetFontSize(format.SchriftGroesse));
-                    document.Add(new Paragraph("Anzahl Runden: " + (rundenZeiten.Count - 1).ToString()).SetTextAlignment(TextAlignment.LEFT).SetFontSize(format.SchriftGroesse));
-
+                    Dokument.Add(new Paragraph("Schnellste Runde: Runde " + (indexSchnellsteRunde + 1) + " mit " + schnellsteRunde.ToString(@"mm\:ss")).SetTextAlignment(TextAlignment.LEFT).SetFontSize(format.SchriftGroesse));
+                    Dokument.Add(new Paragraph("Gelaufene Meter: " + ((rundenZeiten.Count - 1) * schueler.Klasse.RundenArt.LaengeInMeter).ToString()).SetTextAlignment(TextAlignment.LEFT).SetFontSize(format.SchriftGroesse));
+                    Dokument.Add(new Paragraph("Anzahl Runden: " + (rundenZeiten.Count - 1).ToString()).SetTextAlignment(TextAlignment.LEFT).SetFontSize(format.SchriftGroesse));
                 }
                 else
                 {
-                    document.Add(new Paragraph("Keine Rundenzeiten vorhanden").SetTextAlignment(TextAlignment.LEFT).SetFontSize(12));
+                    Dokument.Add(new Paragraph("Keine Rundenzeiten vorhanden").SetTextAlignment(TextAlignment.LEFT).SetFontSize(12));
                 }
-
-
 
                 Table table = new Table(2);
 
@@ -181,16 +176,63 @@ namespace Klimalauf
                     if (i < schueler.Runden.Count - 1) table.AddCell(cell);
                 }
 
-                document.Add(table);
+                Dokument.Add(table);
 
                 if (schuelerListe.IndexOf(schueler) < schuelerListe.Count - 1 && NeueSeiteProSchueler)
-                    document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                    Dokument.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
             }
-            document.Close();
+            Dokument.Close();
 
-            return System.IO.Path.GetFullPath(path + $"/{file}.pdf");
-
-
+            return datei;
         }
+
+
+
+        public static string AuswertungListe(List<object> liste, Format format, string auswertungArt)
+        {
+
+
+            string datei = DokumentErstellen(format);
+            PropertyInfo[] propertyInfos = liste[0].GetType().GetProperties();
+            Table table = new Table(100);
+
+            if (format.Zentriert) table.SetHorizontalAlignment(HorizontalAlignment.CENTER);
+            else table.SetHorizontalAlignment(HorizontalAlignment.LEFT);
+
+
+            if (format.SchriftTyp == SchriftTyp.Fett) Dokument.SetBold();
+            if (format.SchriftTyp == SchriftTyp.Kursiv) Dokument.SetItalic();
+            if (format.SchriftTyp == SchriftTyp.FettKursiv) Dokument.SetBold().SetItalic();
+            Dokument.SetFontSize(format.SchriftGroesse);
+
+            foreach (PropertyInfo propertyInfo in propertyInfos)
+            {
+               Cell cell = new();
+                if (propertyInfo.Name == "Bewertung") cell.Add(new Paragraph(auswertungArt));
+                else cell.Add(new Paragraph(propertyInfo.Name));
+                cell.SetPaddings(0, 5, 0, 5);
+                table.AddHeaderCell(cell);
+            }
+
+            foreach (object obj in liste)
+            {
+                foreach (PropertyInfo propertyInfo in propertyInfos)
+                {
+                    Cell cell = new();
+                    cell.Add(new Paragraph(propertyInfo.GetValue(obj).ToString()).SetFontSize(format.SchriftGroesse));
+                    cell.SetPaddings(0, 5, 0, 5);
+                    table.AddCell(cell);
+                }
+                table.StartNewRow();
+            }
+
+            if (format.KopfAnzeigen) Dokument.Add(new Paragraph(DateTime.Now.ToString("dd.MM.yyy HH:mm:ss")).SetTextAlignment(TextAlignment.LEFT).SetFontSize(format.SchriftGroesse * 0.8f));
+            Dokument.Add(table);
+
+            Dokument.Close();
+            return datei;
+        }
+
+
     }
 }

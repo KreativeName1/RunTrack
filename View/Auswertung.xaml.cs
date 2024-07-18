@@ -61,7 +61,13 @@ namespace Klimalauf
          };
          btnWertung.Click += (s, e) =>
          {
-
+             string auswertungsart = "";
+             if (_amodel.IsAnzahl) auswertungsart = "Rundenanzahl";
+             else if (_amodel.IsZeit) auswertungsart = "Zeit";
+             else if (_amodel.IsDistanz) auswertungsart = "Distanz";
+             else auswertungsart = "Rundenanzahl";
+             PDFEditor editor = new PDFEditor(_amodel.Liste.ToList(), auswertungsart);
+             editor.Show();
          };
          btnSchuelerWertung.Click += (s, e) =>
          {
