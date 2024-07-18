@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -36,6 +38,41 @@ namespace Klimalauf
                 MessageBox.Show("Weiter");
             };
 
+            int klasseIndex = _reihenfolge.IndexOf("Klasse");
+            List<string> klassen = new List<string>();
+            foreach (object item in data)
+            {
+                string name = "Spalte" + (klasseIndex + 1).ToString();
+                PropertyInfo value = item.GetType().GetProperty(name);
+
+                if (value != null)
+                {
+                    string klasse = value.GetValue(item).ToString();
+                    if (!klassen.Contains(klasse))
+                    {
+                        klassen.Add(klasse);
+                    }
+                }
+            }
+            //DataGridComboBoxColumn dataGridComboBoxColumn = new();
+            //dataGridComboBoxColumn.Header = "Rundenart";
+            //dataGridComboBoxColumn.ItemsSource = new List<string> { "Zeit", "Runden" };
+            //dataGridComboBoxColumn.SelectedItemBinding = new Binding("RundenArt") { Mode = BindingMode.TwoWay };
+
+            //DataGridTextColumn dgtKlassen = new DataGridTextColumn();
+
+            //dgtKlassen.Header = "Klasse";
+            //dgtKlassen.Binding = new Binding("K") { Mode = BindingMode.OneWay };
+            //dgtKlassen.IsReadOnly = true;
+
+            //dgKlassen.Columns.Add(dgtKlassen);
+            //dgKlassen.Columns.Add(dataGridComboBoxColumn);
+
+            //foreach (string klasse in klassen)
+            //{
+            //    // add a klasse and a rundenart combobox
+            //    dgKlassen.Items.Add(new { K = klasse, R = "" });
+            //}
         }
     }
 }

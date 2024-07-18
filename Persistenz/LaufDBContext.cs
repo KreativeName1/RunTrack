@@ -93,22 +93,23 @@ namespace Klimalauf
             db.RundenArten.Add(rundenArt2);
             db.SaveChanges();
 
-            Klasse klasse1 = new Klasse { Name = "BFI10A", Schule = schule1, RundenArt = rundenArt, Jahrgang = 10 };
+            Klasse klasse1 = new Klasse { Name = "BFI10A", Schule = schule1, RundenArt = rundenArt};
             db.Klassen.Add(klasse1);
             db.SaveChanges();
 
-            Klasse klasse2 = new Klasse { Name = "BFI11A", Schule = schule1, RundenArt = rundenArt2, Jahrgang = 11 };
+            Klasse klasse2 = new Klasse { Name = "BFI11A", Schule = schule1, RundenArt = rundenArt2};
             db.Klassen.Add(klasse2);
             db.SaveChanges();
-
-            for (int i = 0; i < 20; i++)
+                Random rnd = new Random();
+                for (int i = 0; i < 20; i++)
             {
                Schueler schueler = new Schueler
                {
                   Vorname = randomVorname(),
                   Nachname = randomNachname(),
                   Klasse = klasse1,
-                  Geschlecht = Geschlecht.Maennlich
+                  Geburtsjahrgang =  rnd.Next(1995, 2010),
+                   Geschlecht = Geschlecht.Maennlich
                };
                db.Schueler.Add(schueler);
                db.SaveChanges();
@@ -121,7 +122,8 @@ namespace Klimalauf
                   Vorname = randomVorname(),
                   Nachname = randomNachname(),
                   Klasse = klasse2,
-                  Geschlecht = Geschlecht.Maennlich
+                   Geburtsjahrgang = rnd.Next(1995, 2010),
+                   Geschlecht = Geschlecht.Maennlich
                };
                db.Schueler.Add(schueler);
                db.SaveChanges();

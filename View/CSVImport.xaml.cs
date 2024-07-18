@@ -37,7 +37,7 @@ namespace Klimalauf
             OrderPanel.Children.Add(item3);
             OrderPanel.Children.Add(item4);
             OrderPanel.Children.Add(item5);
-
+            
             using (var db = new LaufDBContext())
             {
                 List<Schule> schulen = db.Schulen.ToList();

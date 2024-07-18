@@ -189,7 +189,7 @@ namespace Klimalauf
             else if (_amodel.IsJahrgang)
             {
                _amodel.newList();
-               foreach (Schueler schueler in db.Schueler.Include(s => s.Runden).Include(s => s.Klasse).Where(s => s.Klasse.Jahrgang == _amodel.Jahrgang && s.Runden.Count > 1))
+               foreach (Schueler schueler in db.Schueler.Include(s => s.Runden).Include(s => s.Klasse).Where(s => s.Geburtsjahrgang == _amodel.Jahrgang && s.Runden.Count > 1))
                {
                   string geschlecht = GetGeschlecht(schueler);
                   string bewertung = GetBewertung(schueler);

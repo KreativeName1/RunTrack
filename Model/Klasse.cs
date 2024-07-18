@@ -6,7 +6,6 @@
       public string Name { get; set; }
       public Schule Schule { get; set; }
       public int SchuleId { get; set; }
-      public int Jahrgang { get; set; }
 
       public virtual List<Schueler> Schueler { get; set; }
 

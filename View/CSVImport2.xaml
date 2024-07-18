@@ -13,10 +13,8 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <local:TopBar x:Name="Leiste" Grid.Row="0"  HorizontalAlignment="Stretch" VerticalAlignment="Top" />
-        
-        <DataGrid Grid.Row="1">
-            
-        </DataGrid>
+
+       
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,5,10,10" HorizontalAlignment="Right">
             <Button Content="Weiter" x:Name="btnWeiter" Width="100" Height="25" Margin="5,5,10,5"/>
             <Button Content="Abbrechen" x:Name="btnCancel" Width="100" Height="25" Margin="5"/>
