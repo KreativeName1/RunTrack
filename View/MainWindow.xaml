@@ -3,40 +3,40 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Klimalauf"
+        xmlns:local="clr-namespace:Klimalauf" xmlns:fc="http://devpelux.github.io/fullcontrols"
         mc:Ignorable="d" Loaded="Window_Loaded"
         Title="Anmeldung" Height="360" Width="450" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="pack://application:,,,/Images/iconRunMan.ico">
     <Grid>
         <Label Content="Vorname:" Margin="98,86,0,0" HorizontalAlignment="Left" Width="100" FontSize="14" FontWeight="Bold" Height="29" VerticalAlignment="Top"/>
         <Label Content="Nachname:" HorizontalAlignment="Left" Margin="98,132,0,0" FontSize="14" RenderTransformOrigin="0.529,0.231" FontFamily="72" FontWeight="Bold" Height="26" VerticalAlignment="Top"/>
 
-        <TextBox x:Name="FirstNameTextBox" Margin="200,85,0,0" TextWrapping="Wrap" HorizontalAlignment="Left" Width="150" FontSize="14" Padding="5" Foreground="Gray" Text="Max" GotFocus="FirstNameTextBox_GotFocus" LostFocus="FirstNameTextBox_LostFocus" Height="31" VerticalAlignment="Top"
-         KeyDown="TextBox_KeyDown" TextChanged="FirstNameTextBox_TextChanged"/>
-        <TextBox x:Name="LastNameTextBox" HorizontalAlignment="Left" Margin="200,130,0,0" TextWrapping="Wrap" Width="150" FontSize="14" Padding="5" Foreground="Gray" Text="Mustermann" GotFocus="LastNameTextBox_GotFocus" LostFocus="LastNameTextBox_LostFocus" Height="30" VerticalAlignment="Top"
-         KeyDown="TextBox_KeyDown" TextChanged="LastNameTextBox_TextChanged"/>
+        <fc:TextBoxPlus x:Name="FirstNameTextBox" ForegroundBrushOnSelected="Blue" UnderlineBrushOnSelected="#28713E" Margin="0,85,100,0" TextWrapping="Wrap" HorizontalAlignment="Right" Width="150" FontSize="14" Padding="5" Foreground="Gray" Text="Max" GotFocus="FirstNameTextBox_GotFocus" LostFocus="FirstNameTextBox_LostFocus" Height="30" VerticalAlignment="Top" KeyDown="TextBox_KeyDown" TextChanged="FirstNameTextBox_TextChanged"/>
+        <fc:TextBoxPlus x:Name="LastNameTextBox" ForegroundBrushOnSelected="Blue" UnderlineBrushOnSelected="#28713E" HorizontalAlignment="Right" Margin="0,130,100,0" TextWrapping="Wrap" Width="150" FontSize="14" Padding="5" Foreground="Gray" Text="Mustermann" GotFocus="LastNameTextBox_GotFocus" LostFocus="LastNameTextBox_LostFocus" Height="30" VerticalAlignment="Top" KeyDown="TextBox_KeyDown" TextChanged="LastNameTextBox_TextChanged"/>
 
 
-        <Button x:Name="LoginButton" Content="Einloggen" HorizontalAlignment="Center" Margin="0,254,0,0" VerticalAlignment="Top" Width="250" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Click="LoginButton_Click" Height="35" RenderTransformOrigin="0.509,-0.436"/>
+        <fc:ButtonPlus x:Name="btnLogin" Content="Einloggen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" HorizontalAlignment="Center" Margin="0,200,0,0" VerticalAlignment="Top" Width="250" Cursor="Hand" FontSize="15" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Click="LoginButton_Click" Height="35"/>
 
         <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
-        <Label Content="Scan Programm für den Klimalauf" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
+        <Label Content="🏃🏻 RunTrack" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" FontSize="14" Foreground="White" FontWeight="Bold"/>
 
-        <Image Source="pack://application:,,,/Images/credits.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,45,0" HorizontalAlignment="Right" MouseDown="btnCredits_Click" Grid.Column="2">
+        <Image Source="pack://application:,,,/Images/credits.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" MouseDown="btnCredits_Click" Grid.Column="2">
             <Image.ToolTip>
                 <ToolTip Cursor="">Credits</ToolTip>
             </Image.ToolTip>
         </Image>
 
-        <Image Source="/Images/output.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" MouseDown="btnAdmin_MouseDown">
-            <Image.ToolTip>
-                <ToolTip Cursor="" Content="Admin"/>
-            </Image.ToolTip>
-        </Image>
+        <Grid x:Name="gridPasswordLable" Visibility="Visible" HorizontalAlignment="Center" Height="27" Margin="0,168,0,0" VerticalAlignment="Top" Width="70">
+            <Label Content="Optional:" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="72 Light" FontSize="15"/>
+            <Rectangle HorizontalAlignment="Right" Height="1" Margin="0,20,54,0" Stroke="#7E8182" VerticalAlignment="Top" Width="17"/>
+            <Rectangle HorizontalAlignment="Left" Height="1" Margin="21,20,0,0" Stroke="#7E8182" VerticalAlignment="Top" Width="50"/>
+        </Grid>
+        <!--<Rectangle HorizontalAlignment="Left" Height="2" Margin="190,203,0,0" Stroke="#7E8182" VerticalAlignment="Top" Width="70"/>-->
 
-        <Label Content="Optional:" HorizontalAlignment="Center" Margin="0,182,0,0" VerticalAlignment="Top" FontFamily="72 Light" FontSize="13"/>
-        <Rectangle HorizontalAlignment="Center" Height="2" Margin="0,203,0,0" Stroke="#7E8182" VerticalAlignment="Top" Width="70"/>
-
-        <Label Content="Admin Passwort:" HorizontalAlignment="Left" Margin="98,207,0,0" VerticalAlignment="Top" FontFamily="72 Light"/>
-        <PasswordBox x:Name="AdminPasswordBox" HorizontalAlignment="Left" Margin="200,210,0,0" VerticalAlignment="Top" Width="150" BorderBrush="Gray" Foreground="Blue" KeyDown="TextBox_KeyDown"/>
+        <Border x:Name="borderPassword" CornerRadius="5" Visibility="Visible" Background="#FFECECEC" HorizontalAlignment="Center" Height="40" Margin="0,195,0,0" VerticalAlignment="Top" Width="270">
+            <Grid x:Name="gridPassword" Background="Transparent">
+                <Label x:Name="lblPasswort" Content="Admin Passwort:" VerticalContentAlignment="Center" HorizontalAlignment="Left" FontSize="13" FontFamily="72 Light" VerticalAlignment="Center" Margin="1,0,0,0"/>
+                <fc:PasswordBoxPlus x:Name="AdminPasswordBox" ForegroundOnSelected="Blue" Foreground="Blue" UnderlineBrushOnSelected="#28713E" EnablePeekButton="True" CornerRadius="3" HorizontalAlignment="Right" Margin="0,0,5,0" Width="150" FontSize="13" Padding="5" Height="30" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswort_LostFocus" PasswordChanged="txtPasswort_PasswordChanged"/>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

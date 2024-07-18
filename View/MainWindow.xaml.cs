@@ -1,4 +1,5 @@
-﻿using Klimalauf.View;
+﻿using FullControls.Controls;
+using Klimalauf.View;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -189,6 +190,7 @@ namespace Klimalauf
          TextBox textBox = (TextBox)sender;
          textBox.Background = new SolidColorBrush(Colors.White);
          textBox.Foreground = new SolidColorBrush(Colors.Blue);
+         UpdateBorderPasswordVisibility();
       }
 
       private void FirstNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -196,7 +198,34 @@ namespace Klimalauf
          TextBox textBox = (TextBox)sender;
          textBox.Background = new SolidColorBrush(Colors.White);
          textBox.Foreground = new SolidColorBrush(Colors.Blue);
+         UpdateBorderPasswordVisibility();
       }
+
+      private void UpdateBorderPasswordVisibility()
+      {
+         // Sicherstellen, dass die Textboxen nicht null sind, bevor sie verwendet werden
+         if (FirstNameTextBox != null && LastNameTextBox != null && borderPassword != null)
+         {
+            using (var db = new LaufDBContext())
+            {
+               // Überprüfen, ob ein Benutzer mit den eingegebenen Vor- und Nachnamen existiert
+               Benutzer user = db.Benutzer.FirstOrDefault(b => b.Vorname == FirstNameTextBox.Text && b.Nachname == LastNameTextBox.Text);
+               if (user != null)
+               {
+                  gridPasswordLable.Visibility = Visibility.Visible;
+                  borderPassword.Visibility = Visibility.Visible;
+                  btnLogin.Margin = new Thickness(btnLogin.Margin.Left, 260, btnLogin.Margin.Right, btnLogin.Margin.Bottom);
+               }
+               else
+               {
+                  borderPassword.Visibility = Visibility.Collapsed;
+                  gridPasswordLable.Visibility = Visibility.Collapsed;
+                  btnLogin.Margin = new Thickness(btnLogin.Margin.Left, 200, btnLogin.Margin.Right, btnLogin.Margin.Bottom);
+               }
+            }
+         }
+      }
+
 
       private void btnCredits_Click(object sender, RoutedEventArgs e)
       {
@@ -213,5 +242,26 @@ namespace Klimalauf
 
          AdminEinstellungen admin = new AdminEinstellungen(firstName, lastName, pwd);
       }
+
+
+
+
+      private void txtPasswort_GotFocus(object sender, RoutedEventArgs e)
+      {
+
+      }
+
+      private void txtPasswort_LostFocus(object sender, RoutedEventArgs e)
+      {
+
+      }
+
+
+      private void txtPasswort_PasswordChanged(object sender, RoutedEventArgs e)
+      {
+
+      }
+
+
    }
 }
