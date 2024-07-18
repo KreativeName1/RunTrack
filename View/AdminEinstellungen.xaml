@@ -3,34 +3,67 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Klimalauf.View"
+        xmlns:local="clr-namespace:Klimalauf.View" xmlns:fc="http://devpelux.github.io/fullcontrols"
         mc:Ignorable="d"
         Title="AdminEinstellungen" Height="360" Width="450" ResizeMode="NoResize">
     <Grid>
         <Grid x:Name="grdStandard">
             <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
-            <Label Content="Scan Programm für den Klimalauf" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
+            <Label Content="🏃🏻 RunTrack" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" FontSize="14" Foreground="White" FontWeight="Bold"/>
 
-            <Image Source="/Images/credits.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" Grid.Column="2">
+            <Image Source="pack://application:,,,/Images/credits.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" MouseDown="btnCredits_Click" Grid.Column="2">
                 <Image.ToolTip>
-                    <ToolTip Cursor="" Content="Credits"/>
+                    <ToolTip Cursor="">Credits</ToolTip>
                 </Image.ToolTip>
             </Image>
 
             <Label Content="Vorname:" Margin="87,86,0,0" HorizontalAlignment="Left" Width="100" FontSize="14" FontWeight="Bold" Height="28" VerticalAlignment="Top"/>
-            <TextBox x:Name="txtVorname" Margin="192,85,0,0" TextWrapping="Wrap" HorizontalAlignment="Left" Width="150" FontSize="14" Padding="5" Foreground="Gray" Text="Max" Height="30" VerticalAlignment="Top"/>
+            <fc:TextBoxPlus x:Name="txtVorname" ForegroundBrushOnSelected="Blue" UnderlineBrushOnSelected="#28713E" Margin="212,85,0,0" TextWrapping="Wrap" HorizontalAlignment="Left" Width="150" FontSize="14" Padding="5" Text="Max" Height="30" CornerRadius="3" VerticalAlignment="Top" KeyDown="TextBox_KeyDown" TextChanged="txtVorname_TextChanged" GotFocus="txtVorname_GotFocus" LostFocus="txtVorname_LostFocus" Cursor=""/>
+            <Label x:Name="warningVorname" Content="⚠️" FontSize="18" HorizontalAlignment="Left" Margin="362,83,0,0" VerticalAlignment="Top" Foreground="Red" Cursor="Help" Visibility="Collapsed">
+                <Label.ToolTip>
+                    <ToolTip>
+                        Bitte geben Sie Ihren Vornamen ein.
+                    </ToolTip>
+                </Label.ToolTip>
+            </Label>
 
             <Label Content="Nachname:" HorizontalAlignment="Left" Margin="87,132,0,0" FontSize="14" RenderTransformOrigin="0.529,0.231" FontFamily="72" FontWeight="Bold" Height="26" VerticalAlignment="Top"/>
-            <TextBox x:Name="txtNachname" HorizontalAlignment="Left" Margin="192,130,0,0" TextWrapping="Wrap" Width="150" FontSize="14" Padding="5" Foreground="Gray" Text="Mustermann" Height="30" VerticalAlignment="Top"/>
+            <fc:TextBoxPlus x:Name="txtNachname" ForegroundBrushOnSelected="Blue" UnderlineBrushOnSelected="#28713E" CornerRadius="3" HorizontalAlignment="Left" Margin="212,130,0,0" TextWrapping="Wrap" Width="150" FontSize="14" Padding="5" Text="Mustermann" Height="30" VerticalAlignment="Top" KeyDown="TextBox_KeyDown" TextChanged="txtNachname_TextChanged" GotFocus="txtNachname_GotFocus" LostFocus="txtNachname_LostFocus" Cursor=""/>
+            <Label x:Name="warningNachname" Content="⚠️" FontSize="18" HorizontalAlignment="Left" Margin="342,128,0,0" VerticalAlignment="Top" Foreground="Red" Cursor="Help" Visibility="Collapsed">
+                <Label.ToolTip>
+                    <ToolTip>
+                        Bitte geben Sie Ihren Nachnamen ein.
+                    </ToolTip>
+                </Label.ToolTip>
+            </Label>
 
-            <Label Content="Passwort:" HorizontalAlignment="Left" Margin="87,178,0,0" FontSize="14" RenderTransformOrigin="0.529,0.231" FontFamily="72" FontWeight="Bold" Height="26" VerticalAlignment="Top"/>
-            <PasswordBox x:Name="txtPasswort" HorizontalAlignment="Left" Margin="192,176,0,0" Width="150" FontSize="14" Padding="5" Foreground="Gray" Height="30" VerticalAlignment="Top"/>
 
-            <Label x:Name="lblPasswortWdh" Content="Passwort wdh:" HorizontalAlignment="Left" Margin="87,215,0,0" FontSize="14" RenderTransformOrigin="0.529,0.231" FontFamily="72" Height="26" VerticalAlignment="Top" FontWeight="Bold" Visibility="Collapsed"/>
-            <PasswordBox x:Name="txtPasswortWdh" HorizontalAlignment="Left" Margin="192,213,0,0" Width="150" FontSize="14" Padding="5" Foreground="Gray" Height="30" VerticalAlignment="Top" Visibility="Collapsed"/>
+            <Label Content="altes Passwort:" HorizontalAlignment="Left" Margin="87,178,0,0" FontSize="14" RenderTransformOrigin="0.529,0.231" FontFamily="72" FontWeight="Bold" Height="26" VerticalAlignment="Top"/>
+            <fc:PasswordBoxPlus x:Name="txtPasswordOld" HorizontalAlignment="Left" EnablePeekButton="True" Foreground="Blue" ForegroundOnSelected="Blue" UnderlineBrushOnSelected="#28713E" CornerRadius="3" Margin="212,176,0,0" Width="150" FontSize="14" Padding="5" Height="30" VerticalAlignment="Top" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswort_LostFocus" PasswordChanged="txtPasswort_PasswordChanged"/>
 
-            <Button x:Name="btnErstellen" Content="Erstellen" HorizontalAlignment="Center" Margin="0,245,0,60" VerticalAlignment="Bottom" Width="250" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35" RenderTransformOrigin="0.509,-0.436"/>
+            <Label Content="neues Passwort:" HorizontalAlignment="Left" Margin="87,223,0,0" FontSize="14" RenderTransformOrigin="0.529,0.231" FontFamily="72" FontWeight="Bold" Height="26" VerticalAlignment="Top"/>
+            <fc:PasswordBoxPlus x:Name="txtPasswordNew" HorizontalAlignment="Left" Margin="212,216.77,0,0" EnablePeekButton="True" Foreground="Blue" ForegroundOnSelected="Blue" UnderlineBrushOnSelected="#28713E" CornerRadius="3" Width="150" FontSize="14" Padding="5" Height="30" VerticalAlignment="Top" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswort_LostFocus" PasswordChanged="txtPasswort_PasswordChanged"/>
+
+            <Label x:Name="warningPassword" Content="⚠️" FontSize="18" HorizontalAlignment="Left" Margin="362,204,0,0" VerticalAlignment="Top" Foreground="Red" Cursor="Help" Visibility="Collapsed">
+                <Label.ToolTip>
+                    <ToolTip>
+                        Die Passwörter stimmt nicht überein!
+                    </ToolTip>
+                </Label.ToolTip>
+            </Label>
+
+
+            <Border x:Name="borderPasswordWdh" CornerRadius="5" Background="#FFECECEC" HorizontalAlignment="Center" Height="32" Margin="0,261,0,0" VerticalAlignment="Top" Width="275" Visibility="Visible">
+                <Grid x:Name="gridPasswordWdh" Background="Transparent">
+                    <Label x:Name="lblPasswortWdh" Content="Wiederholen:" HorizontalAlignment="Left" FontSize="11" RenderTransformOrigin="0.529,0.231" FontFamily="72" Height="20" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <fc:PasswordBoxPlus x:Name="txtPasswordWdh" ForegroundOnSelected="Blue" Foreground="Blue" UnderlineBrushOnSelected="#28713E" EnablePeekButton="True" CornerRadius="3" HorizontalAlignment="Left" Margin="125,0,0,0" Width="150" FontSize="11" Padding="5" Height="25" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswortWdh_LostFocus" PasswordChanged="txtPasswortWdh_PasswordChanged" Cursor=""/>
+                </Grid>
+            </Border>
+
+
+            <fc:ButtonPlus x:Name="btnErstellen" Content="Erstellen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White"  HorizontalAlignment="Center" Margin="0,300,0,0" CornerRadius="5.5" VerticalAlignment="Top" Width="250" Cursor="Hand" Background="#6C7C98" Foreground="White" FontSize="15" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35" RenderTransformOrigin="0.509,-0.436" Click="btnErstellen_Click"/>
+
+
         </Grid>
-
     </Grid>
 </Window>
