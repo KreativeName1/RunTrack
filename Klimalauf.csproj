@@ -13,6 +13,7 @@
     <None Remove="Images\iconRunMan.ico" />
     <None Remove="Images\Logo.png" />
     <None Remove="Images\logout.png" />
+    <None Remove="Images\output.png" />
     <None Remove="Images\RunTrack_transparent.png" />
     <None Remove="MainWindow.xaml~RF6d463b42.TMP" />
     <None Remove="View\AdminErstellen.xaml.cs~RF9b0defe3.TMP" />
@@ -23,14 +24,11 @@
     <PackageReference Include="EntityFramework" Version="6.5.1" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
     <PackageReference Include="FullControls" Version="2.2.0" />
-    <PackageReference Include="Gehtsoft.PDFFlowLib.Barcodes" Version="1.0.0" />
     <PackageReference Include="itext" Version="8.0.4" />
     <PackageReference Include="itext.bouncy-castle-adapter" Version="8.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.20" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.20" />
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2592.51" />
-    <PackageReference Include="MySql.Data" Version="9.0.0" />
-    <PackageReference Include="MySqlConnector" Version="2.3.7" />
     <PackageReference Include="RelayCommand" Version="1.0.2" />
   </ItemGroup>
 
@@ -47,14 +45,23 @@
     <Resource Include="Images\logout.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\output.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\RunTrack_transparent.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="LICENSE">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Planung\Logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="README.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

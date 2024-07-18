@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:Klimalauf"
         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Closed="Window_Closed"
         Icon="pack://application:,,,/Images/iconRunMan.ico"
         Title="PDF_Editor" Height="825" Width="1000" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
@@ -130,8 +129,8 @@
                 </Border>
             </StackPanel>
             <!--Zellen: Abstände, Breite, Höhe-->
-            <Label Content="Barcodeabstand:" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top"  Margin="0,20,0,0"/>
-            <Border BorderBrush="Black" BorderThickness="1">
+            <Label Content="Barcodeabstand:" x:Name="lblBarcodeAbstand" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top"  Margin="0,20,0,0"/>
+            <Border BorderBrush="Black" x:Name="borBarcodeAbstand" BorderThickness="1">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition  Width="80"/>
@@ -148,8 +147,8 @@
                 </Grid>
             </Border>
 
-            <Label Content="Barcodegröße:" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="0,41,0,0"/>
-            <Border BorderBrush="Black" BorderThickness="1">
+            <Label Content="Barcodegröße:" x:Name="lblBarcodeGroesse" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="0,41,0,0"/>
+            <Border BorderBrush="Black" x:Name="borBarcodeGroesse" BorderThickness="1">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition  Width="80"/>
@@ -185,10 +184,10 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,1,0,5" HorizontalAlignment="Center">
                         <CheckBox IsChecked="{Binding Format.Zentriert}" x:Name="chkZentriert" VerticalAlignment="Center" Foreground="blue"/>
-                        <Label Content="Zentrierte Barcodes" VerticalAlignment="Center" Width="120"/>
+                        <Label Content="Zentriert" VerticalAlignment="Center" Width="120"/>
                     </StackPanel>
                     <StackPanel Grid.Row="2" Margin="0,5,0,10" HorizontalAlignment="Center">
-                        <Label Content="Spaltenanzahl" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Content="Spaltenanzahl" HorizontalAlignment="Center" x:Name="lblSpalten" VerticalAlignment="Center"/>
                         <xctk:DoubleUpDown Text="{Binding Format.SpaltenAnzahl}" x:Name="txtSpalten" HorizontalAlignment="Center" Height="23" VerticalAlignment="Center" Width="148" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="blue"/>
                     </StackPanel>
                 </Grid>

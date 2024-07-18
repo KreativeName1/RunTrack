@@ -61,7 +61,13 @@ namespace Klimalauf
          };
          btnWertung.Click += (s, e) =>
          {
-
+             string auswertungsart = "";
+             if (_amodel.IsAnzahl) auswertungsart = "Rundenanzahl";
+             else if (_amodel.IsZeit) auswertungsart = "Zeit";
+             else if (_amodel.IsDistanz) auswertungsart = "Distanz";
+             else auswertungsart = "Rundenanzahl";
+             PDFEditor editor = new PDFEditor(_amodel.Liste.ToList(), auswertungsart);
+             editor.Show();
          };
          btnSchuelerWertung.Click += (s, e) =>
          {
@@ -183,7 +189,7 @@ namespace Klimalauf
             else if (_amodel.IsJahrgang)
             {
                _amodel.newList();
-               foreach (Schueler schueler in db.Schueler.Include(s => s.Runden).Include(s => s.Klasse).Where(s => s.Klasse.Jahrgang == _amodel.Jahrgang && s.Runden.Count > 1))
+               foreach (Schueler schueler in db.Schueler.Include(s => s.Runden).Include(s => s.Klasse).Where(s => s.Geburtsjahrgang == _amodel.Jahrgang && s.Runden.Count > 1))
                {
                   string geschlecht = GetGeschlecht(schueler);
                   string bewertung = GetBewertung(schueler);

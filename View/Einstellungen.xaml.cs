@@ -14,7 +14,7 @@ namespace Klimalauf
    public partial class Einstellungen : Window
    {
       private MainViewModel _mvmodel;
-      private bool _changesMade; // Flagge für Änderungen
+      private bool _changesMade;
 
       public Einstellungen()
       {
@@ -45,7 +45,7 @@ namespace Klimalauf
                   FontSize = 14,
                   HorizontalAlignment = HorizontalAlignment.Right,
                   VerticalAlignment = VerticalAlignment.Center,
-                  Margin = new Thickness(0, 3, 0, 5)
+                  Margin = new Thickness(0, 1.5, 0, 2.5)
                };
                Grid.SetRow(label, rowIndex);
                Grid.SetColumn(label, 0);
@@ -57,7 +57,7 @@ namespace Klimalauf
                   FontSize = 14,
                   HorizontalAlignment = HorizontalAlignment.Right,
                   VerticalAlignment = VerticalAlignment.Center,
-                  Margin = new Thickness(0, 3, 8, 5)
+                  Margin = new Thickness(0, 1.5, 8, 2.5)
                };
                Grid.SetRow(labelSpacer, rowIndex);
                Grid.SetColumn(labelSpacer, 1);
@@ -85,7 +85,7 @@ namespace Klimalauf
                   FontSize = 14,
                   HorizontalAlignment = HorizontalAlignment.Right,
                   VerticalAlignment = VerticalAlignment.Center,
-                  Margin = new Thickness(0, 3, 0, 5)
+                  Margin = new Thickness(0, 1.5, 0, 2.5)
                };
                Grid.SetRow(labelSeconds, rowIndex);
                Grid.SetColumn(labelSeconds, 3);
@@ -100,7 +100,7 @@ namespace Klimalauf
                   Height = 25,
                   VerticalAlignment = VerticalAlignment.Center,
                   HorizontalAlignment = HorizontalAlignment.Left,
-                  Margin = new Thickness(30, 3, 5, 5),
+                  Margin = new Thickness(30, 1.5, 5, 2.5),
                   Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F4F8F4")),
                   ToolTip = "Löschen",
                   Tag = rundenArt.Name
@@ -120,7 +120,7 @@ namespace Klimalauf
                   Height = 25,
                   VerticalAlignment = VerticalAlignment.Center,
                   HorizontalAlignment = HorizontalAlignment.Left,
-                  Margin = new Thickness(0, 3, 10, 5),
+                  Margin = new Thickness(0, 1.5, 10, 2.5),
                   Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F4F8F4")),
                   ToolTip = "Einstellungen",
                   Tag = rundenArt.Name
@@ -173,16 +173,26 @@ namespace Klimalauf
 
       private void IntegerUpDown_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
       {
-         // Wenn sich der Wert ändert, setze die Flagge auf true
          _changesMade = true;
       }
 
       private void AddButton_Click(object sender, RoutedEventArgs e)
       {
-         VerwaltungRunden verwaltungRunden = new VerwaltungRunden(DialogMode.Neu);
-         verwaltungRunden.ShowDialog();
-         RefreshGridSettings();
+         using (var db = new LaufDBContext())
+         {
+            if (db.RundenArten.Count() < 6)
+            {
+               VerwaltungRunden verwaltungRunden = new VerwaltungRunden(DialogMode.Neu);
+               verwaltungRunden.ShowDialog();
+               RefreshGridSettings();
+            }
+            else
+            {
+               System.Windows.MessageBox.Show("Sie haben das Limit von 6 Rundenarten erreicht!", "Limit erreicht", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+         }
       }
+
 
       private void OptionsButton_Click(object sender, RoutedEventArgs e)
       {
@@ -241,12 +251,11 @@ namespace Klimalauf
 
       private void RefreshGridSettings()
       {
-         // Logik zum Aktualisieren fehlt hier noch
          GridSettings.Children.Clear();
          GridSettings.RowDefinitions.Clear();
 
          LoadContent();
-         _changesMade = false; // Änderungen zurücksetzen
+         _changesMade = false;
       }
 
       private void LogoutIcon_MouseDown(object sender, MouseButtonEventArgs e)
@@ -285,6 +294,44 @@ namespace Klimalauf
          Scanner adminPanel = new Scanner();
          adminPanel.Show();
          this.Close();
+      }
+
+      private void Runden_Click(object sender, RoutedEventArgs e)
+      {
+         txtOptions.Visibility = Visibility.Collapsed;
+         PanelAdminSettings.Visibility = Visibility.Collapsed;
+         txtAdminTitel.Visibility = Visibility.Collapsed;
+         GridSettings.Visibility = Visibility.Visible;
+         txtRoundsTitel.Visibility = Visibility.Visible;
+         btnRounds.IsEnabled = false;
+         btnAdmin.IsEnabled = true;
+         btnSave.Visibility = Visibility.Visible;
+      }
+
+      private void Admin_Click(object sender, RoutedEventArgs e)
+      {
+         txtOptions.Visibility = Visibility.Collapsed;
+         GridSettings.Visibility = Visibility.Collapsed;
+         txtRoundsTitel.Visibility = Visibility.Collapsed;
+         PanelAdminSettings.Visibility = Visibility.Visible;
+         txtAdminTitel.Visibility = Visibility.Visible;
+         btnRounds.IsEnabled = true;
+         btnAdmin.IsEnabled = false;
+         btnSave.Visibility = Visibility.Hidden;
+      }
+
+      private void btnAdminAdd_Click(object sender, RoutedEventArgs e)
+      {
+         // DialogMode + Zusatz noch hinzufügen wie bei AddButton_Click
+         AdminEinstellungen adminEinstellungen = new AdminEinstellungen();
+         adminEinstellungen.ShowDialog();
+      }
+
+      private void btnPasswordChange_Click(object sender, RoutedEventArgs e)
+      {
+         // DialogMode + Zusatz noch hinzufügen wie bei OptionsButton_Click
+         AdminEinstellungen adminEinstellungen = new AdminEinstellungen();
+         adminEinstellungen.ShowDialog();
       }
    }
 }

@@ -33,7 +33,7 @@
 
       // Schrift
       public float SchriftGroesse { get; set; } = 12;
-      public SchriftTyp SchriftTyp { get; set; } = SchriftTyp.Fett;
+      public SchriftTyp SchriftTyp { get; set; } = SchriftTyp.Normal;
 
 
       // Blattformat

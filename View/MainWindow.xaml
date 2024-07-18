@@ -27,7 +27,7 @@
             </Image.ToolTip>
         </Image>
 
-        <Image Source="/Images/output.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" MouseDown="btnAdmin_MouseDown">
+        <Image Source="H:\Projekt_2024\RunTrack\Images\output.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" MouseDown="btnAdmin_MouseDown">
             <Image.ToolTip>
                 <ToolTip Cursor="" Content="Admin"/>
             </Image.ToolTip>

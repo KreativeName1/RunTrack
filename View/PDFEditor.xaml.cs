@@ -1,135 +1,158 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace Klimalauf
 {
-   public partial class PDFEditor : Window
-   {
-      private PDFEditorModel? _pemodel;
-      private MainViewModel? _mvmodel;
-      private string? pfad;
+    public partial class PDFEditor : Window
+    {
+        private PDFEditorModel? _pemodel;
+        private MainViewModel? _mvmodel;
+        private string? pfad;
+        private string? _wertungArt;
 
-      public PDFEditor(Klasse klasse) : base()
-      {
-         InitializeComponent();
-         _pemodel = FindResource("pemodel") as PDFEditorModel;
-         _mvmodel = FindResource("mvmodel") as MainViewModel;
-         _pemodel.Klasse = klasse;
-         init();
-      }
-      public PDFEditor(List<Schueler> schueler) : base()
-      {
-         InitializeComponent();
-         _pemodel = FindResource("pemodel") as PDFEditorModel;
-         _mvmodel = FindResource("mvmodel") as MainViewModel;
-         _pemodel.Schueler = new ObservableCollection<Schueler>(schueler);
+        public PDFEditor(Klasse klasse) : base()
+        {
+            InitializeComponent();
+            _pemodel = FindResource("pemodel") as PDFEditorModel;
+            _mvmodel = FindResource("mvmodel") as MainViewModel;
+            Reset();
+            _pemodel.Klasse = klasse;
+            init();
+        }
+        public PDFEditor(List<Schueler> schueler) : base()
+        {
+            InitializeComponent();
+            _pemodel = FindResource("pemodel") as PDFEditorModel;
+            _mvmodel = FindResource("mvmodel") as MainViewModel;
+            Reset();
+            _pemodel.Schueler = new ObservableCollection<Schueler>(schueler);
 
-            for (int i = PanelRight.Children.Count - 1; i >= 0; i--)
+            for (int i = PanelRight.Children.Count - 1; i > 0; i--)
             {
-                if (PanelRight.Children[i] != SchuelerBewertungPanel)
-                {
-                    PanelRight.Children.RemoveAt(i);
-                }
+                PanelRight.Children.RemoveAt(i);
             }
-
             SchuelerBewertungPanel.Visibility = Visibility.Visible;
             init();
+        }
 
-      }
-      public void init()
-      {
+        public PDFEditor(List<object> liste, string wertungArt) : base()
+        {
+            InitializeComponent();
+            _pemodel = FindResource("pemodel") as PDFEditorModel;
+            _mvmodel = FindResource("mvmodel") as MainViewModel;
+            Reset();
+            _wertungArt = wertungArt;
 
-         _pemodel.Format = new Format();
+            _pemodel.Liste = new ObservableCollection<object>(liste);
 
-         using (var db = new LaufDBContext())
-         {
-            cbFormate.ItemsSource = db.Formate.ToList();
-            cbBlattgroessee.ItemsSource = db.BlattGroessen.ToList();
-            cbBlattgroessee.SelectedItem = _pemodel.Format.BlattGroesse ?? db.BlattGroessen.First(x => x.Name == "A4");
-            _pemodel.Format.BlattGroesse = cbBlattgroessee.SelectedItem as BlattGroesse;
-            cbTyp.ItemsSource = Enum.GetValues(typeof(SchriftTyp));
-            cbOrientierung.ItemsSource = Enum.GetValues(typeof(Orientierung));
-         }
-         cbTyp.SelectedIndex = 0;
-         cbOrientierung.SelectedIndex = 0;
+            lblSpalten.Visibility = Visibility.Collapsed;
+            txtSpalten.Visibility = Visibility.Collapsed;
+            lblBarcodeGroesse.Visibility = Visibility.Collapsed;
+            borBarcodeGroesse.Visibility = Visibility.Collapsed;
+            lblBarcodeAbstand.Visibility = Visibility.Collapsed;
+            borBarcodeAbstand.Visibility = Visibility.Collapsed;
+            init();
+        }
 
-         this.Loaded += (s, e) =>
-         {
-            // Webview mit PDF füllen
-            webView.Source = new Uri("about:blank");
-            string pfad;
-            if (_pemodel.Klasse != null) pfad = PDFGenerator.BarcodesPDF(_pemodel.Klasse, _pemodel.Klasse.Schule.Name, _pemodel.Format);
-            else pfad = PDFGenerator.SchuelerBewertungPDF(new List<Schueler>(_pemodel.Schueler), _pemodel.Format, _pemodel.NeueSeiteProSchueler);
-            webView.Source = new Uri(pfad);
+        public void Reset()
+        {
+            _pemodel.Liste = null;
+            _pemodel.Klasse = null;
+            _pemodel.Schueler = null;
+        }
+        public void init()
+        {
 
-            webView.ZoomFactor = 0.62;
-         };
+            _pemodel.Format = new Format();
 
-
-         btnSpeichern.Click += (s, e) =>
-         {
             using (var db = new LaufDBContext())
             {
-               if (db.Formate.Any(f => f.Name == _pemodel.Format.Name))
-               {
-                  MessageBoxResult result = MessageBox.Show("Format überschreiben?", "Format existiert bereits", MessageBoxButton.YesNo);
-                  if (result == MessageBoxResult.No) return;
-                  db.Formate.Update(_pemodel.Format);
-               }
-               else
-               {
-                  MessageBoxResult result = MessageBox.Show("Neues Format speichern?", "Format speichern", MessageBoxButton.YesNo);
-                  if (result == MessageBoxResult.No) return;
-                  _pemodel.Format.Id = 0;
-                  _pemodel.Format.BlattGroesse = db.BlattGroessen.First(x => x.Name == "A4");
-                  _pemodel.Format.BlattGroesseId = _pemodel.Format.BlattGroesse.Id;
-                  db.Formate.Add(_pemodel.Format);
-               }
-               db.SaveChanges();
-               cbFormate.ItemsSource = db.Formate.ToList();
+                cbFormate.ItemsSource = db.Formate.ToList();
+                cbBlattgroessee.ItemsSource = db.BlattGroessen.ToList();
+                cbBlattgroessee.SelectedItem = _pemodel.Format.BlattGroesse ?? db.BlattGroessen.First(x => x.Name == "A4");
+                _pemodel.Format.BlattGroesse = cbBlattgroessee.SelectedItem as BlattGroesse;
+                cbTyp.ItemsSource = Enum.GetValues(typeof(SchriftTyp));
+                cbOrientierung.ItemsSource = Enum.GetValues(typeof(Orientierung));
             }
-         };
+            cbTyp.SelectedIndex = 0;
+            cbOrientierung.SelectedIndex = 0;
 
-         cbFormate.SelectionChanged += (s, e) =>
-         {
-            _pemodel.Format = (Format)cbFormate.SelectedItem;
-            cbTyp.SelectedIndex = _pemodel.Format.SchriftTyp switch
+            this.Loaded += (s, e) =>
             {
-               SchriftTyp.Normal => 0,
-               SchriftTyp.Fett => 1,
-               SchriftTyp.Kursiv => 2,
-               SchriftTyp.FettKursiv => 3,
-               _ => 0
+                // Webview mit PDF füllen
+                webView.Source = new Uri("about:blank");
+                string pfad;
+                if (_pemodel.Klasse != null) pfad = PDFGenerator.BarcodesPDF(_pemodel.Klasse, _pemodel.Klasse.Schule.Name, _pemodel.Format);
+                else if (_pemodel.Liste != null) pfad = PDFGenerator.AuswertungListe(_pemodel.Liste.ToList(), _pemodel.Format, _wertungArt);
+                else pfad = PDFGenerator.SchuelerBewertungPDF(new List<Schueler>(_pemodel.Schueler), _pemodel.Format, _pemodel.NeueSeiteProSchueler);
+                webView.Source = new Uri(pfad);
+
+                webView.ZoomFactor = 0.62;
             };
-            cbBlattgroessee.SelectedIndex = _pemodel.Format.BlattGroesseId - 1;
-            cbOrientierung.SelectedIndex = _pemodel.Format.Orientierung switch
+
+
+            btnSpeichern.Click += (s, e) =>
             {
-               Orientierung.Hochformat => 0,
-               Orientierung.Querformat => 1,
-               _ => 0
+                using (var db = new LaufDBContext())
+                {
+                    if (db.Formate.Any(f => f.Name == _pemodel.Format.Name))
+                    {
+                        MessageBoxResult result = MessageBox.Show("Format überschreiben?", "Format existiert bereits", MessageBoxButton.YesNo);
+                        if (result == MessageBoxResult.No) return;
+                        db.Formate.Update(_pemodel.Format);
+                    }
+                    else
+                    {
+                        MessageBoxResult result = MessageBox.Show("Neues Format speichern?", "Format speichern", MessageBoxButton.YesNo);
+                        if (result == MessageBoxResult.No) return;
+                        _pemodel.Format.Id = 0;
+                        _pemodel.Format.BlattGroesse = db.BlattGroessen.First(x => x.Name == "A4");
+                        _pemodel.Format.BlattGroesseId = _pemodel.Format.BlattGroesse.Id;
+                        db.Formate.Add(_pemodel.Format);
+                    }
+                    db.SaveChanges();
+                    cbFormate.ItemsSource = db.Formate.ToList();
+                }
             };
-            AktualisierePDF();
-         };
 
-         cbBlattgroessee.SelectionChanged += (s, e) =>
-         {
-            _pemodel.Format.BlattGroesse = (BlattGroesse)cbBlattgroessee.SelectedItem;
-            AktualisierePDF();
-         };
+            cbFormate.SelectionChanged += (s, e) =>
+            {
+                _pemodel.Format = (Format)cbFormate.SelectedItem;
+                cbTyp.SelectedIndex = _pemodel.Format.SchriftTyp switch
+                {
+                    SchriftTyp.Normal => 0,
+                    SchriftTyp.Fett => 1,
+                    SchriftTyp.Kursiv => 2,
+                    SchriftTyp.FettKursiv => 3,
+                    _ => 0
+                };
+                cbBlattgroessee.SelectedIndex = _pemodel.Format.BlattGroesseId - 1;
+                cbOrientierung.SelectedIndex = _pemodel.Format.Orientierung switch
+                {
+                    Orientierung.Hochformat => 0,
+                    Orientierung.Querformat => 1,
+                    _ => 0
+                };
+                AktualisierePDF();
+            };
 
-         cbTyp.SelectionChanged += (s, e) =>
-         {
-            _pemodel.Format.SchriftTyp = (SchriftTyp)cbTyp.SelectedIndex;
-            AktualisierePDF();
-         };
+            cbBlattgroessee.SelectionChanged += (s, e) =>
+            {
+                _pemodel.Format.BlattGroesse = (BlattGroesse)cbBlattgroessee.SelectedItem;
+                AktualisierePDF();
+            };
 
-         cbOrientierung.SelectionChanged += (s, e) =>
-         {
-            _pemodel.Format.Orientierung = (Orientierung)cbOrientierung.SelectedIndex;
-            AktualisierePDF();
-         };
+            cbTyp.SelectionChanged += (s, e) =>
+            {
+                _pemodel.Format.SchriftTyp = (SchriftTyp)cbTyp.SelectedIndex;
+                AktualisierePDF();
+            };
+
+            cbOrientierung.SelectionChanged += (s, e) =>
+            {
+                _pemodel.Format.Orientierung = (Orientierung)cbOrientierung.SelectedIndex;
+                AktualisierePDF();
+            };
 
             cbNeueSeite.Unchecked += (s, e) =>
             {
@@ -140,171 +163,165 @@ namespace Klimalauf
                 AktualisierePDF();
             };
 
-         // Speichere die aktuellen Werte
-         string currentOben = txtOben.Text;
-         string currentUnten = txtUnten.Text;
-         string currentLinks = txtLinks.Text;
-         string currentRechts = txtRechts.Text;
-         string currentAbstandHorizontal = txtAbstandHorizontal.Text;
-         string currentAbstandVertikal = txtAbstandVertikal.Text;
-         string currentBreite = txtBreite.Text;
-         string currentHöhe = txtHöhe.Text;
-         string currentGroesse = txtGroesse.Text;
-         string currentSpalten = txtSpalten.Text;
-         bool currentKopf = chkKopf.IsChecked ?? false;
-         bool currentZentriert = chkZentriert.IsChecked ?? false;
+            // Speichere die aktuellen Werte
+            string currentOben = txtOben.Text;
+            string currentUnten = txtUnten.Text;
+            string currentLinks = txtLinks.Text;
+            string currentRechts = txtRechts.Text;
+            string currentAbstandHorizontal = txtAbstandHorizontal.Text;
+            string currentAbstandVertikal = txtAbstandVertikal.Text;
+            string currentBreite = txtBreite.Text;
+            string currentHöhe = txtHöhe.Text;
+            string currentGroesse = txtGroesse.Text;
+            string currentSpalten = txtSpalten.Text;
+            bool currentKopf = chkKopf.IsChecked ?? false;
+            bool currentZentriert = chkZentriert.IsChecked ?? false;
 
-         // Überprüfe auf Änderungen und aktualisiere bei Bedarf
-         txtOben.LostFocus += (s, e) =>
-         {
-            if (txtOben.Text != currentOben)
+            // Überprüfe auf Änderungen und aktualisiere bei Bedarf
+            txtOben.LostFocus += (s, e) =>
             {
-               currentOben = txtOben.Text;
-               AktualisierePDF();
-            }
-         };
-         txtUnten.LostFocus += (s, e) =>
-         {
-            if (txtUnten.Text != currentUnten)
+                if (txtOben.Text != currentOben)
+                {
+                    currentOben = txtOben.Text;
+                    AktualisierePDF();
+                }
+            };
+            txtUnten.LostFocus += (s, e) =>
             {
-               currentUnten = txtUnten.Text;
-               AktualisierePDF();
-            }
-         };
-         txtLinks.LostFocus += (s, e) =>
-         {
-            if (txtLinks.Text != currentLinks)
+                if (txtUnten.Text != currentUnten)
+                {
+                    currentUnten = txtUnten.Text;
+                    AktualisierePDF();
+                }
+            };
+            txtLinks.LostFocus += (s, e) =>
             {
-               currentLinks = txtLinks.Text;
-               AktualisierePDF();
-            }
-         };
-         txtRechts.LostFocus += (s, e) =>
-         {
-            if (txtRechts.Text != currentRechts)
+                if (txtLinks.Text != currentLinks)
+                {
+                    currentLinks = txtLinks.Text;
+                    AktualisierePDF();
+                }
+            };
+            txtRechts.LostFocus += (s, e) =>
             {
-               currentRechts = txtRechts.Text;
-               AktualisierePDF();
-            }
-         };
-         txtAbstandHorizontal.LostFocus += (s, e) =>
-         {
-            if (txtAbstandHorizontal.Text != currentAbstandHorizontal)
+                if (txtRechts.Text != currentRechts)
+                {
+                    currentRechts = txtRechts.Text;
+                    AktualisierePDF();
+                }
+            };
+            txtAbstandHorizontal.LostFocus += (s, e) =>
             {
-               currentAbstandHorizontal = txtAbstandHorizontal.Text;
-               AktualisierePDF();
-            }
-         };
-         txtAbstandVertikal.LostFocus += (s, e) =>
-         {
-            if (txtAbstandVertikal.Text != currentAbstandVertikal)
+                if (txtAbstandHorizontal.Text != currentAbstandHorizontal)
+                {
+                    currentAbstandHorizontal = txtAbstandHorizontal.Text;
+                    AktualisierePDF();
+                }
+            };
+            txtAbstandVertikal.LostFocus += (s, e) =>
             {
-               currentAbstandVertikal = txtAbstandVertikal.Text;
-               AktualisierePDF();
-            }
-         };
-         txtBreite.LostFocus += (s, e) =>
-         {
-            if (txtBreite.Text != currentBreite)
+                if (txtAbstandVertikal.Text != currentAbstandVertikal)
+                {
+                    currentAbstandVertikal = txtAbstandVertikal.Text;
+                    AktualisierePDF();
+                }
+            };
+            txtBreite.LostFocus += (s, e) =>
             {
-               currentBreite = txtBreite.Text;
-               AktualisierePDF();
-            }
-         };
-         txtHöhe.LostFocus += (s, e) =>
-         {
-            if (txtHöhe.Text != currentHöhe)
+                if (txtBreite.Text != currentBreite)
+                {
+                    currentBreite = txtBreite.Text;
+                    AktualisierePDF();
+                }
+            };
+            txtHöhe.LostFocus += (s, e) =>
             {
-               currentHöhe = txtHöhe.Text;
-               AktualisierePDF();
-            }
-         };
-         txtGroesse.LostFocus += (s, e) =>
-         {
-            if (txtGroesse.Text != currentGroesse)
+                if (txtHöhe.Text != currentHöhe)
+                {
+                    currentHöhe = txtHöhe.Text;
+                    AktualisierePDF();
+                }
+            };
+            txtGroesse.LostFocus += (s, e) =>
             {
-               currentGroesse = txtGroesse.Text;
-               AktualisierePDF();
-            }
-         };
-         txtSpalten.LostFocus += (s, e) =>
-         {
-            if (txtSpalten.Text != currentSpalten)
+                if (txtGroesse.Text != currentGroesse)
+                {
+                    currentGroesse = txtGroesse.Text;
+                    AktualisierePDF();
+                }
+            };
+            txtSpalten.LostFocus += (s, e) =>
             {
-               currentSpalten = txtSpalten.Text;
-               AktualisierePDF();
-            }
-         };
+                if (txtSpalten.Text != currentSpalten)
+                {
+                    currentSpalten = txtSpalten.Text;
+                    AktualisierePDF();
+                }
+            };
 
-         chkKopf.Checked += (s, e) =>
-         {
-            if (chkKopf.IsChecked != currentKopf)
+            chkKopf.Checked += (s, e) =>
             {
-               currentKopf = chkKopf.IsChecked ?? false;
-               AktualisierePDF();
-            }
-         };
-         chkKopf.Unchecked += (s, e) =>
-         {
-            if (chkKopf.IsChecked != currentKopf)
+                if (chkKopf.IsChecked != currentKopf)
+                {
+                    currentKopf = chkKopf.IsChecked ?? false;
+                    AktualisierePDF();
+                }
+            };
+            chkKopf.Unchecked += (s, e) =>
             {
-               currentKopf = chkKopf.IsChecked ?? false;
-               AktualisierePDF();
-            }
-         };
-         chkZentriert.Checked += (s, e) =>
-         {
-            if (chkZentriert.IsChecked != currentZentriert)
+                if (chkKopf.IsChecked != currentKopf)
+                {
+                    currentKopf = chkKopf.IsChecked ?? false;
+                    AktualisierePDF();
+                }
+            };
+            chkZentriert.Checked += (s, e) =>
             {
-               currentZentriert = chkZentriert.IsChecked ?? false;
-               AktualisierePDF();
-            }
-         };
-         chkZentriert.Unchecked += (s, e) =>
-         {
-            if (chkZentriert.IsChecked != currentZentriert)
+                if (chkZentriert.IsChecked != currentZentriert)
+                {
+                    currentZentriert = chkZentriert.IsChecked ?? false;
+                    AktualisierePDF();
+                }
+            };
+            chkZentriert.Unchecked += (s, e) =>
             {
-               currentZentriert = chkZentriert.IsChecked ?? false;
-               AktualisierePDF();
-            }
-         };
+                if (chkZentriert.IsChecked != currentZentriert)
+                {
+                    currentZentriert = chkZentriert.IsChecked ?? false;
+                    AktualisierePDF();
+                }
+            };
 
 
-         btnNeuladen.Click += (s, e) =>
-         {
-            AktualisierePDF();
-         };
-      }
-
-      private void AktualisierePDF()
-      {
-         webView.Source = new Uri("about:blank");
-         string pfad;
-         if (_pemodel.Klasse != null) pfad = PDFGenerator.BarcodesPDF(_pemodel.Klasse, _pemodel.Klasse.Schule.Name, _pemodel.Format);
-         else pfad = PDFGenerator.SchuelerBewertungPDF(new List<Schueler>(_pemodel.Schueler), _pemodel.Format, _pemodel.NeueSeiteProSchueler);
-         webView.Source = new Uri(pfad);
-      }
-
-      private void btnCancel_Click(object sender, RoutedEventArgs e)
-      {
-        _pemodel.Schueler = null;
-        _pemodel.Klasse = null;
-         Datenuebersicht datenuebersicht = new Datenuebersicht();
-         datenuebersicht.Show();
-         this.Close();
-
-         datenuebersicht.StartseiteGrid.Visibility = Visibility.Collapsed;
-         datenuebersicht.btnStartseite.Visibility = Visibility.Visible;
-         datenuebersicht.btnStartseiteDisabled.Visibility = Visibility.Collapsed;
-         datenuebersicht.KlasseGrid.Visibility = Visibility.Visible;
-         datenuebersicht.btnKlassen.Visibility = Visibility.Collapsed;
-         datenuebersicht.btnKlassenDisabled.Visibility = Visibility.Visible;
-      }
-
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            _pemodel.Schueler = null;
-            _pemodel.Klasse = null;
+            btnNeuladen.Click += (s, e) =>
+            {
+                AktualisierePDF();
+            };
         }
+
+        private void AktualisierePDF()
+        {
+            webView.Source = new Uri("about:blank");
+            string pfad;
+            if (_pemodel.Klasse != null) pfad = PDFGenerator.BarcodesPDF(_pemodel.Klasse, _pemodel.Klasse.Schule.Name, _pemodel.Format);
+            else if (_pemodel.Liste != null) pfad = PDFGenerator.AuswertungListe(_pemodel.Liste.ToList(), _pemodel.Format, _wertungArt);
+            else pfad = PDFGenerator.SchuelerBewertungPDF(new List<Schueler>(_pemodel.Schueler), _pemodel.Format, _pemodel.NeueSeiteProSchueler);
+            webView.Source = new Uri(pfad);
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Datenuebersicht datenuebersicht = new Datenuebersicht();
+            datenuebersicht.Show();
+            this.Close();
+
+            datenuebersicht.StartseiteGrid.Visibility = Visibility.Collapsed;
+            datenuebersicht.btnStartseite.Visibility = Visibility.Visible;
+            datenuebersicht.btnStartseiteDisabled.Visibility = Visibility.Collapsed;
+            datenuebersicht.KlasseGrid.Visibility = Visibility.Visible;
+            datenuebersicht.btnKlassen.Visibility = Visibility.Collapsed;
+            datenuebersicht.btnKlassenDisabled.Visibility = Visibility.Visible;
+        }
+
     }
 }
