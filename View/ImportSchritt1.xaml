@@ -1,12 +1,12 @@
-﻿<Window x:Class="Klimalauf.CSVImport"
+﻿<Window x:Class="Klimalauf.ImportSchritt1"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Klimalauf"
         mc:Ignorable="d"
-        Title="CSVImport" Height="450" Width="800">
-    <Grid>
+        Title="Import" Height="450" Width="800">
+    <Grid DataContext="{StaticResource imodel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -22,15 +22,14 @@
         <!-- Eingabe der Schulname oder auswahl aus ComboBox -->
             <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,20,0,0">
                 <Label Content="Schulname:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-                <ComboBox x:Name="cmbSchule" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="200" Height="30" FontSize="14"/>
-                <CheckBox x:Name="cbSchule" Content="Neue Schule anlegen"  HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="200" Height="30" FontSize="14"/>
+                <ComboBox x:Name="cmbSchule" ItemsSource="{Binding SchuleListe}" SelectedItem="{Binding Schule}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="200" Height="30" FontSize="14"/>
                 <TextBox x:Name="tbSchule" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="200" Height="30" FontSize="14"/>
             </StackPanel>
             <Grid  Grid.Row="1">
                 <StackPanel x:Name="OrderPanel" Drop="StackPanel_Drop" AllowDrop="True" Orientation="Horizontal" Height="30">
                 </StackPanel>
             </Grid>
-            <DataGrid x:Name="CSV_Grid" Grid.Row="2">
+            <DataGrid x:Name="CSV_Grid" Grid.Row="2" ItemsSource="{Binding CSVListe}">
             </DataGrid>
 
             <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,5,10,10" HorizontalAlignment="Right">

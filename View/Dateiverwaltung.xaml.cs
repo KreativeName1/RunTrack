@@ -55,7 +55,7 @@ namespace Klimalauf
 
                         if (extension == ".asv" || extension == ".csv")
                         {
-                            CSVImport csvImport = new CSVImport(Path.GetFullPath(destPath));
+                            ImportSchritt1 csvImport = new ImportSchritt1(Path.GetFullPath(destPath));
                             try
                             {
                                 csvImport.Show();

@@ -16,7 +16,7 @@
     <Compile Update="View\Credits.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\CSVImport2.xaml.cs">
+    <Compile Update="View\ImportSchritt2.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\Dateiverwaltung.xaml.cs">
@@ -45,7 +45,7 @@
     <Page Update="View\Credits.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\CSVImport2.xaml">
+    <Page Update="View\ImportSchritt2.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Dateiverwaltung.xaml">
