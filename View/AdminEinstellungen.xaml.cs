@@ -38,7 +38,7 @@ namespace Klimalauf.View
                 if (admin != null && BCrypt.Net.BCrypt.Verify(oldPassword, admin.Passwort))
                 {
                     admin.Passwort = BCrypt.Net.BCrypt.HashPassword(newPassword);
-                    MessageBox.Show("Das Passwort wurde erfolgreich geändert :)", "Passwortänderung erfolgreich", MessageBoxButton.OK, );
+                    MessageBox.Show("Das Passwort wurde erfolgreich geändert :)", "Passwortänderung erfolgreich", MessageBoxButton.OK);
                     result = true;
                 }
 
@@ -134,7 +134,7 @@ namespace Klimalauf.View
             if (string.IsNullOrEmpty(txtPasswordOld.Password))
             {
                 SetInvalidInputStyle(txtPasswordOld);
-                txtPasswordWdh.Password = "";
+                txtPasswordNewWdh.Password = "";
                 isValid = false;
             }
             else
@@ -143,15 +143,15 @@ namespace Klimalauf.View
             }
 
             // Überprüfen, ob das wiederholte Passwort leer ist oder nicht mit dem Passwort übereinstimmt
-            if (string.IsNullOrEmpty(txtPasswordOldWdh.Password) || txtPassword.Password != txtPasswordWdh.Password)
+            if (string.IsNullOrEmpty(txtPasswordNewWdh.Password) || txtPasswordNew.Password != txtPasswordNewWdh.Password)
             {
-                SetInvalidInputStyle(txtPasswordWdh);
+                SetInvalidInputStyle(txtPasswordNewWdh);
                 isValid = false;
                 warningPassword.Visibility = Visibility.Visible; // Warning anzeigen, wenn die Passwörter nicht übereinstimmen
             }
             else
             {
-                SetValidInputStyle(txtPasswordWdh);
+                SetValidInputStyle(txtPasswordNewWdh);
                 warningPassword.Visibility = Visibility.Collapsed; // Warning ausblenden, wenn die Passwörter übereinstimmen
             }
 
