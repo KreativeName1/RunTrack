@@ -3,20 +3,32 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Klimalauf" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:Klimalauf" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:fc="http://devpelux.github.io/fullcontrols"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Icon="pack://application:,,,/Images/iconRunMan.ico"
-        Title="Einstellungen" Height="450" Width="800">
+        Title="Einstellungen" Height="450" Width="700" ResizeMode="NoResize">
     <Grid>
         <local:TopBar Grid.ColumnSpan="2" x:Name="Leiste" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
-        <StackPanel Orientation="Horizontal" Margin="0,0,10,10" HorizontalAlignment="Right" Width="235" VerticalAlignment="Bottom">
-            <Button Content="Speichern" Click="Save_Click" Width="100" Height="25" Margin="5,5,20,5"/>
-            <Button Content="Schließen" Click="CloseWindow_Click" Width="100" Height="25" Margin="5"/>
-        </StackPanel>
-        <Label Content="Sekunden zum Warten zwischen den Scans nach Rundenart" HorizontalAlignment="Center" Margin="0,31,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <Rectangle Height="2" Margin="0,60,0,0" Stroke="#FF5F5F5F" Fill="#FF5F5F5F" VerticalAlignment="Top"/>
 
-        <Grid x:Name="GridSettings" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <StackPanel Orientation="Horizontal" Margin="0,35,0,0" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <fc:ButtonPlus x:Name="btnRounds" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Cursor="Hand" Content="Runden" Click="Runden_Click" Width="120" Height="25" Margin="5,5,20,5"/>
+            <fc:ButtonPlus x:Name="btnAdmin" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Cursor="Hand" Content="Admin" Click="Admin_Click" Width="120" Height="25" Margin="5"/>
+        </StackPanel>
+
+        <!--<Label Content="Sekunden zum Warten zwischen den Scans nach Rundenart" HorizontalAlignment="Center" Margin="0,31,0,0" VerticalAlignment="Top" FontSize="14"/>-->
+        <Rectangle Height="2" Margin="0,75,0,0" Stroke="#FF5F5F5F" Fill="#FF5F5F5F" VerticalAlignment="Top"/>
+
+        <TextBlock x:Name="txtRoundsTitel" Visibility="Collapsed" Text="Verwalten von Rundenarten" HorizontalAlignment="Center" Margin="0,85,0,0" VerticalAlignment="Top" FontSize="15" TextDecorations="Underline" FontWeight="Bold"/>
+        <TextBlock x:Name="txtAdminTitel" Visibility="Collapsed" Text="Verwalten von Admin Daten" HorizontalAlignment="Center" Margin="0,85,0,0" VerticalAlignment="Top" FontSize="15" TextDecorations="Underline" FontWeight="Bold"/>
+
+        <TextBlock x:Name="txtOptions" Text="⚙️" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Center" FontSize="70" Foreground="#7FCFD3CD"/>
+        
+        <StackPanel x:Name="PanelAdminSettings" Visibility="Collapsed" Orientation="Vertical" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <fc:ButtonPlus x:Name="btnAdminAdd" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Cursor="Hand" Content="Passwort ändern" Width="135" Height="30" Margin="5" Click="btnAdminAdd_Click"/>
+            <fc:ButtonPlus x:Name="btnPasswordChange" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Cursor="Hand" Content="Admin hinzufügen" Width="135" Height="30" Margin="5" Click="btnPasswordChange_Click"/>
+        </StackPanel>
+
+        <Grid x:Name="GridSettings" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed" Margin="0,60,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
@@ -30,5 +42,10 @@
                 <!-- Dynamische Zeilen werden im Code-Behind hinzugefügt -->
             </Grid.RowDefinitions>
         </Grid>
+
+        <StackPanel Orientation="Horizontal" Margin="0,0,10,10" HorizontalAlignment="Right" Width="235" VerticalAlignment="Bottom">
+            <Button x:Name="btnSave" Content="Speichern" Visibility="Hidden" Click="Save_Click" Width="100" Height="25" Margin="5,5,20,5"/>
+            <Button Content="Schließen" Click="CloseWindow_Click" Width="100" Height="25" Margin="5"/>
+        </StackPanel>
     </Grid>
 </Window>
