@@ -13,6 +13,7 @@
     <None Remove="Images\iconRunMan.ico" />
     <None Remove="Images\Logo.png" />
     <None Remove="Images\logout.png" />
+    <None Remove="Images\output.png" />
     <None Remove="Images\RunTrack_transparent.png" />
     <None Remove="MainWindow.xaml~RF6d463b42.TMP" />
     <None Remove="View\AdminErstellen.xaml.cs~RF9b0defe3.TMP" />
@@ -45,6 +46,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\logout.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\output.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\RunTrack_transparent.png">
