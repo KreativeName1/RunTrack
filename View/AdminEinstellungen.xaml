@@ -62,6 +62,7 @@
 
 
             <fc:ButtonPlus x:Name="btnErstellen" Content="Erstellen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White"  HorizontalAlignment="Center" Margin="0,300,0,0" CornerRadius="5.5" VerticalAlignment="Top" Width="250" Cursor="Hand" Background="#6C7C98" Foreground="White" FontSize="15" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35" RenderTransformOrigin="0.509,-0.436" Click="btnErstellen_Click"/>
+            <fc:ButtonPlus x:Name="btnAendern" Content="Passwort ändern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White"  HorizontalAlignment="Center" Margin="0,300,0,0" CornerRadius="5.5" VerticalAlignment="Top" Width="250" Cursor="Hand" Background="#6C7C98" Foreground="White" FontSize="15" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35" RenderTransformOrigin="0.509,-0.436" Click="btnErstellen_Click" Visibility="Collapsed"/>
 
 
         </Grid>

@@ -11,20 +11,38 @@ namespace Klimalauf.View
     /// </summary>
     public partial class AdminEinstellungen : Window
     {
+        private DialogMode mode;
+
         private string firstName;
         private string lastName;
-        private string pwd;
 
         public AdminEinstellungen()
         {
             InitializeComponent();
         }
 
-        public AdminEinstellungen(string firstName, string lastName, string pwd)
+        public AdminEinstellungen(DialogMode mode, string firstName, string lastName)
         {
+            InitializeComponent();
+            this.mode = mode;
+
             this.firstName = firstName;
             this.lastName = lastName;
-            this.pwd = pwd;
+
+            this.txtVorname.Text = firstName;
+            this.txtNachname.Text = lastName;
+
+            if(mode == DialogMode.Bearbeiten)
+            {
+                this.btnAendern.Visibility = Visibility.Visible;
+                this.btnErstellen.Visibility = Visibility.Collapsed;
+                this.btnAendern.Click += (sender, e) =>
+                {
+                    ChangePassword(this.txtPasswordOld.Password, this.txtPasswordNew.Password);
+                };
+
+            }
+
         }
 
         private bool ChangePassword(string oldPassword, string newPassword)
@@ -32,12 +50,17 @@ namespace Klimalauf.View
             bool result = false;
             string vorname, nachname, password;
 
+            vorname = this.firstName;
+            nachname = this.lastName;
+
             using (var db = new LaufDBContext())
             {
                 Benutzer? admin = db.Benutzer.FirstOrDefault(b => b.Vorname == firstName && b.Nachname == lastName);
                 if (admin != null && BCrypt.Net.BCrypt.Verify(oldPassword, admin.Passwort))
                 {
-                    admin.Passwort = BCrypt.Net.BCrypt.HashPassword(newPassword);
+                    admin.Passwort.Replace(admin.Passwort, BCrypt.Net.BCrypt.HashPassword(newPassword));
+                    //admin.Passwort = BCrypt.Net.BCrypt.HashPassword(newPassword);
+                    db.SaveChanges();
                     MessageBox.Show("Das Passwort wurde erfolgreich geändert :)", "Passwortänderung erfolgreich", MessageBoxButton.OK);
                     result = true;
                 }
