@@ -75,7 +75,7 @@
                         <DataGridTextColumn Width="10*" Header="Laufnr." Binding="{Binding Id}" IsReadOnly="True"/>
                         <DataGridTextColumn Width="15*" Header="Vorname" Binding="{Binding Vorname}"/>
                         <DataGridTextColumn Width="15*" Header="Nachname" Binding="{Binding Nachname}"/>
-                        <DataGridTextColumn Width="15*" Header="Klasse" Binding="{Binding Klasse.Jahrgang}" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="15*" Header="Klasse" Binding="{Binding Klasse.Name}" IsReadOnly="True"/>
                         <DataGridTextColumn Width="20*" Header="Schule" Binding="{Binding Klasse.Schule.Name}" IsReadOnly="True"/>
                         <DataGridTextColumn Width="11*" Header="Runden" Binding="{Binding Runden.Count}" IsReadOnly="True"/>
                         <!--<DataGridTextColumn Width="15*" Header="Bestzeit" Binding="{Binding rundenBestZeit}"/>-->
@@ -120,7 +120,7 @@
                     </DataGrid.Resources>
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding Id}" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="15*" Header="Klasse" Binding="{Binding Jahrgang}" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="15*" Header="Klasse" Binding="{Binding Name}" IsReadOnly="True"/>
                         <DataGridTextColumn Width="25*" Header="Schule" Binding="{Binding Schule.Name}"/>
                     </DataGrid.Columns>
                 </DataGrid>
