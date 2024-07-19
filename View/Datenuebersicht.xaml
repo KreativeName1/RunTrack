@@ -3,10 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Klimalauf"
+        xmlns:local="clr-namespace:Klimalauf" xmlns:fc="http://devpelux.github.io/fullcontrols" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Icon="pack://application:,,,/Images/iconRunMan.ico"
         Title="Datenuebersicht" Height="750" Width="1100" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+    
     <Window.Resources>
         <local:WindowHeightConverter x:Key="WindowHeightConverter"/>
     </Window.Resources>
@@ -21,26 +22,26 @@
         </Grid.ColumnDefinitions>
         <local:TopBar Grid.ColumnSpan="2" x:Name="Leiste" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
 
-        <StackPanel Orientation="Vertical"  Margin="5,33,10,5" Grid.RowSpan="2">
+        <StackPanel Orientation="Vertical" Margin="5,33,10,5" Grid.RowSpan="2">
             <!--Startseite-->
-            <Button x:Name="btnStartseite" Content="Startseite" VerticalAlignment="Top" Width="150" Height="30" Margin="5,30,5,30" Click="btnStartseite_Click" Visibility="Collapsed"/>
-            <Button x:Name="btnStartseiteDisabled" Content="Startseite" VerticalAlignment="Top" Width="150" Height="30" Cursor="No" Margin="5,30,5,30" Background="#00a082" FontWeight="Bold" Foreground="Wheat"/>
+            <fc:ButtonPlus x:Name="btnStartseite" Cursor="Hand" Content="Startseite" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5,30,5,30" Click="btnStartseite_Click" Visibility="Collapsed"/>
+            <fc:ButtonPlus x:Name="btnStartseiteDisabled" BackgroundOnDisabled="#00a082" ForegroundOnDisabled="#F4F8F4" IsEnabled="False" Content="Startseite" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5,30,5,30" Background="#00a082" FontWeight="Bold" Foreground="Wheat"/>
 
             <!--Schule-->
-            <Button x:Name="btnSchule" Content="Schule" VerticalAlignment="Top" Width="150" Height="30" Margin="5" Click="btnSchule_Click"/>
-            <Button x:Name="btnSchuleDisabled" Content="Schule" VerticalAlignment="Top" Width="150" Height="30" Cursor="No" Margin="5" Click="btnSchule_Click" Background="#00a082" FontWeight="Bold" Foreground="Wheat" Visibility="Collapsed"/>
+            <fc:ButtonPlus x:Name="btnSchule" Cursor="Hand" Content="Schule" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" Click="btnSchule_Click"/>
+            <fc:ButtonPlus x:Name="btnSchuleDisabled" Content="Schule" BackgroundOnDisabled="#00a082" ForegroundOnDisabled="#F4F8F4" IsEnabled="False" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" Click="btnSchule_Click" Background="#00a082" FontWeight="Bold" Foreground="Wheat" Visibility="Collapsed"/>
 
             <!--Klasse-->
-            <Button x:Name="btnKlassen" Content="Klassen" VerticalAlignment="Top" Width="150" Height="30" Margin="5" Click="btnKlassen_Click" />
-            <Button x:Name="btnKlassenDisabled" Content="Klassen" VerticalAlignment="Top" Width="150" Height="30" Cursor="No" Margin="5" Background="#00a082" FontWeight="Bold" Foreground="Wheat" Visibility="Collapsed"/>
+            <fc:ButtonPlus x:Name="btnKlassen" Cursor="Hand" Content="Klassen" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" Click="btnKlassen_Click" />
+            <fc:ButtonPlus x:Name="btnKlassenDisabled" Content="Klassen" BackgroundOnDisabled="#00a082" ForegroundOnDisabled="#F4F8F4" IsEnabled="False" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" Background="#00a082" FontWeight="Bold" Foreground="Wheat" Visibility="Collapsed"/>
 
             <!--Schüler-->
-            <Button x:Name="btnSchueler" Content="Schüler" VerticalAlignment="Top" Width="150" Height="30" Margin="5" Click="btnSchueler_Click"/>
-            <Button x:Name="btnSchuelerDisabled" Content="Schüler" VerticalAlignment="Top" Width="150" Height="30" Cursor="No" Margin="5" Background="#00a082" FontWeight="Bold" Foreground="Wheat" Visibility="Collapsed"/>
+            <fc:ButtonPlus x:Name="btnSchueler" Cursor="Hand" Content="Schüler" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" Click="btnSchueler_Click"/>
+            <fc:ButtonPlus x:Name="btnSchuelerDisabled" Content="Schüler" BackgroundOnDisabled="#00a082" ForegroundOnDisabled="#F4F8F4" IsEnabled="False" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" Background="#00a082" FontWeight="Bold" Foreground="Wheat" Visibility="Collapsed"/>
 
             <!--Runden-->
-            <Button x:Name="btnRunden" Content="Runden" VerticalAlignment="Top" Width="150" Height="30" Margin="5" Click="btnRunden_Click"/>
-            <Button x:Name="btnRundenDisabled" Content="Runden" VerticalAlignment="Top" Width="150" Height="30" Cursor="No" Margin="5" Background="#00a082" FontWeight="Bold" Foreground="Wheat" Visibility="Collapsed"/>
+            <fc:ButtonPlus x:Name="btnRunden" Cursor="Hand" Content="Runden" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" Click="btnRunden_Click"/>
+            <fc:ButtonPlus x:Name="btnRundenDisabled" Content="Runden" BackgroundOnDisabled="#00a082" ForegroundOnDisabled="#F4F8F4" IsEnabled="False" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" Background="#00a082" FontWeight="Bold" Foreground="Wheat" Visibility="Collapsed"/>
         </StackPanel>
 
 
@@ -48,14 +49,14 @@
         <Rectangle Height="5" Margin="0,0,0,0" Stroke="#FF5F5F5F" Fill="#FF5F5F5F" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1"/>
 
         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="25,10,10,10" Grid.Row="2">
-            <Button x:Name="btnDownload" Content="Export" Click="btnDownload_Click" Width="120" Height="30" Margin="5"/>
-            <Button x:Name="btnBarcodes" Content="Barcodes erstellen" Visibility="Visible" Click="btnBarcodes_Click" Width="120" Height="30" Margin="10,10,5,10"/>
-            <Button x:Name="btnSpeichern" Content="Speichern" Width="120" Height="30" Margin="10,10,5,10" Click="btnSpeichern_Click"/>
-            <Button x:Name="btnNeu" Content="Neuer Eintrag" Width="120" Height="30" Margin="10,10,5,10" Click="btnNeu_Click"/>
-            <Button x:Name="btnDel" Content="Eintrag löschen" Width="120" Height="30" Margin="10,10,25,10" Click="btnDel_Click"/>
+            <fc:ButtonPlus x:Name="btnDownload" Cursor="Hand" Content="Export" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Click="btnDownload_Click" Width="120" Height="30" Margin="5"/>
+            <fc:ButtonPlus x:Name="btnBarcodes" Cursor="Hand" Content="Barcodes erstellen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Visibility="Visible" Click="btnBarcodes_Click" Width="120" Height="30" Margin="10,10,5,10"/>
+            <fc:ButtonPlus x:Name="btnSpeichern" Cursor="Hand" Content="Speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" Margin="10,10,5,10" Click="btnSpeichern_Click"/>
+            <fc:ButtonPlus x:Name="btnNeu" Cursor="Hand" Content="Neuer Eintrag" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" Margin="10,10,5,10" Click="btnNeu_Click"/>
+            <fc:ButtonPlus x:Name="btnDel" Cursor="Hand" Content="Eintrag löschen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" Margin="10,10,25,10" Click="btnDel_Click"/>
         </StackPanel>
         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10,10,25,10" Grid.Row="2">
-            <Button Content="Schließen" Click="CloseWindow_Click" Width="120" Height="30" Margin="5"/>
+            <fc:ButtonPlus Content="Schließen" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Click="CloseWindow_Click" Width="120" Height="30" Margin="5"/>
         </StackPanel>
 
         <!--Startseite-->

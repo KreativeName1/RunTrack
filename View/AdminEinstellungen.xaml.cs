@@ -21,11 +21,10 @@ namespace Klimalauf.View
          InitializeComponent();
       }
 
-      public AdminEinstellungen(DialogMode mode, string firstName, string lastName)
+      public AdminEinstellungen(DialogMode mode, string firstName = "", string lastName = "")
       {
          InitializeComponent();
          this.mode = mode;
-
          this.firstName = firstName;
          this.lastName = lastName;
 
@@ -36,14 +35,20 @@ namespace Klimalauf.View
          {
             this.btnAendern.Visibility = Visibility.Visible;
             this.btnErstellen.Visibility = Visibility.Collapsed;
+            this.paswdWDH.Visibility = Visibility.Visible;
             this.btnAendern.Click += (sender, e) =>
             {
                ChangePassword(this.txtPasswordOld.Password, this.txtPasswordNew.Password);
             };
-
          }
-
+         else if (mode == DialogMode.Neu)
+         {
+            this.btnAendern.Visibility = Visibility.Collapsed;
+            this.btnErstellen.Visibility = Visibility.Visible;
+            this.paswdWDH.Visibility = Visibility.Collapsed;
+         }
       }
+
 
       private bool ChangePassword(string oldPassword, string newPassword)
       {
@@ -79,10 +84,12 @@ namespace Klimalauf.View
                if (existingUser == null)
                {
                   // Benutzer anlegen mit gehashtem Passwort
-                  Benutzer benutzer = new Benutzer();
-                  benutzer.Vorname = txtVorname.Text;
-                  benutzer.Nachname = txtNachname.Text;
-                  benutzer.Passwort = BCrypt.Net.BCrypt.HashPassword(txtPasswordOld.Password);
+                  Benutzer benutzer = new Benutzer
+                  {
+                     Vorname = txtVorname.Text,
+                     Nachname = txtNachname.Text,
+                     Passwort = BCrypt.Net.BCrypt.HashPassword(txtPasswordNew.Password)
+                  };
                   db.Benutzer.Add(benutzer);
                   db.SaveChanges();
                   MessageBox.Show("Benutzer erfolgreich erstellt :)", "Erfolg", MessageBoxButton.OK);
@@ -92,11 +99,10 @@ namespace Klimalauf.View
                   MessageBox.Show("Ein Benutzer mit diesem Namen existiert bereits.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
                }
             }
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
             this.Close();
          }
       }
+
 
 
       private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -160,19 +166,17 @@ namespace Klimalauf.View
       {
          bool isValid = true;
 
-         // Passwortfelder leeren, wenn das Passwort leer ist
-         if (string.IsNullOrEmpty(txtPasswordOld.Password))
+         if (string.IsNullOrEmpty(txtPasswordNew.Password))
          {
-            SetInvalidInputStyle(txtPasswordOld);
+            SetInvalidInputStyle(txtPasswordNew);
             txtPasswordNewWdh.Password = "";
             isValid = false;
          }
          else
          {
-            SetValidInputStyle(txtPasswordOld);
+            SetValidInputStyle(txtPasswordNew);
          }
 
-         // Überprüfen, ob das wiederholte Passwort leer ist oder nicht mit dem Passwort übereinstimmt
          if (string.IsNullOrEmpty(txtPasswordNewWdh.Password) || txtPasswordNew.Password != txtPasswordNewWdh.Password)
          {
             SetInvalidInputStyle(txtPasswordNewWdh);
@@ -187,6 +191,7 @@ namespace Klimalauf.View
 
          return isValid;
       }
+
 
 
 
