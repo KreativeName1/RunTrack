@@ -14,7 +14,7 @@ namespace Klimalauf
          if (!File.Exists(_dbPath) || new FileInfo(_dbPath).Length == 0)
          {
             Database.EnsureCreated();
-            SeedTestData();
+            //SeedTestData();
             SeedBlattgroessen();
          }
       }

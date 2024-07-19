@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -12,27 +12,30 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Klimalauf
 {
     /// <summary>
-    /// Interaktionslogik für CSVImport2.xaml
+    /// Interaktionslogik für Import2.xaml
     /// </summary>
-    public partial class ImportSchritt2 : Window
+    public partial class Import2 : Page
     {
         private ImportModel _imodel;
 
-        public ImportSchritt2()
+        public Import2()
         {
-            _imodel = FindResource("imodel") as ImportModel;
             InitializeComponent();
-            DataContext = this;
+            _imodel = FindResource("imodel") as ImportModel;
+            DataContext = _imodel;
 
-            btnCancel.Click += (s, e) => this.Close();
+            _imodel.RundenArten = new ObservableCollection<RundenArt>(new LaufDBContext().RundenArten.ToList());
+
+            btnBack.Click += (s,e) => _imodel.ShowImport1();
             btnWeiter.Click += (s, e) =>
             {
-                MessageBox.Show("Weiter");
+                _imodel.ShowImport3();
             };
 
             int klasseIndex = _imodel.Reihenfolge.IndexOf("Klasse");
@@ -48,6 +51,7 @@ namespace Klimalauf
                     if (!klassen.Contains(klasse))
                     {
                         klassen.Add(klasse);
+                        _imodel.KlasseItems.Add(new KlasseItem { Bezeichnung = klasse, RundenArt = _imodel.RundenArten[0] });
                     }
                 }
             }

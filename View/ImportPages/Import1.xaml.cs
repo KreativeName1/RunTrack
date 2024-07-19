@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -7,39 +8,27 @@ using System.Windows.Input;
 namespace Klimalauf
 {
     /// <summary>
-    /// Interaktionslogik für CSVImport.xaml
+    /// Interaktionslogik für Import1.xaml
     /// </summary>
-    public partial class ImportSchritt1 : Window
+    public partial class Import1 : Page
     {
-        private DraggableItem _draggedItem;
-        private MainViewModel _mvmodel;
-        private ImportModel _imodel;
+        private DraggableItem? _draggedItem;
+        private ImportModel? _imodel;
 
 
-        public ImportSchritt1(string pfad)
+        public Import1()
         {
-            _mvmodel = FindResource("mvmodel") as MainViewModel;
-            _imodel = FindResource("imodel") as ImportModel;
+            _imodel = FindResource("imodel") as ImportModel ?? new ImportModel();
             InitializeComponent();
 
-            int width = 120;
-            DraggableItem item1 = new DraggableItem { TextContent = "Vorname", Width = width };
-            item1.MouseDown += DraggableItem_MouseDown;
-            DraggableItem item2 = new DraggableItem { TextContent = "Nachname", Width = width };
-            item2.MouseDown += DraggableItem_MouseDown;
-            DraggableItem item3 = new DraggableItem { TextContent = "Geschlecht", Width = width };
-            item3.MouseDown += DraggableItem_MouseDown;
-            DraggableItem item4 = new DraggableItem { TextContent = "Geburtsjahrgang", Width = width };
-            item4.MouseDown += DraggableItem_MouseDown;
-            DraggableItem item5 = new DraggableItem { TextContent = "Klasse", Width = width };
-            item5.MouseDown += DraggableItem_MouseDown;
+            string[] strings = { "Vorname", "Nachname", "Geschlecht", "Geburtsjahrgang", "Klasse" };
+            foreach (string s in strings)
+            {
+                DraggableItem item = new DraggableItem { TextContent = s, Width = 120 };
+                item.MouseDown += DraggableItem_MouseDown;
+                OrderPanel.Children.Add(item);
+            }
 
-            OrderPanel.Children.Add(item1);
-            OrderPanel.Children.Add(item2);
-            OrderPanel.Children.Add(item3);
-            OrderPanel.Children.Add(item4);
-            OrderPanel.Children.Add(item5);
-            
             using (var db = new LaufDBContext())
             {
                 ObservableCollection<Schule> schulen = new(db.Schulen.ToList());
@@ -49,14 +38,17 @@ namespace Klimalauf
 
             try
             {
-                _imodel.CSVListe = new(CSVReader.ReadToList(pfad));
+                _imodel.CSVListe = new(CSVReader.ReadToList(_imodel.Pfad));
             }
-            catch (FileNotFoundException) { MessageBox.Show("Datei wurde nicht gefunden."); this.Close(); }
-            catch (FileLoadException) { MessageBox.Show("Datei konnte nicht geladen werden."); this.Close(); }
-            catch (Exception ex) { MessageBox.Show(ex.Message); this.Close(); }
+            catch (FileNotFoundException) { MessageBox.Show("Datei wurde nicht gefunden."); throw new Exception("Schliessen"); }
+            catch (FileLoadException) { MessageBox.Show("Datei konnte nicht geladen werden."); throw new Exception("Schliessen"); }
+            catch (Exception ex) { MessageBox.Show(ex.Message); throw new Exception("Schliessen"); }
 
-            btnCancel.Click += (s, e) => this.Close();
-
+            btnCancel.Click += (s, e) =>
+            {
+                if (MessageBox.Show("Möchten Sie den Import wirklich abbrechen?", "Abbrechen", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    _imodel.CloseWindow();
+            };
             btnWeiter.Click += (s, e) =>
             {
                 if (_imodel.Schule == null || _imodel.Schule.Name == "Neue Schule" && string.IsNullOrWhiteSpace(tbSchule.Text))
@@ -67,12 +59,10 @@ namespace Klimalauf
 
                 _imodel.Reihenfolge = new();
                 foreach (DraggableItem item in OrderPanel.Children) _imodel.Reihenfolge.Add(item.TextContent);
-                if (_imodel.Schule.Id == 0) _imodel.Schule = new Schule { Name = tbSchule.Text };
+                if (_imodel.Schule.Id == 0) _imodel.Schule = new Schule { Name = _imodel.NeuSchuleName };
 
                 // weiter zur klassenerstellung
-                ImportSchritt2 csvImport2 = new();
-                csvImport2.Show();
-                this.Close();
+                _imodel.ShowImport2();
             };
 
         }
