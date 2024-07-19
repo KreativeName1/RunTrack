@@ -348,7 +348,12 @@ namespace Klimalauf
          {
             using (var db = new LaufDBContext())
             {
-               Benutzer? user = db.Benutzer.FirstOrDefault(b => b.Vorname == FirstNameTextBox.Text && b.Nachname == LastNameTextBox.Text);
+               string firstName = FirstNameTextBox.Text.Trim().ToLower();
+               string lastName = LastNameTextBox.Text.Trim().ToLower();
+
+               Benutzer? user = db.Benutzer
+                   .FirstOrDefault(b => b.Vorname.ToLower() == firstName && b.Nachname.ToLower() == lastName);
+
                if (user != null)
                {
                   // Benutzer gefunden, Passwortfeld anzeigen
@@ -367,6 +372,7 @@ namespace Klimalauf
             }
          }
       }
+
 
       private void UpdatePasswordFieldVisibility()
       {

@@ -148,9 +148,9 @@ namespace Klimalauf
                   this.Close();
                }
                else
+               {
                   MessageBox.Show("Bitte wählen Sie eine Klasse aus!", "Klasse nicht ausgewählt", MessageBoxButton.OK, MessageBoxImage.Warning);
-
-
+               }
             };
 
          }

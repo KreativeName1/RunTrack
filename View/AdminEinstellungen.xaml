@@ -36,12 +36,13 @@
                     </ToolTip>
                 </Label.ToolTip>
             </Label>
+            <Grid x:Name="paswdWDH" HorizontalAlignment="Center" Height="30" Margin="0,176,0,0" VerticalAlignment="Top" Width="275" Visibility="Collapsed">
+                <Label Content="altes Passwort:" HorizontalAlignment="Left" FontSize="14" RenderTransformOrigin="0.529,0.231" FontFamily="72" FontWeight="Bold" Height="26" VerticalAlignment="Center"/>
+                <fc:PasswordBoxPlus x:Name="txtPasswordOld" HorizontalAlignment="Left" EnablePeekButton="True" Foreground="Blue" ForegroundOnSelected="Blue" UnderlineBrushOnSelected="#28713E" CornerRadius="3" Margin="125,0,0,0" Width="150" FontSize="14" Padding="5" Height="30" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswort_LostFocus" PasswordChanged="txtPasswort_PasswordChanged"/>
 
+            </Grid>
 
-            <Label Content="altes Passwort:" HorizontalAlignment="Left" Margin="87,178,0,0" FontSize="14" RenderTransformOrigin="0.529,0.231" FontFamily="72" FontWeight="Bold" Height="26" VerticalAlignment="Top"/>
-            <fc:PasswordBoxPlus x:Name="txtPasswordOld" HorizontalAlignment="Left" EnablePeekButton="True" Foreground="Blue" ForegroundOnSelected="Blue" UnderlineBrushOnSelected="#28713E" CornerRadius="3" Margin="212,176,0,0" Width="150" FontSize="14" Padding="5" Height="30" VerticalAlignment="Top" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswort_LostFocus" PasswordChanged="txtPasswort_PasswordChanged"/>
-
-            <Label Content="neues Passwort:" HorizontalAlignment="Left" Margin="87,223,0,0" FontSize="14" RenderTransformOrigin="0.529,0.231" FontFamily="72" FontWeight="Bold" Height="26" VerticalAlignment="Top"/>
+            <Label Content="neues Passwort:" HorizontalAlignment="Left" Margin="87,219,0,0" FontSize="14" RenderTransformOrigin="0.529,0.231" FontFamily="72" FontWeight="Bold" Height="26" VerticalAlignment="Top"/>
             <fc:PasswordBoxPlus x:Name="txtPasswordNew" HorizontalAlignment="Left" Margin="212,216.77,0,0" EnablePeekButton="True" Foreground="Blue" ForegroundOnSelected="Blue" UnderlineBrushOnSelected="#28713E" CornerRadius="3" Width="150" FontSize="14" Padding="5" Height="30" VerticalAlignment="Top" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswort_LostFocus" PasswordChanged="txtPasswort_PasswordChanged"/>
 
             <Label x:Name="warningPassword" Content="⚠️" FontSize="18" HorizontalAlignment="Left" Margin="362,204,0,0" VerticalAlignment="Top" Foreground="Red" Cursor="Help" Visibility="Collapsed">
