@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Klimalauf.View" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:fc="http://devpelux.github.io/fullcontrols"
         mc:Ignorable="d"
-        Title="VerwaltungRunden" Height="330" Width="320.5" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Closing="Window_Closing">
+        Title="VerwaltungRunden" Height="330" Width="305.5" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Closing="Window_Closing">
     <Grid>
         <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
         <Label x:Name="operationName" Content="Bearbeiten / Hinzufügen" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
@@ -19,14 +19,14 @@
         <Rectangle HorizontalAlignment="Left" Height="18" Margin="208,147,0,0" Stroke="White" VerticalAlignment="Top" Width="2"/>
         <Label Content="Meter" HorizontalAlignment="Left" Margin="204,143,0,0" VerticalAlignment="Top" Width="42"/>
 
-        <Label Content="Zeit zwischen dem gleichen Läufer:" Margin="40,180,0,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Left" Width="285"/>
+        <Label Content="Zeit zwischen gleiche Läufer:" Margin="40,180,0,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Left"/>
         <xctk:IntegerUpDown x:Name="txtDauer" Width="143" ButtonSpinnerLocation="Left" Height="20" Minimum="5" Maximum="9000" Value="5" Watermark="5" HorizontalContentAlignment="Center" Foreground="blue" Margin="45,206,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
         <Rectangle x:Name="rectSek" HorizontalAlignment="Left" Height="20" Margin="188,206,0,0" Stroke="{Binding ElementName=txtDauer, Path=BorderBrush}" VerticalAlignment="Top" Width="57"/>
         <Rectangle HorizontalAlignment="Left" Height="18" Margin="187,207,0,0" Stroke="White" VerticalAlignment="Top" Width="2"/>
         <Label Content="Sekunden" HorizontalAlignment="Left" Margin="183,203,0,0" VerticalAlignment="Top"/>
 
         <StackPanel Orientation="Horizontal" Margin="0,5,5,5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Cursor="">
-            <fc:ButtonPlus x:Name="btnSave" Content="Speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" HorizontalAlignment="Center" Margin="5,5,25,5" VerticalAlignment="Top" Width="100" Height="25" Cursor="Hand" Click="btnSave_Click"/>
+            <fc:ButtonPlus x:Name="btnSave" Content="Speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" HorizontalAlignment="Center" Margin="5,5,5,5" VerticalAlignment="Top" Width="100" Height="25" Cursor="Hand" Click="btnSave_Click"/>
             <fc:ButtonPlus x:Name="btnCancel" Content="Abbrechen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="100" Height="25" Margin="5" Cursor="Hand" Click="btnCancel_Click"/>
         </StackPanel>
     </Grid>
