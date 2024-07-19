@@ -20,7 +20,7 @@
             <TextBlock FontSize="32" x:Name="tbTitel" FontWeight="Bold" Margin="10" HorizontalAlignment="Center" Text="Erfolg!"/>
             <TextBlock x:Name="tbMeldung" FontSize="16" Text="Meldung"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button x:Name="Schliessen" Margin="20" HorizontalAlignment="Center" Content="Schließen" FontSize="16" Width="100" Height="30"/>
+                <Button x:Name="btnSchliessen" Margin="20" HorizontalAlignment="Center" Content="Schließen" FontSize="16" Width="100" Height="30"/>
             </StackPanel>
         </StackPanel>
     </Grid>
