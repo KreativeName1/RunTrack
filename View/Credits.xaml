@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Klimalauf.View"
+        xmlns:local="clr-namespace:Klimalauf.View" xmlns:fc="http://devpelux.github.io/fullcontrols"
         mc:Ignorable="d"
         Icon="pack://application:,,,/Images/iconRunMan.ico"
         Title="Credits" Height="530" Width="600" WindowStartupLocation="CenterScreen">
@@ -43,7 +43,7 @@
 
         </StackPanel>
 
-        <Button Content="Schließen" HorizontalAlignment="Right" Margin="0,0,10,11" VerticalAlignment="Bottom" Height="28" Width="100" Click="Button_Click"/>
+        <fc:ButtonPlus Content="Schließen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Height="28" Width="100" Cursor="Hand" Click="Button_Click"/>
 
     </Grid>
 </Window>
