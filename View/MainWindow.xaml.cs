@@ -44,30 +44,55 @@ namespace Klimalauf
             Nachname = LastNameTextBox.Text,
          };
 
-         // Check if first name and last name are provided
+         // Überprüfen, ob Vorname und Nachname eingegeben wurden
          if (ValidateInputs())
          {
-            // Check admin password
-            _viewModel.Benutzer.Passwort = AdminPasswordBox.Password;
             using (var db = new LaufDBContext())
             {
-               Benutzer? admin = db.Benutzer.FirstOrDefault(b => b.Vorname == _viewModel.Benutzer.Vorname && b.Nachname == _viewModel.Benutzer.Nachname);
-               if (admin != null && BCrypt.Net.BCrypt.Verify(_viewModel.Benutzer.Passwort, admin.Passwort))
+               // Suchen Sie den Benutzer in der Datenbank
+               Benutzer? user = db.Benutzer.FirstOrDefault(b => b.Vorname == _viewModel.Benutzer.Vorname && b.Nachname == _viewModel.Benutzer.Nachname);
+
+               // Wenn der Benutzer nicht gefunden wurde, melden Sie den Benutzer ohne Passwortüberprüfung an
+               if (user == null)
                {
-                  _viewModel.Benutzer.IsAdmin = true;
+                  _viewModel.Benutzer.IsAdmin = false; // Oder true, wenn Sie annehmen möchten, dass der Benutzer Administratorrechte hat
                   Scanner scanner = new Scanner();
                   scanner.Show();
                   this.Close();
                }
                else
                {
-                  // Password does not match, show warning
-                  SetInvalidInputStyle(AdminPasswordBox);
-                  warningPassword.Visibility = Visibility.Visible;
+                  // Wenn der Benutzer existiert, überprüfen Sie das Passwort
+                  _viewModel.Benutzer.Passwort = AdminPasswordBox.Password;
+                  if (string.IsNullOrEmpty(AdminPasswordBox.Password))
+                  {
+                     // Kein Passwort eingegeben, anmelden als normaler Benutzer
+                     _viewModel.Benutzer.IsAdmin = false; // Setzen Sie auf true, falls der Benutzer Administratorrechte haben soll
+                     Scanner scanner = new Scanner();
+                     scanner.Show();
+                     this.Close();
+                  }
+                  else if (BCrypt.Net.BCrypt.Verify(AdminPasswordBox.Password, user.Passwort))
+                  {
+                     // Passwort stimmt überein, anmelden als Administrator
+                     _viewModel.Benutzer.IsAdmin = true;
+                     Scanner scanner = new Scanner();
+                     scanner.Show();
+                     this.Close();
+                  }
+                  else
+                  {
+                     // Passwort stimmt nicht überein, zeigen Sie eine Warnung an
+                     SetInvalidInputStyle(AdminPasswordBox);
+                  }
                }
             }
          }
       }
+
+
+
+
 
       private bool ValidateInputs()
       {
@@ -83,7 +108,8 @@ namespace Klimalauf
             isValid = false;
          }
 
-         if (!ValidatePassword())
+         // Passwortvalidierung nur durchführen, wenn der Benutzer existiert
+         if (gridPasswordLable.Visibility == Visibility.Visible && !ValidatePassword())
          {
             isValid = false;
          }
@@ -91,58 +117,81 @@ namespace Klimalauf
          return isValid;
       }
 
+
       private bool ValidateFirstName()
       {
+         bool isValid = true;
+
          if (string.IsNullOrWhiteSpace(FirstNameTextBox.Text) || FirstNameTextBox.Text == "Max")
          {
             SetInvalidInputStyle(FirstNameTextBox);
-            return false;
+            isValid = false;
          }
          else
          {
             SetValidInputStyle(FirstNameTextBox);
-            return true;
          }
+
+         return isValid;
       }
+
 
       private bool ValidateLastName()
       {
+         bool isValid = true;
+
          if (string.IsNullOrWhiteSpace(LastNameTextBox.Text) || LastNameTextBox.Text == "Mustermann")
          {
             SetInvalidInputStyle(LastNameTextBox);
-            return false;
+            isValid = false;
          }
          else
          {
             SetValidInputStyle(LastNameTextBox);
-            return true;
          }
+
+         return isValid;
       }
+
 
       private bool ValidatePassword()
       {
          bool isValid = true;
 
-         // Passwortfelder leeren, wenn das Passwort leer ist
          if (string.IsNullOrEmpty(AdminPasswordBox.Password))
          {
-            SetInvalidInputStyle(AdminPasswordBox);
-            isValid = false;
-         }
-         else
-         {
+            // Kein Passwort eingegeben, erlauben Sie die Anmeldung als normaler Benutzer, wenn der Benutzer existiert
             using (var db = new LaufDBContext())
             {
-               Benutzer? admin = db.Benutzer.FirstOrDefault(b => b.Vorname == FirstNameTextBox.Text && b.Nachname == LastNameTextBox.Text);
-               if (admin != null && BCrypt.Net.BCrypt.Verify(AdminPasswordBox.Password, admin.Passwort))
+               Benutzer? user = db.Benutzer.FirstOrDefault(b => b.Vorname == FirstNameTextBox.Text && b.Nachname == LastNameTextBox.Text);
+               if (user != null)
                {
                   SetValidInputStyle(AdminPasswordBox);
-                  warningPassword.Visibility = Visibility.Collapsed; // Hide warning only when password is correct
+                  warningPassword.Visibility = Visibility.Collapsed; // Kein Passwort nötig, wenn der Benutzer existiert
                }
                else
                {
                   SetInvalidInputStyle(AdminPasswordBox);
-                  warningPassword.Visibility = Visibility.Visible; // Show warning if password is incorrect
+                  warningPassword.Visibility = Visibility.Visible; // Warnung anzeigen, wenn der Benutzer nicht existiert
+                  isValid = false;
+               }
+            }
+         }
+         else
+         {
+            // Passwort eingegeben, überprüfen Sie das Passwort
+            using (var db = new LaufDBContext())
+            {
+               Benutzer? user = db.Benutzer.FirstOrDefault(b => b.Vorname == FirstNameTextBox.Text && b.Nachname == LastNameTextBox.Text);
+               if (user != null && BCrypt.Net.BCrypt.Verify(AdminPasswordBox.Password, user.Passwort))
+               {
+                  SetValidInputStyle(AdminPasswordBox);
+                  warningPassword.Visibility = Visibility.Collapsed; // Warnung ausblenden, wenn das Passwort korrekt ist
+               }
+               else
+               {
+                  SetInvalidInputStyle(AdminPasswordBox);
+                  warningPassword.Visibility = Visibility.Visible; // Warnung anzeigen, wenn das Passwort falsch ist
                   isValid = false;
                }
             }
@@ -167,10 +216,16 @@ namespace Klimalauf
       {
          textBox.UnderlineBrush = new SolidColorBrush(Colors.Red);
          textBox.UnderlineThickness = new Thickness(0, 0, 0, 2.5);
-         if (textBox.Name == "FirstNameTextBox")
+
+         // Null-Überprüfung hinzufügen
+         if (textBox.Name == "FirstNameTextBox" && warningVorname != null)
+         {
             warningVorname.Visibility = Visibility.Visible;
-         else if (textBox.Name == "LastNameTextBox")
+         }
+         else if (textBox.Name == "LastNameTextBox" && warningNachname != null)
+         {
             warningNachname.Visibility = Visibility.Visible;
+         }
       }
 
       private void SetValidInputStyle(TextBoxPlus textBox)
@@ -178,11 +233,17 @@ namespace Klimalauf
          textBox.UnderlineBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0067c0"));
          textBox.UnderlineThickness = new Thickness(0, 0, 0, 2);
 
-         if (textBox.Name == "FirstNameTextBox")
+         // Null-Überprüfung hinzufügen
+         if (textBox.Name == "FirstNameTextBox" && warningVorname != null)
+         {
             warningVorname.Visibility = Visibility.Collapsed;
-         else if (textBox.Name == "LastNameTextBox")
+         }
+         else if (textBox.Name == "LastNameTextBox" && warningNachname != null)
+         {
             warningNachname.Visibility = Visibility.Collapsed;
+         }
       }
+
 
       private void FirstNameTextBox_GotFocus(object sender, RoutedEventArgs e)
       {
@@ -212,6 +273,8 @@ namespace Klimalauf
          {
             textBox.Text = "";
          }
+
+
          SetValidInputStyle(textBox);
       }
 
@@ -247,36 +310,31 @@ namespace Klimalauf
 
       private void LastNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
       {
-         TextBox textBox = (TextBox)sender;
-         textBox.Background = new SolidColorBrush(Colors.White);
-         textBox.Foreground = new SolidColorBrush(Colors.Blue);
-         UpdateBorderPasswordVisibility();
+         TextBoxPlus textBox = (TextBoxPlus)sender;
+         textBox.ForegroundBrush = new SolidColorBrush(Colors.Blue);
 
-         if (!string.IsNullOrEmpty(textBox.Text))
+
+
+         // Clear the password box and update the border visibility
+         if (AdminPasswordBox != null)
          {
-            if (AdminPasswordBox != null)
-            {
-               AdminPasswordBox.Password = string.Empty;
-               warningPassword.Visibility = Visibility.Collapsed;
-            }
+            AdminPasswordBox.Password = string.Empty;
          }
+         ValidateLastName();
+         UpdateBorderPasswordVisibility();
       }
 
       private void FirstNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
       {
-         TextBox textBox = (TextBox)sender;
-         textBox.Background = new SolidColorBrush(Colors.White);
-         textBox.Foreground = new SolidColorBrush(Colors.Blue);
+         TextBoxPlus textBox = (TextBoxPlus)sender;
+         textBox.ForegroundBrush = new SolidColorBrush(Colors.Blue);
 
-         if (!string.IsNullOrEmpty(textBox.Text))
+         // Clear the password box and update the border visibility
+         if (AdminPasswordBox != null)
          {
-            if (AdminPasswordBox != null)
-            {
-               AdminPasswordBox.Password = string.Empty;
-               warningPassword.Visibility = Visibility.Collapsed;
-            }
+            AdminPasswordBox.Password = string.Empty;
          }
-
+         ValidateFirstName();
          UpdateBorderPasswordVisibility();
       }
 
@@ -286,7 +344,33 @@ namespace Klimalauf
          {
             using (var db = new LaufDBContext())
             {
-               Benutzer user = db.Benutzer.FirstOrDefault(b => b.Vorname == FirstNameTextBox.Text && b.Nachname == LastNameTextBox.Text);
+               Benutzer? user = db.Benutzer.FirstOrDefault(b => b.Vorname == FirstNameTextBox.Text && b.Nachname == LastNameTextBox.Text);
+               if (user != null)
+               {
+                  // Benutzer gefunden, Passwortfeld anzeigen
+                  gridPasswordLable.Visibility = Visibility.Visible;
+                  borderPassword.Visibility = Visibility.Visible;
+                  btnLogin.Margin = new Thickness(btnLogin.Margin.Left, 260, btnLogin.Margin.Right, btnLogin.Margin.Bottom);
+               }
+               else
+               {
+                  // Benutzer nicht gefunden, Passwortfeld ausblenden
+                  gridPasswordLable.Visibility = Visibility.Collapsed;
+                  borderPassword.Visibility = Visibility.Collapsed;
+                  warningPassword.Visibility = Visibility.Collapsed;
+                  btnLogin.Margin = new Thickness(btnLogin.Margin.Left, 200, btnLogin.Margin.Right, btnLogin.Margin.Bottom);
+               }
+            }
+         }
+      }
+
+      private void UpdatePasswordFieldVisibility()
+      {
+         if (FirstNameTextBox != null && LastNameTextBox != null && borderPassword != null)
+         {
+            using (var db = new LaufDBContext())
+            {
+               Benutzer? user = db.Benutzer.FirstOrDefault(b => b.Vorname == FirstNameTextBox.Text && b.Nachname == LastNameTextBox.Text);
                if (user != null)
                {
                   gridPasswordLable.Visibility = Visibility.Visible;
@@ -297,11 +381,13 @@ namespace Klimalauf
                {
                   gridPasswordLable.Visibility = Visibility.Collapsed;
                   borderPassword.Visibility = Visibility.Collapsed;
+                  warningPassword.Visibility = Visibility.Collapsed;
                   btnLogin.Margin = new Thickness(btnLogin.Margin.Left, 200, btnLogin.Margin.Right, btnLogin.Margin.Bottom);
                }
             }
          }
       }
+
 
       private void btnCredits_Click(object sender, RoutedEventArgs e)
       {
@@ -345,5 +431,32 @@ namespace Klimalauf
 
          ValidatePassword();
       }
+
+      private void AdminPasswordBox_MouseEnter(object sender, MouseEventArgs e)
+      {
+         PasswordBoxPlus passwordBox = (PasswordBoxPlus)sender;
+
+         // Check if the warningPassword label is visible
+         if (warningPassword.Visibility == Visibility.Visible)
+         {
+            SetInvalidInputStyle(passwordBox);
+         }
+      }
+
+      private void AdminPasswordBox_MouseLeave(object sender, MouseEventArgs e)
+      {
+         PasswordBoxPlus passwordBox = (PasswordBoxPlus)sender;
+
+         // If the password is valid, set the valid input style
+         if (ValidatePassword())
+         {
+            SetValidInputStyle(passwordBox);
+         }
+         else
+         {
+            SetInvalidInputStyle(passwordBox);
+         }
+      }
+
    }
 }

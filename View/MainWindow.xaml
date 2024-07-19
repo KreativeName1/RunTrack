@@ -47,17 +47,17 @@
         <Border x:Name="borderPassword" CornerRadius="5" Visibility="Visible" Background="#FFECECEC" HorizontalAlignment="Center" Height="40" Margin="0,195,0,0" VerticalAlignment="Top" Width="270">
             <Grid x:Name="gridPassword" Background="Transparent">
                 <Label x:Name="lblPasswort" Content="Admin Passwort:" VerticalContentAlignment="Center" HorizontalAlignment="Left" FontSize="13" FontFamily="72 Light" VerticalAlignment="Center" Margin="1,0,0,0"/>
-                <fc:PasswordBoxPlus x:Name="AdminPasswordBox" ForegroundOnSelected="Blue" Foreground="Blue" UnderlineBrushOnSelected="#28713E" EnablePeekButton="True" CornerRadius="3" HorizontalAlignment="Right" Margin="0,0,5,0" Width="150" FontSize="13" Padding="5" Height="30" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswort_LostFocus" PasswordChanged="txtPasswort_PasswordChanged"/>
+                <fc:PasswordBoxPlus x:Name="AdminPasswordBox" ForegroundOnSelected="Blue" Foreground="Blue" UnderlineBrushOnSelected="#28713E" EnablePeekButton="True" CornerRadius="3" HorizontalAlignment="Right" Margin="0,0,5,0" Width="150" FontSize="13" Padding="5" Height="30" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswort_LostFocus" PasswordChanged="txtPasswort_PasswordChanged" MouseEnter="AdminPasswordBox_MouseEnter" MouseLeave="AdminPasswordBox_MouseLeave" Cursor=""/>
 
             </Grid>
         </Border>
         <Label x:Name="warningPassword" Content="⚠️" FontSize="18" HorizontalAlignment="Right" Margin="0,198,55,0" VerticalAlignment="Top" Foreground="Red" Cursor="Help" Visibility="Collapsed">
             <Label.ToolTip>
-                <ToolTip>
-                    Die Passwörter stimmt nicht überein!
+                <ToolTip Cursor="">
+                    Das Passwort ist inkorrekt!
                 </ToolTip>
             </Label.ToolTip>
         </Label>
-        <fc:ButtonPlus x:Name="btnLogin" Content="Einloggen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" HorizontalAlignment="Center" Margin="0,200,0,0" VerticalAlignment="Top" Width="250" Cursor="Hand" FontSize="15" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Click="LoginButton_Click" Height="35"/>
+        <fc:ButtonPlus x:Name="btnLogin" Content="Einloggen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" HorizontalAlignment="Center" Margin="0,200,0,0" VerticalAlignment="Top" Width="250" Cursor="Hand" FontSize="15" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Click="LoginButton_Click" Height="35" />
     </Grid>
 </Window>
