@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Klimalauf.View" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:Klimalauf.View" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:fc="http://devpelux.github.io/fullcontrols"
         mc:Ignorable="d"
-        Title="VerwaltungRunden" Height="345" Width="320.5" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Closing="Window_Closing">
+        Title="VerwaltungRunden" Height="330" Width="320.5" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Closing="Window_Closing">
     <Grid>
         <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
         <Label x:Name="operationName" Content="Bearbeiten / Hinzufügen" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
@@ -25,9 +25,9 @@
         <Rectangle HorizontalAlignment="Left" Height="18" Margin="187,207,0,0" Stroke="White" VerticalAlignment="Top" Width="2"/>
         <Label Content="Sekunden" HorizontalAlignment="Left" Margin="183,203,0,0" VerticalAlignment="Top"/>
 
-        <StackPanel Orientation="Horizontal" Margin="0,5,10,10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-            <Button Content="Speichern" x:Name="btnSave" HorizontalAlignment="Center" Margin="5,5,10,5" VerticalAlignment="Top" Width="100" Height="25" Cursor="Hand" Click="btnSave_Click"/>
-            <Button x:Name="btnCancel" Content="Abbrechen" Click="btnCancel_Click" Width="100" Height="25" Margin="5" Cursor="Hand" />
+        <StackPanel Orientation="Horizontal" Margin="0,5,5,5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Cursor="">
+            <fc:ButtonPlus x:Name="btnSave" Content="Speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" HorizontalAlignment="Center" Margin="5,5,25,5" VerticalAlignment="Top" Width="100" Height="25" Cursor="Hand" Click="btnSave_Click"/>
+            <fc:ButtonPlus x:Name="btnCancel" Content="Abbrechen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="100" Height="25" Margin="5" Cursor="Hand" Click="btnCancel_Click"/>
         </StackPanel>
     </Grid>
 </Window>
