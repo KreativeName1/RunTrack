@@ -4,16 +4,16 @@ namespace Klimalauf
 {
    public class PDFEditorModel : BaseModel
    {
-      private Format _format;
+      private Format? _format;
 
-      private Klasse _klasse;
-      private ObservableCollection<Schueler> _schueler;
+      private Klasse? _klasse;
+      private ObservableCollection<Schueler>? _schueler;
 
         private bool _neueSeiteProSchueler = true;
 
-        private ObservableCollection<object> _liste;
+        private ObservableCollection<object>? _liste;
 
-      public Format Format
+      public Format? Format
       {
          get { return _format; }
          set
@@ -25,7 +25,7 @@ namespace Klimalauf
 
         
 
-      public Klasse Klasse
+      public Klasse? Klasse
       {
          get { return _klasse; }
          set
@@ -34,7 +34,7 @@ namespace Klimalauf
             OnPropertyChanged("Klasse");
          }
       }
-      public ObservableCollection<Schueler> Schueler
+      public ObservableCollection<Schueler>? Schueler
       {
          get { return _schueler; }
          set
@@ -44,7 +44,7 @@ namespace Klimalauf
          }
       }
 
-        public ObservableCollection<object> Liste
+        public ObservableCollection<object>? Liste
         {
             get { return _liste; }
             set

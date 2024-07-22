@@ -16,7 +16,7 @@ namespace Klimalauf
         public Dateiverwaltung()
         {
             InitializeComponent();
-            _mvmodel = FindResource("mvmodel") as MainViewModel;
+            _mvmodel = FindResource("mvmodel") as MainViewModel ?? new MainViewModel();
 
 
         }

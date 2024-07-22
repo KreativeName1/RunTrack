@@ -3,9 +3,9 @@
    public class Klasse
    {
       public int Id { get; set; }
-      public string Name { get; set; }
+      public string Name { get; set; } = string.Empty;
       public Schule Schule { get; set; }
-      public int SchuleId { get; set; }
+        public int SchuleId { get; set; }
 
       public virtual List<Schueler> Schueler { get; set; }
 

@@ -5,7 +5,7 @@ namespace Klimalauf
 {
     public class BaseModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged(String propertyName)
         {
             if (this.PropertyChanged != null)
@@ -13,11 +13,11 @@ namespace Klimalauf
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string? propertyName = null)
         {
             if (EqualityComparer<T>.Default.Equals(storage, value)) return false;
             storage = value;
-            OnPropertyChanged(propertyName);
+            OnPropertyChanged(propertyName ?? "");
             return true;
         }
     }

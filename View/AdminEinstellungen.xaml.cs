@@ -11,10 +11,10 @@ namespace Klimalauf.View
     /// </summary>
     public partial class AdminEinstellungen : Window
     {
-        private DialogMode mode;
+        private DialogMode mode = DialogMode.Neu;
 
-        private string firstName;
-        private string lastName;
+        private string firstName = string.Empty;
+        private string lastName = string.Empty;
 
         public AdminEinstellungen()
         {

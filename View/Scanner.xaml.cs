@@ -10,9 +10,9 @@ namespace Klimalauf
 {
     public partial class Scanner : Window
     {
-        private MainViewModel _mvmodel;
+        private MainViewModel? _mvmodel;
         private StringBuilder barcodeInput = new StringBuilder();
-        private DispatcherTimer timer;
+        private DispatcherTimer timer = new DispatcherTimer();
         private DateTime lastKeystroke = DateTime.Now;
         private const int scannerInputThreshold = 50;
 
@@ -29,13 +29,16 @@ namespace Klimalauf
                 }
             };
             DataContext = this;
+            this._mvmodel = FindResource("mvmodel") as MainViewModel ?? new MainViewModel();
 
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(5);
             timer.Tick += Timer_Tick;
+
+            AddScannedData(1);
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object? sender, EventArgs e)
         {
             HideStatusBoxes();
             timer.Stop();
@@ -43,7 +46,7 @@ namespace Klimalauf
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            this._mvmodel = FindResource("mvmodel") as MainViewModel;
+            if (_mvmodel == null) return;
             if (_mvmodel.Benutzer.IsAdmin)
             {
                 this.borderAdmin.Visibility = Visibility.Visible;
@@ -95,16 +98,17 @@ namespace Klimalauf
         }
         private void AddScannedData(int id)
         {
+            if (_mvmodel == null) return;
             using (var db = new LaufDBContext())
             {
-                Schueler schueler = db.Schueler.FirstOrDefault(s => s.Id == id);
+                Schueler? schueler = db.Schueler.FirstOrDefault(s => s.Id == id);
 
                 bool isSchuelerAlreadyScanned = false;
                 int IntervalInSekunden = 0;
                 if (schueler != null)
                 {
-                    Klasse klasse = db.Klassen.FirstOrDefault(k => k.Schueler.Contains(schueler));
-                    RundenArt rundenArt = db.RundenArten.Find(klasse.RundenArtId);
+                    Klasse? klasse = db.Klassen.FirstOrDefault(k => k.Schueler.Contains(schueler)) ?? new Klasse();
+                    RundenArt? rundenArt = db.RundenArten.Find(klasse.RundenArtId) ?? new RundenArt();
                     List<Runde> runden = db.Runden.Where(r => r.SchuelerId == schueler.Id).ToList();
                     IntervalInSekunden = rundenArt.MaxScanIntervalInSekunden;
 
@@ -134,7 +138,7 @@ namespace Klimalauf
                     this.BoxFalse.Visibility = Visibility.Visible;
 
                     // Start fade-in animation for BoxFalse
-                    Storyboard sb = FindResource("ShowBoxFalse") as Storyboard;
+                    Storyboard sb = FindResource("ShowBoxFalse") as Storyboard ?? new Storyboard();
                     sb.Begin(BoxFalse);
 
                     StartHideTimer();
@@ -145,7 +149,7 @@ namespace Klimalauf
                     this.BoxTrue.Visibility = Visibility.Visible;
 
                     // Start fade-in animation for BoxTrue
-                    Storyboard sb = FindResource("ShowBoxTrue") as Storyboard;
+                    Storyboard sb = FindResource("ShowBoxTrue") as Storyboard ?? new Storyboard();
                     sb.Begin(BoxTrue);
 
                     Runde runde = new Runde();

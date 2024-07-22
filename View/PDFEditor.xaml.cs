@@ -16,8 +16,8 @@ namespace Klimalauf
         public PDFEditor(Klasse klasse) : base()
         {
             InitializeComponent();
-            _pemodel = FindResource("pemodel") as PDFEditorModel;
-            _mvmodel = FindResource("mvmodel") as MainViewModel;
+            _pemodel = FindResource("pemodel") as PDFEditorModel ?? new PDFEditorModel();
+            _mvmodel = FindResource("mvmodel") as MainViewModel ?? new MainViewModel();
             Reset();
             _pemodel.Klasse = klasse;
             init();
@@ -26,8 +26,8 @@ namespace Klimalauf
         public PDFEditor(List<Schueler> schueler) : base()
         {
             InitializeComponent();
-            _pemodel = FindResource("pemodel") as PDFEditorModel;
-            _mvmodel = FindResource("mvmodel") as MainViewModel;
+            _pemodel = FindResource("pemodel") as PDFEditorModel ?? new PDFEditorModel();
+            _mvmodel = FindResource("mvmodel") as MainViewModel ?? new MainViewModel();
             Reset();
             _pemodel.Schueler = new ObservableCollection<Schueler>(schueler);
 
@@ -42,8 +42,8 @@ namespace Klimalauf
         public PDFEditor(List<object> liste, string wertungArt) : base()
         {
             InitializeComponent();
-            _pemodel = FindResource("pemodel") as PDFEditorModel;
-            _mvmodel = FindResource("mvmodel") as MainViewModel;
+            _pemodel = FindResource("pemodel") as PDFEditorModel ?? new PDFEditorModel();
+            _mvmodel = FindResource("mvmodel") as MainViewModel ?? new MainViewModel();
             Reset();
             _wertungArt = wertungArt;
 
@@ -60,6 +60,7 @@ namespace Klimalauf
 
         public void Reset()
         {
+            if (_pemodel == null) return;
             _pemodel.Liste = null;
             _pemodel.Klasse = null;
             _pemodel.Schueler = null;
@@ -67,6 +68,8 @@ namespace Klimalauf
 
         public void init()
         {
+            if (_pemodel == null) return;
+
             _pemodel.Format = new Format();
 
             using (var db = new LaufDBContext())
@@ -74,7 +77,7 @@ namespace Klimalauf
                 cbFormate.ItemsSource = db.Formate.ToList();
                 cbBlattgroessee.ItemsSource = db.BlattGroessen.ToList();
                 cbBlattgroessee.SelectedItem = _pemodel.Format.BlattGroesse ?? db.BlattGroessen.First(x => x.Name == "A4");
-                _pemodel.Format.BlattGroesse = cbBlattgroessee.SelectedItem as BlattGroesse;
+                _pemodel.Format.BlattGroesse = cbBlattgroessee.SelectedItem as BlattGroesse ?? db.BlattGroessen.First(x => x.Name == "A4");
                 cbTyp.ItemsSource = Enum.GetValues(typeof(SchriftTyp));
                 cbOrientierung.ItemsSource = Enum.GetValues(typeof(Orientierung));
             }
@@ -84,12 +87,13 @@ namespace Klimalauf
 
             this.Loaded += (s, e) =>
             {
+                if (_pemodel == null) return;
                 // Webview mit PDF füllen
                 webView.Source = new Uri("about:blank");
                 string pfad;
                 if (_pemodel.Klasse != null) pfad = PDFGenerator.BarcodesPDF(_pemodel.Klasse, _pemodel.Klasse.Schule.Name, _pemodel.Format);
-                else if (_pemodel.Liste != null) pfad = PDFGenerator.AuswertungListe(_pemodel.Liste.ToList(), _pemodel.Format, _wertungArt);
-                else pfad = PDFGenerator.SchuelerBewertungPDF(new List<Schueler>(_pemodel.Schueler), _pemodel.Format, _pemodel.NeueSeiteProSchueler);
+                else if (_pemodel.Liste != null) pfad = PDFGenerator.AuswertungListe(_pemodel.Liste.ToList(), _pemodel.Format, _wertungArt ?? string.Empty);
+                else pfad = PDFGenerator.SchuelerBewertungPDF(new List<Schueler>(_pemodel.Schueler ?? new()), _pemodel.Format, _pemodel.NeueSeiteProSchueler);
                 webView.Source = new Uri(pfad);
 
                 webView.ZoomFactor = 0.62;
@@ -304,16 +308,18 @@ namespace Klimalauf
 
         private void AktualisierePDF()
         {
+            if (_pemodel == null) return;
             webView.Source = new Uri("about:blank");
             string pfad;
-            if (_pemodel.Klasse != null) pfad = PDFGenerator.BarcodesPDF(_pemodel.Klasse, _pemodel.Klasse.Schule.Name, _pemodel.Format);
-            else if (_pemodel.Liste != null) pfad = PDFGenerator.AuswertungListe(_pemodel.Liste.ToList(), _pemodel.Format, _wertungArt);
-            else pfad = PDFGenerator.SchuelerBewertungPDF(new List<Schueler>(_pemodel.Schueler), _pemodel.Format, _pemodel.NeueSeiteProSchueler);
+            if (_pemodel.Klasse != null) pfad = PDFGenerator.BarcodesPDF(_pemodel.Klasse, _pemodel.Klasse.Schule.Name, _pemodel.Format ?? new());
+            else if (_pemodel.Liste != null) pfad = PDFGenerator.AuswertungListe(_pemodel.Liste.ToList(), _pemodel.Format ?? new(), _wertungArt ?? string.Empty);
+            else pfad = PDFGenerator.SchuelerBewertungPDF(new List<Schueler>(_pemodel.Schueler ?? new()), _pemodel.Format ?? new(), _pemodel.NeueSeiteProSchueler);
             webView.Source = new Uri(pfad);
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
+            if (_mvmodel == null) return;
             _mvmodel.LastWindow.Show();
             this.Close();
         }

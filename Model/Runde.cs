@@ -6,7 +6,7 @@
       public DateTime Zeitstempel { get; set; }
       public Schueler? Schueler { get; set; }
       public int? SchuelerId { get; set; }
-      public string BenutzerName { get; set; }
+      public string? BenutzerName { get; set; }
 
       public Runde()
       {

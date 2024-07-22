@@ -10,7 +10,11 @@
 
       public Benutzer()
       {
-      }
+            Id = 0;
+            Passwort = "";
+            Vorname = "";
+            Nachname = "";
+        }
 
       public string Benutzername
       {

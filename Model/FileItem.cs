@@ -5,10 +5,10 @@ namespace Klimalauf
 {
     public class FileItem : INotifyPropertyChanged
     {
-        private bool _isSelected;
+        private bool _isSelected = false;
 
-        public string FileName { get; set; }
-        public DateTime UploadDate { get; set; }
+        public string? FileName { get; set; }
+        public DateTime? UploadDate { get; set; }
 
         public bool IsSelected
         {
@@ -23,7 +23,7 @@ namespace Klimalauf
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         protected void OnPropertyChanged(string propertyName)
         {

@@ -17,11 +17,12 @@ namespace Klimalauf
     public class PDFGenerator
     {
         public static string Pfad = $"Temp/";
-        public static PdfDocument PDFDokument;
-        public static Document Dokument;
+        public static PdfDocument? PDFDokument;
+        public static Document? Dokument;
         public static string BarcodesPDF(Klasse klasse, string schulename, Format format)
         {
             string datei = DokumentErstellen(format);
+            if (Dokument == null) return "";
             // Schule/Klasse Anzeigen
             if (format.KopfAnzeigen)
             {
@@ -103,7 +104,7 @@ namespace Klimalauf
         public static string SchuelerBewertungPDF(List<Schueler> schuelerListe, Format format, bool NeueSeiteProSchueler)
         {
             string datei = DokumentErstellen(format);
-
+            if (Dokument == null) return string.Empty;
             if (format.SchriftTyp == SchriftTyp.Fett) Dokument.SetBold();
             if (format.SchriftTyp == SchriftTyp.Kursiv) Dokument.SetItalic();
             if (format.SchriftTyp == SchriftTyp.FettKursiv) Dokument.SetBold().SetItalic();
@@ -190,9 +191,9 @@ namespace Klimalauf
 
         public static string AuswertungListe(List<object> liste, Format format, string auswertungArt)
         {
-
-
             string datei = DokumentErstellen(format);
+            if (Dokument == null) return string.Empty;
+
             PropertyInfo[] propertyInfos = liste[0].GetType().GetProperties();
             Table table = new Table(100);
 

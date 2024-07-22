@@ -19,7 +19,7 @@ namespace Klimalauf
 
 
       private ObservableCollection<object> _liste { get; set; } = new ObservableCollection<object>();
-      private object _selectedItem { get; set; } = null;
+      private object? _selectedItem { get; set; } = null;
 
         private int _jahrgang { get; set; } = 2000;
       private ObservableCollection<Schule> _schulen { get; set; } = new ObservableCollection<Schule>();
@@ -129,7 +129,7 @@ namespace Klimalauf
                 OnPropertyChanged("Liste"); }
       }
 
-      public object SelectedItem
+      public object? SelectedItem
       {
          get { return _selectedItem; }
          set { _selectedItem = value; OnPropertyChanged("SelectedItem"); }

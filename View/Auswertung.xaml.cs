@@ -20,8 +20,8 @@ namespace Klimalauf
         {
             if (!System.IO.Directory.Exists("Dateien")) System.IO.Directory.CreateDirectory("Dateien");
             _pfade = System.IO.Directory.GetFiles("Dateien", "*.db");
-            _amodel = FindResource("amodel") as AuswertungModel;
-            _mvmodel = FindResource("mvmodel") as MainViewModel;
+            _amodel = FindResource("amodel") as AuswertungModel ?? new AuswertungModel();
+            _mvmodel = FindResource("mvmodel") as MainViewModel ?? new MainViewModel();
             _amodel.Liste = new ObservableCollection<object>();
 
             InitializeComponent();
@@ -82,12 +82,14 @@ namespace Klimalauf
                     List<Schueler> schuelerList = new List<Schueler>();
                     using (var db = new MergedDBContext(_pfade))
                     {
-                        foreach (object item in Daten.SelectedItems)
+                        foreach (object? item in Daten.SelectedItems)
                         {
-                            int? id = (int)item.GetType().GetProperty("SchuelerId").GetValue(item, null);
+                            if (item == null) continue;
+                            if (item.GetType().GetProperty("SchuelerId") == null) continue;
+                            int? id = (int?)item.GetType().GetProperty("SchuelerId").GetValue(item, null);
                             if (id == null) continue;
 
-                            Schueler schueler = db.Schueler.Include(s => s.Runden).Include(s => s.Klasse).FirstOrDefault(s => s.Id == id);
+                            Schueler? schueler = db.Schueler.Include(s => s.Runden).Include(s => s.Klasse).FirstOrDefault(s => s.Id == id);
                             if (schueler != null)
                             {
                                 schuelerList.Add(schueler);
@@ -249,7 +251,7 @@ namespace Klimalauf
             {
                 if (rb.IsChecked == true)
                 {
-                    rundenArtName = rb.Content.ToString();
+                    rundenArtName = rb.Content.ToString() ?? string.Empty;
                     break;
                 }
             }

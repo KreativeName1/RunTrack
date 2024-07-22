@@ -15,10 +15,10 @@ namespace Klimalauf
       {
          InitializeComponent();
 
-         _viewModel = FindResource("mvmodel") as MainViewModel;
+         _viewModel = FindResource("mvmodel") as MainViewModel ?? new();
 
-         // Prüfen, ob Admin existiert. Wenn nicht, AdminErstellen öffnen
-         using (var db = new LaufDBContext())
+            // Prüfen, ob Admin existiert. Wenn nicht, AdminErstellen öffnen
+            using (var db = new LaufDBContext())
          {
             if (db.Benutzer.Count() == 0)
             {

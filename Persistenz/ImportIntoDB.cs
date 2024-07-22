@@ -28,7 +28,7 @@ namespace Klimalauf
                 // Klassen erstellen
                 foreach (KlasseItem item in _imodel.KlasseItems)
                 {
-                    Klasse klasse = new Klasse { Name = item.Bezeichnung, Schule = _imodel.Schule, RundenArt = db.RundenArten.Find(item.RundenArt.Id ) };
+                    Klasse klasse = new Klasse { Name = item.Bezeichnung, Schule = _imodel.Schule, RundenArt = db.RundenArten.Find(item.RundenArt.Id ) ?? new() };
                     if (klasse.RundenArt == null) throw new ImportException("Rundenart nicht gefunden");
                     db.Klassen.Add(klasse);
                     db.SaveChanges();
@@ -43,7 +43,7 @@ namespace Klimalauf
                         int valueIndex = _imodel.Reihenfolge.IndexOf(property);
                         if (valueIndex >= 0)
                         {
-                            string val = item.GetType().GetProperty("Spalte" + (valueIndex + 1)).GetValue(item).ToString();
+                            string val = item.GetType().GetProperty("Spalte" + (valueIndex + 1)).GetValue(item).ToString() ?? "";
                             switch (property)
                             {
                                 case "Vorname":
