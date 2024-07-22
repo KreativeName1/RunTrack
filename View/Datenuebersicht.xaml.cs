@@ -29,8 +29,9 @@ namespace Klimalauf
         {
             // Barcode erstellen Fenster öffnen
             PDFEditor pdfEditor = new PDFEditor(lstKlasse.SelectedItem as Klasse);
+            this.Hide();
+            _mvmodel.LastWindow = this;
             pdfEditor.Show();
-            this.Close();
         }
 
         public Datenuebersicht()
@@ -277,8 +278,9 @@ namespace Klimalauf
                     if (lstKlasse.SelectedItem != null)
                     {
                         PDFEditor pdfEditor = new PDFEditor(lstKlasse.SelectedItem as Klasse);
+                        _mvmodel.LastWindow = this;
+                        this.Hide();
                         pdfEditor.ShowDialog();
-                        this.Close();
                     }
                     else
                     {
