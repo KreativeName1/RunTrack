@@ -7,7 +7,6 @@ namespace Klimalauf
       private bool _isMaennlich { get; set; } = false;
       private bool _isWeiblich { get; set; } = false;
       private bool _isGesamt { get; set; } = true;
-      private bool _isDivers { get; set; } = false;
 
       private bool _isAnzahl { get; set; } = true;
       private bool _isZeit { get; set; } = false;
@@ -22,15 +21,23 @@ namespace Klimalauf
       private ObservableCollection<object> _liste { get; set; } = new ObservableCollection<object>();
       private object _selectedItem { get; set; } = null;
 
-        private int _jahrgang { get; set; } = 0;
+        private int _jahrgang { get; set; } = 2000;
       private ObservableCollection<Schule> _schulen { get; set; } = new ObservableCollection<Schule>();
       private Schule? _selectedSchule { get; set; } = null;
       private ObservableCollection<Klasse> _klassen { get; set; } = new ObservableCollection<Klasse>();
       private Klasse? _selectedKlasse { get; set; } = null;
 
+        private bool _isLeerListe { get; set; } = false;
+
+        public bool IsLeerListe 
+        {
+            get { return _isLeerListe; }
+            set { _isLeerListe = value; OnPropertyChanged("IsLeerListe"); }
+        }
 
 
-      public bool IsMaennlich
+
+        public bool IsMaennlich
       {
          get { return _isMaennlich; }
          set { _isMaennlich = value; OnPropertyChanged("IsMaennlich"); }
@@ -45,12 +52,6 @@ namespace Klimalauf
          get { return _isGesamt; }
          set { _isGesamt = value; OnPropertyChanged("IsGesamt"); }
       }
-      public bool IsDivers
-      {
-         get { return _isDivers; }
-         set { _isDivers = value; OnPropertyChanged("IsDivers"); }
-      }
-
       public bool IsAnzahl
       {
          get { return _isAnzahl; }
@@ -123,7 +124,9 @@ namespace Klimalauf
       public ObservableCollection<object> Liste
       {
          get { return _liste; }
-         set { _liste = value; OnPropertyChanged("Liste"); }
+         set {
+                _liste = value;
+                OnPropertyChanged("Liste"); }
       }
 
       public object SelectedItem

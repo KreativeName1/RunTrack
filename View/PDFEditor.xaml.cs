@@ -314,8 +314,7 @@ namespace Klimalauf
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            Window window = _mvmodel.LastWindow;
-            window.Show();
+            _mvmodel.LastWindow.Show();
             this.Close();
         }
     }

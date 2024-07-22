@@ -6,9 +6,11 @@
         xmlns:local="clr-namespace:Klimalauf"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:fc="http://devpelux.github.io/fullcontrols"
         mc:Ignorable="d" Icon="pack://application:,,,/Images/iconRunMan.ico"
-        Title="Auswertung" Height="650" Width="900">
+        Title="Auswertung" Height="700" Width="900">
     <Window.Resources>
         <local:ObjectToBoolConverter x:Key="otbcon"/>
+        <local:BoolToVisibilityConverter x:Key="btocon"/>
+        <local:BoolInverterConverter x:Key="boolinvcon"/>
     </Window.Resources>
     <Grid DataContext="{StaticResource amodel}">
         <Grid.ColumnDefinitions>
@@ -37,7 +39,7 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel Grid.Row="0" Margin="0,10,0,0" Orientation="Horizontal">
-                        <RadioButton GroupName="Wer"  Checked="change" x:Name="rbInsgesamt" Content="Insgesamt" IsChecked="{Binding IsInsgesamt}" VerticalAlignment="Center"/>
+                        <fc:RadioButtonPlus GroupName="Wer"  Checked="change" x:Name="rbInsgesamt" Content="Insgesamt" IsChecked="{Binding IsInsgesamt}" VerticalAlignment="Center"/>
                         </StackPanel>
 
                         <Grid Grid.Row="1" Margin="0,10,0,10">
@@ -45,7 +47,7 @@
                                 <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="150"/>
                             </Grid.ColumnDefinitions>
-                        <RadioButton GroupName="Wer"  Checked="change" IsChecked="{Binding IsSchule}" x:Name="rbSchule" Grid.Column="0" Content="Schule" VerticalAlignment="Center"/>
+                        <fc:RadioButtonPlus GroupName="Wer"  Checked="change" IsChecked="{Binding IsSchule}" x:Name="rbSchule" Grid.Column="0" Content="Schule" VerticalAlignment="Center"/>
                             <ComboBox SelectionChanged="SelectionChanged" x:Name="cbSchule" ItemsSource="{Binding Schulen}" SelectedItem="{Binding SelectedSchule}"  HorizontalAlignment="Right" Grid.Column="1" Width="145"  VerticalAlignment="Center"/>
                         </Grid>
 
@@ -54,7 +56,7 @@
                                 <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="150"/>
                             </Grid.ColumnDefinitions>
-                        <RadioButton GroupName="Wer"  Checked="change" IsChecked="{Binding IsKlasse}" x:Name="rbKlasse" Grid.Column="0" Content="Klasse" VerticalAlignment="Center"/>
+                        <fc:RadioButtonPlus GroupName="Wer"  Checked="change" IsChecked="{Binding IsKlasse}" x:Name="rbKlasse" Grid.Column="0" Content="Klasse" VerticalAlignment="Center"/>
                         <ComboBox SelectionChanged="SelectionChanged" x:Name="cbKlasse" ItemsSource="{Binding Klassen}" SelectedItem="{Binding SelectedKlasse}" HorizontalAlignment="Right" Grid.Column="1" Width="145"  Margin="5,0,0,0" VerticalAlignment="Center"/>
                         </Grid>
 
@@ -63,9 +65,9 @@
                                 <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="150"/>
                             </Grid.ColumnDefinitions>
-                        <RadioButton GroupName="Wer"  Checked="change" IsChecked="{Binding IsJahrgang}" Grid.Column="0" Content="Jahrgang" VerticalAlignment="Center"/>
-                            <xctk:IntegerUpDown ValueChanged="iudJahrgang_ValueChanged" HorizontalAlignment="Right" Value="{Binding Jahrgang}" Grid.Column="1" Width="145" x:Name="iudJahrgang" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                        </Grid>
+                        <fc:RadioButtonPlus GroupName="Wer"  Checked="change" IsChecked="{Binding IsJahrgang}" Grid.Column="0" Content="Jahrgang" VerticalAlignment="Center"/>
+                        <xctk:IntegerUpDown ValueChanged="iudJahrgang_ValueChanged" HorizontalAlignment="Right" Value="{Binding Jahrgang}" Grid.Column="1" Width="145" x:Name="iudJahrgang" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                    </Grid>
                     </Grid>
                 </Border>
 
@@ -73,9 +75,9 @@
 
             <Border BorderBrush="Black" BorderThickness="1" Padding="10">
                 <StackPanel>
-                    <RadioButton GroupName="Typ" Name="Anzahl" IsChecked="{Binding IsAnzahl}" Grid.Row="0" Content="Anzahl" VerticalAlignment="Center"  Checked="change" />
-                    <RadioButton GroupName="Typ" Name="Zeit" Grid.Row="1" IsChecked="{Binding IsZeit}" Content="Zeit" VerticalAlignment="Center"  Checked="change"/>
-                    <RadioButton GroupName="Typ" Name="Distanz" Grid.Row="2" IsChecked="{Binding IsDistanz}" Content="Distanz" VerticalAlignment="Center" Checked="change" />
+                    <fc:RadioButtonPlus GroupName="Typ" Name="Anzahl" IsChecked="{Binding IsAnzahl}" Grid.Row="0" Content="Anzahl" VerticalAlignment="Center"  Checked="change" />
+                    <fc:RadioButtonPlus Margin="0,5,0,5" GroupName="Typ" Name="Zeit" Grid.Row="1" IsChecked="{Binding IsZeit}" Content="Zeit" VerticalAlignment="Center"  Checked="change"/>
+                    <fc:RadioButtonPlus GroupName="Typ" Name="Distanz" Grid.Row="2" IsChecked="{Binding IsDistanz}" Content="Distanz" VerticalAlignment="Center" Checked="change" />
                 </StackPanel>
             </Border>
 
@@ -83,10 +85,9 @@
 
             <Border BorderBrush="Black" BorderThickness="1" Padding="10">
                 <StackPanel>
-                    <RadioButton  GroupName="Geschlecht" Name="Gesamt" IsChecked="{Binding IsGesamt}" Content="Gesamt" VerticalAlignment="Center" Checked="change"/>
-                    <RadioButton GroupName="Geschlecht" Name="Maennlich" IsChecked="{Binding IsMaennlich}"  Content="Männlich" VerticalAlignment="Center"  Checked="change"/>
-                    <RadioButton GroupName="Geschlecht" Name="Weiblich" IsChecked="{Binding IsWeiblich}"  Content="Weiblich" VerticalAlignment="Center"  Checked="change"/>
-                    <RadioButton GroupName="Geschlecht" Name="Divers" IsChecked="{Binding IsDivers}"  Content="Divers" VerticalAlignment="Center"  Checked="change"/>
+                    <fc:RadioButtonPlus  GroupName="Geschlecht" Name="Gesamt" IsChecked="{Binding IsGesamt}" Content="Gesamt" VerticalAlignment="Center" Checked="change"/>
+                    <fc:RadioButtonPlus Margin="0,5,0,5" GroupName="Geschlecht" Name="Maennlich" IsChecked="{Binding IsMaennlich}"  Content="Männlich" VerticalAlignment="Center"  Checked="change"/>
+                    <fc:RadioButtonPlus GroupName="Geschlecht" Name="Weiblich" IsChecked="{Binding IsWeiblich}"  Content="Weiblich" VerticalAlignment="Center"  Checked="change"/>
                 </StackPanel>
             </Border>
 
@@ -102,6 +103,9 @@
 
         <DataGrid Grid.Row="1" SelectionMode="Extended"  Grid.Column="1" x:Name="Daten" ItemsSource="{Binding Liste}" SelectedItem="{Binding SelectedItem}" AutoGenerateColumns="True"  >
         </DataGrid>
+        <TextBlock Grid.Row="1" Grid.Column="1" x:Name="tbLeereListe" Visibility="{Binding IsLeerListe, Converter={StaticResource btocon }}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" >
+            Keine Ergebnisse zur Auswahl gefunden
+        </TextBlock>
 
         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2" Grid.ColumnSpan="2" >
             <Grid VerticalAlignment="Center" Margin="10,0,10,0">
@@ -116,7 +120,7 @@
             </StackPanel>
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
                     <fc:ButtonPlus x:Name="btnSchuelerWertung" IsEnabled="{Binding SelectedItem, Converter={StaticResource otbcon}}" Content="Schülerwertung" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="100" Cursor="Hand"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
-                    <fc:ButtonPlus x:Name="btnWertung" Content="Momentane Wertung" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="130" Cursor="Hand"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+                    <fc:ButtonPlus x:Name="btnWertung" IsEnabled="{Binding IsLeerListe, Converter={StaticResource boolinvcon}}" Content="Momentane Wertung" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="130" Cursor="Hand"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35" />
                     <fc:ButtonPlus x:Name="btnDiagramm" Content="Diagramm" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="130" Cursor="Hand"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
                 </StackPanel> 
                 <StackPanel Grid.Column="3" HorizontalAlignment="Right">

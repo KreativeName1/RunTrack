@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using FullControls.Controls;
+using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Windows;
@@ -12,7 +13,7 @@ namespace Klimalauf
     public partial class Auswertung : Window
     {
         private string[] _pfade;
-        private List<RadioButton> _rundenArten = new List<RadioButton>();
+        private List<RadioButtonPlus> _rundenArten = new List<RadioButtonPlus>();
         private AuswertungModel _amodel;
         private MainViewModel _mvmodel;
         public Auswertung()
@@ -95,7 +96,9 @@ namespace Klimalauf
                     }
 
                     // create PDF for all schueler
-                    PDFEditor schuelerWertung = new PDFEditor(schuelerList);
+                    PDFEditor schuelerWertung = new(schuelerList);
+                    this.Hide();
+                    _mvmodel.LastWindow = this;
                     schuelerWertung.Show();
 
                 }
@@ -111,11 +114,12 @@ namespace Klimalauf
                 if (db.RundenArten.Count() == 0) RundenGroesse.Children.Add(new Label { Content = "Keine Rundenarten vorhanden" });
                 else foreach (RundenArt rundenArt in db.RundenArten)
                     {
-                        RadioButton rb = new RadioButton
+                        RadioButtonPlus rb = new RadioButtonPlus
                         {
                             Content = rundenArt.Name,
                             Name = rundenArt.Name.Replace(" ", "_"),
-                            IsChecked = first
+                            IsChecked = first,
+                            Margin = new Thickness(0,0,0,5)
                         };
                         rb.Checked += change;
                         _rundenArten.Add(rb);
@@ -151,8 +155,6 @@ namespace Klimalauf
 
                         if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
-                        if (_amodel.IsDivers && schueler.Geschlecht != Geschlecht.Divers) continue;
-
 
 
                         _amodel.Liste.Add(new { SchuelerId = schueler.Id, Name = schueler.Vorname + " " + schueler.Nachname, Schule = schueler.Klasse.Schule.Name, Klasse = schueler.Klasse.Name, Bewertung = bewertung, Geschlecht = geschlecht });
@@ -170,7 +172,6 @@ namespace Klimalauf
 
                         if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
-                        if (_amodel.IsDivers && schueler.Geschlecht != Geschlecht.Divers) continue;
                         _amodel.Liste.Add(new { SchuelerId = schueler.Id, Name = schueler.Vorname + " " + schueler.Nachname, Klasse = schueler.Klasse.Name, Bewertung = bewertung, Geschlecht = geschlecht });
                     }
                 }
@@ -186,7 +187,6 @@ namespace Klimalauf
 
                         if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
-                        if (_amodel.IsDivers && schueler.Geschlecht != Geschlecht.Divers) continue;
                         _amodel.Liste.Add(new { SchuelerId = schueler.Id, Name = schueler.Vorname + " " + schueler.Nachname, Bewertung = bewertung, Geschlecht = geschlecht });
                     }
                 }
@@ -202,10 +202,19 @@ namespace Klimalauf
 
                         if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
-                        if (_amodel.IsDivers && schueler.Geschlecht != Geschlecht.Divers) continue;
                         _amodel.Liste.Add(new { SchuelerId = schueler.Id, Name = schueler.Vorname + " " + schueler.Nachname, Klasse = schueler.Klasse.Name, Schule = schueler.Klasse.Schule.Name, Bewertung = bewertung, Geschlecht = geschlecht });
                     }
                 }
+            }
+
+            // if list is empty
+            if (_amodel.Liste.Count == 0)
+            {
+                _amodel.IsLeerListe = true;
+            }
+            else
+            {
+                _amodel.IsLeerListe = false;
             }
         }
 
@@ -236,7 +245,7 @@ namespace Klimalauf
         private bool GetRundenArt(Schueler schueler)
         {
             string rundenArtName = "";
-            foreach (RadioButton rb in RundenGroesse.Children)
+            foreach (RadioButtonPlus rb in RundenGroesse.Children)
             {
                 if (rb.IsChecked == true)
                 {
@@ -296,5 +305,6 @@ namespace Klimalauf
             }
             return Bewertung;
         }
+
     }
 }
