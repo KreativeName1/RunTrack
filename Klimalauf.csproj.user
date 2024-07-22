@@ -16,18 +16,6 @@
     <Compile Update="View\Credits.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\ImportFenster.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="View\ImportPages\Import1.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="View\ImportPages\Import2.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="View\ImportPages\Import3.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="View\Dateiverwaltung.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -52,18 +40,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Credits.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\ImportFenster.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\ImportPages\Import1.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\ImportPages\Import2.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\ImportPages\Import3.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Dateiverwaltung.xaml">

@@ -36,6 +36,8 @@ namespace Klimalauf.View
             this.btnAendern.Visibility = Visibility.Visible;
             this.btnErstellen.Visibility = Visibility.Collapsed;
             this.paswdWDH.Visibility = Visibility.Visible;
+            this.txtVorname.IsEnabled = false;
+            this.txtNachname.IsEnabled = false;
             this.btnAendern.Click += (sender, e) =>
             {
                ChangePassword(this.txtPasswordOld.Password, this.txtPasswordNew.Password);
@@ -43,9 +45,10 @@ namespace Klimalauf.View
          }
          else if (mode == DialogMode.Neu)
          {
+            this.txtVorname.IsEnabled = true;
+            this.txtNachname.IsEnabled = true;
             this.btnAendern.Visibility = Visibility.Collapsed;
             this.btnErstellen.Visibility = Visibility.Visible;
-            this.paswdWDH.Visibility = Visibility.Collapsed;
          }
       }
 
