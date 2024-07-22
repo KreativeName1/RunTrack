@@ -3,10 +3,14 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Klimalauf"
+      xmlns:local="clr-namespace:Klimalauf" xmlns:fc="http://devpelux.github.io/fullcontrols"
       mc:Ignorable="d" 
+      Background="White"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Import1">
+    <Page.Resources>
+        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </Page.Resources>
     <Grid DataContext="{StaticResource imodel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -21,21 +25,31 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <!-- Eingabe der Schulname oder auswahl aus ComboBox -->
-            <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,20,0,0">
-                <Label Content="Schulname:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-                <ComboBox x:Name="cmbSchule" ItemsSource="{Binding SchuleListe}" SelectedItem="{Binding Schule}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="200" Height="30" FontSize="14"/>
-                <TextBox x:Name="tbSchule" Text="{Binding NeuSchuleName}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="200" Height="30" FontSize="14"/>
-            </StackPanel>
+            <Border BorderBrush="Black" BorderThickness="1" Margin="0,10,0,10" Grid.Row="0" Width="300">
+            <Grid HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" MinWidth="100"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                <Label Content="Schulname" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+                <ComboBox x:Name="cmbSchule" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding SchuleListe}" SelectedItem="{Binding Schule}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="200" Height="30" FontSize="14"/>
+                <fc:TextBoxPlus Visibility="{Binding IsNeueSchule, Converter={StaticResource BoolToVisibilityConverter}}" x:Name="tbSchule" Grid.Row="1" Grid.Column="1" Text="{Binding NeuSchuleName}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="200" Height="30" FontSize="14"/>
+            </Grid>
+            </Border>
             <Grid  Grid.Row="1">
-                <StackPanel x:Name="OrderPanel" Drop="StackPanel_Drop" AllowDrop="True" Orientation="Horizontal" Height="30">
+                <StackPanel x:Name="OrderPanel" AllowDrop="True" Orientation="Horizontal" Height="30">
                 </StackPanel>
             </Grid>
-            <DataGrid x:Name="CSV_Grid" Grid.Row="2" ItemsSource="{Binding CSVListe}">
+            <DataGrid Loaded="CSV_Grid_Loaded" x:Name="CSV_Grid" Grid.Row="2" ItemsSource="{Binding CSVListe}">
             </DataGrid>
 
             <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,5,10,10" HorizontalAlignment="Right">
-                <Button Content="Weiter" x:Name="btnWeiter" Width="100" Height="25" Margin="5,5,10,5"/>
-                <Button Content="Abbrechen" x:Name="btnCancel" Width="100" Height="25" Margin="5"/>
+                <fc:ButtonPlus x:Name="btnWeiter"  Content="Weiter" Margin="5" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" Cursor="Hand" FontSize="12"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+                <fc:ButtonPlus x:Name="btnCancel"  Content="Abbrechen" Margin="5" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" Cursor="Hand" FontSize="12"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
             </StackPanel>
         </Grid>
     </Grid>

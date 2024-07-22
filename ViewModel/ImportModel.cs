@@ -16,6 +16,14 @@ namespace Klimalauf
 
         private ObservableCollection<string> _reihenfolge = new();
 
+        public bool IsNeueSchule
+        {
+            get
+            {
+                return Schule != null && Schule.Id == 0;
+            }
+        }
+
         private string _pfad;
         public string Pfad
         {
@@ -38,20 +46,20 @@ namespace Klimalauf
                 SetProperty(ref _currentView, value);
             }
         }
-        private Import1 _import1;
-        private Import2 _import2;
-        private Import3 _import3;
+        public Import1 Import1;
+        public Import2 Import2;
+        public Import3 Import3;
         public void ShowImport1()
         {
-            CurrentView = _import1 ??= new Import1();
+            CurrentView = Import1 ??= new Import1();
         }
         public void ShowImport2()
         {
-            CurrentView = _import2 ??= new Import2();
+            CurrentView = Import2 ??= new Import2();
         }
         public void ShowImport3()
         {
-            CurrentView = _import3 ??= new Import3();
+            CurrentView = Import3 ??= new Import3();
         }
         public void CloseWindow()
         {
@@ -117,6 +125,7 @@ namespace Klimalauf
             {
                 _schule = value;
                 OnPropertyChanged("Schule");
+                OnPropertyChanged("isNeueSchule");
             }
         }
 
