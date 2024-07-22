@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Icon="pack://application:,,,/Images/iconRunMan.ico"
         Title="Datenuebersicht" Height="750" Width="1100" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
-    
+    <Window.DataContext>
+        <local:MainViewModel/>
+    </Window.DataContext>
     <Window.Resources>
         <local:WindowHeightConverter x:Key="WindowHeightConverter"/>
     </Window.Resources>
@@ -22,7 +24,7 @@
         </Grid.ColumnDefinitions>
         <local:TopBar Grid.ColumnSpan="2" x:Name="Leiste" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
 
-        <StackPanel Orientation="Vertical" Margin="5,33,10,5" Grid.RowSpan="2">
+        <StackPanel Orientation="Vertical" Margin="5,33,10,0">
             <!--Startseite-->
             <fc:ButtonPlus x:Name="btnStartseite" Cursor="Hand" Content="Startseite" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5,30,5,30" Click="btnStartseite_Click" Visibility="Collapsed"/>
             <fc:ButtonPlus x:Name="btnStartseiteDisabled" BackgroundOnDisabled="#00a082" ForegroundOnDisabled="#F4F8F4" IsEnabled="False" Content="Startseite" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5,30,5,30" Background="#00a082" FontWeight="Bold" Foreground="Wheat"/>
@@ -44,9 +46,17 @@
             <fc:ButtonPlus x:Name="btnRundenDisabled" Content="Runden" BackgroundOnDisabled="#00a082" ForegroundOnDisabled="#F4F8F4" IsEnabled="False" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" Background="#00a082" FontWeight="Bold" Foreground="Wheat" Visibility="Collapsed"/>
         </StackPanel>
 
+        <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" Margin="25,10,10,20" Grid.Column="0" Grid.Row="1">
+            <local:SearchBar x:Name="SearchControl" SearchRequested="SearchControl_SearchRequested" />
+        </StackPanel>
+
+        <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,34,85,-14" Grid.Row="1">
+            <fc:ButtonPlus x:Name="btnNext" Cursor="Hand" Content="→" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="20" Height="20" Margin="5" Click="btnNext_Click"/>
+            <fc:ButtonPlus x:Name="btnPrevious" Cursor="Hand" Content="←" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="20" Height="20" Margin="5" Click="btnPrevious_Click"/>
+        </StackPanel>
 
         <Rectangle x:Name="rectAbtrennnung" HorizontalAlignment="Left" Grid.RowSpan="2" Height="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=ActualHeight, Converter={StaticResource WindowHeightConverter}}" Margin="200,27,0,0" Fill="#FF5F5F5F" Stroke="#FF5F5F5F" VerticalAlignment="Top" Width="5"/>
-        <Rectangle Height="5" Margin="0,0,0,0" Stroke="#FF5F5F5F" Fill="#FF5F5F5F" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1"/>
+        <Rectangle Height="5" Margin="0,0,0,0" Stroke="#FF5F5F5F" Fill="#FF5F5F5F" VerticalAlignment="Top" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Cursor=""/>
 
         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="25,10,10,10" Grid.Row="2">
             <fc:ButtonPlus x:Name="btnDownload" Cursor="Hand" Content="Export" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Click="btnDownload_Click" Width="120" Height="30" Margin="5"/>
