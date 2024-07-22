@@ -69,6 +69,7 @@ namespace Klimalauf
       public DbSet<Schueler> Schueler { get; set; }
       public DbSet<Runde> Runden { get; set; }
       public DbSet<RundenArt> RundenArten { get; set; }
+      public DbSet<Benutzer> Benutzer { get; set; }
 
    }
 }

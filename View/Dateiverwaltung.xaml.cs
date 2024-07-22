@@ -97,8 +97,7 @@ namespace Klimalauf
 
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
-            Scanner adminPanel = new Scanner();
-            adminPanel.Show();
+            _mvmodel.LastWindow.Show();
             this.Close();
         }
 

@@ -311,16 +311,10 @@ namespace Klimalauf
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            Datenuebersicht datenuebersicht = new Datenuebersicht();
-            datenuebersicht.Show();
+            // get window type from _mvmodel.LastWindow (its a window)
+            Window window = _mvmodel.LastWindow;
+            window.Show();
             this.Close();
-
-            datenuebersicht.StartseiteGrid.Visibility = Visibility.Collapsed;
-            datenuebersicht.btnStartseite.Visibility = Visibility.Visible;
-            datenuebersicht.btnStartseiteDisabled.Visibility = Visibility.Collapsed;
-            datenuebersicht.KlasseGrid.Visibility = Visibility.Visible;
-            datenuebersicht.btnKlassen.Visibility = Visibility.Collapsed;
-            datenuebersicht.btnKlassenDisabled.Visibility = Visibility.Visible;
         }
 
     }
