@@ -1,9 +1,8 @@
 ﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace Klimalauf
 {
@@ -12,8 +11,8 @@ namespace Klimalauf
     /// </summary>
     public partial class Import1 : Page
     {
-        private DraggableItem? _draggedItem;
         private ImportModel? _imodel;
+        private int _width = 120;
 
 
         public Import1()
@@ -24,8 +23,7 @@ namespace Klimalauf
             string[] strings = { "Vorname", "Nachname", "Geschlecht", "Geburtsjahrgang", "Klasse" };
             foreach (string s in strings)
             {
-                DraggableItem item = new DraggableItem { TextContent = s, Width = 120 };
-                item.MouseDown += DraggableItem_MouseDown;
+                DraggableItem item = new DraggableItem { TextContent = s, Width = _width };
                 OrderPanel.Children.Add(item);
             }
 
@@ -62,47 +60,18 @@ namespace Klimalauf
                 if (_imodel.Schule.Id == 0) _imodel.Schule = new Schule { Name = _imodel.NeuSchuleName };
 
                 // weiter zur klassenerstellung
+                _imodel.Import2 = new();
                 _imodel.ShowImport2();
             };
 
         }
 
-        private void DraggableItem_MouseDown(object sender, MouseButtonEventArgs e)
+        private void CSV_Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            DraggableItem draggableItem = (DraggableItem)sender;
-            DragDrop.DoDragDrop(draggableItem, draggableItem.Content, DragDropEffects.Move);
-            _draggedItem = draggableItem;
-        }
-
-        private void StackPanel_Drop(object sender, DragEventArgs e)
-        {
-
-            if (_draggedItem != null)
+            foreach (var column in CSV_Grid.Columns)
             {
-                OrderPanel.Children.Remove(_draggedItem);
-                StackPanel panel = (StackPanel)sender;
-                int index = GetCurrentMouseIndex(panel, e.GetPosition(panel));
-                panel.Children.Insert(index, _draggedItem);
+                column.Width = new DataGridLength(_width, DataGridLengthUnitType.Pixel);
             }
-        }
-
-        private int GetCurrentMouseIndex(StackPanel panel, Point point)
-        {
-            double totalWidth = 0;
-            int index = 0;
-            foreach (DraggableItem item in panel.Children)
-            {
-                totalWidth += item.ActualWidth;
-                if (totalWidth > point.X)
-                {
-                    return index;
-                }
-                index++;
-            }
-
-            return panel.Children.Count;
-
-
         }
     }
 }

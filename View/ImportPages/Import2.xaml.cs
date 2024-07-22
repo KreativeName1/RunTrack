@@ -37,7 +37,13 @@ namespace Klimalauf
             {
                 _imodel.ShowImport3();
             };
+            Load();
 
+            
+        }
+
+        public void Load() {
+            _imodel.KlasseItems = new();
             int klasseIndex = _imodel.Reihenfolge.IndexOf("Klasse");
             List<string> klassen = new List<string>();
             foreach (object item in _imodel.CSVListe)

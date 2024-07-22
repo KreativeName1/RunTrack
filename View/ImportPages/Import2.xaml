@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Klimalauf"
+      xmlns:local="clr-namespace:Klimalauf" xmlns:fc="http://devpelux.github.io/fullcontrols"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Import2">
@@ -39,8 +39,8 @@
 
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,5,10,10" HorizontalAlignment="Right">
-            <Button Content="Importieren" x:Name="btnWeiter" Width="100" Height="25" Margin="5,5,10,5"/>
-            <Button Content="Zurück" x:Name="btnBack" Width="100" Height="25" Margin="5"/>
+            <fc:ButtonPlus x:Name="btnWeiter"  Content="Importieren" Margin="5" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" Cursor="Hand" FontSize="12"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+            <fc:ButtonPlus x:Name="btnBack"  Content="Zurück" Margin="5" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" Cursor="Hand" FontSize="12"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
         </StackPanel>
     </Grid>
 </Page>

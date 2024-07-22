@@ -41,7 +41,7 @@
                 <Label Content="altes Passwort:" HorizontalAlignment="Left" FontSize="14" FontFamily="72" FontWeight="Bold" Height="26" VerticalAlignment="Center"/>
                 <fc:PasswordBoxPlus x:Name="txtPasswordOld" HorizontalAlignment="Left" EnablePeekButton="True" Foreground="Blue" ForegroundOnSelected="Blue" UnderlineBrushOnSelected="#28713E" CornerRadius="3" Margin="123,0,0,0" Width="150" FontSize="14" Padding="5" Height="30" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswort_LostFocus" PasswordChanged="txtPasswort_PasswordChanged"/>
             </Grid>
-            
+
             <Grid x:Name="newPasswd" HorizontalAlignment="Left" Height="30" Margin="87,216,0,0" VerticalAlignment="Top" Width="273">
                 <Label Content="neues Passwort:" HorizontalAlignment="Left" FontSize="14" FontFamily="72" FontWeight="Bold" Height="26" VerticalAlignment="Center"/>
                 <fc:PasswordBoxPlus x:Name="txtPasswordNew" HorizontalAlignment="Left" Margin="123,0,0,0" EnablePeekButton="True" Foreground="Blue" ForegroundOnSelected="Blue" UnderlineBrushOnSelected="#28713E" CornerRadius="3" Width="150" FontSize="14" Padding="5" Height="30" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswort_LostFocus" PasswordChanged="txtPasswort_PasswordChanged"/>
@@ -69,8 +69,8 @@
                     <fc:PasswordBoxPlus x:Name="txtPasswordNewWdh" ForegroundOnSelected="Blue" Foreground="Blue" UnderlineBrushOnSelected="#28713E" EnablePeekButton="True" CornerRadius="3" HorizontalAlignment="Left" Margin="125,0,0,0" Width="150" FontSize="11" Padding="5" Height="25" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswortWdh_LostFocus" PasswordChanged="txtPasswortWdh_PasswordChanged" Cursor=""/>
                 </Grid>
             </Border>-->
-            <Border x:Name="borderPasswordWdh" CornerRadius="5" Background="#FFECECEC" HorizontalAlignment="Left" Height="32" Margin="87,256,0,0" VerticalAlignment="Top" Width="276" Visibility="Visible">
-                <Grid x:Name="gridPasswordWdh" Background="Transparent">
+            <Border x:Name="borderPasswordWdh" CornerRadius="5" Background="#FFECECEC" HorizontalAlignment="Left" Height="32" Margin="87,256,0,0" VerticalAlignment="Top" Width="276" Visibility="Collapsed">
+                <Grid x:Name="gridPasswordWdh"  Background="Transparent">
                     <Label x:Name="lblPasswortWdh" Content="Wiederholen:" HorizontalAlignment="Left" FontSize="11" FontFamily="72" Height="20" VerticalAlignment="Center" FontWeight="Bold"/>
                     <fc:PasswordBoxPlus x:Name="txtPasswordNewWdh" ForegroundOnSelected="Blue" Foreground="Blue" UnderlineBrushOnSelected="#28713E" EnablePeekButton="True" CornerRadius="3" HorizontalAlignment="Left" Margin="123,0,0,0" Width="150" FontSize="11" Padding="5" Height="25" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswortWdh_LostFocus" PasswordChanged="txtPasswortWdh_PasswordChanged" Cursor=""/>
                 </Grid>
