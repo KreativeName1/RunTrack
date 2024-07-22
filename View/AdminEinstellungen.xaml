@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Klimalauf.View" xmlns:fc="http://devpelux.github.io/fullcontrols"
         mc:Ignorable="d"
-        Title="AdminEinstellungen" Height="450" Width="460" ResizeMode="NoResize">
+        Title="AdminEinstellungen" Height="450.5" Width="460" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid x:Name="grdStandard">
             <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
@@ -18,7 +18,7 @@
             </Image>
 
             <Label Content="Vorname:" Margin="87,86,0,0" HorizontalAlignment="Left" Width="100" FontSize="14" FontWeight="Bold" Height="28" VerticalAlignment="Top"/>
-            <fc:TextBoxPlus x:Name="txtVorname" ForegroundBrushOnSelected="Blue" UnderlineBrushOnSelected="#28713E" Margin="210,85,0,0" TextWrapping="Wrap" HorizontalAlignment="Left" Width="150" FontSize="14" Padding="5" Text="Max" Height="30" CornerRadius="3" VerticalAlignment="Top" KeyDown="TextBox_KeyDown" TextChanged="txtVorname_TextChanged" GotFocus="txtVorname_GotFocus" LostFocus="txtVorname_LostFocus" Cursor=""/>
+            <fc:TextBoxPlus x:Name="txtVorname" ForegroundBrushOnDisabled="Blue" ForegroundBrushOnSelected="Blue" UnderlineBrushOnSelected="#28713E" Margin="210,85,0,0" TextWrapping="Wrap" HorizontalAlignment="Left" Width="150" FontSize="14" Padding="5" Text="Max" Height="30" CornerRadius="3" VerticalAlignment="Top" KeyDown="TextBox_KeyDown" TextChanged="txtVorname_TextChanged" GotFocus="txtVorname_GotFocus" LostFocus="txtVorname_LostFocus" Cursor=""/>
             <Label x:Name="warningVorname" Content="⚠️" FontSize="18" HorizontalAlignment="Left" Margin="342,83,0,0" VerticalAlignment="Top" Foreground="Red" Cursor="Help" Visibility="Collapsed">
                 <Label.ToolTip>
                     <ToolTip>
@@ -28,7 +28,7 @@
             </Label>
 
             <Label Content="Nachname:" HorizontalAlignment="Left" Margin="87,132,0,0" FontSize="14" RenderTransformOrigin="0.529,0.231" FontFamily="72" FontWeight="Bold" Height="26" VerticalAlignment="Top"/>
-            <fc:TextBoxPlus x:Name="txtNachname" ForegroundBrushOnSelected="Blue" UnderlineBrushOnSelected="#28713E" CornerRadius="3" HorizontalAlignment="Left" Margin="210,130,0,0" TextWrapping="Wrap" Width="150" FontSize="14" Padding="5" Text="Mustermann" Height="30" VerticalAlignment="Top" KeyDown="TextBox_KeyDown" TextChanged="txtNachname_TextChanged" GotFocus="txtNachname_GotFocus" LostFocus="txtNachname_LostFocus" Cursor=""/>
+            <fc:TextBoxPlus x:Name="txtNachname" ForegroundBrushOnDisabled="Blue" ForegroundBrushOnSelected="Blue" UnderlineBrushOnSelected="#28713E" CornerRadius="3" HorizontalAlignment="Left" Margin="210,130,0,0" TextWrapping="Wrap" Width="150" FontSize="14" Padding="5" Text="Mustermann" Height="30" VerticalAlignment="Top" KeyDown="TextBox_KeyDown" TextChanged="txtNachname_TextChanged" GotFocus="txtNachname_GotFocus" LostFocus="txtNachname_LostFocus" Cursor=""/>
             <Label x:Name="warningNachname" Content="⚠️" FontSize="18" HorizontalAlignment="Left" Margin="342,128,0,0" VerticalAlignment="Top" Foreground="Red" Cursor="Help" Visibility="Collapsed">
                 <Label.ToolTip>
                     <ToolTip>
@@ -41,6 +41,11 @@
                 <Label Content="altes Passwort:" HorizontalAlignment="Left" FontSize="14" FontFamily="72" FontWeight="Bold" Height="26" VerticalAlignment="Center"/>
                 <fc:PasswordBoxPlus x:Name="txtPasswordOld" HorizontalAlignment="Left" EnablePeekButton="True" Foreground="Blue" ForegroundOnSelected="Blue" UnderlineBrushOnSelected="#28713E" CornerRadius="3" Margin="123,0,0,0" Width="150" FontSize="14" Padding="5" Height="30" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswort_LostFocus" PasswordChanged="txtPasswort_PasswordChanged"/>
             </Grid>
+            
+            <Grid x:Name="newPasswd" HorizontalAlignment="Left" Height="30" Margin="87,216,0,0" VerticalAlignment="Top" Width="273">
+                <Label Content="neues Passwort:" HorizontalAlignment="Left" FontSize="14" FontFamily="72" FontWeight="Bold" Height="26" VerticalAlignment="Center"/>
+                <fc:PasswordBoxPlus x:Name="txtPasswordNew" HorizontalAlignment="Left" Margin="123,0,0,0" EnablePeekButton="True" Foreground="Blue" ForegroundOnSelected="Blue" UnderlineBrushOnSelected="#28713E" CornerRadius="3" Width="150" FontSize="14" Padding="5" Height="30" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswort_LostFocus" PasswordChanged="txtPasswort_PasswordChanged"/>
+            </Grid>
 
 
             <!--<Grid x:Name="paswdWDH" HorizontalAlignment="Center" Height="30" Margin="0,176,0,0" VerticalAlignment="Top" Width="275" Visibility="Visible">
@@ -48,9 +53,6 @@
                 <fc:PasswordBoxPlus x:Name="txtPasswordOld" HorizontalAlignment="Left" EnablePeekButton="True" Foreground="Blue" ForegroundOnSelected="Blue" UnderlineBrushOnSelected="#28713E" CornerRadius="3" Margin="125,0,0,0" Width="150" FontSize="14" Padding="5" Height="30" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswort_LostFocus" PasswordChanged="txtPasswort_PasswordChanged"/>
 
             </Grid>-->
-
-            <Label Content="neues Passwort:" HorizontalAlignment="Left" Margin="87,219,0,0" FontSize="14" FontFamily="72" FontWeight="Bold" Height="26" VerticalAlignment="Top"/>
-            <fc:PasswordBoxPlus x:Name="txtPasswordNew" HorizontalAlignment="Left" Margin="210,216,0,0" EnablePeekButton="True" Foreground="Blue" ForegroundOnSelected="Blue" UnderlineBrushOnSelected="#28713E" CornerRadius="3" Width="150" FontSize="14" Padding="5" Height="30" VerticalAlignment="Top" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswort_LostFocus" PasswordChanged="txtPasswort_PasswordChanged"/>
 
             <Label x:Name="warningPassword" Content="⚠️" FontSize="18" HorizontalAlignment="Left" Margin="362,204,0,0" VerticalAlignment="Top" Foreground="Red" Cursor="Help" Visibility="Collapsed">
                 <Label.ToolTip>
@@ -75,8 +77,8 @@
             </Border>
 
 
-            <fc:ButtonPlus x:Name="btnErstellen" Content="Erstellen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White"  HorizontalAlignment="Center" Margin="0,300,0,0" CornerRadius="5.5" VerticalAlignment="Top" Width="250" Cursor="Hand" Background="#6C7C98" Foreground="White" FontSize="15" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35" RenderTransformOrigin="0.509,-0.436" Click="btnErstellen_Click"/>
-            <fc:ButtonPlus x:Name="btnAendern" Content="Passwort ändern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White"  HorizontalAlignment="Center" Margin="0,300,0,0" CornerRadius="5.5" VerticalAlignment="Top" Width="250" Cursor="Hand" Background="#6C7C98" Foreground="White" FontSize="15" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35" RenderTransformOrigin="0.509,-0.436" Click="btnErstellen_Click" Visibility="Collapsed"/>
+            <fc:ButtonPlus x:Name="btnErstellen" Content="Erstellen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White"  HorizontalAlignment="Center" Margin="0,320,0,0" CornerRadius="5.5" VerticalAlignment="Top" Width="250" Cursor="Hand" Background="#6C7C98" Foreground="White" FontSize="15" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35" Click="btnErstellen_Click"/>
+            <fc:ButtonPlus x:Name="btnAendern" Content="Passwort ändern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White"  HorizontalAlignment="Center" Margin="0,320,0,0" CornerRadius="5.5" VerticalAlignment="Top" Width="250" Cursor="Hand" Background="#6C7C98" Foreground="White" FontSize="15" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35" Click="btnErstellen_Click" Visibility="Collapsed"/>
 
 
         </Grid>
