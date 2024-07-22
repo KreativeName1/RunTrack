@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace Klimalauf
 {
@@ -8,6 +9,10 @@ namespace Klimalauf
       private ObservableCollection<Runde> _lstRunden = new ObservableCollection<Runde>();
       private ObservableCollection<Runde> _lstLetzteRunde = new ObservableCollection<Runde>();
       private Benutzer _benutzer;
+    private Window _lastWindow;
+
+
+
 
       public Benutzer Benutzer
       {
@@ -140,5 +145,18 @@ namespace Klimalauf
          }
 
       }
-   }
+
+        public Window LastWindow
+        {
+            get
+            {
+                return this._lastWindow;
+            }
+            set
+            {
+                this._lastWindow = value;
+                OnPropertyChanged("LastWindow");
+            }
+        }
+    }
 }

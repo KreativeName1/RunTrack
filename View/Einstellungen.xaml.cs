@@ -323,7 +323,7 @@ namespace Klimalauf
         private void btnAdminAdd_Click(object sender, RoutedEventArgs e)
         {
             // DialogMode + Zusatz noch hinzufügen wie bei AddButton_Click
-            AdminEinstellungen adminEinstellungen = new AdminEinstellungen();
+            AdminEinstellungen adminEinstellungen = new AdminEinstellungen(DialogMode.Neu);
             adminEinstellungen.ShowDialog();
         }
 

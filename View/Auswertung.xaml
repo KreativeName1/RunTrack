@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Klimalauf"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:fc="http://devpelux.github.io/fullcontrols"
         mc:Ignorable="d" Icon="pack://application:,,,/Images/iconRunMan.ico"
         Title="Auswertung" Height="650" Width="900">
     <Window.Resources>
@@ -108,19 +108,19 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="280"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="150"/>
                 </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Orientation="Horizontal">
-                <Button x:Name="btnImport" Content="Importieren" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="100" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
-                <Button x:Name="btnExport" Content="Exportieren" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="100" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+                    <fc:ButtonPlus x:Name="btnImport" Content="Importieren" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="100" Cursor="Hand"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+                    <fc:ButtonPlus x:Name="btnExport" Content="Exportieren" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="100" Cursor="Hand"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
             </StackPanel>
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
-                    <Button x:Name="btnSchuelerWertung" IsEnabled="{Binding SelectedItem, Converter={StaticResource otbcon}}" Content="Schülerwertung" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="100" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
-                    <Button x:Name="btnWertung" Content="Momentane Wertung" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="130" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
-                    <Button x:Name="btnDiagramm" Content="Diagramm" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="130" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
-                </StackPanel>
+                    <fc:ButtonPlus x:Name="btnSchuelerWertung" IsEnabled="{Binding SelectedItem, Converter={StaticResource otbcon}}" Content="Schülerwertung" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="100" Cursor="Hand"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+                    <fc:ButtonPlus x:Name="btnWertung" Content="Momentane Wertung" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="130" Cursor="Hand"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+                    <fc:ButtonPlus x:Name="btnDiagramm" Content="Diagramm" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="130" Cursor="Hand"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+                </StackPanel> 
                 <StackPanel Grid.Column="3" HorizontalAlignment="Right">
-                    <Button x:Name="btnSchliessen" Content="Schließen" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="100" Cursor="Hand" Background="#007ACC" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+                    <fc:ButtonPlus x:Name="btnSchliessen" Content="Schließen" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="140" Cursor="Hand" FontSize="12"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
                 </StackPanel>
             </Grid>
         </Border>

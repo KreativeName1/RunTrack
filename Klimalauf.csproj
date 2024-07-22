@@ -16,6 +16,7 @@
     <None Remove="Images\output.png" />
     <None Remove="Images\RunTrack_transparent.png" />
     <None Remove="MainWindow.xaml~RF6d463b42.TMP" />
+    <None Remove="View\AdminEinstellungen.xaml~RFd832464d.TMP" />
     <None Remove="View\AdminErstellen.xaml.cs~RF9b0defe3.TMP" />
   </ItemGroup>
 

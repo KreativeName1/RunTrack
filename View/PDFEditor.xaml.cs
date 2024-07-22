@@ -1,5 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
+using FullControls.Controls;
 
 namespace Klimalauf
 {
@@ -7,7 +11,6 @@ namespace Klimalauf
     {
         private PDFEditorModel? _pemodel;
         private MainViewModel? _mvmodel;
-        private string? pfad;
         private string? _wertungArt;
 
         public PDFEditor(Klasse klasse) : base()
@@ -19,6 +22,7 @@ namespace Klimalauf
             _pemodel.Klasse = klasse;
             init();
         }
+
         public PDFEditor(List<Schueler> schueler) : base()
         {
             InitializeComponent();
@@ -60,9 +64,9 @@ namespace Klimalauf
             _pemodel.Klasse = null;
             _pemodel.Schueler = null;
         }
+
         public void init()
         {
-
             _pemodel.Format = new Format();
 
             using (var db = new LaufDBContext())
@@ -74,6 +78,7 @@ namespace Klimalauf
                 cbTyp.ItemsSource = Enum.GetValues(typeof(SchriftTyp));
                 cbOrientierung.ItemsSource = Enum.GetValues(typeof(Orientierung));
             }
+
             cbTyp.SelectedIndex = 0;
             cbOrientierung.SelectedIndex = 0;
 
@@ -89,7 +94,6 @@ namespace Klimalauf
 
                 webView.ZoomFactor = 0.62;
             };
-
 
             btnSpeichern.Click += (s, e) =>
             {
@@ -292,7 +296,6 @@ namespace Klimalauf
                 }
             };
 
-
             btnNeuladen.Click += (s, e) =>
             {
                 AktualisierePDF();
@@ -311,17 +314,9 @@ namespace Klimalauf
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            Datenuebersicht datenuebersicht = new Datenuebersicht();
-            datenuebersicht.Show();
+            Window window = _mvmodel.LastWindow;
+            window.Show();
             this.Close();
-
-            datenuebersicht.StartseiteGrid.Visibility = Visibility.Collapsed;
-            datenuebersicht.btnStartseite.Visibility = Visibility.Visible;
-            datenuebersicht.btnStartseiteDisabled.Visibility = Visibility.Collapsed;
-            datenuebersicht.KlasseGrid.Visibility = Visibility.Visible;
-            datenuebersicht.btnKlassen.Visibility = Visibility.Collapsed;
-            datenuebersicht.btnKlassenDisabled.Visibility = Visibility.Visible;
         }
-
     }
 }

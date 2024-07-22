@@ -35,7 +35,7 @@
 
         <Grid Grid.Column="0" Grid.Row="1" Margin="0,2,0,0">
             <wv2:WebView2 x:Name="webView"/>
-            
+
         </Grid>
 
         <StackPanel Margin="20,0,20,0"  Orientation="Vertical" Grid.Column="1" Grid.Row="1">

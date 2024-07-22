@@ -28,6 +28,8 @@ namespace Klimalauf.View
          this.firstName = firstName;
          this.lastName = lastName;
 
+         SetWindowSize();
+
          this.txtVorname.Text = firstName;
          this.txtNachname.Text = lastName;
 
@@ -36,6 +38,9 @@ namespace Klimalauf.View
             this.btnAendern.Visibility = Visibility.Visible;
             this.btnErstellen.Visibility = Visibility.Collapsed;
             this.paswdWDH.Visibility = Visibility.Visible;
+            this.txtVorname.IsEnabled = false;
+            this.txtNachname.IsEnabled = false;
+
             this.btnAendern.Click += (sender, e) =>
             {
                ChangePassword(this.txtPasswordOld.Password, this.txtPasswordNew.Password);
@@ -43,9 +48,27 @@ namespace Klimalauf.View
          }
          else if (mode == DialogMode.Neu)
          {
+            this.txtVorname.IsEnabled = true;
+            this.txtNachname.IsEnabled = true;
             this.btnAendern.Visibility = Visibility.Collapsed;
             this.btnErstellen.Visibility = Visibility.Visible;
-            this.paswdWDH.Visibility = Visibility.Collapsed;
+         }
+      }
+
+      private void SetWindowSize()
+      {
+         if (mode == DialogMode.Bearbeiten)
+         {
+            this.Width = 460;
+            this.Height = 440.5;
+         }
+         else if (mode == DialogMode.Neu)
+         {
+            newPasswd.Margin = new Thickness(87, 176, 0, 0);
+            borderPasswordWdh.Margin = new Thickness(87, 216, 0, 0);
+            btnErstellen.Margin = new Thickness(0, 280, 0, 0);
+            this.Width = 460;
+            this.Height = 400.5;
          }
       }
 
@@ -191,9 +214,6 @@ namespace Klimalauf.View
 
          return isValid;
       }
-
-
-
 
       private void SetInvalidInputStyle(PasswordBoxPlus passwordBox)
       {
