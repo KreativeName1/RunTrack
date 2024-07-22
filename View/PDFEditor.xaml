@@ -48,12 +48,12 @@
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Column="0" Grid.Row="0" Margin="0,5,0,2.5" HorizontalAlignment="Center">
                         <Label Content="Blattgröße" HorizontalAlignment="Center"/>
-                        <ComboBox x:Name="cbBlattgroessee" HorizontalAlignment="Center" Height="23" VerticalAlignment="Top" Width="120" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="blue"/>
+                        <fc:ComboBoxPlus x:Name="cbBlattgroessee" HorizontalAlignment="Center" Height="23" VerticalAlignment="Top" Width="120" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="blue"/>
                     </StackPanel>
 
                     <StackPanel Grid.Row="1" Margin="0,2.5,0,10" HorizontalAlignment="Center">
                         <Label Content="Orientierung" HorizontalAlignment="Center"/>
-                        <ComboBox x:Name="cbOrientierung" HorizontalAlignment="Center" Height="23" Width="120" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="blue"/>
+                        <fc:ComboBoxPlus x:Name="cbOrientierung" HorizontalAlignment="Center" Height="23" Width="120" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="blue"/>
                     </StackPanel>
                 </Grid>
             </Border>
@@ -219,7 +219,7 @@
 
                     <StackPanel Grid.Row="1" Margin="0,2.5,0,5" HorizontalAlignment="Center">
                         <Label Content="Formate" HorizontalAlignment="Center"/>
-                        <ComboBox x:Name="cbFormate" HorizontalAlignment="Center" Height="23" VerticalAlignment="Top" Width="120" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="blue"/>
+                        <fc:ComboBoxPlus x:Name="cbFormate" HorizontalAlignment="Center" Height="23" VerticalAlignment="Top" Width="120" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="blue"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,10">
