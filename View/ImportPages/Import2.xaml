@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Klimalauf" xmlns:fc="http://devpelux.github.io/fullcontrols"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="500" d:DesignWidth="800"
       Title="Import2">
     <Grid  DataContext="{StaticResource imodel}">
         <Grid.RowDefinitions>
@@ -15,32 +15,39 @@
         </Grid.RowDefinitions>
         <local:TopBar x:Name="Leiste" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
 
-        <DataGrid ItemsSource="{Binding KlasseItems}"  Grid.Row="1" x:Name="Klassen_Grid"
-          AutoGenerateColumns="False">
+        <DataGrid ItemsSource="{Binding KlasseItems}" Grid.Row="1" x:Name="Klassen_Grid"
+          AutoGenerateColumns="False" CanUserAddRows="False">
             <DataGrid.Resources>
-
-                <Style TargetType="ComboBox" x:Key="RundenArtenStyle">
-                    <Setter Property="ItemsSource"
-                    Value="{Binding RelativeSource={RelativeSource
-                                FindAncestor, 
-                                AncestorType={x:Type Window}},
-                                Path=DataContext.RundenArten}"/>
-                </Style>
+                <!-- Die ComboBox Styles werden hier nicht mehr benötigt -->
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Bezeichnung" Binding="{Binding Bezeichnung}" Width="200"/>
-
-                <DataGridComboBoxColumn Header="Rundenart" Width="75"
-                                SelectedItemBinding="{Binding RundenArt}"
-                                ElementStyle="{StaticResource RundenArtenStyle}"
-                                EditingElementStyle="{StaticResource RundenArtenStyle}"/>
+                <DataGridTemplateColumn Header="Rundenart" Width="75">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox 
+                        ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.RundenArten}" 
+                        SelectedItem="{Binding RundenArt, Mode=OneWay}" 
+                        IsReadOnly="True" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <ComboBox 
+                        ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.RundenArten}" 
+                        SelectedItem="{Binding RundenArt}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
 
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,5,10,10" HorizontalAlignment="Right">
-            <fc:ButtonPlus x:Name="btnWeiter"  Content="Importieren" Margin="5" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" Cursor="Hand" FontSize="12"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
-            <fc:ButtonPlus x:Name="btnBack"  Content="Zurück" Margin="5" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" Cursor="Hand" FontSize="12"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+            <fc:ButtonPlus x:Name="btnWeiter" Content="Importieren" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Cursor="Hand" FontSize="12" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+            <fc:ButtonPlus x:Name="btnBack" Content="Zurück" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Cursor="Hand" FontSize="12" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
         </StackPanel>
+
+        <!--ToolTip="Verschiebe die Elemente, damit diese mit den Spalten übereinstimmen."-->
     </Grid>
 </Page>
