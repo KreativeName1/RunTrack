@@ -167,7 +167,7 @@ namespace Klimalauf
             // Kein Passwort eingegeben, erlauben Sie die Anmeldung als normaler Benutzer, wenn der Benutzer existiert
             using (var db = new LaufDBContext())
             {
-               Benutzer? user = db.Benutzer.FirstOrDefault(b => b.Vorname == FirstNameTextBox.Text && b.Nachname == LastNameTextBox.Text);
+               Benutzer? user = db.Benutzer.FirstOrDefault(b => b.Vorname == FirstNameTextBox.Text.ToLower() && b.Nachname == LastNameTextBox.Text.ToLower());
                if (user != null)
                {
                   SetValidInputStyle(AdminPasswordBox);
@@ -186,7 +186,7 @@ namespace Klimalauf
             // Passwort eingegeben, überprüfen Sie das Passwort
             using (var db = new LaufDBContext())
             {
-               Benutzer? user = db.Benutzer.FirstOrDefault(b => b.Vorname == FirstNameTextBox.Text && b.Nachname == LastNameTextBox.Text);
+               Benutzer? user = db.Benutzer.FirstOrDefault(b => b.Vorname == FirstNameTextBox.Text.ToLower() && b.Nachname == LastNameTextBox.Text.ToLower());
                if (user != null && BCrypt.Net.BCrypt.Verify(AdminPasswordBox.Password, user.Passwort))
                {
                   SetValidInputStyle(AdminPasswordBox);
