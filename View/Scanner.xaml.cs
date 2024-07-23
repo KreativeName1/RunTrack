@@ -16,7 +16,6 @@ namespace Klimalauf
         private DateTime lastKeystroke = DateTime.Now;
         private const int scannerInputThreshold = 50;
 
-        private bool isClosedByUser = true;
 
 
         public Scanner()
@@ -51,7 +50,6 @@ namespace Klimalauf
                 {
                     Datenuebersicht datenPanel = new Datenuebersicht();
                     datenPanel.Show();
-                    isClosedByUser = false;
                     this.Close();
                 };
 
@@ -59,7 +57,6 @@ namespace Klimalauf
                 {
                     Einstellungen optionsPanel = new Einstellungen();
                     optionsPanel.Show();
-                    isClosedByUser = false;
                     this.Close();
                 };
 
@@ -74,7 +71,6 @@ namespace Klimalauf
                 {
                     Auswertung evaluationPanel = new Auswertung();
                     evaluationPanel.Show();
-                    isClosedByUser = false;
                     this.Close();
                 };
             }

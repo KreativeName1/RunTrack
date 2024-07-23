@@ -78,7 +78,7 @@ namespace Klimalauf
                     if (result == MessageBoxResult.Yes)
                     {
                         if (_mvmodel.LstFiles[i].FileName == null) continue;
-                        File.Delete(Path.Combine("Dateien", _mvmodel.LstFiles[i].FileName));
+                        File.Delete(Path.Combine("Dateien", _mvmodel.LstFiles[i].FileName ?? string.Empty));
                         _mvmodel.LstFiles.RemoveAt(i);
                     }
                 }
