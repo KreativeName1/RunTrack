@@ -86,7 +86,7 @@ namespace Klimalauf
                         {
                             if (item == null) continue;
                             if (item.GetType().GetProperty("SchuelerId") == null) continue;
-                            int? id = (int?)item.GetType().GetProperty("SchuelerId").GetValue(item, null);
+                            int? id = (int?)item.GetType()?.GetProperty("SchuelerId")?.GetValue(item, null);
                             if (id == null) continue;
 
                             Schueler? schueler = db.Schueler.Include(s => s.Runden).Include(s => s.Klasse).FirstOrDefault(s => s.Id == id);

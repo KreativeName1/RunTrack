@@ -20,7 +20,7 @@ namespace Klimalauf
         {
             InitializeComponent();
 
-            _mvmodel = FindResource("mvmodel") as MainViewModel;
+            _mvmodel = FindResource("mvmodel") as MainViewModel ?? new MainViewModel();
 
             DataContext = this;
 
@@ -196,8 +196,8 @@ namespace Klimalauf
 
         private void OptionsButton_Click(object sender, RoutedEventArgs e)
         {
-            Button optionsButton = sender as Button;
-            string rundenartName = optionsButton?.Tag as string;
+            Button? optionsButton = sender as Button;
+            string rundenartName = (string?) optionsButton?.Tag ?? string.Empty;
 
             if (!string.IsNullOrEmpty(rundenartName))
             {
@@ -220,10 +220,10 @@ namespace Klimalauf
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            Button deleteButton = sender as Button;
+            Button? deleteButton = sender as Button;
             if (deleteButton != null)
             {
-                string rundenartName = deleteButton.Tag as string;
+                string? rundenartName = deleteButton.Tag as string;
                 if (!string.IsNullOrEmpty(rundenartName))
                 {
                     DeleteRundenart(rundenartName);

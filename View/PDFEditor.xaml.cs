@@ -320,7 +320,7 @@ namespace Klimalauf
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             if (_mvmodel == null) return;
-            _mvmodel.LastWindow.Show();
+            _mvmodel.LastWindow?.Show();
             this.Close();
         }
     }
