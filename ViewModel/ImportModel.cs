@@ -4,16 +4,15 @@ namespace Klimalauf
 {
     public class ImportModel : BaseModel
     {
-        private ObservableCollection<KlasseItem> _klasseItems = new();
-        private ObservableCollection<RundenArt> _rundenArten = new();
-        private RundenArt _selectedRundenArt = null;
-        private KlasseItem _klasse = null;
-        private Schule _schule = null;
-        private string _neuSchuleName = "";
+        private RundenArt? _selectedRundenArt;
+        private KlasseItem? _klasse;
+        private Schule? _schule;
+        private string? _neuSchuleName;
+
         private ObservableCollection<object> _CSVListe = new();
-
+        private ObservableCollection<RundenArt> _rundenArten = new();
+        private ObservableCollection<KlasseItem> _klasseItems = new();
         private ObservableCollection<Schule> _schuleListe = new();
-
         private ObservableCollection<string> _reihenfolge = new();
 
         public bool IsNeueSchule
@@ -24,8 +23,8 @@ namespace Klimalauf
             }
         }
 
-        private string _pfad;
-        public string Pfad
+        private string? _pfad;
+        public string? Pfad
         {
             get { return _pfad; }
             set
@@ -36,9 +35,9 @@ namespace Klimalauf
         }
 
 
-        private object _currentView;
+        private object? _currentView;
 
-        public object CurrentView
+        public object? CurrentView
         {
             get => _currentView;
             set
@@ -46,9 +45,9 @@ namespace Klimalauf
                 SetProperty(ref _currentView, value);
             }
         }
-        public Import1 Import1;
-        public Import2 Import2;
-        public Import3 Import3;
+        public Import1? Import1;
+        public Import2? Import2;
+        public Import3? Import3;
         public void ShowImport1()
         {
             CurrentView = Import1 ??= new Import1();
@@ -77,7 +76,7 @@ namespace Klimalauf
             }
         }
 
-        public string NeuSchuleName
+        public string? NeuSchuleName
         {
             get { return _neuSchuleName; }
             set
@@ -98,7 +97,7 @@ namespace Klimalauf
         }
 
 
-        public RundenArt SelectedRundenArt
+        public RundenArt? SelectedRundenArt
         {
             get { return _selectedRundenArt; }
             set
@@ -108,7 +107,7 @@ namespace Klimalauf
             }
         }
 
-        public KlasseItem Klasse
+        public KlasseItem? Klasse
         {
             get { return _klasse; }
             set
@@ -118,7 +117,7 @@ namespace Klimalauf
             }
         }
 
-        public Schule Schule
+        public Schule? Schule
         {
             get { return _schule; }
             set
@@ -161,7 +160,7 @@ namespace Klimalauf
     }
     public class KlasseItem
     {
-        public string Bezeichnung { get; set; }
-        public RundenArt RundenArt { get; set; }
+        public string? Bezeichnung { get; set; }
+        public RundenArt? RundenArt { get; set; }
     }
 }

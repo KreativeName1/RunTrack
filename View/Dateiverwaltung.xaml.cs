@@ -77,6 +77,7 @@ namespace Klimalauf
                     MessageBoxResult result = MessageBox.Show($"Willst du die Datei '{_mvmodel.LstFiles[i].FileName}' wirklich löschen?", "Datei Löschen", MessageBoxButton.YesNo);
                     if (result == MessageBoxResult.Yes)
                     {
+                        if (_mvmodel.LstFiles[i].FileName == null) continue;
                         File.Delete(Path.Combine("Dateien", _mvmodel.LstFiles[i].FileName));
                         _mvmodel.LstFiles.RemoveAt(i);
                     }

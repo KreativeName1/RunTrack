@@ -1,23 +1,24 @@
-﻿using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
+﻿using iText.StyledXmlParser.Node;
+using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 using System.Reflection;
 
 namespace Klimalauf
 {
     internal class ImportIntoDB
     {
-        private ImportModel? _imodel;
+        private ImportModel _imodel;
         public ImportIntoDB(ImportModel imodel)
         {
-            _imodel = imodel;
+            _imodel = imodel ?? throw new ImportException("Fehler beim Importieren");
 
-            // falls id 0 ist, mit name neu erstellen
             using (LaufDBContext db = new LaufDBContext())
             {
+
+                if (_imodel.Schule == null) throw new ImportException("Schule nicht gefunden");
                 if (_imodel.Schule.Id == 0)
                 {
-                    Schule schule = new Schule { Name = _imodel.NeuSchuleName };
+                    Schule schule = new Schule { Name = _imodel.NeuSchuleName ?? string.Empty };
                     db.Schulen.Add(schule);
-                    db.SaveChanges();
                     _imodel.Schule = schule;
                 }
                 else
@@ -28,10 +29,12 @@ namespace Klimalauf
                 // Klassen erstellen
                 foreach (KlasseItem item in _imodel.KlasseItems)
                 {
-                    Klasse klasse = new Klasse { Name = item.Bezeichnung, Schule = _imodel.Schule, RundenArt = db.RundenArten.Find(item.RundenArt.Id ) ?? new() };
+                    if (item.Bezeichnung == null && item.RundenArt != null) throw new ImportException("Klassenname darf nicht leer sein");
+                    if (item.RundenArt == null && item.Bezeichnung != null) throw new ImportException("Rundenart darf nicht leer sein");
+                    if (item.Bezeichnung == null && item.RundenArt == null) continue;
+                    Klasse klasse = new Klasse { Name = item.Bezeichnung ?? string.Empty, Schule = _imodel.Schule, RundenArt = db.RundenArten.Find(item.RundenArt?.Id ) ?? new() };
                     if (klasse.RundenArt == null) throw new ImportException("Rundenart nicht gefunden");
                     db.Klassen.Add(klasse);
-                    db.SaveChanges();
                 }
 
                 // Schüler erstellen
@@ -43,30 +46,31 @@ namespace Klimalauf
                         int valueIndex = _imodel.Reihenfolge.IndexOf(property);
                         if (valueIndex >= 0)
                         {
-                            string val = item.GetType().GetProperty("Spalte" + (valueIndex + 1)).GetValue(item).ToString() ?? "";
                             switch (property)
                             {
                                 case "Vorname":
-                                    schueler.Vorname = val;
+                                    schueler.Vorname = item.GetType().GetProperty("Spalte" + (valueIndex + 1))?.GetValue(item)?.ToString() ?? string.Empty;
                                     break;
                                 case "Nachname":
-                                    schueler.Nachname = val;
+                                    schueler.Nachname = item.GetType().GetProperty("Spalte" + (valueIndex + 1))?.GetValue(item)?.ToString() ?? string.Empty;
                                     break;
                                 case "Geschlecht":
-                                    schueler.Geschlecht = val == "M" ? Geschlecht.Maennlich : Geschlecht.Weiblich;
+                                    schueler.Geschlecht = (item.GetType().GetProperty("Spalte" + (valueIndex + 1))?.GetValue(item)?.ToString() ?? "") == "M" ? Geschlecht.Maennlich : Geschlecht.Weiblich;
                                     break;
                                 case "Geburtsjahrgang":
-                                    schueler.Geburtsjahrgang = int.Parse(val);
+                                    schueler.Geburtsjahrgang = int.Parse(item.GetType().GetProperty("Spalte" + (valueIndex + 1))?.GetValue(item)?.ToString() ?? string.Empty);
                                     break;
                                 case "Klasse":
-                                    schueler.Klasse = db.Klassen.First(k => k.Name == val);
+                                    string name = item.GetType().GetProperty("Spalte" + (valueIndex + 1))?.GetValue(item)?.ToString() ?? string.Empty;
+                                    schueler.Klasse = db.Klassen.First(k => k.Name == name);
                                     break;
                             }
                         }
                     }
                     db.Schueler.Add(schueler);
-                    db.SaveChanges();
                 }
+
+                db.SaveChanges();
 
 
             }
