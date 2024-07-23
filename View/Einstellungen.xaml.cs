@@ -188,7 +188,7 @@ namespace Klimalauf
                 }
                 else
                 {
-                    System.Windows.MessageBox.Show("Sie haben das Limit von 6 Rundenarten erreicht!", "Limit erreicht", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    new Popup().Display("Limit erreicht", "Sie haben das Limit von 6 Rundenarten erreicht!", PopupType.Warning, PopupButtons.Ok);
                 }
             }
         }
@@ -212,7 +212,7 @@ namespace Klimalauf
                     }
                     else
                     {
-                        System.Windows.MessageBox.Show($"Rundenart '{rundenartName}' nicht gefunden", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                        new Popup().Display("Fehler", $"Rundenart '{rundenartName}' nicht gefunden", PopupType.Error, PopupButtons.Ok);
                     }
                 }
             }
@@ -233,7 +233,8 @@ namespace Klimalauf
 
         private void DeleteRundenart(string rundenartName)
         {
-            if (System.Windows.MessageBox.Show("Wollen Sie wirklich " + rundenartName + " löschen?", "Löschne", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+           // if (System.Windows.MessageBox.Show("Wollen Sie wirklich " + rundenartName + " löschen?", "Löschne", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+           if (new Popup().Display("Löschen", "Wollen Sie wirklich " + rundenartName + " löschen?", PopupType.Question, PopupButtons.YesNo).Result == true)
             {
                 using (var db = new LaufDBContext())
                 {
@@ -281,11 +282,13 @@ namespace Klimalauf
                     db.SaveChanges();
                 }
 
-                System.Windows.MessageBox.Show("Einstellungen wurden gespeichert", "Einstellungen gespeichert", MessageBoxButton.OK, MessageBoxImage.Information);
+                //System.Windows.MessageBox.Show("Einstellungen wurden gespeichert", "Einstellungen gespeichert", MessageBoxButton.OK, MessageBoxImage.Information);
+                new Popup().Display("Einstellungen gespeichert", "Einstellungen wurden gespeichert", PopupType.Info, PopupButtons.Ok);
             }
             else
             {
-                System.Windows.MessageBox.Show("Keine Änderungen zum Speichern gefunden", "Keine Änderungen", MessageBoxButton.OK, MessageBoxImage.Information);
+                //System.Windows.MessageBox.Show("Keine Änderungen zum Speichern gefunden", "Keine Änderungen", MessageBoxButton.OK, MessageBoxImage.Information);
+                new Popup().Display("Keine Änderungen", "Keine Änderungen zum Speichern gefunden", PopupType.Info, PopupButtons.Ok);
             }
         }
 

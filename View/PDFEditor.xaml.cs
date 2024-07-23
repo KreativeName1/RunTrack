@@ -105,14 +105,16 @@ namespace Klimalauf
                 {
                     if (db.Formate.Any(f => f.Name == _pemodel.Format.Name))
                     {
-                        MessageBoxResult result = MessageBox.Show("Format überschreiben?", "Format existiert bereits", MessageBoxButton.YesNo);
-                        if (result == MessageBoxResult.No) return;
+                        PopupResult result = new Popup().Display("Format existiert bereits", "Möchten Sie das Format überschreiben?", PopupType.Warning, PopupButtons.YesNo);
+                        if (result.Result == false) return;
                         db.Formate.Update(_pemodel.Format);
                     }
                     else
                     {
-                        MessageBoxResult result = MessageBox.Show("Neues Format speichern?", "Format speichern", MessageBoxButton.YesNo);
-                        if (result == MessageBoxResult.No) return;
+                        //MessageBoxResult result = MessageBox.Show("Neues Format speichern?", "Format speichern", MessageBoxButton.YesNo);
+                        //if (result == MessageBoxResult.No) return;
+                        PopupResult result = new Popup().Display("Neues Format speichern?", "Möchten Sie das Format speichern?", PopupType.Question, PopupButtons.YesNo);
+                        if (result.Result == false) return;
                         _pemodel.Format.Id = 0;
                         _pemodel.Format.BlattGroesse = db.BlattGroessen.First(x => x.Name == "A4");
                         _pemodel.Format.BlattGroesseId = _pemodel.Format.BlattGroesse.Id;

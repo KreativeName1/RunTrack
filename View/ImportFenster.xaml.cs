@@ -24,7 +24,7 @@ namespace Klimalauf
         public ImportFenster(string pfad)
         {
             InitializeComponent();
-            _imodel = FindResource("imodel") as ImportModel;
+            _imodel = FindResource("imodel") as ImportModel ?? new ImportModel();
             _imodel.Pfad = pfad;
             DataContext = _imodel;
             _imodel.ShowImport1();

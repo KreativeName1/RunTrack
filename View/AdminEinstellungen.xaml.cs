@@ -83,12 +83,14 @@ namespace Klimalauf.View
                 {
                     admin.Passwort = BCrypt.Net.BCrypt.HashPassword(newPassword);
                     db.SaveChanges();
-                    MessageBox.Show("Das Passwort wurde erfolgreich geändert :)", "Passwortänderung erfolgreich", MessageBoxButton.OK);
+                    //MessageBox.Show("Das Passwort wurde erfolgreich geändert :)", "Passwortänderung erfolgreich", MessageBoxButton.OK);
+                    new Popup().Display("Passwortänderung", "Das Passwort wurde erfolgreich geändert :)", PopupType.Success, PopupButtons.Ok);
                     result = true;
                 }
                 else
                 {
-                    MessageBox.Show("Das alte Passwort ist falsch.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                    //MessageBox.Show("Das alte Passwort ist falsch.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                    new Popup().Display("Fehler", "Das alte Passwort ist falsch.", PopupType.Error, PopupButtons.Ok);
                 }
             }
             return result;
@@ -115,11 +117,13 @@ namespace Klimalauf.View
                         };
                         db.Benutzer.Add(benutzer);
                         db.SaveChanges();
-                        MessageBox.Show("Benutzer erfolgreich erstellt :)", "Erfolg", MessageBoxButton.OK);
+                        //MessageBox.Show("Benutzer erfolgreich erstellt :)", "Erfolg", MessageBoxButton.OK);
+                        new Popup().Display("Erfolg", "Benutzer erfolgreich erstellt :)", PopupType.Success, PopupButtons.Ok);
                     }
                     else
                     {
-                        MessageBox.Show("Ein Benutzer mit diesem Namen existiert bereits.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                        //MessageBox.Show("Ein Benutzer mit diesem Namen existiert bereits.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                        new Popup().Display("Fehler", "Ein Benutzer mit diesem Namen existiert bereits.", PopupType.Error, PopupButtons.Ok);
                     }
                 }
                 this.Close();
