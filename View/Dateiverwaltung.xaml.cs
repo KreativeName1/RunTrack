@@ -57,6 +57,7 @@ namespace Klimalauf
                         {
                             ImportFenster fenster  = new (Path.GetFullPath(destPath));
                             fenster.Show();
+                            _mvmodel.LstFiles = new ObservableCollection<FileItem>(FileItem.AlleLesen());
                         }
                     }
                     else
@@ -73,7 +74,6 @@ namespace Klimalauf
             {
                 if (_mvmodel.LstFiles[i].IsSelected)
                 {
-                    Trace.WriteLine(_mvmodel.LstFiles[i].FileName);
                     MessageBoxResult result = MessageBox.Show($"Willst du die Datei '{_mvmodel.LstFiles[i].FileName}' wirklich löschen?", "Datei Löschen", MessageBoxButton.YesNo);
                     if (result == MessageBoxResult.Yes)
                     {
@@ -98,7 +98,7 @@ namespace Klimalauf
 
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
-            _mvmodel.LastWindow.Show();
+            _mvmodel.LastWindow?.Show();
             this.Close();
         }
 
@@ -109,7 +109,7 @@ namespace Klimalauf
             {
                 if (file.IsSelected)
                 {
-                    string sourcePath = Path.Combine("Dateien", file.FileName);
+                    string sourcePath = Path.Combine("Dateien", file.FileName ?? string.Empty);
                     SaveFileDialog saveFileDialog = new SaveFileDialog
                     {
                         FileName = file.FileName,
@@ -118,7 +118,7 @@ namespace Klimalauf
 
                     if (saveFileDialog.ShowDialog() == true)
                     {
-                        File.Copy(sourcePath, saveFileDialog.FileName, true);
+                        File.Copy(sourcePath, saveFileDialog.FileName ?? string.Empty, true);
                     }
                 }
             }
