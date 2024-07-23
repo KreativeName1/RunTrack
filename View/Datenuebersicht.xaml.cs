@@ -15,6 +15,16 @@ namespace Klimalauf
         private DatenuebersichtModel _dumodel;
         private MainViewModel _mvmodel;
 
+        private List<DataGridRow> foundRows = new List<DataGridRow>();
+        private int currentIndex = -1; // Aktueller Index in der Liste der gefundenen Zeilen
+
+        public static readonly RoutedCommand MyCommand = new RoutedCommand();
+
+        public void CommandExecuted()
+        {
+
+        }
+        
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this._dumodel = FindResource("dumodel") as DatenuebersichtModel;
@@ -22,7 +32,26 @@ namespace Klimalauf
 
             SearchControl.SearchRequested += SearchControl_SearchRequested;
 
+            MyCommand.InputGestures.Add(new KeyGesture(Key.F, ModifierKeys.Control));
+
             LoadData();
+        }
+
+        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchControl.SearchTextBox.Focus();
+            // Keyboard.Focus(SearchControl.SearchTextBox);
+            // FocusManager.SetFocusedElement(this, SearchControl);
+            // SearchControl.BringIntoView();
+        }
+
+        [DebuggerStepThrough]
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter && SearchControl.SearchTextBox.IsFocused)
+            {
+                SearchControl_SearchRequested(sender, SearchControl.SearchTextBox.Text);
+            }
         }
 
         private void LstKlasse_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -39,10 +68,6 @@ namespace Klimalauf
             InitializeComponent();
             DataContext = this;
         }
-
-
-        private List<DataGridRow> foundRows = new List<DataGridRow>();
-        private int currentIndex = -1; // Aktueller Index in der Liste der gefundenen Zeilen
 
         private bool SearchAndHighlight(DataGrid dataGrid, string searchText)
         {
@@ -102,7 +127,7 @@ namespace Klimalauf
 
             // Die ausgewählte Zeile blau markieren
             row.Background = System.Windows.Media.Brushes.Blue;
-            row.Foreground = System.Windows.Media.Brushes.White; // Optional, um den Text lesbar zu machen
+            // row.Foreground = System.Windows.Media.Brushes.White; // Optional, um den Text lesbar zu machen
             row.Focus(); // Setze den Fokus auf die Zeile
             row.IsSelected = true; // Markiere die Zeile als ausgewählt
         }
@@ -154,16 +179,23 @@ namespace Klimalauf
             bool found = false;
 
             // Suche in allen DataGrids
-            found |= SearchAndHighlight(lstStartseite, searchText);
-            found |= SearchAndHighlight(lstSchule, searchText);
-            found |= SearchAndHighlight(lstKlasse, searchText);
-            found |= SearchAndHighlight(lstSchueler, searchText);
-            found |= SearchAndHighlight(lstRunden, searchText);
+            if(StartseiteGrid.Visibility == Visibility.Visible)
+                found |= SearchAndHighlight(lstStartseite, searchText);
+
+            else if(SchuleGrid.Visibility == Visibility.Visible)
+                found |= SearchAndHighlight(lstSchule, searchText);
+
+            else if(KlasseGrid.Visibility == Visibility.Visible)
+                found |= SearchAndHighlight(lstKlasse, searchText);
+
+            else if(SchuelerGrid.Visibility == Visibility.Visible)
+                found |= SearchAndHighlight(lstSchueler, searchText);
+
+            else if(RundenGrid.Visibility == Visibility.Visible)
+                found |= SearchAndHighlight(lstRunden, searchText);
 
             if (!found)
-            {
                 MessageBox.Show("Suchtext nicht gefunden.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
         }
 
 
@@ -505,7 +537,7 @@ namespace Klimalauf
 
         }
 
-
+        
         /*private void btnSpeichern_Click(object sender, RoutedEventArgs e)
         {
             if (btnStartseite.Visibility == Visibility.Collapsed)

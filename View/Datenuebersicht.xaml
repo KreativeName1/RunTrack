@@ -4,15 +4,23 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Klimalauf" xmlns:fc="http://devpelux.github.io/fullcontrols" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:lcmd="clr-namespace:Klimalauf"
         mc:Ignorable="d"
         Icon="pack://application:,,,/Images/iconRunMan.ico"
-        Title="Datenuebersicht" Height="750" Width="1100" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+        Title="Datenuebersicht" Height="750" Width="1100" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" KeyDown="Window_KeyDown">
     <Window.DataContext>
         <local:MainViewModel/>
     </Window.DataContext>
     <Window.Resources>
         <local:WindowHeightConverter x:Key="WindowHeightConverter"/>
     </Window.Resources>
+    
+    <Window.CommandBindings>
+        <CommandBinding
+        Command="{x:Static local:Datenuebersicht.MyCommand}"
+        Executed="CommandBinding_Executed" />
+    </Window.CommandBindings>
+    
     <Grid  DataContext="{StaticResource dumodel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -47,7 +55,7 @@
         </StackPanel>
 
         <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" Margin="25,10,10,20" Grid.Column="0" Grid.Row="1">
-            <local:SearchBar x:Name="SearchControl" SearchRequested="SearchControl_SearchRequested" />
+            <local:SearchBar x:Name="SearchControl" SearchRequested="SearchControl_SearchRequested" Focusable="True"/>
         </StackPanel>
 
         <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,34,85,-14" Grid.Row="1">
