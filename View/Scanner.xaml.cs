@@ -22,12 +22,7 @@ namespace Klimalauf
         public Scanner()
         {
             InitializeComponent();
-            this.Closing += (s, e) => {
-                if (isClosedByUser)
-                {
-                    Application.Current.Shutdown();
-                }
-            };
+          
             DataContext = this;
             this._mvmodel = FindResource("mvmodel") as MainViewModel ?? new MainViewModel();
 
