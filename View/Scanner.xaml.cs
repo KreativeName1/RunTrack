@@ -35,7 +35,6 @@ namespace Klimalauf
             timer.Interval = TimeSpan.FromSeconds(5);
             timer.Tick += Timer_Tick;
 
-            AddScannedData(1);
         }
 
         private void Timer_Tick(object? sender, EventArgs e)
