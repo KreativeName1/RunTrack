@@ -31,7 +31,7 @@
                 <DataGridTextColumn Header="Bezeichnung" Binding="{Binding Bezeichnung}" Width="200"/>
 
                 <DataGridComboBoxColumn Header="Rundenart" Width="75"
-                                SelectedItemBinding="{Binding SelectedRundenArt}"
+                                SelectedItemBinding="{Binding RundenArt}"
                                 ElementStyle="{StaticResource RundenArtenStyle}"
                                 EditingElementStyle="{StaticResource RundenArtenStyle}"/>
             </DataGrid.Columns>

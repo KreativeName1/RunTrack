@@ -88,7 +88,7 @@ namespace Klimalauf
             string file = Pfad + $"{name}.pdf";
             Directory.CreateDirectory(Pfad);
             PDFDokument = new(new PdfWriter(file));
-
+            if (format.BlattGroesse == null) format.BlattGroesse = new BlattGroesse(595f, 842f);
             // Blattgröße und Orientierung setzen
             PageSize pageSize = new(format.BlattGroesse.Breite, format.BlattGroesse.Hoehe);
 
@@ -220,7 +220,7 @@ namespace Klimalauf
                 foreach (PropertyInfo propertyInfo in propertyInfos)
                 {
                     Cell cell = new();
-                    cell.Add(new Paragraph(propertyInfo.GetValue(obj).ToString()).SetFontSize(format.SchriftGroesse));
+                    cell.Add(new Paragraph(propertyInfo?.GetValue(obj)?.ToString()).SetFontSize(format.SchriftGroesse));
                     cell.SetPaddings(0, 5, 0, 5);
                     table.AddCell(cell);
                 }

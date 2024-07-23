@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Klimalauf" xmlns:fc="http://devpelux.github.io/fullcontrols"
       mc:Ignorable="d" 
       Background="White"
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="500" d:DesignWidth="800"
       Title="Import1">
     <Page.Resources>
         <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
@@ -16,7 +16,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <local:TopBar x:Name="Leiste"  HorizontalAlignment="Stretch" VerticalAlignment="Top" />
+        <local:TopBar x:Name="Leiste" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -25,8 +25,8 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <!-- Eingabe der Schulname oder auswahl aus ComboBox -->
-            <Border BorderBrush="Black" BorderThickness="1" Margin="0,10,0,10" Grid.Row="0" Width="300">
-            <Grid HorizontalAlignment="Center">
+            <Border x:Name="brdSchule" BorderBrush="Black" BorderThickness="1" Margin="0,10,0,10" Grid.Row="0" Width="300">
+                <Grid HorizontalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" MinWidth="100"/>
                         <ColumnDefinition Width="Auto"/>
@@ -35,21 +35,22 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                <Label Content="Schulname" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-                <ComboBox x:Name="cmbSchule" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding SchuleListe}" SelectedItem="{Binding Schule}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="200" Height="30" FontSize="14"/>
-                <fc:TextBoxPlus Visibility="{Binding IsNeueSchule, Converter={StaticResource BoolToVisibilityConverter}}" x:Name="tbSchule" Grid.Row="1" Grid.Column="1" Text="{Binding NeuSchuleName}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="200" Height="30" FontSize="14"/>
-            </Grid>
+                    <Label x:Name="lblSchule" Content="Schulname:" Grid.Column="0" HorizontalAlignment="Left" Margin="5,4,0,4" FontSize="14" FontWeight="Bold"/>
+                    <ComboBox x:Name="cmbSchule" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding SchuleListe}" SelectedItem="{Binding Schule}" HorizontalAlignment="Left" Margin="0,5,10,5" VerticalAlignment="Top" Width="200" Height="30" FontSize="14"/>
+                    <fc:TextBoxPlus ForegroundBrushOnSelected="Blue" ForegroundBrush="#2B2C7C" Foreground="#2B2C7C" UnderlineBrushOnSelected="#28713E" Visibility="{Binding IsNeueSchule, Converter={StaticResource BoolToVisibilityConverter}}" x:Name="tbSchule" Grid.Row="1" Grid.Column="1" Text="{Binding NeuSchuleName}" HorizontalAlignment="Left" VerticalContentAlignment="Center" Margin="0,0,10,5" VerticalAlignment="Top" Width="200" Height="30" FontSize="14"/>
+                </Grid>
             </Border>
-            <Grid  Grid.Row="1">
-                <StackPanel x:Name="OrderPanel" AllowDrop="True" Orientation="Horizontal" Height="30">
+            <Grid  Grid.Row="1" Margin="0,10,0,0">
+                <Rectangle x:Name="rectBackground" Margin="17,10,23,0" Cursor="SizeWE" Fill="#6C7C98"></Rectangle>
+                <StackPanel x:Name="OrderPanel" AllowDrop="True" Orientation="Horizontal" Height="30" Margin="17,0,23,0">
                 </StackPanel>
             </Grid>
-            <DataGrid Loaded="CSV_Grid_Loaded" x:Name="CSV_Grid" Grid.Row="2" ItemsSource="{Binding CSVListe}">
+            <DataGrid Loaded="CSV_Grid_Loaded" x:Name="CSV_Grid" Grid.Row="2" ItemsSource="{Binding CSVListe}" HorizontalScrollBarVisibility="Disabled" CanUserReorderColumns="False" Margin="10,0,10,0">
             </DataGrid>
 
-            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,5,10,10" HorizontalAlignment="Right">
-                <fc:ButtonPlus x:Name="btnWeiter"  Content="Weiter" Margin="5" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" Cursor="Hand" FontSize="12"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
-                <fc:ButtonPlus x:Name="btnCancel"  Content="Abbrechen" Margin="5" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" Cursor="Hand" FontSize="12"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,10,10,10" HorizontalAlignment="Right">
+                <fc:ButtonPlus x:Name="btnWeiter" Content="Weiter" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Cursor="Hand" FontSize="12" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+                <fc:ButtonPlus x:Name="btnCancel" Content="Abbrechen" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Cursor="Hand" FontSize="12" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
             </StackPanel>
         </Grid>
     </Grid>

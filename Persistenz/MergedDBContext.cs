@@ -14,10 +14,10 @@ namespace Klimalauf
          // Erst die Daten aus der internen Datenbank laden
          using (var thisDB = new LaufDBContext())
          {
-            RundenArten.AddRange(thisDB.RundenArten.ToList());
-            Schulen.AddRange(thisDB.Schulen.ToList());
-            Klassen.AddRange(thisDB.Klassen.ToList());
-            Schueler.AddRange(thisDB.Schueler.ToList());
+            RundenArten?.AddRange(thisDB.RundenArten.ToList());
+            Schulen?.AddRange(thisDB.Schulen.ToList());
+            Klassen?.AddRange(thisDB.Klassen.ToList());
+            Schueler?.AddRange(thisDB.Schueler.ToList());
             SaveChanges();
          }
 
@@ -29,7 +29,7 @@ namespace Klimalauf
                foreach (var runde in db.Runden)
                {
                   runde.Id = 0;
-                  Runden.Add(runde);
+                  Runden?.Add(runde);
                }
                SaveChanges();
             }

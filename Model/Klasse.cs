@@ -14,7 +14,10 @@
 
       public Klasse()
       {
-      }
+            RundenArt = new RundenArt();
+            Schueler = new List<Schueler>();
+            Schule = new Schule();
+        }
 
       public override string ToString()
       {

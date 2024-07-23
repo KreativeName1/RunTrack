@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
+﻿using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Klimalauf
 {
@@ -24,26 +12,35 @@ namespace Klimalauf
         public Import3()
         {
             InitializeComponent();
-            _imodel = FindResource("imodel") as ImportModel;
+            _imodel = FindResource("imodel") as ImportModel ?? new();
             DataContext = _imodel;
 
-            btnSchliessen.Click += (s, e) => _imodel.CurrentView = null;
+            btnSchliessen.Click += (s, e) =>
+            {
+                if (tbTitel.Text == "Fehler") _imodel.ShowImport2();
+                else _imodel.CloseWindow();
+            };
             try
             {
                 ImportIntoDB importIntoDB = new(_imodel);
                 tbTitel.Text = "Erfolg";
                 tbMeldung.Text = "Import war erfolgreich.";
                 tbTitel.Foreground = Brushes.Green;
+                btnSchliessen.Content = "Schließen";
             }
             catch (ImportException ex)
             {
-                tbMeldung.Text = ex.Message;
                 tbTitel.Foreground = Brushes.Red;
+                tbTitel.Text = "Fehler";
+                tbMeldung.Text = ex.Message;
+                btnSchliessen.Content = "Zurück";
             }
             catch (Exception)
             {
-                tbMeldung.Text = "Ein unerwarteter Fehler ist aufgetreten.";
                 tbTitel.Foreground = Brushes.Red;
+                tbTitel.Text = "Fehler";
+                tbMeldung.Text = "Ein unerwarteter Fehler ist aufgetreten.";
+                btnSchliessen.Content = "Zurück";
             }
         }
     }

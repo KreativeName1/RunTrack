@@ -13,9 +13,6 @@
     <Compile Update="View\Auswertung.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\Controls\SearchBar.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="View\Credits.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -26,6 +23,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\Einstellungen.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Popup.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\Scanner.xaml.cs">
@@ -40,9 +40,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Auswertung.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\Controls\SearchBar.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Credits.xaml">
@@ -61,6 +58,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Popup.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Scanner.xaml">
