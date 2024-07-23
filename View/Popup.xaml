@@ -6,8 +6,51 @@
          Icon="pack://application:,,,/Images/iconRunMan.ico"
         xmlns:local="clr-namespace:Klimalauf"
         mc:Ignorable="d"
-        ResizeMode="NoResize"
-        Title="PopupWindow" Height="200" Width="400">
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Title="PopupWindow" Height="210" Width="400" WindowStyle="None">
+    <Window.Resources>
+        <Storyboard x:Key="FadeInStoryboard">
+            <DoubleAnimation
+                Storyboard.TargetProperty="Opacity"
+                From="0"
+                To="1"
+                Duration="0:0:0.5"
+                BeginTime="0:0:0" />
+        </Storyboard>
+
+        <Storyboard x:Key="ZoomInStoryboard">
+            <DoubleAnimation
+                Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                From="0.8"
+                To="1"
+                Duration="0:0:0.5"
+                BeginTime="0:0:0" />
+            <DoubleAnimation
+                Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                From="0.8"
+                To="1"
+                Duration="0:0:0.5"
+                BeginTime="0:0:0" />
+        </Storyboard>
+
+        <Storyboard x:Key="SlideInStoryboard">
+            <DoubleAnimation
+                Storyboard.TargetProperty="(Canvas.Top)"
+                From="100"
+                To="0"
+                Duration="0:0:0.5"
+                BeginTime="0:0:0" />
+        </Storyboard>
+
+        <Storyboard x:Key="BackgroundColorStoryboard">
+            <ColorAnimation
+                Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                From="#FFFFFF"
+                To="#F0F0F0"
+                Duration="0:0:0.5"
+                BeginTime="0:0:0" />
+        </Storyboard>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -16,16 +59,19 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
+            <Rectangle Grid.ColumnSpan="2" Grid.RowSpan="3" StrokeThickness="2" Stroke="#FFA421"></Rectangle>
         <Grid Grid.ColumnSpan="2">
+
             <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
             <Label Content="Titel" x:Name="tbTitel" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" FontSize="14" Foreground="White" FontWeight="Bold"/>
         </Grid>
-        <Image Grid.Row="1" x:Name="imgIcon" Source="../Images/popupIcons/info.png" Width="50" Height="50" Margin="30,0,0,0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Image Grid.Row="1" Grid.RowSpan="2" x:Name="imgIcon" Source="../Images/popupIcons/info.png" Margin="15,0,10,0" Grid.Column="0" Height="55" VerticalAlignment="Center" />
         <Grid Grid.Column="1" Grid.Row="1"  VerticalAlignment="Stretch" >
-            <TextBlock x:Name="tbMessage" TextWrapping="WrapWithOverflow" Text="Message" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,30,0,0" FontSize="14"/>
-            <StackPanel VerticalAlignment="Bottom" x:Name="spButtons" Margin="20" HorizontalAlignment="Center" Orientation="Horizontal">
-            </StackPanel>
+            <TextBlock x:Name="tbMessage" TextWrapping="WrapWithOverflow" Text="Message" VerticalAlignment="Top" Margin="20,30,20,10" FontSize="14"/>
         </Grid>
+        <StackPanel Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom" Cursor="Hand" x:Name="spButtons" Margin="0,0,0,20" HorizontalAlignment="Center" Orientation="Horizontal">
+        </StackPanel>
     </Grid>
 </Window>

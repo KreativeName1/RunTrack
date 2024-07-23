@@ -17,7 +17,7 @@ namespace Klimalauf
             RundenArten?.AddRange(thisDB.RundenArten.ToList());
             Schulen?.AddRange(thisDB.Schulen.ToList());
             Klassen?.AddRange(thisDB.Klassen.ToList());
-            Schueler?.AddRange(thisDB.Schueler.ToList());
+               Schueler?.AddRange(thisDB.Schueler.ToList());
             SaveChanges();
          }
 
