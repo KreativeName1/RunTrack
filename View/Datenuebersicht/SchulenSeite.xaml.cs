@@ -1,0 +1,78 @@
+﻿using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Controls;
+
+namespace Klimalauf
+{
+    /// <summary>
+    /// Interaktionslogik für Schulen.xaml
+    /// </summary>
+    public partial class SchulenSeite : Page
+    {
+        private DatenuebersichtModel _model;
+        private ObservableCollection<Schule> _removed = new ObservableCollection<Schule>();
+        private ObservableCollection<Schule> _added = new ObservableCollection<Schule>();
+        public SchulenSeite()
+        {
+            InitializeComponent();
+            _model = FindResource("dumodel") as DatenuebersichtModel ?? new DatenuebersichtModel();
+            var entities = new ObservableCollection<Schule>(new LaufDBContext().Schulen);
+            this.lstSchule.ItemsSource = entities;
+            btnNeu.Click += (sender, e) =>
+            {
+                MessageBox.Show("Neu");
+                _added.Add(new Schule());
+                _model.LstSchule.Add(new Schule());
+            };
+
+            btnDel.Click += (sender, e) =>
+            {
+                MessageBox.Show("Del");
+                if (_model.SelSchule != null)
+                {
+                    if (_added.Contains(_model.SelSchule as Schule))
+                    {
+                        _added.Remove(_model.SelSchule as Schule);
+                    }
+                    else
+                    {
+                        _removed.Add(_model.SelSchule as Schule);
+                    }
+                    _model.LstSchule.Remove(_model.SelSchule as Schule);
+
+                }
+            };
+
+            btnSpeichern.Click += (sender, e) =>
+            {
+                MessageBox.Show("Speichern");
+                using (var db = new LaufDBContext())
+                {
+                    // update
+                    foreach (var schule in _model.LstSchule)
+                    {
+                        if (_added.Contains(schule)) continue;
+                        if (_removed.Contains(schule)) continue;
+                        db.Schulen.Update(schule);
+                    }
+                    // add
+                    foreach (var schule in _added)
+                    {
+                        db.Schulen.Add(schule);
+                    }
+                    // delete
+                    foreach (var schule in _removed)
+                    {
+                        db.Schulen.Remove(schule);
+                    }
+
+                    db.SaveChanges();
+                    _added.Clear();
+                    _removed.Clear();
+                    _model.LoadData();
+
+                }
+            };
+        }
+    }
+}

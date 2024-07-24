@@ -1,0 +1,53 @@
+﻿<Page x:Class="Klimalauf.View.Datenuebersicht.RundenSeite"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Klimalauf.View.Datenuebersicht" xmlns:fc="http://devpelux.github.io/fullcontrols"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="RundenSeite">
+    <Grid DataContext="{StaticResource dumodel}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <!--Runden-->
+        <GroupBox x:Name="RundenGrid" Header="Runden">
+            <Grid>
+                <DataGrid x:Name="lstRunden" ItemsSource="{Binding LstRunde}" SelectedItem="{Binding SelRunde}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="False">
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="HorizontalContentAlignment" Value="center"/>
+                            <Setter Property="Foreground" Value="#FF3957FF"/>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding Id}" IsReadOnly="True" />
+                        <DataGridTextColumn Width="15*" Header="Laufnr." Binding="{Binding Schueler.Id}"/>
+                        <DataGridTextColumn Width="25*" Header="Vorname" Binding="{Binding Schueler.Vorname}"/>
+                        <DataGridTextColumn Width="25*" Header="Nachname" Binding="{Binding Schueler.Nachname}"/>
+                        <DataGridTextColumn Width="25*" Header="Nachname" Binding="{Binding Zeitstempel}"/>
+                        <DataGridTextColumn Width="15*" Header="Rundengröße" Binding="{Binding Schueler.Klasse.RundenArt.LaengeInMeter, StringFormat= {}{0} m}" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="18*" Header="Scanner" Binding="{Binding BenutzerName}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </GroupBox>
+        <Grid Grid.Row="1" Height="80" HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+                <fc:ButtonPlus x:Name="btnSpeichern" Margin="10,0,0,0"  Cursor="Hand" Content="Speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
+                <fc:ButtonPlus x:Name="btnNeu" Margin="10,0,0,0"  Cursor="Hand" Content="Neuer Eintrag" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
+                <fc:ButtonPlus x:Name="btnDel" Margin="10,0,10,0"  Cursor="Hand" Content="Eintrag löschen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

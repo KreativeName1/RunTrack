@@ -22,6 +22,21 @@
     <Compile Update="View\Datenuebersicht.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\Datenuebersicht\KlassenSeite.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Datenuebersicht\RundenSeite.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Datenuebersicht\SchuelerSeite.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Datenuebersicht\SchulenSeite.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Datenuebersicht\Startseite.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\Einstellungen.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -49,6 +64,21 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Datenuebersicht.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Datenuebersicht\KlassenSeite.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Datenuebersicht\RundenSeite.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Datenuebersicht\SchuelerSeite.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Datenuebersicht\SchulenSeite.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Datenuebersicht\Startseite.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Diagramm.xaml">
