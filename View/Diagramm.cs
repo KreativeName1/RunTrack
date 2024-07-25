@@ -270,78 +270,7 @@ namespace Klimalauf
         {
             var lineColor = Color.FromRgb(50, 50, 50);  // Darker gray color for better visibility
             var textColor = Color.FromRgb(17, 66, 50);  // Black color for text
-            if (canvascanvas.ActualHeight >= 210)
-            {
-                Rectangle Durchschnittslinie = new Rectangle
-                {
-                    Height = 2, // Increase the thickness of the line
-                    Width = canvascanvas.ActualWidth - 10,
-                    Fill = new SolidColorBrush(lineColor)
-                };
-
-                double wertpp = Math.Round((canvascanvas.ActualHeight - 24) / maxwert, 2); // Round to 2 decimal places
-
-                Label Durchschnittsbeschriftung = new Label
-                {
-                    Content = FormatWertDurchschnitt((int)durchschnitt), // Use FormatWert method
-                    Width = canvascanvas.ActualWidth,
-                    Height = 24, // Set a fixed height for the label
-                    HorizontalContentAlignment = HorizontalAlignment.Center,
-                    Foreground = new SolidColorBrush(Color.FromRgb(46, 136, 182)), // Set text color
-                    FontWeight = FontWeights.Bold // Make the text bold
-                };
-
-                double centerLabelBottom = wertpp * durchschnitt + 1;
-                double aboveLabelTop = 24 + 30; // 24 for the height of the aboveLabel and 30 pixels margin
-
-                // Adjust position if the centerLabel is too close to the aboveLabel
-                if (canvascanvas.ActualHeight - centerLabelBottom < aboveLabelTop)
-                {
-                    centerLabelBottom = canvascanvas.ActualHeight - aboveLabelTop;
-                }
-
-                Rectangle untereHorizontaleLinie = new Rectangle
-                {
-                    Height = wertpp * durchschnitt - 20,
-                    Width = 3, // Increase the thickness of the line
-                    Fill = new SolidColorBrush(lineColor)
-                };
-
-                Rectangle obereHorizontaleLinie = new Rectangle
-                {
-                    Height = wertpp * (maxwert - durchschnitt) - 24,
-                    Width = 3, // Increase the thickness of the line
-                    Fill = new SolidColorBrush(lineColor)
-                };
-
-                if (obereHorizontaleLinie.Height > 10)
-                {
-                    Canvas.SetLeft(Durchschnittslinie, 5);
-                    Canvas.SetBottom(Durchschnittslinie, wertpp * durchschnitt);
-                    canvascanvas.Children.Add(Durchschnittslinie);
-
-                    Canvas.SetLeft(Durchschnittsbeschriftung, 0);
-                    Canvas.SetBottom(Durchschnittsbeschriftung, centerLabelBottom); // Position the label above the line
-                    canvascanvas.Children.Add(Durchschnittsbeschriftung);
-
-                    Canvas.SetLeft(untereHorizontaleLinie, canvascanvas.ActualWidth / 2 - 1);
-                    Canvas.SetBottom(untereHorizontaleLinie, 20);
-                    canvascanvas.Children.Add(untereHorizontaleLinie);
-
-                    Canvas.SetLeft(obereHorizontaleLinie, canvascanvas.ActualWidth / 2 - 1);
-                    Canvas.SetTop(obereHorizontaleLinie, 24);
-                    canvascanvas.Children.Add(obereHorizontaleLinie);
-                }
-                else
-                {
-                    obereHorizontaleLinie.Height = canvascanvas.ActualHeight - 48;
-
-                    Canvas.SetLeft(obereHorizontaleLinie, canvascanvas.ActualWidth / 2 - 1);
-                    Canvas.SetTop(obereHorizontaleLinie, 24);
-                    canvascanvas.Children.Add(obereHorizontaleLinie);
-                }
-            }
-            else
+            if (durchschnitt == maxwert)
             {
                 Rectangle obereHorizontaleLinie = new Rectangle
                 {
@@ -355,6 +284,96 @@ namespace Klimalauf
                 Canvas.SetLeft(obereHorizontaleLinie, canvascanvas.ActualWidth / 2 - 1);
                 Canvas.SetTop(obereHorizontaleLinie, 24);
                 canvascanvas.Children.Add(obereHorizontaleLinie);
+            }
+            else
+            {
+               
+                if (canvascanvas.ActualHeight >= 210)
+                {
+                    Rectangle Durchschnittslinie = new Rectangle
+                    {
+                        Height = 2, // Increase the thickness of the line
+                        Width = canvascanvas.ActualWidth - 10,
+                        Fill = new SolidColorBrush(lineColor)
+                    };
+
+                    double wertpp = Math.Round((canvascanvas.ActualHeight - 24) / maxwert, 2); // Round to 2 decimal places
+
+                    Label Durchschnittsbeschriftung = new Label
+                    {
+                        Content = FormatWertDurchschnitt((int)durchschnitt), // Use FormatWert method
+                        Width = canvascanvas.ActualWidth,
+                        Height = 24, // Set a fixed height for the label
+                        HorizontalContentAlignment = HorizontalAlignment.Center,
+                        Foreground = new SolidColorBrush(Color.FromRgb(46, 136, 182)), // Set text color
+                        FontWeight = FontWeights.Bold // Make the text bold
+                    };
+
+                    double centerLabelBottom = wertpp * durchschnitt + 1;
+                    double aboveLabelTop = 24 + 30; // 24 for the height of the aboveLabel and 30 pixels margin
+
+                    // Adjust position if the centerLabel is too close to the aboveLabel
+                    if (canvascanvas.ActualHeight - centerLabelBottom < aboveLabelTop)
+                    {
+                        centerLabelBottom = canvascanvas.ActualHeight - aboveLabelTop;
+                    }
+
+                    Rectangle untereHorizontaleLinie = new Rectangle
+                    {
+                        Height = wertpp * durchschnitt - 20,
+                        Width = 3, // Increase the thickness of the line
+                        Fill = new SolidColorBrush(lineColor)
+                    };
+
+                    Rectangle obereHorizontaleLinie = new Rectangle
+                    {
+                        Height = wertpp * (maxwert - durchschnitt) - 24,
+                        Width = 3, // Increase the thickness of the line
+                        Fill = new SolidColorBrush(lineColor)
+                    };
+
+                    if (obereHorizontaleLinie.Height > 10)
+                    {
+                        Canvas.SetLeft(Durchschnittslinie, 5);
+                        Canvas.SetBottom(Durchschnittslinie, wertpp * durchschnitt);
+                        canvascanvas.Children.Add(Durchschnittslinie);
+
+                        Canvas.SetLeft(Durchschnittsbeschriftung, 0);
+                        Canvas.SetBottom(Durchschnittsbeschriftung, centerLabelBottom); // Position the label above the line
+                        canvascanvas.Children.Add(Durchschnittsbeschriftung);
+
+                        Canvas.SetLeft(untereHorizontaleLinie, canvascanvas.ActualWidth / 2 - 1);
+                        Canvas.SetBottom(untereHorizontaleLinie, 20);
+                        canvascanvas.Children.Add(untereHorizontaleLinie);
+
+                        Canvas.SetLeft(obereHorizontaleLinie, canvascanvas.ActualWidth / 2 - 1);
+                        Canvas.SetTop(obereHorizontaleLinie, 24);
+                        canvascanvas.Children.Add(obereHorizontaleLinie);
+                    }
+                    else
+                    {
+                        obereHorizontaleLinie.Height = canvascanvas.ActualHeight - 48;
+
+                        Canvas.SetLeft(obereHorizontaleLinie, canvascanvas.ActualWidth / 2 - 1);
+                        Canvas.SetTop(obereHorizontaleLinie, 24);
+                        canvascanvas.Children.Add(obereHorizontaleLinie);
+                    }
+                }
+                else
+                {
+                    Rectangle obereHorizontaleLinie = new Rectangle
+                    {
+
+                        Width = 3,
+                        Fill = new SolidColorBrush(lineColor)
+                    };
+
+                    obereHorizontaleLinie.Height = canvascanvas.ActualHeight - 48;
+
+                    Canvas.SetLeft(obereHorizontaleLinie, canvascanvas.ActualWidth / 2 - 1);
+                    Canvas.SetTop(obereHorizontaleLinie, 24);
+                    canvascanvas.Children.Add(obereHorizontaleLinie);
+                }
             }
         }
 
