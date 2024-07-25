@@ -3,10 +3,15 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:this="clr-namespace:Klimalauf"
       xmlns:local="clr-namespace:Klimalauf.View.Datenuebersicht" xmlns:fc="http://devpelux.github.io/fullcontrols"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Klassen">
+    <Page.Resources>
+        <this:ObjectToBoolConverter x:Key="ObjectToBoolConverter"/>
+    </Page.Resources>
+
     <Grid DataContext="{StaticResource dumodel}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -45,7 +50,7 @@
                 <fc:ButtonPlus x:Name="btnSpeichern" Margin="10,0,0,0"  Cursor="Hand" Content="Speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
                 <fc:ButtonPlus x:Name="btnNeu" Margin="10,0,0,0"  Cursor="Hand" Content="Neuer Eintrag" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
                 <fc:ButtonPlus x:Name="btnDel" Margin="10,0,10,0"  Cursor="Hand" Content="Eintrag löschen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
-                <fc:ButtonPlus x:Name="btnBarcodes" Cursor="Hand" Content="Barcodes erstellen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White"  Width="120" Height="30" Margin="0,0,10,0"/>
+                <fc:ButtonPlus x:Name="btnBarcodes" IsEnabled="{Binding SelKlasse, Converter={StaticResource ObjectToBoolConverter}}"  Cursor="Hand" Content="Barcodes erstellen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White"  Width="120" Height="30" Margin="0,0,10,0"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,10,0">
                 <Border Background="#CFD3CD" Height="40" CornerRadius="6">
