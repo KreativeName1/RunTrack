@@ -359,7 +359,6 @@ namespace Klimalauf
                   // Benutzer gefunden, Passwortfeld anzeigen
                   gridPasswordLable.Visibility = Visibility.Visible;
                   borderPassword.Visibility = Visibility.Visible;
-                  btnLogin.Margin = new Thickness(btnLogin.Margin.Left, 260, btnLogin.Margin.Right, btnLogin.Margin.Bottom);
                }
                else
                {
@@ -367,7 +366,6 @@ namespace Klimalauf
                   gridPasswordLable.Visibility = Visibility.Collapsed;
                   borderPassword.Visibility = Visibility.Collapsed;
                   warningPassword.Visibility = Visibility.Collapsed;
-                  btnLogin.Margin = new Thickness(btnLogin.Margin.Left, 200, btnLogin.Margin.Right, btnLogin.Margin.Bottom);
                }
             }
          }
@@ -385,14 +383,12 @@ namespace Klimalauf
                {
                   gridPasswordLable.Visibility = Visibility.Visible;
                   borderPassword.Visibility = Visibility.Visible;
-                  btnLogin.Margin = new Thickness(btnLogin.Margin.Left, 260, btnLogin.Margin.Right, btnLogin.Margin.Bottom);
                }
                else
                {
                   gridPasswordLable.Visibility = Visibility.Collapsed;
                   borderPassword.Visibility = Visibility.Collapsed;
                   warningPassword.Visibility = Visibility.Collapsed;
-                  btnLogin.Margin = new Thickness(btnLogin.Margin.Left, 200, btnLogin.Margin.Right, btnLogin.Margin.Bottom);
                }
             }
          }
@@ -468,5 +464,9 @@ namespace Klimalauf
          }
       }
 
-   }
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+    }
 }
