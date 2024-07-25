@@ -92,5 +92,11 @@ namespace Klimalauf
         {
             UebersichtMethoden.SelectSearchedRow(lstSchule, true, txtSearch.Text);
         }
+
+        private void txtSearch_LostFocus(object sender, RoutedEventArgs e)
+        {
+            txtSearch.ForegroundBrush = new SolidColorBrush(Colors.Blue);
+            txtSearch.Foreground = new SolidColorBrush(Colors.Blue);
+        }
     }
 }

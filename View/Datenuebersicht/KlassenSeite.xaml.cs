@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Klimalauf.View.Datenuebersicht
 {
@@ -37,6 +38,12 @@ namespace Klimalauf.View.Datenuebersicht
         private void btnDown_Click(object sender, RoutedEventArgs e)
         {
             UebersichtMethoden.SelectSearchedRow(lstKlasse, true, txtSearch.Text);
+        }
+
+        private void txtSearch_LostFocus(object sender, RoutedEventArgs e)
+        {
+            txtSearch.ForegroundBrush = new SolidColorBrush(Colors.Blue);
+            txtSearch.Foreground = new SolidColorBrush(Colors.Blue);
         }
     }
 }
