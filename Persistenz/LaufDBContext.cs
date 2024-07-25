@@ -1,15 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 using System.IO;
 
 namespace Klimalauf
 {
     public class LaufDBContext : DbContext
     {
-        private static string _dbPath = "Dateien/EigeneDatenbank.db";
+        private static string _dbPath = "./Dateien/EigeneDatenbank.db";
         public LaufDBContext()
               : base(GetDbContextOptions())
         {
-            Directory.CreateDirectory("Dateien");
+
+            Directory.CreateDirectory("./Dateien");
+
 
             if (!File.Exists(_dbPath) || new FileInfo(_dbPath).Length == 0)
             {
@@ -17,6 +20,7 @@ namespace Klimalauf
                 SeedTestData();
                 SeedBlattgroessen();
             }
+            Trace.WriteLine(Path.GetFullPath(_dbPath));
         }
 
         public LaufDBContext(string _path)

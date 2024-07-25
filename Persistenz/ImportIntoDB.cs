@@ -37,39 +37,53 @@ namespace Klimalauf
                     db.Klassen.Add(klasse);
                 }
 
-                // Schüler erstellen
-                foreach (object item in _imodel.CSVListe)
+                db.SaveChanges();
+                try
                 {
-                    Schueler schueler = new Schueler();
-                    foreach (string property in _imodel.Reihenfolge)
+                    // Schüler erstellen
+                    foreach (object item in _imodel.CSVListe)
                     {
-                        int valueIndex = _imodel.Reihenfolge.IndexOf(property);
-                        if (valueIndex >= 0)
+                        Schueler schueler = new Schueler();
+                        foreach (string property in _imodel.Reihenfolge)
                         {
-                            switch (property)
+                            int valueIndex = _imodel.Reihenfolge.IndexOf(property);
+                            if (valueIndex >= 0)
                             {
-                                case "Vorname":
-                                    schueler.Vorname = item.GetType().GetProperty("Spalte" + (valueIndex + 1))?.GetValue(item)?.ToString() ?? string.Empty;
-                                    break;
-                                case "Nachname":
-                                    schueler.Nachname = item.GetType().GetProperty("Spalte" + (valueIndex + 1))?.GetValue(item)?.ToString() ?? string.Empty;
-                                    break;
-                                case "Geschlecht":
-                                    schueler.Geschlecht = (item.GetType().GetProperty("Spalte" + (valueIndex + 1))?.GetValue(item)?.ToString() ?? "") == "M" ? Geschlecht.Maennlich : Geschlecht.Weiblich;
-                                    break;
-                                case "Geburtsjahrgang":
-                                    schueler.Geburtsjahrgang = int.Parse(item.GetType().GetProperty("Spalte" + (valueIndex + 1))?.GetValue(item)?.ToString() ?? string.Empty);
-                                    break;
-                                case "Klasse":
-                                    string name = item.GetType().GetProperty("Spalte" + (valueIndex + 1))?.GetValue(item)?.ToString() ?? string.Empty;
-                                    schueler.Klasse = db.Klassen.First(k => k.Name == name);
-                                    break;
+                                switch (property)
+                                {
+                                    case "Vorname":
+                                        schueler.Vorname = item.GetType().GetProperty("Spalte" + (valueIndex + 1))?.GetValue(item)?.ToString() ?? string.Empty;
+                                        break;
+                                    case "Nachname":
+                                        schueler.Nachname = item.GetType().GetProperty("Spalte" + (valueIndex + 1))?.GetValue(item)?.ToString() ?? string.Empty;
+                                        break;
+                                    case "Geschlecht":
+                                        schueler.Geschlecht = (item.GetType().GetProperty("Spalte" + (valueIndex + 1))?.GetValue(item)?.ToString() ?? "") == "M" ? Geschlecht.Maennlich : Geschlecht.Weiblich;
+                                        break;
+                                    case "Geburtsjahrgang":
+                                        schueler.Geburtsjahrgang = int.Parse(item.GetType().GetProperty("Spalte" + (valueIndex + 1))?.GetValue(item)?.ToString() ?? string.Empty);
+                                        break;
+                                    case "Klasse":
+                                        string name = item.GetType().GetProperty("Spalte" + (valueIndex + 1))?.GetValue(item)?.ToString() ?? string.Empty;
+                                        schueler.Klasse = db.Klassen.First(k => k.Name == name && k.Schule.Id == _imodel.Schule.Id);
+                                        break;
+                                }
                             }
                         }
+                        db.Schueler.Add(schueler);
                     }
-                    db.Schueler.Add(schueler);
                 }
+                catch (Exception e)
+                {
+                    foreach (Klasse klasse in db.Klassen.Where(k => k.Schule.Id == _imodel.Schule.Id))
+                    {
+                        db.Klassen.Remove(klasse);
+                    }
+                    db.Schulen.Remove(_imodel.Schule);
 
+                    db.SaveChanges();
+                    throw;
+                }
                 db.SaveChanges();
 
 
