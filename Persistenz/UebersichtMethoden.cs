@@ -1,67 +1,73 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Input;
+﻿using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Input;
 
 namespace Klimalauf
 {
     public class UebersichtMethoden
     {
-        public static int CurrentSelectedRow { get; set; }
+        public static int CurrentSelectedRow { get; set; } = -1;
 
         public static void SearchDataGrid(DataGrid dataGrid, string searchTerm)
         {
             searchTerm = searchTerm.ToLower();
             foreach (var row in dataGrid.Items)
             {
-                foreach (var cell in dataGrid.Columns)
+                DataGridRow dataGridRow = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromItem(row);
+                if (dataGridRow != null)
                 {
-                    var cellContent = cell.GetCellContent(row);
-                    if (cellContent is TextBlock textBlock)
+                    foreach (var cell in dataGrid.Columns)
                     {
-                        if (textBlock.Text.ToLower().Contains(searchTerm) && !string.IsNullOrEmpty(searchTerm))
+                        var cellContent = cell.GetCellContent(dataGridRow) as TextBlock;
+                        if (cellContent != null)
                         {
-                            textBlock.Background = Brushes.OrangeRed;
-                        }
-                        else
-                        {
-                            textBlock.Background = Brushes.White;
+                            if (cellContent.Text.ToLower().Contains(searchTerm) && !string.IsNullOrEmpty(searchTerm))
+                            {
+                                cellContent.Background = Brushes.OrangeRed;
+                            }
+                            else
+                            {
+                                cellContent.Background = Brushes.White;
+                            }
                         }
                     }
                 }
             }
         }
 
-        public static void SelectSearchedRow(DataGrid dataGrid, bool down, string searchterm)
+        public static void SelectSearchedRow(DataGrid dataGrid, bool down, string searchTerm)
         {
-            if (CurrentSelectedRow >= dataGrid.Items.Count - 1) CurrentSelectedRow = 0;
-            searchterm = searchterm.ToLower();
-            bool breakOut = false;
-            for (int i = 0; i < dataGrid.Items.Count; i++)
+            searchTerm = searchTerm.ToLower();
+            int startRow = down ? CurrentSelectedRow + 1 : CurrentSelectedRow - 1;
+            if (startRow < 0) startRow = dataGrid.Items.Count - 1;
+            if (startRow >= dataGrid.Items.Count) startRow = 0;
+
+            bool found = false;
+            for (int i = startRow; i < dataGrid.Items.Count && i >= 0; i += down ? 1 : -1)
             {
                 DataGridRow row = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromIndex(i);
                 if (row == null) continue;
+
                 foreach (var cell in dataGrid.Columns)
                 {
                     TextBlock cellContent = cell.GetCellContent(row) as TextBlock;
-                    string cellText = cellContent.Text.ToLower();
-                    if (cellContent != null && cellText.Contains(searchterm))
+                    if (cellContent != null && cellContent.Text.ToLower().Contains(searchTerm))
                     {
-                        if (i <= CurrentSelectedRow) continue;
-                        object item = dataGrid.Items[i];
-                        CurrentSelectedRow = i;
-                        dataGrid.SelectedItem = item;
-                        dataGrid.ScrollIntoView(item);
+                        dataGrid.SelectedItem = dataGrid.Items[i];
+                        dataGrid.ScrollIntoView(dataGrid.Items[i]);
                         row.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
-                        breakOut = true;
+                        CurrentSelectedRow = i;
+                        found = true;
                         break;
                     }
                 }
-                if (breakOut) break;
+                if (found) break;
+            }
+
+            if (!found)
+            {
+                CurrentSelectedRow = -1;
+                SelectSearchedRow(dataGrid, down, searchTerm);
             }
         }
     }
