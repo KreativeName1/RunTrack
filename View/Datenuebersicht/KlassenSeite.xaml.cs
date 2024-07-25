@@ -23,5 +23,20 @@ namespace Klimalauf.View.Datenuebersicht
                 pdfEditor.Show();
             };
         }
+
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            UebersichtMethoden.SearchDataGrid(lstKlasse, txtSearch.Text);
+        }
+
+        private void btnUp_Click(object sender, RoutedEventArgs e)
+        {
+            UebersichtMethoden.SelectSearchedRow(lstKlasse, false, txtSearch.Text);
+        }
+
+        private void btnDown_Click(object sender, RoutedEventArgs e)
+        {
+            UebersichtMethoden.SelectSearchedRow(lstKlasse, true, txtSearch.Text);
+        }
     }
 }
