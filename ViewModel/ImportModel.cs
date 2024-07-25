@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace Klimalauf
 {
@@ -158,9 +159,27 @@ namespace Klimalauf
             }
         }
     }
-    public class KlasseItem
+    public class KlasseItem : INotifyPropertyChanged
     {
         public string? Bezeichnung { get; set; }
-        public RundenArt? RundenArt { get; set; }
+        private RundenArt? _rundenArt { get; set; }
+        public RundenArt? RundenArt
+        {
+            get { return _rundenArt; }
+            set
+            {
+                _rundenArt = value;
+                OnPropertyChanged("RundenArt");
+            }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+
     }
 }

@@ -48,5 +48,14 @@ namespace Klimalauf
                 }
             }
         }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox? comboBox = sender as ComboBox;
+            if (comboBox == null) return;
+            KlasseItem? klasseItem = comboBox.DataContext as KlasseItem;
+            if (klasseItem == null) return;
+            klasseItem.RundenArt = (RundenArt)comboBox.SelectedItem;
+        }
     }
 }

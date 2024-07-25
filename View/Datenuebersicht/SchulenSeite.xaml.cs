@@ -10,13 +10,13 @@ namespace Klimalauf
     public partial class SchulenSeite : Page
     {
         private DatenuebersichtModel _model;
-        private ObservableCollection<Schule> _removed = new ObservableCollection<Schule>();
-        private ObservableCollection<Schule> _added = new ObservableCollection<Schule>();
+        private ObservableCollection<Schule> _removed = new();
+        private ObservableCollection<Schule> _added = new();
         public SchulenSeite()
         {
             InitializeComponent();
-            _model = FindResource("dumodel") as DatenuebersichtModel ?? new DatenuebersichtModel();
-            var entities = new ObservableCollection<Schule>(new LaufDBContext().Schulen);
+            _model = FindResource("dumodel") as DatenuebersichtModel ?? new();
+            ObservableCollection<Schule> entities = new(new LaufDBContext().Schulen);
             this.lstSchule.ItemsSource = entities;
             btnNeu.Click += (sender, e) =>
             {

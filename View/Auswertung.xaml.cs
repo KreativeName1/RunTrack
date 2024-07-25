@@ -60,7 +60,7 @@ namespace Klimalauf
             btnDiagramm.Click += (s, e) =>
             {
                 Diagramm diagramm = new Diagramm();
-                diagramm.Show();
+                diagramm.ShowDialog();
             };
             btnWertung.Click += (s, e) =>
             {
@@ -78,7 +78,6 @@ namespace Klimalauf
             {
                 if (_amodel.SelectedItem != null)
                 {
-                    // get all schueler from selected items
                     List<Schueler> schuelerList = new List<Schueler>();
                     using (var db = new MergedDBContext(_pfade))
                     {
@@ -97,7 +96,6 @@ namespace Klimalauf
                         }
                     }
 
-                    // create PDF for all schueler
                     PDFEditor schuelerWertung = new(schuelerList);
                     this.Hide();
                     _mvmodel.LastWindow = this;
@@ -209,15 +207,8 @@ namespace Klimalauf
                 }
             }
 
-            // if list is empty
-            if (_amodel.Liste.Count == 0)
-            {
-                _amodel.IsLeerListe = true;
-            }
-            else
-            {
-                _amodel.IsLeerListe = false;
-            }
+            if (_amodel.Liste.Count == 0) _amodel.IsLeerListe = true;
+            else _amodel.IsLeerListe = false;
         }
 
         private void iudJahrgang_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
