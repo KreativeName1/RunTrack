@@ -71,7 +71,7 @@ namespace Klimalauf
 
                 _imodel.Reihenfolge = new();
                 foreach (DraggableItem item in OrderPanel.Children) _imodel.Reihenfolge.Add(item.TextContent);
-                if (_imodel.Schule.Id == 0) _imodel.Schule = new Schule { Name = _imodel.NeuSchuleName };
+                if (_imodel.Schule.Id == 0) _imodel.Schule = new Schule { Name = _imodel.NeuSchuleName ?? string.Empty };
 
                 // weiter zur klassenerstellung
                 _imodel.Import2 = new();
@@ -89,7 +89,7 @@ namespace Klimalauf
             AdjustColumnWidths();
         }
 
-        private void CSV_Grid_LayoutUpdated(object sender, EventArgs e)
+        private void CSV_Grid_LayoutUpdated(object? sender, EventArgs e)
         {
             AdjustColumnWidths();
         }
