@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Controls;
 
 namespace Klimalauf
@@ -79,10 +78,10 @@ namespace Klimalauf
         }
         public void LoadData()
         {
-                LstSchule = new ObservableCollection<Schule>(context.Schulen.ToList());
-                LstKlasse = new ObservableCollection<Klasse>(context.Klassen.Include(k => k.Schule).Include(r => r.RundenArt).Include(k => k.Schueler).ThenInclude(s => s.Runden).ToList());
-                LstSchueler = new ObservableCollection<Schueler>(context.Schueler.Include(s => s.Klasse).ThenInclude(k => k.Schule).Include(s => s.Runden).ToList());
-                LstRunde = new ObservableCollection<Runde>(context.Runden.Include(r => r.Schueler).ThenInclude(s => s.Klasse).ThenInclude(k => k.Schule).ToList());
+            LstSchule = new ObservableCollection<Schule>(context.Schulen.ToList());
+            LstKlasse = new ObservableCollection<Klasse>(context.Klassen.Include(k => k.Schule).Include(r => r.RundenArt).Include(k => k.Schueler).ThenInclude(s => s.Runden).ToList());
+            LstSchueler = new ObservableCollection<Schueler>(context.Schueler.Include(s => s.Klasse).ThenInclude(k => k.Schule).Include(s => s.Runden).ToList());
+            LstRunde = new ObservableCollection<Runde>(context.Runden.Include(r => r.Schueler).ThenInclude(s => s.Klasse).ThenInclude(k => k.Schule).ToList());
         }
         public ObservableCollection<Runde> LstRunde
         {

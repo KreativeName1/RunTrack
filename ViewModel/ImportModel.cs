@@ -35,7 +35,6 @@ namespace Klimalauf
             }
         }
 
-
         private object? _currentView;
 
         public object? CurrentView

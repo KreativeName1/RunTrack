@@ -1,6 +1,5 @@
 ﻿using Microsoft.Win32;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -55,7 +54,7 @@ namespace Klimalauf
 
                         if (extension == ".asv" || extension == ".csv")
                         {
-                            ImportFenster fenster  = new (Path.GetFullPath(destPath));
+                            ImportFenster fenster = new(Path.GetFullPath(destPath));
                             fenster.Show();
                             _mvmodel.LstFiles = new ObservableCollection<FileItem>(FileItem.AlleLesen());
                         }

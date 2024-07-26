@@ -1,7 +1,6 @@
 ﻿using FullControls.Controls;
 using Klimalauf.View.Datenuebersicht;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace Klimalauf
 {

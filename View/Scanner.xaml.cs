@@ -16,12 +16,10 @@ namespace Klimalauf
         private DateTime lastKeystroke = DateTime.Now;
         private const int scannerInputThreshold = 50;
 
-
-
         public Scanner()
         {
             InitializeComponent();
-          
+
             DataContext = this;
             this._mvmodel = FindResource("mvmodel") as MainViewModel ?? new MainViewModel();
 

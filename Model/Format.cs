@@ -51,7 +51,7 @@
 
         public Format()
         {
-            
+
         }
 
         public override string ToString()

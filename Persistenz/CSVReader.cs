@@ -4,11 +4,6 @@ namespace Klimalauf
 {
     public class CSVReader
     {
-
-        // example file:
-        // Vorname;Nachname;Klasse
-        // Sascha;Dierl;10A
-        // Paul;Fischer;10B
         public static List<object> ReadToList(string path)
         {
             if (!File.Exists(path)) throw new FileNotFoundException();

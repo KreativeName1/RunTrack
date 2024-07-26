@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
-using FullControls.Controls;
 
 namespace Klimalauf
 {
@@ -111,8 +107,6 @@ namespace Klimalauf
                     }
                     else
                     {
-                        //MessageBoxResult result = MessageBox.Show("Neues Format speichern?", "Format speichern", MessageBoxButton.YesNo);
-                        //if (result == MessageBoxResult.No) return;
                         PopupResult result = new Popup().Display("Neues Format speichern?", "Möchten Sie das Format speichern?", PopupType.Question, PopupButtons.YesNo);
                         if (result.Result == false) return;
                         _pemodel.Format.Id = 0;

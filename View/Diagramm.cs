@@ -287,7 +287,7 @@ namespace Klimalauf
             }
             else
             {
-               
+
                 if (canvascanvas.ActualHeight >= 210)
                 {
                     Rectangle Durchschnittslinie = new Rectangle

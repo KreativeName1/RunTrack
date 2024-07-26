@@ -119,7 +119,7 @@ namespace Klimalauf
                             Content = rundenArt.Name,
                             Name = rundenArt.Name.Replace(" ", "_"),
                             IsChecked = first,
-                            Margin = new Thickness(0,0,0,5)
+                            Margin = new Thickness(0, 0, 0, 5)
                         };
                         rb.Checked += change;
                         _rundenArten.Add(rb);

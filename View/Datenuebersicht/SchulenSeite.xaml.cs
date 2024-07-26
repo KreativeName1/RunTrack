@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Klimalauf
@@ -77,7 +76,7 @@ namespace Klimalauf
             };
         }
 
-     
+
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             UebersichtMethoden.SearchDataGrid(lstSchule, txtSearch.Text);

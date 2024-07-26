@@ -197,7 +197,7 @@ namespace Klimalauf
         private void OptionsButton_Click(object sender, RoutedEventArgs e)
         {
             Button? optionsButton = sender as Button;
-            string rundenartName = (string?) optionsButton?.Tag ?? string.Empty;
+            string rundenartName = (string?)optionsButton?.Tag ?? string.Empty;
 
             if (!string.IsNullOrEmpty(rundenartName))
             {
@@ -233,8 +233,8 @@ namespace Klimalauf
 
         private void DeleteRundenart(string rundenartName)
         {
-           // if (System.Windows.MessageBox.Show("Wollen Sie wirklich " + rundenartName + " löschen?", "Löschne", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-           if (new Popup().Display("Löschen", "Wollen Sie wirklich " + rundenartName + " löschen?", PopupType.Question, PopupButtons.YesNo).Result == true)
+            // if (System.Windows.MessageBox.Show("Wollen Sie wirklich " + rundenartName + " löschen?", "Löschne", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (new Popup().Display("Löschen", "Wollen Sie wirklich " + rundenartName + " löschen?", PopupType.Question, PopupButtons.YesNo).Result == true)
             {
                 using (var db = new LaufDBContext())
                 {

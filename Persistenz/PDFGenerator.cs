@@ -9,7 +9,6 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 using System.IO;
 using System.Reflection;
-using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 using Image = iText.Layout.Element.Image;
 
 namespace Klimalauf
@@ -208,7 +207,7 @@ namespace Klimalauf
 
             foreach (PropertyInfo propertyInfo in propertyInfos)
             {
-               Cell cell = new();
+                Cell cell = new();
                 if (propertyInfo.Name == "Bewertung") cell.Add(new Paragraph(auswertungArt));
                 else cell.Add(new Paragraph(propertyInfo.Name));
                 cell.SetPaddings(0, 5, 0, 5);

@@ -11,9 +11,6 @@ namespace Klimalauf
         private Benutzer? _benutzer;
         private Window? _lastWindow;
 
-
-
-
         public Benutzer Benutzer
         {
             get
@@ -57,10 +54,6 @@ namespace Klimalauf
 
 
         }
-
-
-
-
 
         public ObservableCollection<FileItem> LstFiles
         {

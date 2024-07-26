@@ -1,8 +1,4 @@
-﻿using iText.StyledXmlParser.Node;
-using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
-using System.Reflection;
-
-namespace Klimalauf
+﻿namespace Klimalauf
 {
     internal class ImportIntoDB
     {
@@ -32,7 +28,7 @@ namespace Klimalauf
                     if (item.Bezeichnung == null && item.RundenArt != null) throw new ImportException("Klassenname darf nicht leer sein");
                     if (item.RundenArt == null && item.Bezeichnung != null) throw new ImportException("Rundenart darf nicht leer sein");
                     if (item.Bezeichnung == null && item.RundenArt == null) continue;
-                    Klasse klasse = new Klasse { Name = item.Bezeichnung ?? string.Empty, Schule = _imodel.Schule, RundenArt = db.RundenArten.Find(item.RundenArt?.Id ) ?? new() };
+                    Klasse klasse = new Klasse { Name = item.Bezeichnung ?? string.Empty, Schule = _imodel.Schule, RundenArt = db.RundenArten.Find(item.RundenArt?.Id) ?? new() };
                     if (klasse.RundenArt == null) throw new ImportException("Rundenart nicht gefunden");
                     db.Klassen.Add(klasse);
                 }

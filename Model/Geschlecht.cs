@@ -1,9 +1,9 @@
 ﻿namespace Klimalauf
 {
-   public enum Geschlecht
-   {
-      Maennlich,
-      Weiblich,
-      Divers
-   }
+    public enum Geschlecht
+    {
+        Maennlich,
+        Weiblich,
+        Divers
+    }
 }
