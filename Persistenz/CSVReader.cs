@@ -10,10 +10,10 @@ namespace Klimalauf
             if (Path.GetExtension(path).ToLower() != ".csv") throw new FileLoadException();
             if (new FileInfo(path).Length == 0) throw new FileLoadException();
 
-            List<object> list = new List<object>();
+            List<object> list = new();
 
             string[] lines = File.ReadAllLines(path);
-            List<List<string>> parts = new List<List<string>>();
+            List<List<string>> parts = new();
             foreach (string line in lines) parts.Add(line.Split(';').ToList());
             List<string> first = parts[0];
 

@@ -11,8 +11,8 @@ namespace Klimalauf
     public partial class Scanner : Window
     {
         private MainViewModel? _mvmodel;
-        private StringBuilder barcodeInput = new StringBuilder();
-        private DispatcherTimer timer = new DispatcherTimer();
+        private StringBuilder barcodeInput = new();
+        private DispatcherTimer timer = new();
         private DateTime lastKeystroke = DateTime.Now;
         private const int scannerInputThreshold = 50;
 
@@ -21,7 +21,7 @@ namespace Klimalauf
             InitializeComponent();
 
             DataContext = this;
-            this._mvmodel = FindResource("mvmodel") as MainViewModel ?? new MainViewModel();
+            this._mvmodel = FindResource("mvmodel") as MainViewModel ?? new();
 
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(5);
@@ -46,28 +46,28 @@ namespace Klimalauf
 
                 btnUebersicht.Click += (sender, e) =>
                 {
-                    Datenuebersicht datenPanel = new Datenuebersicht();
+                    Datenuebersicht datenPanel = new();
                     datenPanel.Show();
                     this.Close();
                 };
 
                 btnEinstellung.Click += (sender, e) =>
                 {
-                    Einstellungen optionsPanel = new Einstellungen();
+                    Einstellungen optionsPanel = new();
                     optionsPanel.Show();
                     this.Close();
                 };
 
                 btnDateien.Click += (sender, e) =>
                 {
-                    Dateiverwaltung dataPanel = new Dateiverwaltung();
+                    Dateiverwaltung dataPanel = new();
                     this.Hide();
                     _mvmodel.LastWindow = this;
                     dataPanel.Show();
                 };
                 btnAuswertung.Click += (sender, e) =>
                 {
-                    Auswertung evaluationPanel = new Auswertung();
+                    Auswertung evaluationPanel = new();
                     evaluationPanel.Show();
                     this.Close();
                 };
@@ -80,14 +80,14 @@ namespace Klimalauf
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
+            MainWindow mainWindow = new();
             mainWindow.Show();
             this.Close();
         }
         private void AddScannedData(int id)
         {
             if (_mvmodel == null) return;
-            using (var db = new LaufDBContext())
+            using (LaufDBContext db = new())
             {
                 Schueler? schueler = db.Schueler.FirstOrDefault(s => s.Id == id);
 
@@ -95,8 +95,8 @@ namespace Klimalauf
                 int IntervalInSekunden = 0;
                 if (schueler != null)
                 {
-                    Klasse? klasse = db.Klassen.FirstOrDefault(k => k.Schueler.Contains(schueler)) ?? new Klasse();
-                    RundenArt? rundenArt = db.RundenArten.Find(klasse.RundenArtId) ?? new RundenArt();
+                    Klasse? klasse = db.Klassen.FirstOrDefault(k => k.Schueler.Contains(schueler)) ?? new();
+                    RundenArt? rundenArt = db.RundenArten.Find(klasse.RundenArtId) ?? new();
                     List<Runde> runden = db.Runden.Where(r => r.SchuelerId == schueler.Id).ToList();
                     IntervalInSekunden = rundenArt.MaxScanIntervalInSekunden;
 
@@ -126,7 +126,7 @@ namespace Klimalauf
                     this.BoxFalse.Visibility = Visibility.Visible;
 
                     // Start fade-in animation for BoxFalse
-                    Storyboard sb = FindResource("ShowBoxFalse") as Storyboard ?? new Storyboard();
+                    Storyboard sb = FindResource("ShowBoxFalse") as Storyboard ?? new();
                     sb.Begin(BoxFalse);
 
                     StartHideTimer();
@@ -137,10 +137,10 @@ namespace Klimalauf
                     this.BoxTrue.Visibility = Visibility.Visible;
 
                     // Start fade-in animation for BoxTrue
-                    Storyboard sb = FindResource("ShowBoxTrue") as Storyboard ?? new Storyboard();
+                    Storyboard sb = FindResource("ShowBoxTrue") as Storyboard ?? new();
                     sb.Begin(BoxTrue);
 
-                    Runde runde = new Runde();
+                    Runde runde = new();
                     runde.Schueler = schueler;
                     runde.Zeitstempel = DateTime.Now;
                     runde.BenutzerName = $"{_mvmodel.Benutzer.Vorname} {_mvmodel.Benutzer.Nachname}";
@@ -204,7 +204,7 @@ namespace Klimalauf
 
         private void btnCredits_Click(object sender, RoutedEventArgs e)
         {
-            Credits cr = new Credits();
+            Credits cr = new();
             cr.ShowDialog();
         }
     }

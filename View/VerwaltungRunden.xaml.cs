@@ -74,7 +74,7 @@ namespace Klimalauf.View
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             isSaveClicked = true;
-            using (var db = new LaufDBContext())
+            using (LaufDBContext db = new())
             {
                 // Normalisierte Version des Eingabenames ohne Leerzeichen am Anfang, Ende und innen
                 string inputName = BezeichnungTextBox.Text.Trim();
@@ -94,7 +94,7 @@ namespace Klimalauf.View
                     }
 
                     // Erstellen einer neuen RundenArt und Hinzufügen zur Datenbank 
-                    RundenArt newRundenArt = new RundenArt
+                    RundenArt newRundenArt = new()
                     {
                         Name = inputName, // Hier den bereinigten Namen verwenden
                         LaengeInMeter = (int)txtLength.Value,

@@ -31,7 +31,7 @@ namespace Klimalauf
         }
         public void SeedBlattgroessen()
         {
-            List<BlattGroesse> blattGroessen = new List<BlattGroesse>
+            List<BlattGroesse> blattGroessen = new()
             {
                 new(2384f, 3370f, "A0"),
                 new(1684f, 2384f, "A1"),
@@ -111,8 +111,8 @@ namespace Klimalauf
                 {
                     Schueler schueler = new Schueler
                     {
-                        Vorname = randomVorname(),
-                        Nachname = randomNachname(),
+                        Vorname = RandomVorname(),
+                        Nachname = RandomNachname(),
                         Klasse = klasse1,
                         Geburtsjahrgang = rnd.Next(1995, 2010),
                         Geschlecht = Geschlecht.Maennlich
@@ -125,8 +125,8 @@ namespace Klimalauf
                 {
                     Schueler schueler = new Schueler
                     {
-                        Vorname = randomVorname(),
-                        Nachname = randomNachname(),
+                        Vorname = RandomVorname(),
+                        Nachname = RandomNachname(),
                         Klasse = klasse2,
                         Geburtsjahrgang = rnd.Next(1995, 2010),
                         Geschlecht = Geschlecht.Maennlich
@@ -137,14 +137,14 @@ namespace Klimalauf
             }
         }
 
-        private string randomVorname()
+        private string RandomVorname()
         {
             string[] vorname = { "Max", "Moritz", "Hans", "Peter", "Paul", "Klaus", "Karl", "Kurt", "Kai" };
             Random rnd = new Random();
             return vorname[rnd.Next(vorname.Length)];
         }
 
-        private string randomNachname()
+        private string RandomNachname()
         {
             string[] nachname = { "Müller", "Schmidt", "Schneider", "Fischer", "Weber", "Meyer", "Wagner", "Becker", "Schulz" };
             Random rnd = new Random();

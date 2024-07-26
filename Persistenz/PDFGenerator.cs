@@ -32,7 +32,7 @@ namespace Klimalauf
             // Tabelle erstellen
             int numColumns = format.SpaltenAnzahl;
             float columnWidth = format.ZellenBreite;
-            Table table = new Table(UnitValue.CreatePointArray(Enumerable.Repeat(columnWidth, numColumns).ToArray()));
+            Table table = new(UnitValue.CreatePointArray(Enumerable.Repeat(columnWidth, numColumns).ToArray()));
 
             // Tabelle Zentrieren oder nicht
             if (format.Zentriert) table.SetWidth(UnitValue.CreatePercentValue(100));
@@ -53,14 +53,14 @@ namespace Klimalauf
                 code39.SetCode(klasse.Schueler[i].Id.ToString().PadLeft(5, '0'));
                 code39.SetFont(null);
                 PdfFormXObject barcode = code39.CreateFormXObject(ColorConstants.BLACK, ColorConstants.BLACK, PDFDokument);
-                Image img = new Image(barcode);
+                Image img = new(barcode);
                 img.SetHeight(format.ZellenHoehe - 10);
                 img.SetWidth(format.ZellenBreite - 10);
                 img.SetHorizontalAlignment(HorizontalAlignment.CENTER);
                 cell.Add(img);
 
                 // Schülername und ID in PDF einfügen
-                Paragraph p = new Paragraph(klasse.Schueler[i].Vorname + " " + klasse.Schueler[i].Nachname + " - " + klasse.Schueler[i].Id.ToString());
+                Paragraph p = new(klasse.Schueler[i].Vorname + " " + klasse.Schueler[i].Nachname + " - " + klasse.Schueler[i].Id.ToString());
                 if (format.SchriftTyp == SchriftTyp.Fett) p.SetBold();
                 if (format.SchriftTyp == SchriftTyp.Kursiv) p.SetItalic();
                 if (format.SchriftTyp == SchriftTyp.FettKursiv) p.SetBold().SetItalic();
@@ -148,7 +148,7 @@ namespace Klimalauf
                     Dokument.Add(new Paragraph("Keine Rundenzeiten vorhanden").SetTextAlignment(TextAlignment.LEFT).SetFontSize(12));
                 }
 
-                Table table = new Table(2);
+                Table table = new(2);
 
                 Cell cell = new();
                 cell.Add(new Paragraph("Runde"));
@@ -194,7 +194,7 @@ namespace Klimalauf
             if (Dokument == null) return string.Empty;
 
             PropertyInfo[] propertyInfos = liste[0].GetType().GetProperties();
-            Table table = new Table(100);
+            Table table = new(100);
 
             if (format.Zentriert) table.SetHorizontalAlignment(HorizontalAlignment.CENTER);
             else table.SetHorizontalAlignment(HorizontalAlignment.LEFT);

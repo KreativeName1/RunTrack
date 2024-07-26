@@ -50,7 +50,7 @@ namespace Klimalauf
 
                 foreach (var cell in dataGrid.Columns)
                 {
-                    TextBlock cellContent = cell.GetCellContent(row) as TextBlock;
+                    TextBlock? cellContent = cell.GetCellContent(row) as TextBlock;
                     if (cellContent != null && cellContent.Text.ToLower().Contains(searchTerm))
                     {
                         dataGrid.SelectedItem = dataGrid.Items[i];

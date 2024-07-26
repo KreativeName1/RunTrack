@@ -40,12 +40,12 @@ namespace Klimalauf
 
         public static List<FileItem> AlleLesen()
         {
-            List<FileItem> files = new List<FileItem>();
+            List<FileItem> files = new();
             Directory.CreateDirectory("Dateien");
             string[] filePaths = Directory.GetFiles("Dateien");
             foreach (string filePath in filePaths)
             {
-                FileInfo fi = new FileInfo(filePath);
+                FileInfo fi = new(filePath);
                 if (fi.Extension == ".db-shm" || fi.Extension == ".db-wal") continue;
                 files.Add(new FileItem(fi.Name, fi.CreationTime));
             }

@@ -7,13 +7,13 @@
         {
             _imodel = imodel ?? throw new ImportException("Fehler beim Importieren");
 
-            using (LaufDBContext db = new LaufDBContext())
+            using (LaufDBContext db = new())
             {
 
                 if (_imodel.Schule == null) throw new ImportException("Schule nicht gefunden");
                 if (_imodel.Schule.Id == 0)
                 {
-                    Schule schule = new Schule { Name = _imodel.NeuSchuleName ?? string.Empty };
+                    Schule schule = new() { Name = _imodel.NeuSchuleName ?? string.Empty };
                     db.Schulen.Add(schule);
                     _imodel.Schule = schule;
                 }
@@ -28,7 +28,7 @@
                     if (item.Bezeichnung == null && item.RundenArt != null) throw new ImportException("Klassenname darf nicht leer sein");
                     if (item.RundenArt == null && item.Bezeichnung != null) throw new ImportException("Rundenart darf nicht leer sein");
                     if (item.Bezeichnung == null && item.RundenArt == null) continue;
-                    Klasse klasse = new Klasse { Name = item.Bezeichnung ?? string.Empty, Schule = _imodel.Schule, RundenArt = db.RundenArten.Find(item.RundenArt?.Id) ?? new() };
+                    Klasse klasse = new() { Name = item.Bezeichnung ?? string.Empty, Schule = _imodel.Schule, RundenArt = db.RundenArten.Find(item.RundenArt?.Id) ?? new() };
                     if (klasse.RundenArt == null) throw new ImportException("Rundenart nicht gefunden");
                     db.Klassen.Add(klasse);
                 }
@@ -39,7 +39,7 @@
                     // Schüler erstellen
                     foreach (object item in _imodel.CSVListe)
                     {
-                        Schueler schueler = new Schueler();
+                        Schueler schueler = new();
                         foreach (string property in _imodel.Reihenfolge)
                         {
                             int valueIndex = _imodel.Reihenfolge.IndexOf(property);
@@ -69,7 +69,7 @@
                         db.Schueler.Add(schueler);
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     foreach (Klasse klasse in db.Klassen.Where(k => k.Schule.Id == _imodel.Schule.Id))
                     {
