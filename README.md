@@ -2,7 +2,7 @@
 ![Logo](https://raw.githubusercontent.com/KreativeName1/RunTrack/main/Images/RunTrack_Logo_Farbe.png)
 
 ## Beschreibung
-Dieses Projekt wurde erstellt für den Klimalauf
+Dieses Projekt wurde erstellt für den RunTrack
 und ist auch eine Übung für die Projektarbeit in der 12. Klasse.
 Das Projekt ist ein Programm für die Verwaltung von Schülerläufen.
 Dieses Programm ist gedacht für Schulen, die einen Lauf veranstalten.

@@ -1,9 +1,9 @@
-﻿<Window x:Class="Klimalauf.Auswertung"
+﻿<Window x:Class="RunTrack.Auswertung"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Klimalauf"
+        xmlns:local="clr-namespace:RunTrack"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:fc="http://devpelux.github.io/fullcontrols"
         mc:Ignorable="d" Icon="pack://application:,,,/Images/iconRunMan.ico"
         Title="Auswertung" Height="700" Width="900">

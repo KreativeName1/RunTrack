@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace Klimalauf
+namespace RunTrack
 {
     /// <summary>
     /// Interaktionslogik für Schulen.xaml

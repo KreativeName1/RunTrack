@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Windows.Controls;
 
-namespace Klimalauf
+namespace RunTrack
 {
     /// <summary>
     /// Interaktionslogik für Import2.xaml

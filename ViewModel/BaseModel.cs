@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Klimalauf
+namespace RunTrack
 {
     public class BaseModel : INotifyPropertyChanged
     {

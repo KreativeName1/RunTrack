@@ -11,7 +11,7 @@ using System.IO;
 using System.Reflection;
 using Image = iText.Layout.Element.Image;
 
-namespace Klimalauf
+namespace RunTrack
 {
     public class PDFGenerator
     {

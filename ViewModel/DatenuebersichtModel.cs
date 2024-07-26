@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 
-namespace Klimalauf
+namespace RunTrack
 {
     public class DatenuebersichtModel : BaseModel
     {

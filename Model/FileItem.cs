@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.IO;
 
-namespace Klimalauf
+namespace RunTrack
 {
     public class FileItem : INotifyPropertyChanged
     {

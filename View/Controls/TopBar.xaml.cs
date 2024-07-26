@@ -1,9 +1,9 @@
-﻿using Klimalauf.View;
+﻿using RunTrack.View;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Klimalauf
+namespace RunTrack
 {
     /// <summary>
     /// Interaktionslogik für UserControl1.xaml

@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace Klimalauf.View.Datenuebersicht
+namespace RunTrack.View.Datenuebersicht
 {
     /// <summary>
     /// Interaktionslogik für KlassenSeite.xaml

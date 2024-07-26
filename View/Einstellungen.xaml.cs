@@ -1,4 +1,4 @@
-﻿using Klimalauf.View;
+﻿using RunTrack.View;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -6,7 +6,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using Xceed.Wpf.Toolkit;
 
-namespace Klimalauf
+namespace RunTrack
 {
     /// <summary>
     /// Interaktionslogik für Einstellungen.xaml

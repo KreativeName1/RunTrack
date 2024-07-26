@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Klimalauf
+namespace RunTrack
 {
     /// <summary>
     /// Interaction logic for App.xaml

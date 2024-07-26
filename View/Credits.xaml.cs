@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Navigation;
 
-namespace Klimalauf.View
+namespace RunTrack.View
 {
     /// <summary>
     /// Interaktionslogik für Credits.xaml

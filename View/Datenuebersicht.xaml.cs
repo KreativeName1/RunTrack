@@ -1,8 +1,8 @@
 ﻿using FullControls.Controls;
-using Klimalauf.View.Datenuebersicht;
+using RunTrack.View.Datenuebersicht;
 using System.Windows;
 
-namespace Klimalauf
+namespace RunTrack
 {
     /// <summary>
     /// Interaktionslogik für Datenuebersicht.xaml

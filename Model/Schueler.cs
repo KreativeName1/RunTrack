@@ -1,4 +1,4 @@
-﻿namespace Klimalauf
+﻿namespace RunTrack
 {
     public class Schueler
     {

@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace Klimalauf
+namespace RunTrack
 {
     public class UebersichtMethoden
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace Klimalauf
+namespace RunTrack
 {
     public class ImportModel : BaseModel
     {

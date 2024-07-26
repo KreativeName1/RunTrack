@@ -6,7 +6,7 @@ using System.Windows.Shapes;
 using Brush = System.Windows.Media.Brush;
 using Color = System.Windows.Media.Color;
 
-namespace Klimalauf
+namespace RunTrack
 {
     public class DiagrammWert
     {

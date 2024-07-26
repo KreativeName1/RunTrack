@@ -1,11 +1,11 @@
 ﻿using FullControls.Controls;
-using Klimalauf.View;
+using RunTrack.View;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace Klimalauf
+namespace RunTrack
 {
     public partial class MainWindow : Window
     {

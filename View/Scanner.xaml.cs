@@ -1,4 +1,4 @@
-﻿using Klimalauf.View;
+﻿using RunTrack.View;
 using System.Diagnostics;
 using System.Text;
 using System.Windows;
@@ -6,7 +6,7 @@ using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
 
-namespace Klimalauf
+namespace RunTrack
 {
     public partial class Scanner : Window
     {

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Data;
 
-namespace Klimalauf
+namespace RunTrack
 {
     [ValueConversion(typeof(bool), typeof(bool))]
     public class BoolInverterConverter : IValueConverter

@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 
-namespace Klimalauf
+namespace RunTrack
 {
     public class LaufDBContext : DbContext
     {

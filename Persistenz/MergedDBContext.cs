@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Klimalauf
+namespace RunTrack
 {
     public class MergedDBContext : DbContext
     {

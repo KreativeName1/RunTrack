@@ -5,7 +5,7 @@ using System.Data.Entity;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Klimalauf
+namespace RunTrack
 {
     /// <summary>
     /// Interaktionslogik für Auswertung.xaml

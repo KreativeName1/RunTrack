@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using Xceed.Wpf.Toolkit;
 
-namespace Klimalauf.View
+namespace RunTrack.View
 {
     public enum DialogMode { Neu, Bearbeiten };
 

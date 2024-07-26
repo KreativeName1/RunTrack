@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Windows.Data;
 
-namespace Klimalauf
+namespace RunTrack
 {
     public class ObjectToBoolConverter : IValueConverter
     {

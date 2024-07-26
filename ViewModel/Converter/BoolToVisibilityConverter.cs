@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Data;
 
-namespace Klimalauf
+namespace RunTrack
 {
     public class BoolToVisibilityConverter : IValueConverter
     {
