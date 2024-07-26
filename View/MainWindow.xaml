@@ -14,30 +14,30 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
+
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Rectangle Grid.Row="0" Grid.ColumnSpan="3" Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
-            <Label Grid.Column="1" Content="🏃🏻 RunTrack" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" FontSize="14" Foreground="White" FontWeight="Bold"/>
+            <Rectangle Grid.Row="0" Grid.ColumnSpan="3" Height="30" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
+            <Label Grid.Column="1" Content="🏃🏻 RunTrack" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" Foreground="White" FontWeight="Bold"/>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="2" Margin="0,0,10,0">
-            <Image Source="pack://application:,,,/Images/credits.png" Width="24" Height="24" Cursor="Hand"  MouseDown="btnCredits_Click">
-                <Image.ToolTip>
-                    <ToolTip Cursor="">Credits</ToolTip>
-                </Image.ToolTip>
-            </Image>
-            <Image Source="pack://application:,,,/Images/close.png" Margin="5,0,0,0" Width="19" Height="19" Cursor="Hand" MouseDown="Image_MouseDown">
-                <Image.ToolTip>
-                    <ToolTip Cursor="">Credits</ToolTip>
-                </Image.ToolTip>
-            </Image>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="2" Margin="0,0,10,0" HorizontalAlignment="Right" Width="60">
+                <Image Source="pack://application:,,,/Images/credits.png" Margin="0,0,10,0" Width="24" Height="24" Cursor="Hand" MouseDown="btnCredits_Click">
+                    <Image.ToolTip>
+                        <ToolTip Content="Credits"/>
+                    </Image.ToolTip>
+                </Image>
+                <Image Source="pack://application:,,,/Images/close.png" Margin="0,0,10,0" VerticalAlignment="Center" Width="23" Height="23" Cursor="Hand" MouseDown="Image_MouseDown">
+                    <Image.ToolTip>
+                        <ToolTip Content="Schließen"/>
+                    </Image.ToolTip>
+                </Image>
             </StackPanel>
         </Grid>
-        
+
         <Grid Grid.Row="1" HorizontalAlignment="Center" Margin="0,30,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="80"/>
@@ -57,8 +57,8 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-            <Label Content="Vorname:" Margin="0,0,0,10" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Width="100" FontSize="14" FontWeight="Bold" VerticalAlignment="Top"/>
-            <Label Content="Nachname:" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left"  FontSize="14" FontFamily="72" FontWeight="Bold" VerticalAlignment="Top"/>
+                <Label Content="Vorname:" Margin="0,0,0,10" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Width="100" FontSize="14" FontWeight="Bold" VerticalAlignment="Top"/>
+                <Label Content="Nachname:" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left"  FontSize="14" FontFamily="72" FontWeight="Bold" VerticalAlignment="Top"/>
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
                     <fc:TextBoxPlus x:Name="FirstNameTextBox" Margin="0,0,0,10" ForegroundBrushOnSelected="Blue" UnderlineBrushOnSelected="#28713E" TextWrapping="Wrap" HorizontalAlignment="Right" Width="150" FontSize="14" Padding="5" Foreground="Gray" Text="Max" GotFocus="FirstNameTextBox_GotFocus" LostFocus="FirstNameTextBox_LostFocus" Height="30" VerticalAlignment="Top" KeyDown="TextBox_KeyDown" TextChanged="FirstNameTextBox_TextChanged"/>
                     <Label x:Name="warningVorname" Content="⚠️" Margin="0,0,0,10" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="Red" Cursor="Help" Visibility="Visible">
@@ -89,24 +89,24 @@
             </Grid>
 
             <StackPanel  Grid.Row="2" Orientation="Horizontal">
-            <Border Margin="0,10,0,0" x:Name="borderPassword" CornerRadius="5" Visibility="Visible" Background="#FFECECEC" HorizontalAlignment="Center" Height="40" VerticalAlignment="Top">
-                <StackPanel Orientation="Horizontal" x:Name="gridPassword" Background="Transparent">
-                    <Label x:Name="lblPasswort" Content="Admin Passwort:" VerticalContentAlignment="Center" HorizontalAlignment="Left" FontSize="13" FontFamily="72 Light" VerticalAlignment="Center" Margin="1,0,0,0"/>
-                    <fc:PasswordBoxPlus x:Name="AdminPasswordBox" ForegroundOnSelected="Blue" Foreground="Blue" UnderlineBrushOnSelected="#28713E" EnablePeekButton="True" CornerRadius="3" HorizontalAlignment="Right" Margin="0,0,5,0" Width="150" FontSize="13" Padding="5" Height="30" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswort_LostFocus" PasswordChanged="txtPasswort_PasswordChanged" MouseEnter="AdminPasswordBox_MouseEnter" MouseLeave="AdminPasswordBox_MouseLeave" Cursor=""/>
+                <Border Margin="0,10,0,0" x:Name="borderPassword" CornerRadius="5" Visibility="Visible" Background="#FFECECEC" HorizontalAlignment="Center" Height="40" VerticalAlignment="Top">
+                    <StackPanel Orientation="Horizontal" x:Name="gridPassword" Background="Transparent">
+                        <Label x:Name="lblPasswort" Content="Admin Passwort:" VerticalContentAlignment="Center" HorizontalAlignment="Left" FontSize="13" FontFamily="72 Light" VerticalAlignment="Center" Margin="1,0,0,0"/>
+                        <fc:PasswordBoxPlus x:Name="AdminPasswordBox" ForegroundOnSelected="Blue" Foreground="Blue" UnderlineBrushOnSelected="#28713E" EnablePeekButton="True" CornerRadius="3" HorizontalAlignment="Right" Margin="0,0,5,0" Width="150" FontSize="13" Padding="5" Height="30" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswort_LostFocus" PasswordChanged="txtPasswort_PasswordChanged" MouseEnter="AdminPasswordBox_MouseEnter" MouseLeave="AdminPasswordBox_MouseLeave" Cursor=""/>
 
-                </StackPanel>
-            </Border>
-            
-            <Label x:Name="warningPassword" Content="⚠️" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="Red" Cursor="Help" Visibility="Visible">
-            <Label.ToolTip>
-                <ToolTip Cursor="">
-                    Das Passwort ist inkorrekt!
-                </ToolTip>
-            </Label.ToolTip>
-        </Label>
+                    </StackPanel>
+                </Border>
+
+                <Label x:Name="warningPassword" Content="⚠️" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="Red" Cursor="Help" Visibility="Visible">
+                    <Label.ToolTip>
+                        <ToolTip Cursor="">
+                            Das Passwort ist inkorrekt!
+                        </ToolTip>
+                    </Label.ToolTip>
+                </Label>
             </StackPanel>
-        <fc:ButtonPlus Grid.Row="3" Margin="0,0,0,20" x:Name="btnLogin" Content="Einloggen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="250" Cursor="Hand" FontSize="15" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Click="LoginButton_Click" Height="35" />
+            <fc:ButtonPlus Grid.Row="3" Margin="0,0,0,20" x:Name="btnLogin" Content="Einloggen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="250" Cursor="Hand" FontSize="15" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Click="LoginButton_Click" Height="35" />
         </Grid>
-        
+
     </Grid>
 </Window>
