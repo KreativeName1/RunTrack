@@ -97,8 +97,8 @@ namespace Klimalauf.View
                     RundenArt newRundenArt = new()
                     {
                         Name = inputName, // Hier den bereinigten Namen verwenden
-                        LaengeInMeter = (int)txtLength.Value,
-                        MaxScanIntervalInSekunden = (int)txtDauer.Value
+                        LaengeInMeter = txtLength.Value ?? 0,
+                        MaxScanIntervalInSekunden = txtDauer.Value ?? 0
                     };
 
                     db.RundenArten.Add(newRundenArt);
@@ -109,8 +109,8 @@ namespace Klimalauf.View
                 {
                     // Bearbeiten einer bestehenden RundenArt
                     rundenArt.Name = inputName; // Hier den bereinigten Namen verwenden
-                    rundenArt.LaengeInMeter = (int)txtLength.Value;
-                    rundenArt.MaxScanIntervalInSekunden = (int)txtDauer.Value;
+                    rundenArt.LaengeInMeter = txtLength.Value ?? 0;
+                    rundenArt.MaxScanIntervalInSekunden = txtDauer.Value ?? 0;
 
                     db.RundenArten.Update(rundenArt);
                     db.SaveChanges();
