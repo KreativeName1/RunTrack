@@ -26,7 +26,7 @@ namespace Klimalauf
 
         private void UploadFiles_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog
+            OpenFileDialog openFileDialog = new()
             {
                 Multiselect = true,
                 Filter = "files (*.asv;*.db;*.csv)|*.asv;*.db;*.csv"
@@ -109,7 +109,7 @@ namespace Klimalauf
                 if (file.IsSelected)
                 {
                     string sourcePath = Path.Combine("Dateien", file.FileName ?? string.Empty);
-                    SaveFileDialog saveFileDialog = new SaveFileDialog
+                    SaveFileDialog saveFileDialog = new()
                     {
                         FileName = file.FileName,
                         Filter = "files (*.asv;*.db;*.csv)|*.asv;*.db;*.csv"

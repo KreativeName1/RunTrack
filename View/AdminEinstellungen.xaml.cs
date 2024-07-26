@@ -156,7 +156,7 @@ namespace Klimalauf.View
                                 }
                                 else
                                 {
-                                    Benutzer benutzer = new Benutzer
+                                    Benutzer benutzer = new()
                                     {
                                         Vorname = txtVorname.Text,
                                         Nachname = txtNachname.Text,
@@ -459,7 +459,7 @@ namespace Klimalauf.View
 
         private void btnCredits_Click(object sender, RoutedEventArgs e)
         {
-            Credits cr = new Credits();
+            Credits cr = new();
             cr.ShowDialog();
         }
 

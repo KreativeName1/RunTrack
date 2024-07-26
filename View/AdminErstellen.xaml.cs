@@ -25,14 +25,14 @@ namespace Klimalauf
                 using (var db = new LaufDBContext())
                 {
                     // Benutzer anlegen mit gehashtem Passwort
-                    Benutzer benutzer = new Benutzer();
+                    Benutzer benutzer = new();
                     benutzer.Vorname = txtVorname.Text;
                     benutzer.Nachname = txtNachname.Text;
                     benutzer.Passwort = BCrypt.Net.BCrypt.HashPassword(txtPassword.Password);
                     db.Benutzer.Add(benutzer);
                     db.SaveChanges();
                 }
-                MainWindow mainWindow = new MainWindow();
+                MainWindow mainWindow = new();
                 mainWindow.Show();
                 this.Close();
             }
@@ -272,7 +272,7 @@ namespace Klimalauf
 
         private void btnCredits_Click(object sender, RoutedEventArgs e)
         {
-            Credits cr = new Credits();
+            Credits cr = new();
             cr.ShowDialog();
         }
 

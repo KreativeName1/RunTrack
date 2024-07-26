@@ -21,7 +21,7 @@ namespace Klimalauf
             string[] strings = { "Vorname", "Nachname", "Geschlecht", "Geburtsjahrgang", "Klasse" };
             foreach (string s in strings)
             {
-                DraggableItem item = new DraggableItem { TextContent = s, Width = _width };
+                DraggableItem item = new() { TextContent = s, Width = _width };
                 OrderPanel.Children.Add(item);
             }
 

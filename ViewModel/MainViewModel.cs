@@ -5,9 +5,9 @@ namespace Klimalauf
 {
     public class MainViewModel : BaseModel
     {
-        private ObservableCollection<FileItem> _lstFiles = new ObservableCollection<FileItem>();
-        private ObservableCollection<Runde> _lstRunden = new ObservableCollection<Runde>();
-        private ObservableCollection<Runde> _lstLetzteRunde = new ObservableCollection<Runde>();
+        private ObservableCollection<FileItem> _lstFiles = new();
+        private ObservableCollection<Runde> _lstRunden = new();
+        private ObservableCollection<Runde> _lstLetzteRunde = new();
         private Benutzer? _benutzer;
         private Window? _lastWindow;
 

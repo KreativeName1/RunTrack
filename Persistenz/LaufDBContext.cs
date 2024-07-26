@@ -79,37 +79,37 @@ namespace Klimalauf
         {
             using (var db = new LaufDBContext())
             {
-                Benutzer benutzer = new Benutzer();
+                Benutzer benutzer = new();
                 benutzer.Vorname = "Sascha";
                 benutzer.Nachname = "Dierl";
 
-                Schule schule1 = new Schule { Name = "BSZ Wiesau" };
+                Schule schule1 = new() { Name = "BSZ Wiesau" };
                 db.Schulen.Add(schule1);
                 db.SaveChanges();
 
-                Schule schule2 = new Schule { Name = "Mittelschule Wiesau" };
+                Schule schule2 = new() { Name = "Mittelschule Wiesau" };
                 db.Schulen.Add(schule2);
                 db.SaveChanges();
 
-                RundenArt rundenArt = new RundenArt { Name = "Kurze Runde", LaengeInMeter = 800 };
+                RundenArt rundenArt = new() { Name = "Kurze Runde", LaengeInMeter = 800 };
                 db.RundenArten.Add(rundenArt);
                 db.SaveChanges();
 
-                RundenArt rundenArt2 = new RundenArt { Name = "Lange Runde", LaengeInMeter = 1300 };
+                RundenArt rundenArt2 = new() { Name = "Lange Runde", LaengeInMeter = 1300 };
                 db.RundenArten.Add(rundenArt2);
                 db.SaveChanges();
 
-                Klasse klasse1 = new Klasse { Name = "BFI10A", Schule = schule1, RundenArt = rundenArt };
+                Klasse klasse1 = new() { Name = "BFI10A", Schule = schule1, RundenArt = rundenArt };
                 db.Klassen.Add(klasse1);
                 db.SaveChanges();
 
-                Klasse klasse2 = new Klasse { Name = "BFI11A", Schule = schule1, RundenArt = rundenArt2 };
+                Klasse klasse2 = new() { Name = "BFI11A", Schule = schule1, RundenArt = rundenArt2 };
                 db.Klassen.Add(klasse2);
                 db.SaveChanges();
-                Random rnd = new Random();
+                Random rnd = new();
                 for (int i = 0; i < 20; i++)
                 {
-                    Schueler schueler = new Schueler
+                    Schueler schueler = new()
                     {
                         Vorname = RandomVorname(),
                         Nachname = RandomNachname(),
@@ -123,7 +123,7 @@ namespace Klimalauf
 
                 for (int i = 0; i < 20; i++)
                 {
-                    Schueler schueler = new Schueler
+                    Schueler schueler = new()
                     {
                         Vorname = RandomVorname(),
                         Nachname = RandomNachname(),
@@ -140,14 +140,14 @@ namespace Klimalauf
         private string RandomVorname()
         {
             string[] vorname = { "Max", "Moritz", "Hans", "Peter", "Paul", "Klaus", "Karl", "Kurt", "Kai" };
-            Random rnd = new Random();
+            Random rnd = new();
             return vorname[rnd.Next(vorname.Length)];
         }
 
         private string RandomNachname()
         {
             string[] nachname = { "Müller", "Schmidt", "Schneider", "Fischer", "Weber", "Meyer", "Wagner", "Becker", "Schulz" };
-            Random rnd = new Random();
+            Random rnd = new();
             return nachname[rnd.Next(nachname.Length)];
         }
 

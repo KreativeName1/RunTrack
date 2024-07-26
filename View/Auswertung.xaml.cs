@@ -13,7 +13,7 @@ namespace Klimalauf
     public partial class Auswertung : Window
     {
         private string[] _pfade;
-        private List<RadioButtonPlus> _rundenArten = new List<RadioButtonPlus>();
+        private List<RadioButtonPlus> _rundenArten = new();
         private AuswertungModel _amodel;
         private MainViewModel _mvmodel;
         public Auswertung()
@@ -33,7 +33,7 @@ namespace Klimalauf
         {
             btnImport.Click += (s, e) =>
          {
-             Dateiverwaltung dateiverwaltung = new Dateiverwaltung();
+             Dateiverwaltung dateiverwaltung = new();
              this.Hide();
              _mvmodel.LastWindow = this;
              dateiverwaltung.Show();
@@ -41,7 +41,7 @@ namespace Klimalauf
          };
             btnExport.Click += (s, e) =>
             {
-                SaveFileDialog saveFileDialog = new SaveFileDialog
+                SaveFileDialog saveFileDialog = new()
                 {
                     Filter = "files (*.db)|*.db",
                     FileName = "Auswertung.db"
@@ -53,13 +53,13 @@ namespace Klimalauf
             };
             btnSchliessen.Click += (s, e) =>
             {
-                Scanner scanner = new Scanner();
+                Scanner scanner = new();
                 scanner.Show();
                 this.Close();
             };
             btnDiagramm.Click += (s, e) =>
             {
-                Diagramm diagramm = new Diagramm();
+                Diagramm diagramm = new();
                 diagramm.ShowDialog();
             };
             btnWertung.Click += (s, e) =>
@@ -69,7 +69,7 @@ namespace Klimalauf
                 else if (_amodel.IsZeit) auswertungsart = "Zeit";
                 else if (_amodel.IsDistanz) auswertungsart = "Distanz";
                 else auswertungsart = "Rundenanzahl";
-                PDFEditor editor = new PDFEditor(_amodel.Liste.ToList(), auswertungsart);
+                PDFEditor editor = new(_amodel.Liste.ToList(), auswertungsart);
                 this.Hide();
                 _mvmodel.LastWindow = this;
                 editor.Show();
@@ -78,7 +78,7 @@ namespace Klimalauf
             {
                 if (_amodel.SelectedItem != null)
                 {
-                    List<Schueler> schuelerList = new List<Schueler>();
+                    List<Schueler> schuelerList = new();
                     using (var db = new MergedDBContext(_pfade))
                     {
                         foreach (object? item in Daten.SelectedItems)
@@ -114,7 +114,7 @@ namespace Klimalauf
                 if (db.RundenArten.Count() == 0) RundenGroesse.Children.Add(new Label { Content = "Keine Rundenarten vorhanden" });
                 else foreach (RundenArt rundenArt in db.RundenArten)
                     {
-                        RadioButtonPlus rb = new RadioButtonPlus
+                        RadioButtonPlus rb = new()
                         {
                             Content = rundenArt.Name,
                             Name = rundenArt.Name.Replace(" ", "_"),
@@ -262,7 +262,7 @@ namespace Klimalauf
             }
             else if (_amodel.IsZeit)
             {
-                List<TimeSpan> rundenZeiten = new List<TimeSpan>();
+                List<TimeSpan> rundenZeiten = new();
 
                 for (int i = 1; i < schueler.Runden.Count; i++)
                 {

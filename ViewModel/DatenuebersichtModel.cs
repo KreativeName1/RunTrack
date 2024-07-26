@@ -6,10 +6,10 @@ namespace Klimalauf
 {
     public class DatenuebersichtModel : BaseModel
     {
-        private ObservableCollection<Schule> _lstSchule = new ObservableCollection<Schule>();
-        private ObservableCollection<Schueler> _lstSchueler = new ObservableCollection<Schueler>();
-        private ObservableCollection<Klasse> _lstKlasse = new ObservableCollection<Klasse>();
-        private ObservableCollection<Runde> _lstRunde = new ObservableCollection<Runde>();
+        private ObservableCollection<Schule> _lstSchule = new();
+        private ObservableCollection<Schueler> _lstSchueler = new();
+        private ObservableCollection<Klasse> _lstKlasse = new();
+        private ObservableCollection<Runde> _lstRunde = new();
         private Page? _currentPage;
 
         // selected items
@@ -19,7 +19,7 @@ namespace Klimalauf
         private Schueler? _selSchueler;
 
 
-        private LaufDBContext context = new LaufDBContext();
+        private LaufDBContext context = new();
 
         public Page? CurrentPage
         {

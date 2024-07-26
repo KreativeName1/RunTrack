@@ -19,7 +19,7 @@ namespace Klimalauf
     public partial class Diagramm : Window
     {
         private AuswertungModel _amodel;
-        private List<DiagrammWert> diagrammliste = new List<DiagrammWert>();
+        private List<DiagrammWert> diagrammliste = new();
 
         public Diagramm()
         {
@@ -71,14 +71,14 @@ namespace Klimalauf
                     bewertungzr += Convert.ToInt32(split[1]);
                 }
 
-                DiagrammWert d = new DiagrammWert
+                DiagrammWert d = new()
                 {
                     name = name,
                     wert = bewertungzr,
                     zeit = bewertung
                 };
 
-                Random r = new Random();
+                Random r = new();
                 d.Farbe = new SolidColorBrush(Color.FromRgb((byte)r.Next(100, 255), (byte)r.Next(100, 255), (byte)r.Next(100, 255)));
                 diagrammliste.Add(d);
             }
@@ -219,7 +219,7 @@ namespace Klimalauf
 
                     if (balkenHoehe < 22)
                     {
-                        Label aboveLabel = new Label
+                        Label aboveLabel = new()
                         {
                             Content = d.name,
                             Width = balkenBreite,
@@ -233,7 +233,7 @@ namespace Klimalauf
                         Diagrammcanvas.Children.Add(aboveLabel);
                     }
 
-                    Label label = new Label()
+                    Label label = new()
                     {
                         Background = d.Farbe,
                         Content = d.name,
@@ -272,7 +272,7 @@ namespace Klimalauf
             var textColor = Color.FromRgb(17, 66, 50);  // Black color for text
             if (durchschnitt == maxwert)
             {
-                Rectangle obereHorizontaleLinie = new Rectangle
+                Rectangle obereHorizontaleLinie = new()
                 {
 
                     Width = 3,
@@ -290,7 +290,7 @@ namespace Klimalauf
 
                 if (canvascanvas.ActualHeight >= 210)
                 {
-                    Rectangle Durchschnittslinie = new Rectangle
+                    Rectangle Durchschnittslinie = new()
                     {
                         Height = 2, // Increase the thickness of the line
                         Width = canvascanvas.ActualWidth - 10,
@@ -299,7 +299,7 @@ namespace Klimalauf
 
                     double wertpp = Math.Round((canvascanvas.ActualHeight - 24) / maxwert, 2); // Round to 2 decimal places
 
-                    Label Durchschnittsbeschriftung = new Label
+                    Label Durchschnittsbeschriftung = new()
                     {
                         Content = FormatWertDurchschnitt((int)durchschnitt), // Use FormatWert method
                         Width = canvascanvas.ActualWidth,
@@ -318,14 +318,14 @@ namespace Klimalauf
                         centerLabelBottom = canvascanvas.ActualHeight - aboveLabelTop;
                     }
 
-                    Rectangle untereHorizontaleLinie = new Rectangle
+                    Rectangle untereHorizontaleLinie = new()
                     {
                         Height = wertpp * durchschnitt - 20,
                         Width = 3, // Increase the thickness of the line
                         Fill = new SolidColorBrush(lineColor)
                     };
 
-                    Rectangle obereHorizontaleLinie = new Rectangle
+                    Rectangle obereHorizontaleLinie = new()
                     {
                         Height = wertpp * (maxwert - durchschnitt) - 24,
                         Width = 3, // Increase the thickness of the line
@@ -361,7 +361,7 @@ namespace Klimalauf
                 }
                 else
                 {
-                    Rectangle obereHorizontaleLinie = new Rectangle
+                    Rectangle obereHorizontaleLinie = new()
                     {
 
                         Width = 3,
@@ -384,7 +384,7 @@ namespace Klimalauf
             var lineColor = Color.FromRgb(50, 50, 50);  // Darker gray color for better visibility
             var textColor = Color.FromRgb(0, 0, 0);    // Black color for text
 
-            Rectangle bottomLine = new Rectangle
+            Rectangle bottomLine = new()
             {
                 Height = 2, // Increase the thickness of the line
                 Width = canvascanvas.ActualWidth - 10,
@@ -395,7 +395,7 @@ namespace Klimalauf
             Canvas.SetBottom(bottomLine, 0);
             canvascanvas.Children.Add(bottomLine);
 
-            Label belowLabel = new Label
+            Label belowLabel = new()
             {
                 Content = FormatWertWithShortUnit(0), // Use FormatWert method
                 Width = canvascanvas.ActualWidth,
@@ -409,7 +409,7 @@ namespace Klimalauf
             Canvas.SetBottom(belowLabel, bottomLine.Height - 3); // Position the label above the bar
             canvascanvas.Children.Add(belowLabel);
 
-            Rectangle topLine = new Rectangle
+            Rectangle topLine = new()
             {
                 Height = 2, // Increase the thickness of the line
                 Width = canvascanvas.ActualWidth - 10,
@@ -419,7 +419,7 @@ namespace Klimalauf
             Canvas.SetLeft(topLine, 5);
             Canvas.SetTop(topLine, 24);
 
-            Label aboveLabel = new Label
+            Label aboveLabel = new()
             {
                 Content = FormatWertWithShortUnit((int)maxwert), // Use FormatWert method
                 Width = canvascanvas.ActualWidth,

@@ -30,7 +30,7 @@ namespace Klimalauf
         {
             _imodel.KlasseItems = new();
             int klasseIndex = _imodel.Reihenfolge.IndexOf("Klasse");
-            List<string> klassen = new List<string>();
+            List<string> klassen = new();
             foreach (object item in _imodel.CSVListe)
             {
                 string name = "Spalte" + (klasseIndex + 1).ToString();

@@ -49,7 +49,7 @@ namespace Klimalauf
                 cell.SetTextAlignment(TextAlignment.CENTER);
 
                 // Barcode erstellen und in PDF einfügen
-                Barcode39 code39 = new Barcode39(PDFDokument);
+                Barcode39 code39 = new(PDFDokument);
                 code39.SetCode(klasse.Schueler[i].Id.ToString().PadLeft(5, '0'));
                 code39.SetFont(null);
                 PdfFormXObject barcode = code39.CreateFormXObject(ColorConstants.BLACK, ColorConstants.BLACK, PDFDokument);
@@ -116,7 +116,7 @@ namespace Klimalauf
                 Dokument.Add(new Paragraph(schueler.Vorname + " " + schueler.Nachname).SetTextAlignment(TextAlignment.CENTER).SetBold().SetFontSize(format.SchriftGroesse * 1.5f));
 
 
-                List<TimeSpan> rundenZeiten = new List<TimeSpan>();
+                List<TimeSpan> rundenZeiten = new();
 
                 for (int i = 1; i < schueler.Runden.Count; i++)
                 {

@@ -18,7 +18,7 @@ namespace Klimalauf.View.Datenuebersicht
             _model = FindResource("dumodel") as DatenuebersichtModel ?? new DatenuebersichtModel();
             btnBarcodes.Click += (sender, e) =>
             {
-                PDFEditor pdfEditor = new PDFEditor(_model.SelKlasse ?? new());
+                PDFEditor pdfEditor = new(_model.SelKlasse ?? new());
                 Window.GetWindow(this).Hide();
                 _mainViewModel.LastWindow = Window.GetWindow(this);
                 pdfEditor.Show();

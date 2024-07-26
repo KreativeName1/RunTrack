@@ -39,7 +39,7 @@ namespace Klimalauf
                     // Zeilen hinzufügen
                     GridSettings.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
-                    Label label = new Label
+                    Label label = new()
                     {
                         Content = rundenArt.Name,
                         FontSize = 14,
@@ -51,7 +51,7 @@ namespace Klimalauf
                     Grid.SetColumn(label, 0);
                     GridSettings.Children.Add(label);
 
-                    Label labelSpacer = new Label
+                    Label labelSpacer = new()
                     {
                         Content = "→",
                         FontSize = 14,
@@ -63,7 +63,7 @@ namespace Klimalauf
                     Grid.SetColumn(labelSpacer, 1);
                     GridSettings.Children.Add(labelSpacer);
 
-                    IntegerUpDown integerUpDown = new IntegerUpDown
+                    IntegerUpDown integerUpDown = new()
                     {
                         Name = rundenArt.Name.Replace(" ", "_"),
                         Value = rundenArt.MaxScanIntervalInSekunden,
@@ -79,7 +79,7 @@ namespace Klimalauf
                     Grid.SetColumn(integerUpDown, 2);
                     GridSettings.Children.Add(integerUpDown);
 
-                    Label labelSeconds = new Label
+                    Label labelSeconds = new()
                     {
                         Content = "Sekunde/n",
                         FontSize = 14,
@@ -92,7 +92,7 @@ namespace Klimalauf
                     GridSettings.Children.Add(labelSeconds);
 
                     // Löschen
-                    Button deleteButton = new Button
+                    Button deleteButton = new()
                     {
                         Content = "🗑️",
                         FontSize = 12,
@@ -112,7 +112,7 @@ namespace Klimalauf
                     GridSettings.Children.Add(deleteButton);
 
                     // Einstellungen
-                    Button optionsButton = new Button
+                    Button optionsButton = new()
                     {
                         Content = "⚙️",
                         FontSize = 12,
@@ -137,7 +137,7 @@ namespace Klimalauf
                 GridSettings.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
                 // Add Rectangle
-                Rectangle rect = new Rectangle
+                Rectangle rect = new()
                 {
                     Height = 1,
                     Fill = new SolidColorBrush(Colors.Gray),
@@ -150,7 +150,7 @@ namespace Klimalauf
 
                 rowIndex++;
 
-                Button addButton = new Button
+                Button addButton = new()
                 {
                     Content = "➕",
                     FontSize = 12,
@@ -182,7 +182,7 @@ namespace Klimalauf
             {
                 if (db.RundenArten.Count() < 6)
                 {
-                    VerwaltungRunden verwaltungRunden = new VerwaltungRunden(DialogMode.Neu);
+                    VerwaltungRunden verwaltungRunden = new(DialogMode.Neu);
                     verwaltungRunden.ShowDialog();
                     RefreshGridSettings();
                 }
@@ -206,7 +206,7 @@ namespace Klimalauf
                     var rundenArt = db.RundenArten.FirstOrDefault(r => r.Name == rundenartName);
                     if (rundenArt != null)
                     {
-                        VerwaltungRunden verwaltungRunden = new VerwaltungRunden(DialogMode.Bearbeiten, rundenArt);
+                        VerwaltungRunden verwaltungRunden = new(DialogMode.Bearbeiten, rundenArt);
                         verwaltungRunden.ShowDialog();
                         RefreshGridSettings();
                     }
@@ -261,7 +261,7 @@ namespace Klimalauf
 
         private void LogoutIcon_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
+            MainWindow mainWindow = new();
             mainWindow.Show();
             this.Close();
         }
@@ -294,7 +294,7 @@ namespace Klimalauf
 
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
-            Scanner adminPanel = new Scanner();
+            Scanner adminPanel = new();
             adminPanel.Show();
             this.Close();
         }
@@ -326,14 +326,14 @@ namespace Klimalauf
         private void btnAdminAdd_Click(object sender, RoutedEventArgs e)
         {
             // DialogMode + Zusatz noch hinzufügen wie bei AddButton_Click
-            AdminEinstellungen adminEinstellungen = new AdminEinstellungen(DialogMode.Neu);
+            AdminEinstellungen adminEinstellungen = new(DialogMode.Neu);
             adminEinstellungen.ShowDialog();
         }
 
         private void btnPasswordChange_Click(object sender, RoutedEventArgs e)
         {
             // DialogMode + Zusatz noch hinzufügen wie bei OptionsButton_Click
-            AdminEinstellungen adminEinstellungen = new AdminEinstellungen(DialogMode.Bearbeiten, this._mvmodel.Benutzer.Vorname, this._mvmodel.Benutzer.Nachname);
+            AdminEinstellungen adminEinstellungen = new(DialogMode.Bearbeiten, this._mvmodel.Benutzer.Vorname, this._mvmodel.Benutzer.Nachname);
             adminEinstellungen.ShowDialog();
         }
     }
