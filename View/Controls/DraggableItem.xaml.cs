@@ -4,16 +4,16 @@ using System.Windows.Input;
 
 namespace Klimalauf
 {
-   /// <summary>
-   /// Interaktionslogik für DraggableItem.xaml
-   /// </summary>
-   public partial class DraggableItem : ContentControl
-   {
-      public string TextContent { get; set; } = "Draggable Item";
-      public DraggableItem()
-      {
-         InitializeComponent();
-         this.DataContext = this;
+    /// <summary>
+    /// Interaktionslogik für DraggableItem.xaml
+    /// </summary>
+    public partial class DraggableItem : ContentControl
+    {
+        public string TextContent { get; set; } = "Draggable Item";
+        public DraggableItem()
+        {
+            InitializeComponent();
+            this.DataContext = this;
             AllowDrop = true;
             PreviewMouseLeftButtonDown += DraggableItem_PreviewMouseLeftButtonDown;
             DragEnter += DraggableItem_DragEnter;
