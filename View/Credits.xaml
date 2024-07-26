@@ -36,7 +36,7 @@
             <TextBlock Margin="0,15,400,0">
                 <Run FontWeight="Bold" FontSize="14"  Text="RunTrack GitHub"/><LineBreak/>
                 <Run Text="- "/>
-                <Hyperlink NavigateUri="https://github.com/KreativeName1/RunTrack/tree/main" RequestNavigate="Hyperlink_RequestNavigate">
+                <Hyperlink NavigateUri="https://github.com/KreativeName1/RunTrack" RequestNavigate="Hyperlink_RequestNavigate">
                     <Run Text="RunTrack"/>
                 </Hyperlink>
             </TextBlock>
