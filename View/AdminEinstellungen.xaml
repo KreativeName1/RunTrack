@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RunTrack.View" xmlns:fc="http://devpelux.github.io/fullcontrols"
         mc:Ignorable="d"
-        Title="AdminEinstellungen" Height="450.5" Width="460" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Einstellungen" Height="450.5" Width="460" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid x:Name="grdStandard">
             <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>

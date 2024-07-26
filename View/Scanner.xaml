@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:RunTrack" xmlns:fc="http://devpelux.github.io/fullcontrols"
         mc:Ignorable="d" Loaded="Window_Loaded"
         Icon="pack://application:,,,/Images/iconRunMan.ico"
-        Title="Scanner" Height="750" Width="1100" MinWidth="578" MinHeight="450" WindowStartupLocation="CenterScreen" PreviewKeyDown="Window_PreviewKeyDown_1"  >
+        Title="Startseite" Height="750" Width="1100" MinWidth="578" MinHeight="450" WindowStartupLocation="CenterScreen" PreviewKeyDown="Window_PreviewKeyDown_1"  >
     <Window.Resources>
         <!-- Animation für BoxTrue -->
         <Storyboard x:Key="ShowBoxTrue">

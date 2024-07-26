@@ -7,7 +7,7 @@
         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:fc="http://devpelux.github.io/fullcontrols"
         mc:Ignorable="d"
         Icon="pack://application:,,,/Images/iconRunMan.ico"
-        Title="PDF_Editor" Height="825" Width="1000" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Drucker Einstellungen" Height="825" Width="1000" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
     <Grid DataContext="{StaticResource pemodel}" >
 

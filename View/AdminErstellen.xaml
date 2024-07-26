@@ -6,12 +6,12 @@
         xmlns:local="clr-namespace:RunTrack" xmlns:fc="http://devpelux.github.io/fullcontrols"
         mc:Ignorable="d" Loaded="Window_Loaded"
         Icon="pack://application:,,,/Images/iconRunMan.ico"
-        Title="AdminErstellen" Height="360" Width="450" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Admin erstellen" Height="360" Width="450" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid x:Name="grdStandard">
-        <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
+        <Rectangle Height="30" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
         <Label Content="🏃🏻 RunTrack" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" FontSize="14" Foreground="White" FontWeight="Bold"/>
 
-        <Image Source="pack://application:,,,/Images/credits.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" MouseDown="btnCredits_Click" Grid.Column="2">
+        <Image Source="pack://application:,,,/Images/credits.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,3,10,0" HorizontalAlignment="Right" MouseDown="btnCredits_Click">
             <Image.ToolTip>
                 <ToolTip Cursor="">Credits</ToolTip>
             </Image.ToolTip>

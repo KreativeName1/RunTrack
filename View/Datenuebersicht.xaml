@@ -7,7 +7,7 @@
         xmlns:lcmd="clr-namespace:RunTrack"
         mc:Ignorable="d"
         Icon="pack://application:,,,/Images/iconRunMan.ico"
-        Title="Datenuebersicht" Height="750" Width="1100" WindowStartupLocation="CenterScreen" >
+        Title="Datenübersicht" Height="750" Width="1100" WindowStartupLocation="CenterScreen" >
     <Window.DataContext>
         <local:MainViewModel/>
     </Window.DataContext>
