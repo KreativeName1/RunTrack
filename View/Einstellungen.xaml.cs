@@ -262,7 +262,7 @@ namespace RunTrack
         private void LogoutIcon_MouseDown(object sender, MouseButtonEventArgs e)
         {
             MainWindow mainWindow = new();
-            mainWindow.Show();
+           // mainWindow.Show();
             this.Close();
         }
 
@@ -295,7 +295,7 @@ namespace RunTrack
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
             Scanner adminPanel = new();
-            adminPanel.Show();
+           // adminPanel.Show();
             this.Close();
         }
 

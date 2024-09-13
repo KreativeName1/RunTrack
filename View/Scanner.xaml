@@ -1,13 +1,12 @@
-﻿<Window x:Class="RunTrack.Scanner"
+﻿<Page x:Class="RunTrack.Scanner"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RunTrack" xmlns:fc="http://devpelux.github.io/fullcontrols"
         mc:Ignorable="d" Loaded="Window_Loaded"
-        Icon="pack://application:,,,/Images/iconRunMan.ico"
-        Title="Startseite" Height="750" Width="1100" MinWidth="578" MinHeight="450" WindowStartupLocation="CenterScreen" PreviewKeyDown="Window_PreviewKeyDown_1"  >
-    <Window.Resources>
+        Title="Startseite" Height="750" Width="1100" MinWidth="578" MinHeight="450" PreviewKeyDown="Window_PreviewKeyDown_1"  >
+    <Page.Resources>
         <!-- Animation für BoxTrue -->
         <Storyboard x:Key="ShowBoxTrue">
             <DoubleAnimation Storyboard.TargetName="BoxTrue" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.5"/>
@@ -18,7 +17,7 @@
             <DoubleAnimation Storyboard.TargetName="BoxFalse" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.5"/>
         </Storyboard>
         <local:TimestampConverter x:Key="TimestampConverter"/>
-    </Window.Resources>
+    </Page.Resources>
     <Grid DataContext="{StaticResource mvmodel}" Cursor="">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="305*"/>
@@ -132,4 +131,4 @@
         </Border>
 
     </Grid>
-</Window>
+</Page>

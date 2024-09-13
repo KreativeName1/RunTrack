@@ -20,7 +20,7 @@ namespace RunTrack
 
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
-            new Scanner().Show();
+            //new Scanner().Show();
             this.Close();
         }
 
@@ -66,7 +66,7 @@ namespace RunTrack
 
         private void btnSchliessen_Click(object sender, RoutedEventArgs e)
         {
-            new Scanner().Show();
+           // new Scanner().Show();
             this.Close();
         }
 

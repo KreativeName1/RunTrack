@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Navigation;
 
 namespace RunTrack.View
@@ -7,11 +8,13 @@ namespace RunTrack.View
     /// <summary>
     /// Interaktionslogik für Credits.xaml
     /// </summary>
-    public partial class Credits : Window
+    public partial class Credits : Page
     {
+        private PageModel? _pmodel;
         public Credits()
         {
             InitializeComponent();
+            _pmodel = FindResource("pmodel") as PageModel ?? new();
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
@@ -22,7 +25,7 @@ namespace RunTrack.View
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            _pmodel?.Navigate(_pmodel.History[^1]);
         }
     }
 

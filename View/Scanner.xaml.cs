@@ -2,15 +2,17 @@
 using System.Diagnostics;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
 
 namespace RunTrack
 {
-    public partial class Scanner : Window
+    public partial class Scanner : Page
     {
         private MainViewModel? _mvmodel;
+        private PageModel? _pmodel;
         private StringBuilder barcodeInput = new();
         private DispatcherTimer timer = new();
         private DateTime lastKeystroke = DateTime.Now;
@@ -22,6 +24,7 @@ namespace RunTrack
 
             DataContext = this;
             this._mvmodel = FindResource("mvmodel") as MainViewModel ?? new();
+            this._pmodel = FindResource("pmodel") as PageModel ?? new();
 
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(5);
@@ -48,28 +51,28 @@ namespace RunTrack
                 {
                     Datenuebersicht datenPanel = new();
                     datenPanel.Show();
-                    this.Close();
+                   // this.Close();
                 };
 
                 btnEinstellung.Click += (sender, e) =>
                 {
                     Einstellungen optionsPanel = new();
                     optionsPanel.Show();
-                    this.Close();
+                   // this.Close();
                 };
 
                 btnDateien.Click += (sender, e) =>
                 {
                     Dateiverwaltung dataPanel = new();
-                    this.Hide();
-                    _mvmodel.LastWindow = this;
+                   // this.Hide();
+                    //_mvmodel.LastWindow = this;
                     dataPanel.Show();
                 };
                 btnAuswertung.Click += (sender, e) =>
                 {
                     Auswertung evaluationPanel = new();
                     evaluationPanel.Show();
-                    this.Close();
+                   // this.Close();
                 };
             }
             else
@@ -80,9 +83,7 @@ namespace RunTrack
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = new();
-            mainWindow.Show();
-            this.Close();
+            _pmodel?.Navigate(new MainWindow());
         }
         private void AddScannedData(int id)
         {
@@ -200,12 +201,6 @@ namespace RunTrack
                 char c = (char)KeyInterop.VirtualKeyFromKey(e.Key);
                 barcodeInput.Append(c);
             }
-        }
-
-        private void btnCredits_Click(object sender, RoutedEventArgs e)
-        {
-            Credits cr = new();
-            cr.ShowDialog();
         }
     }
 }

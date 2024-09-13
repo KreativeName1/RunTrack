@@ -54,7 +54,7 @@ namespace RunTrack
             btnSchliessen.Click += (s, e) =>
             {
                 Scanner scanner = new();
-                scanner.Show();
+               // scanner.Show();
                 this.Close();
             };
             btnDiagramm.Click += (s, e) =>

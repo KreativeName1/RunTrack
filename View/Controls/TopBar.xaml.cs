@@ -10,33 +10,24 @@ namespace RunTrack
     /// </summary>
     public partial class TopBar : UserControl
     {
+
+        private PageModel? _pmodel;
         public TopBar()
         {
             InitializeComponent();
             this.DataContext = this;
+            _pmodel = FindResource("pmodel") as PageModel ?? new();
         }
 
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
-            // Get the parent Window of the ContentControl
-            Window currentWindow = Window.GetWindow(this);
-
-            // Create a new instance of MainWindow
-            MainWindow mainWindow = new MainWindow();
-
-            // Show the new MainWindow
-            mainWindow.Show();
-
-            // Close the current window (ContentControl's parent)
-            currentWindow.Close();
+            _pmodel?.Navigate(new MainWindow());
 
         }
 
         private void Credits_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Credits credits = new Credits();
-            credits.Show();
+            _pmodel?.Navigate(new Credits());
         }
     }
 }

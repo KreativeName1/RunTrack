@@ -12,9 +12,11 @@ namespace RunTrack
     /// </summary>
     public partial class AdminErstellen : Window
     {
+        private PageModel? _pmodel;
         public AdminErstellen()
         {
             InitializeComponent();
+            _pmodel = FindResource("pmodel") as PageModel ?? new();
         }
 
         private void btnErstellen_Click(object sender, RoutedEventArgs e)
@@ -33,7 +35,7 @@ namespace RunTrack
                     db.SaveChanges();
                 }
                 MainWindow mainWindow = new();
-                mainWindow.Show();
+              //  mainWindow.Show();
                 this.Close();
             }
         }
@@ -272,8 +274,7 @@ namespace RunTrack
 
         private void btnCredits_Click(object sender, RoutedEventArgs e)
         {
-            Credits cr = new();
-            cr.ShowDialog();
+            _pmodel.Navigate(new Credits());
         }
 
         private void txtPasswortWdh_LostFocus(object sender, RoutedEventArgs e)

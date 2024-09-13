@@ -2,8 +2,9 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:RunTrack"
-             StartupUri="View/MainWindow.xaml">
+             StartupUri="View/Main.xaml">
     <Application.Resources>
+        <local:PageModel x:Key="pmodel"/>
         <local:MainViewModel x:Key="mvmodel"/>
         <local:DatenuebersichtModel x:Key="dumodel"/>
         <local:PDFEditorModel x:Key="pemodel"/>
