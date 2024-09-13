@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 
-namespace RunTrack.View
+namespace RunTrack
 {
     /// <summary>
     /// Interaktionslogik für Credits.xaml
@@ -25,7 +25,7 @@ namespace RunTrack.View
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _pmodel?.Navigate(_pmodel.History[^1]);
+            _pmodel?.Navigate(_pmodel.History[^1], false);
         }
     }
 

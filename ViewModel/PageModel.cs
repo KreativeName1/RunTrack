@@ -3,8 +3,7 @@
     public class PageModel : BaseModel
     {
         private object? _currentPage;
-        private double _windowHeight = 300;
-        private double _windowWidth = 400;
+        private string _pageTitle;
 
         private List<object> _history = new List<object>();
 
@@ -28,36 +27,26 @@
             }
         }
 
-        public double WindowHeight
+        public string PageTitle
         {
-            get { return _windowHeight; }
+            get { return _pageTitle; }
             set
             {
-                _windowHeight = value;
-                OnPropertyChanged("WindowHeight");
-            }
-        }
-
-        public double WindowWidth
-        {
-            get { return _windowWidth; }
-            set
-            {
-                _windowWidth = value;
-                OnPropertyChanged("WindowWidth");
+                _pageTitle = value;
+                OnPropertyChanged("PageTitle");
             }
         }
 
 
-        public void Navigate(object page)
+
+        public void Navigate(object page, bool? addToHistory = true)
         {
             if (page == null) return;
-            if (CurrentPage != null)
+            if (CurrentPage != null && addToHistory == true)
             {
                 History.Add(CurrentPage);
             }
             CurrentPage = page;
-            // center page on screen
 
 
 

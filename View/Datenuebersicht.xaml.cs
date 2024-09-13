@@ -1,27 +1,31 @@
 ﻿using FullControls.Controls;
 using RunTrack.View.Datenuebersicht;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace RunTrack
 {
     /// <summary>
     /// Interaktionslogik für Datenuebersicht.xaml
     /// </summary>
-    public partial class Datenuebersicht : Window
+    public partial class Datenuebersicht : Page
     {
         private DatenuebersichtModel _dumodel;
+        private PageModel _pmodel;
         public Datenuebersicht()
         {
             InitializeComponent();
             DataContext = this;
             this._dumodel = FindResource("dumodel") as DatenuebersichtModel ?? new DatenuebersichtModel();
+            this._pmodel = FindResource("pmodel") as PageModel ?? new PageModel();
             _dumodel.CurrentPage = new Startseite();
         }
 
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
-            //new Scanner().Show();
-            this.Close();
+            // find the last Scanner page in the history and navigate to it
+            Scanner? scanner = _pmodel.History.FindLast(p => p is Scanner) as Scanner;
+            _pmodel.Navigate(scanner);
         }
 
         private void btnStartseite_Click(object sender, RoutedEventArgs e)
@@ -66,8 +70,8 @@ namespace RunTrack
 
         private void btnSchliessen_Click(object sender, RoutedEventArgs e)
         {
-           // new Scanner().Show();
-            this.Close();
+            Scanner? scanner = _pmodel.History.FindLast(p => p is Scanner) as Scanner;
+            _pmodel.Navigate(scanner);
         }
 
         private void SetButtonState(ButtonPlus activeButton)

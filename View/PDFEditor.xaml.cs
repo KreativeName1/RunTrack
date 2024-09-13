@@ -1,12 +1,14 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace RunTrack
 {
-    public partial class PDFEditor : Window
+    public partial class PDFEditor : Page
     {
         private PDFEditorModel? _pemodel;
         private MainViewModel? _mvmodel;
+        private PageModel? _pmodel;
         private string? _wertungArt;
 
         public PDFEditor(Klasse klasse) : base()
@@ -14,6 +16,7 @@ namespace RunTrack
             InitializeComponent();
             _pemodel = FindResource("pemodel") as PDFEditorModel ?? new PDFEditorModel();
             _mvmodel = FindResource("mvmodel") as MainViewModel ?? new MainViewModel();
+            _pmodel = FindResource("pmodel") as PageModel ?? new PageModel();
             Reset();
             _pemodel.Klasse = klasse;
             init();
@@ -24,6 +27,7 @@ namespace RunTrack
             InitializeComponent();
             _pemodel = FindResource("pemodel") as PDFEditorModel ?? new PDFEditorModel();
             _mvmodel = FindResource("mvmodel") as MainViewModel ?? new MainViewModel();
+            _pmodel = FindResource("pmodel") as PageModel ?? new PageModel();
             Reset();
             _pemodel.Schueler = new ObservableCollection<Schueler>(schueler);
 
@@ -40,6 +44,7 @@ namespace RunTrack
             InitializeComponent();
             _pemodel = FindResource("pemodel") as PDFEditorModel ?? new PDFEditorModel();
             _mvmodel = FindResource("mvmodel") as MainViewModel ?? new MainViewModel();
+            _pmodel = FindResource("pmodel") as PageModel ?? new PageModel();
             Reset();
             _wertungArt = wertungArt;
 
@@ -315,9 +320,7 @@ namespace RunTrack
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            if (_mvmodel == null) return;
-            _mvmodel.LastWindow?.Show();
-            this.Close();
+            _pmodel?.Navigate(_pmodel.History[^1], false);
         }
     }
 }

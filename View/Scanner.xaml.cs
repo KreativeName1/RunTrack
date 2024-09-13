@@ -49,30 +49,21 @@ namespace RunTrack
 
                 btnUebersicht.Click += (sender, e) =>
                 {
-                    Datenuebersicht datenPanel = new();
-                    datenPanel.Show();
-                   // this.Close();
+                    _pmodel?.Navigate(new Datenuebersicht());
                 };
 
                 btnEinstellung.Click += (sender, e) =>
                 {
-                    Einstellungen optionsPanel = new();
-                    optionsPanel.Show();
-                   // this.Close();
+                    _pmodel?.Navigate(new Einstellungen());
                 };
 
                 btnDateien.Click += (sender, e) =>
                 {
-                    Dateiverwaltung dataPanel = new();
-                   // this.Hide();
-                    //_mvmodel.LastWindow = this;
-                    dataPanel.Show();
+                    _pmodel?.Navigate(new Dateiverwaltung());
                 };
                 btnAuswertung.Click += (sender, e) =>
                 {
-                    Auswertung evaluationPanel = new();
-                    evaluationPanel.Show();
-                   // this.Close();
+                    _pmodel?.Navigate(new Auswertung());
                 };
             }
             else

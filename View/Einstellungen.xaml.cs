@@ -11,9 +11,10 @@ namespace RunTrack
     /// <summary>
     /// Interaktionslogik für Einstellungen.xaml
     /// </summary>
-    public partial class Einstellungen : Window
+    public partial class Einstellungen : Page
     {
         private MainViewModel _mvmodel;
+        private PageModel _pmodel;
         private bool _changesMade;
 
         public Einstellungen()
@@ -21,6 +22,7 @@ namespace RunTrack
             InitializeComponent();
 
             _mvmodel = FindResource("mvmodel") as MainViewModel ?? new MainViewModel();
+            _pmodel = FindResource("pmodel") as PageModel ?? new PageModel();
 
             DataContext = this;
 
@@ -183,7 +185,7 @@ namespace RunTrack
                 if (db.RundenArten.Count() < 6)
                 {
                     VerwaltungRunden verwaltungRunden = new(DialogMode.Neu);
-                    verwaltungRunden.ShowDialog();
+                    _pmodel.Navigate(verwaltungRunden);
                     RefreshGridSettings();
                 }
                 else
@@ -207,7 +209,7 @@ namespace RunTrack
                     if (rundenArt != null)
                     {
                         VerwaltungRunden verwaltungRunden = new(DialogMode.Bearbeiten, rundenArt);
-                        verwaltungRunden.ShowDialog();
+                        _pmodel.Navigate(verwaltungRunden);
                         RefreshGridSettings();
                     }
                     else
@@ -261,9 +263,7 @@ namespace RunTrack
 
         private void LogoutIcon_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            MainWindow mainWindow = new();
-           // mainWindow.Show();
-            this.Close();
+            _pmodel.Navigate(new MainWindow());
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
@@ -294,9 +294,7 @@ namespace RunTrack
 
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
-            Scanner adminPanel = new();
-           // adminPanel.Show();
-            this.Close();
+            _pmodel.Navigate(new Scanner());
         }
 
         private void Runden_Click(object sender, RoutedEventArgs e)
@@ -327,14 +325,14 @@ namespace RunTrack
         {
             // DialogMode + Zusatz noch hinzufügen wie bei AddButton_Click
             AdminEinstellungen adminEinstellungen = new(DialogMode.Neu);
-            adminEinstellungen.ShowDialog();
+            _pmodel.Navigate(adminEinstellungen);
         }
 
         private void btnPasswordChange_Click(object sender, RoutedEventArgs e)
         {
             // DialogMode + Zusatz noch hinzufügen wie bei OptionsButton_Click
             AdminEinstellungen adminEinstellungen = new(DialogMode.Bearbeiten, this._mvmodel.Benutzer.Vorname, this._mvmodel.Benutzer.Nachname);
-            adminEinstellungen.ShowDialog();
+            _pmodel.Navigate(adminEinstellungen);
         }
     }
 }

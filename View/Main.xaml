@@ -7,8 +7,9 @@
         mc:Ignorable="d"
         DataContext="{StaticResource pmodel}"
         Content="{Binding CurrentPage}"
+        Title="{Binding PageTitle}"
         Icon="pack://application:,,,/Images/iconRunMan.ico"
          WindowStartupLocation="CenterScreen" 
         SizeToContent="WidthAndHeight"
-        Title="Main">
+        >
 </Window>

@@ -10,18 +10,20 @@ namespace RunTrack
     /// <summary>
     /// Interaktionslogik für Auswertung.xaml
     /// </summary>
-    public partial class Auswertung : Window
+    public partial class Auswertung :  Page
     {
         private string[] _pfade;
         private List<RadioButtonPlus> _rundenArten = new();
         private AuswertungModel _amodel;
         private MainViewModel _mvmodel;
+        private PageModel _pmodel;
         public Auswertung()
         {
             if (!System.IO.Directory.Exists("Dateien")) System.IO.Directory.CreateDirectory("Dateien");
             _pfade = System.IO.Directory.GetFiles("Dateien", "*.db");
             _amodel = FindResource("amodel") as AuswertungModel ?? new AuswertungModel();
             _mvmodel = FindResource("mvmodel") as MainViewModel ?? new MainViewModel();
+            _pmodel = FindResource("pmodel") as PageModel ?? new PageModel();
             _amodel.Liste = new ObservableCollection<object>();
 
             InitializeComponent();
@@ -33,10 +35,8 @@ namespace RunTrack
         {
             btnImport.Click += (s, e) =>
          {
+             _pmodel.Navigate(new Dateiverwaltung());
              Dateiverwaltung dateiverwaltung = new();
-             this.Hide();
-             _mvmodel.LastWindow = this;
-             dateiverwaltung.Show();
 
          };
             btnExport.Click += (s, e) =>
@@ -53,9 +53,7 @@ namespace RunTrack
             };
             btnSchliessen.Click += (s, e) =>
             {
-                Scanner scanner = new();
-               // scanner.Show();
-                this.Close();
+                _pmodel.Navigate(new Scanner());;
             };
             btnDiagramm.Click += (s, e) =>
             {
@@ -70,9 +68,7 @@ namespace RunTrack
                 else if (_amodel.IsDistanz) auswertungsart = "Distanz";
                 else auswertungsart = "Rundenanzahl";
                 PDFEditor editor = new(_amodel.Liste.ToList(), auswertungsart);
-                this.Hide();
-                _mvmodel.LastWindow = this;
-                editor.Show();
+                _pmodel.Navigate(editor);
             };
             btnSchuelerWertung.Click += (s, e) =>
             {
@@ -97,9 +93,7 @@ namespace RunTrack
                     }
 
                     PDFEditor schuelerWertung = new(schuelerList);
-                    this.Hide();
-                    _mvmodel.LastWindow = this;
-                    schuelerWertung.Show();
+                    _pmodel.Navigate(schuelerWertung);
 
                 }
 

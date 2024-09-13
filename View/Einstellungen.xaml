@@ -1,12 +1,11 @@
-﻿<Window x:Class="RunTrack.Einstellungen"
+﻿<Page x:Class="RunTrack.Einstellungen"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RunTrack" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:fc="http://devpelux.github.io/fullcontrols"
-        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-        Icon="pack://application:,,,/Images/iconRunMan.ico"
-        Title="Einstellungen" Height="450" Width="700" ResizeMode="NoResize">
+        mc:Ignorable="d"
+        Title="Einstellungen" Height="450" Width="700">
     <Grid>
         <local:TopBar Grid.ColumnSpan="2" x:Name="Leiste" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
 
@@ -48,4 +47,4 @@
             <fc:ButtonPlus Content="Schließen" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Click="CloseWindow_Click" Width="100" Height="25" Margin="5"/>
         </StackPanel>
     </Grid>
-</Window>
+</Page>

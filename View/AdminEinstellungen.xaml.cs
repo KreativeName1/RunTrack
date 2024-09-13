@@ -4,12 +4,13 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace RunTrack.View
+
+namespace RunTrack
 {
     /// <summary>
     /// Interaktionslogik für AdminEinstellungen.xaml
     /// </summary>
-    public partial class AdminEinstellungen : Window
+    public partial class AdminEinstellungen : Page
     {
         private DialogMode mode = DialogMode.Neu;
 
@@ -215,7 +216,7 @@ namespace RunTrack.View
                         }
                     }
                 }
-                this.Close();
+                _pmodel?.Navigate(_pmodel.History[^1]);
             }
         }
 
@@ -532,5 +533,9 @@ namespace RunTrack.View
             ValidateOldPassword(passwordBox.Password);
         }
 
+        private void btnCredits_Click(object sender, MouseButtonEventArgs e)
+        {
+            _pmodel?.Navigate(new Credits());
+        }
     }
 }

@@ -2,14 +2,16 @@
 using System.Windows.Controls;
 using Xceed.Wpf.Toolkit;
 
-namespace RunTrack.View
+namespace RunTrack
 {
     public enum DialogMode { Neu, Bearbeiten };
 
-    public partial class VerwaltungRunden : Window
+    public partial class VerwaltungRunden : Page
     {
         private DialogMode mode;
         private RundenArt? rundenArt;
+
+        private PageModel? _pmodel;
 
         private string? originalBezeichnung;
         private int? originalLength;
@@ -19,6 +21,7 @@ namespace RunTrack.View
         public VerwaltungRunden(DialogMode mode, RundenArt? rundenArt = null)
         {
             InitializeComponent();
+            _pmodel = FindResource("pmodel") as PageModel ?? new();
             this.Loaded += VerwaltungRunden_Loaded;
 
             this.mode = mode;
@@ -59,7 +62,8 @@ namespace RunTrack.View
             {
                 if (new Popup().Display("Sie haben nicht gespeichert!", "Wirklich Beenden?", PopupType.Warning, PopupButtons.YesNo).Result == false) return;
             }
-            this.Close();
+
+            _pmodel?.Navigate(_pmodel.History[^1]);
         }
 
         private bool IsDataChanged()
@@ -119,7 +123,7 @@ namespace RunTrack.View
                 }
             }
 
-            this.Close();
+            _pmodel?.Navigate(_pmodel.History[^1]);
         }
 
 

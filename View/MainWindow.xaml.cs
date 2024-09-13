@@ -25,10 +25,7 @@ namespace RunTrack
             {
                 if (db.Benutzer.Count() == 0)
                 {
-                    AdminErstellen adminErstellen = new AdminErstellen();
-                    adminErstellen.Show();
-
-                    //this.Close();
+                    _pageModel.Navigate(new AdminErstellen());
                 }
             }
         }

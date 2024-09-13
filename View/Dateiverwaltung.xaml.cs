@@ -8,14 +8,16 @@ using System.Windows.Media;
 
 namespace RunTrack
 {
-    public partial class Dateiverwaltung : Window
+    public partial class Dateiverwaltung : Page
     {
         private MainViewModel _mvmodel;
+        private PageModel _pmodel;
 
         public Dateiverwaltung()
         {
             InitializeComponent();
             _mvmodel = FindResource("mvmodel") as MainViewModel ?? new MainViewModel();
+            _pmodel = FindResource("pmodel") as PageModel ?? new PageModel();
 
 
         }
@@ -55,7 +57,7 @@ namespace RunTrack
                         if (extension == ".asv" || extension == ".csv")
                         {
                             ImportFenster fenster = new(Path.GetFullPath(destPath));
-                            fenster.Show();
+                            _pmodel.Navigate(fenster);
                             _mvmodel.LstFiles = new ObservableCollection<FileItem>(FileItem.AlleLesen());
                         }
                     }
@@ -97,8 +99,7 @@ namespace RunTrack
 
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
-            _mvmodel.LastWindow?.Show();
-            this.Close();
+            _pmodel.Navigate(_pmodel.History[^1]);
         }
 
         private void DownloadFiles_Click(object sender, RoutedEventArgs e)

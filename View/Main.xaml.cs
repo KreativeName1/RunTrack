@@ -26,8 +26,6 @@ namespace RunTrack
 
             _pmodel = FindResource("pmodel") as PageModel ?? new();
             MainWindow main = new();
-            _pmodel.WindowWidth = main.Width;
-            _pmodel.WindowHeight = main.Height;
             _pmodel.CurrentPage = main;
         }
 

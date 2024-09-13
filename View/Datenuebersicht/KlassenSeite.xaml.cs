@@ -11,17 +11,17 @@ namespace RunTrack.View.Datenuebersicht
     {
         private DatenuebersichtModel _model;
         private MainViewModel _mainViewModel;
+        private PageModel _pmodel;
         public KlassenSeite()
         {
             InitializeComponent();
             _mainViewModel = FindResource("mvmodel") as MainViewModel ?? new MainViewModel();
             _model = FindResource("dumodel") as DatenuebersichtModel ?? new DatenuebersichtModel();
+            _pmodel = FindResource("pmodel") as PageModel ?? new PageModel();
             btnBarcodes.Click += (sender, e) =>
             {
                 PDFEditor pdfEditor = new(_model.SelKlasse ?? new());
-                Window.GetWindow(this).Hide();
-                _mainViewModel.LastWindow = Window.GetWindow(this);
-                pdfEditor.Show();
+                _pmodel.Navigate(pdfEditor);
             };
         }
 

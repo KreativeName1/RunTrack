@@ -10,7 +10,7 @@ namespace RunTrack
     /// <summary>
     /// Interaktionslogik für AdminErstellen.xaml
     /// </summary>
-    public partial class AdminErstellen : Window
+    public partial class AdminErstellen : Page
     {
         private PageModel? _pmodel;
         public AdminErstellen()
@@ -34,9 +34,7 @@ namespace RunTrack
                     db.Benutzer.Add(benutzer);
                     db.SaveChanges();
                 }
-                MainWindow mainWindow = new();
-              //  mainWindow.Show();
-                this.Close();
+                _pmodel?.Navigate(new MainWindow());
             }
         }
 
@@ -274,7 +272,7 @@ namespace RunTrack
 
         private void btnCredits_Click(object sender, RoutedEventArgs e)
         {
-            _pmodel.Navigate(new Credits());
+            _pmodel?.Navigate(new Credits());
         }
 
         private void txtPasswortWdh_LostFocus(object sender, RoutedEventArgs e)
@@ -287,6 +285,11 @@ namespace RunTrack
             PasswordBoxPlus passwordBox = (PasswordBoxPlus)sender;
             passwordBox.Foreground = new SolidColorBrush(Colors.Blue);
             ValidatePassword();
+        }
+
+        private void btnCredits_Click(object sender, MouseButtonEventArgs e)
+        {
+            _pmodel?.Navigate(new Credits());
         }
     }
 }

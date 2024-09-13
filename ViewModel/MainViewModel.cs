@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows;
 
 namespace RunTrack
 {
@@ -9,7 +8,6 @@ namespace RunTrack
         private ObservableCollection<Runde> _lstRunden = new();
         private ObservableCollection<Runde> _lstLetzteRunde = new();
         private Benutzer? _benutzer;
-        private Window? _lastWindow;
 
         public Benutzer Benutzer
         {
@@ -137,19 +135,6 @@ namespace RunTrack
                 OnPropertyChanged("IsFISelected");
             }
 
-        }
-
-        public Window? LastWindow
-        {
-            get
-            {
-                return this._lastWindow;
-            }
-            set
-            {
-                this._lastWindow = value;
-                OnPropertyChanged("LastWindow");
-            }
         }
     }
 }
