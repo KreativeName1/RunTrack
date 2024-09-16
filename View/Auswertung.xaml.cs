@@ -150,7 +150,6 @@ namespace RunTrack
                         if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
 
-
                         _amodel.Liste.Add(new { SchuelerId = schueler.Id, Name = schueler.Vorname + " " + schueler.Nachname, Schule = schueler.Klasse.Schule.Name, Klasse = schueler.Klasse.Name, Bewertung = bewertung, Geschlecht = geschlecht });
                     }
                 }
@@ -166,6 +165,7 @@ namespace RunTrack
 
                         if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
+
                         _amodel.Liste.Add(new { SchuelerId = schueler.Id, Name = schueler.Vorname + " " + schueler.Nachname, Klasse = schueler.Klasse.Name, Bewertung = bewertung, Geschlecht = geschlecht });
                     }
                 }
@@ -181,6 +181,7 @@ namespace RunTrack
 
                         if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
+
                         _amodel.Liste.Add(new { SchuelerId = schueler.Id, Name = schueler.Vorname + " " + schueler.Nachname, Bewertung = bewertung, Geschlecht = geschlecht });
                     }
                 }
@@ -196,6 +197,7 @@ namespace RunTrack
 
                         if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
+
                         _amodel.Liste.Add(new { SchuelerId = schueler.Id, Name = schueler.Vorname + " " + schueler.Nachname, Klasse = schueler.Klasse.Name, Schule = schueler.Klasse.Schule.Name, Bewertung = bewertung, Geschlecht = geschlecht });
                     }
                 }
