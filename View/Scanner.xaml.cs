@@ -115,7 +115,7 @@ namespace RunTrack
                 if (schueler == null)
                 {
                     if (isSchuelerAlreadyScanned) Fehlermeldung.Content = $"Der Schüler wurde bereits innerhalb von {IntervalInSekunden} Sekunden eingescannt. ";
-                    else Fehlermeldung.Content = "Schüler mit dieser ID existiert nicht.";
+                    else Fehlermeldung.Content = $"Schüler mit der ID {id} existiert nicht.";
 
                     this.BoxTrue.Visibility = Visibility.Collapsed;
                     this.BoxFalse.Visibility = Visibility.Visible;
