@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RunTrack" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:fc="http://devpelux.github.io/fullcontrols"
         mc:Ignorable="d"
-        Title="Einstellungen" Height="450" Width="700">
+        Title="Einstellungen" Height="750" Width="1000">
     <Grid>
         <local:TopBar Grid.ColumnSpan="2" x:Name="Leiste" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
 

@@ -6,5 +6,5 @@
         xmlns:local="clr-namespace:RunTrack" d:DataContext="{d:DesignInstance Type=local:ImportModel}"
       mc:Ignorable="d"
         DataContext="{StaticResource imodel}" Content="{Binding CurrentView}"
-        Title="Import" Height="500" Width="800" MinHeight="350" MinWidth="430">
+        Title="Import" Height="750" Width="1000" MinHeight="350" MinWidth="430">
 </Window>

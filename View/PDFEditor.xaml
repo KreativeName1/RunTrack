@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:RunTrack"
         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:fc="http://devpelux.github.io/fullcontrols"
         mc:Ignorable="d"
-        Title="Drucker Einstellungen" Height="825" Width="1000">
+        Title="Drucker Einstellungen" Height="750" Width="1000">
 
     <Grid DataContext="{StaticResource pemodel}" >
 
@@ -195,7 +195,7 @@
 
         <Rectangle Height="2" Margin="75,470,75,0" Stroke="#ababab" Fill="#ababab" VerticalAlignment="Top" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="1"/>
 
-        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="1" Margin="100,490,100,0" Height="186" VerticalAlignment="Top">
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="1" Margin="100,470,100,0" Height="186" VerticalAlignment="Top">
             <Label Content="Format speichern" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top" Margin="0,0,0,0"/>
             <Border BorderBrush="Black" BorderThickness="1">
                 <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
