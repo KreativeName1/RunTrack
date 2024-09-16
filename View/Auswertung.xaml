@@ -101,13 +101,25 @@
             
         </StackPanel>
 
-        <DataGrid Grid.Row="1" SelectionMode="Extended"  Grid.Column="1" x:Name="Daten" ItemsSource="{Binding Liste}" SelectedItem="{Binding SelectedItem}" AutoGenerateColumns="True"  >
+        <DataGrid Grid.Row="1" BorderThickness="0" BorderBrush="Red" SelectionMode="Extended" ColumnWidth="*" Grid.Column="1" x:Name="Daten" ItemsSource="{Binding Liste}" SelectedItem="{Binding SelectedItem}" AutoGenerateColumns="True"  CanUserResizeColumns="False" CanUserDeleteRows="False" Margin="0,10,0,0" Cursor="">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="FontSize" Value="15"/>
+                    <Setter Property="HorizontalContentAlignment" Value="center"/>
+                    <Setter Property="Foreground" Value="#FF3957FF"/>
+                </Style>
+            </DataGrid.Resources>
         </DataGrid>
         <TextBlock Grid.Row="1" Grid.Column="1" x:Name="tbLeereListe" Visibility="{Binding IsLeerListe, Converter={StaticResource btocon }}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" >
             Keine Ergebnisse zur Auswahl gefunden
         </TextBlock>
+        <Rectangle Grid.Column="1" Grid.Row="1" Height="2.5px" Fill="Black" Stroke="Black" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
+        <Rectangle Grid.Column="1" Grid.Row="1" Width="2.5px" Fill="Black" Stroke="Black" VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
 
-        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2" Grid.ColumnSpan="2" >
+
+
+        <Border BorderBrush="Black" BorderThickness="0" Grid.Row="2" Grid.ColumnSpan="2" >
             <Grid VerticalAlignment="Center" Margin="10,0,10,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="280"/>
@@ -122,7 +134,7 @@
                     <fc:ButtonPlus x:Name="btnSchuelerWertung" IsEnabled="{Binding SelectedItem, Converter={StaticResource otbcon}}" Content="Schülerwertung" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="100" Cursor="Hand"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
                     <fc:ButtonPlus x:Name="btnWertung" IsEnabled="{Binding IsLeerListe, Converter={StaticResource boolinvcon}}" Content="Momentane Wertung" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="130" Cursor="Hand"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35" />
                     <fc:ButtonPlus x:Name="btnDiagramm" IsEnabled="{Binding IsLeerListe, Converter={StaticResource boolinvcon}}" Content="Diagramm" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="130" Cursor="Hand"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
-                </StackPanel> 
+                </StackPanel>
                 <StackPanel Grid.Column="3" HorizontalAlignment="Right">
                     <fc:ButtonPlus x:Name="btnSchliessen" Content="Schließen" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="140" Cursor="Hand" FontSize="12"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
                 </StackPanel>
