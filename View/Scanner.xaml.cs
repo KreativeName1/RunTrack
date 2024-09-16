@@ -30,6 +30,9 @@ namespace RunTrack
             timer.Interval = TimeSpan.FromSeconds(5);
             timer.Tick += Timer_Tick;
 
+            Window window = Application.Current.MainWindow;
+            window.PreviewKeyDown += Window_PreviewKeyDown_1;
+
         }
 
         private void Timer_Tick(object? sender, EventArgs e)
@@ -167,7 +170,7 @@ namespace RunTrack
                 barcodeInput.Clear();
             }
 
-            if (e.Key == Key.Enter)
+            if (e.Key == Key.Enter || e.Key == Key.Tab)
             {
                 string scannedData = barcodeInput.ToString().Trim();
                 if (!string.IsNullOrEmpty(scannedData))
