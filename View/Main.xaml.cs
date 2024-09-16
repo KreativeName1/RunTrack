@@ -24,13 +24,17 @@ namespace RunTrack
         {
             InitializeComponent();
 
+           
             _pmodel = FindResource("pmodel") as PageModel ?? new();
             MainWindow main = new();
+
             _pmodel.CurrentPage = main;
+
         }
 
         protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
         {
+
             base.OnRenderSizeChanged(sizeInfo);
 
             if (sizeInfo.HeightChanged)
@@ -38,6 +42,36 @@ namespace RunTrack
 
             if (sizeInfo.WidthChanged)
                 this.Left += (sizeInfo.PreviousSize.Width - sizeInfo.NewSize.Width) / 2;
+
+            if (this.SizeToContent == SizeToContent.WidthAndHeight)
+            {
+                return;
+            }
+            Page page = this.Content as Page;
+            if (page != null)
+            {
+                // set the page size to the window size
+                page.Width = this.ActualWidth - 20;
+            }
+        }
+
+        // on resize, change the page size
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+           
+        }
+
+        // on maximize and restore, change the page size
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            // get the page from the Window
+            Page page = this.Content as Page;
+            if (page != null)
+            {
+                // set the page size to the window size
+                page.Width = this.ActualWidth;
+                page.Height = this.ActualHeight;
+            }
         }
     }
 }

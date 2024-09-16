@@ -18,16 +18,6 @@ namespace RunTrack
 
             _viewModel = FindResource("mvmodel") as MainViewModel ?? new();
             _pageModel = FindResource("pmodel") as PageModel ?? new();
-
-
-            // Prüfen, ob Admin existiert. Wenn nicht, AdminErstellen öffnen
-            using (var db = new LaufDBContext())
-            {
-                if (db.Benutzer.Count() == 0)
-                {
-                    _pageModel.Navigate(new AdminErstellen());
-                }
-            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -39,6 +29,16 @@ namespace RunTrack
             LastNameTextBox.UnderlineBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0067c0"));
             FirstNameTextBox.UnderlineThickness = new Thickness(0, 0, 0, 2);
             LastNameTextBox.UnderlineThickness = new Thickness(0, 0, 0, 2);
+
+            // Prüfen, ob Admin existiert. Wenn nicht, AdminErstellen öffnen
+            using (var db = new LaufDBContext())
+            {
+                if (db.Benutzer.Count() == 0)
+                {
+                    _pageModel.Navigate(new AdminErstellen());
+                    return;
+                }
+            }
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)

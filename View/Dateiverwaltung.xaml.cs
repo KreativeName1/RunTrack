@@ -57,7 +57,7 @@ namespace RunTrack
                         if (extension == ".asv" || extension == ".csv")
                         {
                             ImportFenster fenster = new(Path.GetFullPath(destPath));
-                            _pmodel.Navigate(fenster);
+                            fenster.ShowDialog();
                             _mvmodel.LstFiles = new ObservableCollection<FileItem>(FileItem.AlleLesen());
                         }
                     }
@@ -99,7 +99,7 @@ namespace RunTrack
 
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
-            _pmodel.Navigate(_pmodel.History[^1]);
+            _pmodel.Navigate(_pmodel.History[^1], false);
         }
 
         private void DownloadFiles_Click(object sender, RoutedEventArgs e)

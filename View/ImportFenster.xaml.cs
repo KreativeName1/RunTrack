@@ -6,7 +6,7 @@ namespace RunTrack
     /// <summary>
     /// Interaktionslogik für ImportFenster.xaml
     /// </summary>
-    public partial class ImportFenster : Page
+    public partial class ImportFenster : Window
     {
         private ImportModel _imodel;
         private PageModel _pmodel;
@@ -25,7 +25,7 @@ namespace RunTrack
                 {
                     if (_imodel.CurrentView == null)
                     {
-                        _pmodel.Navigate(_pmodel.History[^1]);
+                        this.Close();
                     }
                 }
             };

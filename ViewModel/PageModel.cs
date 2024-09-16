@@ -1,4 +1,6 @@
-﻿namespace RunTrack
+﻿using System.Windows;
+
+namespace RunTrack
 {
     public class PageModel : BaseModel
     {
@@ -47,6 +49,13 @@
                 History.Add(CurrentPage);
             }
             CurrentPage = page;
+
+            // get the window
+            Window window = Application.Current.MainWindow;
+            if (window != null)
+            {
+                window.SizeToContent = SizeToContent.WidthAndHeight;
+            }
 
 
 
