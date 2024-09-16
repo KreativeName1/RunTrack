@@ -12,6 +12,8 @@ namespace RunTrack
     /// </summary>
     public partial class AdminEinstellungen : Page
     {
+
+        public static ResizeMode ResizeMode { get; set; } = ResizeMode.NoResize;
         private DialogMode mode = DialogMode.Neu;
 
         private string firstName = string.Empty;
@@ -536,6 +538,11 @@ namespace RunTrack
         private void btnCredits_Click(object sender, MouseButtonEventArgs e)
         {
             _pmodel?.Navigate(new Credits());
+        }
+
+        private void btnAbbrechen_Click(object sender, RoutedEventArgs e)
+        {
+            _pmodel?.Navigate(_pmodel.History[^1]);
         }
     }
 }

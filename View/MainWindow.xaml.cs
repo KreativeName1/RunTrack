@@ -9,6 +9,7 @@ namespace RunTrack
 {
     public partial class MainWindow : Page
     {
+        public ResizeMode ResizeMode { get; set; }
         private MainViewModel _viewModel;
         private PageModel _pageModel;
 
