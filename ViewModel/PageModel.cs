@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace RunTrack
 {
@@ -49,6 +50,7 @@ namespace RunTrack
                 History.Add(CurrentPage);
             }
             CurrentPage = page;
+            PageTitle = (CurrentPage as Page)?.Title;
 
             // get the window
             Window window = Application.Current.MainWindow;

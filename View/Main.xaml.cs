@@ -29,6 +29,7 @@ namespace RunTrack
             MainWindow main = new();
 
             _pmodel.CurrentPage = main;
+            _pmodel.PageTitle = main.Title;
 
         }
 
