@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RunTrack" xmlns:fc="http://devpelux.github.io/fullcontrols"
         mc:Ignorable="d" Loaded="Window_Loaded"
-        Title="Startseite" Height="750" Width="1100" MinWidth="578" MinHeight="450"  >
+        Title="Startseite" Height="750" Width="1100" MinWidth="578" MinHeight="450">
     <Page.Resources>
         <!-- Animation für BoxTrue -->
         <Storyboard x:Key="ShowBoxTrue">
@@ -25,7 +25,7 @@
             <ColumnDefinition Width="305*"/>
         </Grid.ColumnDefinitions>
 
-        <DataGrid x:Name="lastScan" ItemsSource="{Binding LstLetzteRunde}" Margin="30,100,30,0" FontFamily="Consolas" CanUserSortColumns="False" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True" Height="50" VerticalAlignment="Top" Grid.ColumnSpan="3">
+        <DataGrid x:Name="lastScan" ItemsSource="{Binding LstLetzteRunde}" Margin="30,120,30,0" FontFamily="Consolas" CanUserSortColumns="False" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True" Height="50" VerticalAlignment="Top" Grid.ColumnSpan="3">
             <DataGrid.Resources>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="FontWeight" Value="Bold"/>
@@ -60,7 +60,7 @@
         </DataGrid>
 
 
-        <DataGrid x:Name="lstlastScan" ItemsSource="{Binding LstRunden}" Margin="30,190,30,30" FontFamily="Consolas" CanUserSortColumns="False" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True" Grid.ColumnSpan="3">
+        <DataGrid x:Name="lstlastScan" ItemsSource="{Binding LstRunden}" Margin="30,210,30,30" FontFamily="Consolas" CanUserSortColumns="False" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True" Grid.ColumnSpan="3">
             <DataGrid.Resources>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="FontWeight" Value="Bold"/>
@@ -94,8 +94,8 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Label Content="Vorherige Scans:" HorizontalAlignment="Left" Margin="30,161,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <Label Content="Letzter Scan:" HorizontalAlignment="Left" Margin="30,71,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Letzter Scan:" HorizontalAlignment="Left" Margin="30,91,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Vorherige Scans:" HorizontalAlignment="Left" Margin="30,181,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
 
 
         <Border x:Name="BoxPruefung" VerticalAlignment="Top" Margin="100,40,100,0" Grid.ColumnSpan="3">
@@ -120,7 +120,7 @@
 
 
         <local:TopBar x:Name="Leiste" Grid.ColumnSpan="3"  HorizontalAlignment="Stretch" VerticalAlignment="Top" />
-        
+
         <Border x:Name="borderAdmin" Height="67" HorizontalAlignment="Center" Margin="30" VerticalAlignment="Bottom" Visibility="visible" Grid.ColumnSpan="3">
             <StackPanel Orientation="Horizontal">
                 <fc:ButtonPlus x:Name="btnDateien" Content="Dateiverwaltung" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Margin="0,0,10,0" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Left" Cursor="Hand" Width="150"/>
@@ -129,6 +129,11 @@
                 <fc:ButtonPlus x:Name="btnAuswertung" Content="Auswertung" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Margin="0,0,0,0" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Right" Cursor="Hand" Width="150"/>
             </StackPanel>
         </Border>
+
+        <TextBox Grid.Column="2" Margin="0,93,57,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="22" HorizontalAlignment="Right" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+        <Label Grid.Column="2" Content="Scanner nicht vorhanden:" Margin="0,90,158,0" VerticalAlignment="Top" FontSize="13" HorizontalAlignment="Right" Width="156"/>
+        <Button Grid.Column="2" Content="+" Margin="0,93,30,0" VerticalAlignment="Top" Height="22" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="72" FontWeight="Bold" FontSize="14" HorizontalAlignment="Right" Width="22"/>
+
 
     </Grid>
 </Page>
