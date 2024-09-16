@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RunTrack" xmlns:fc="http://devpelux.github.io/fullcontrols"
         mc:Ignorable="d" Loaded="Window_Loaded"
-        Title="Startseite" Height="750" Width="1100" MinWidth="578" MinHeight="450">
+        Title="Startseite" Height="750" Width="1000" MinWidth="578" MinHeight="450">
     <Page.Resources>
         <!-- Animation für BoxTrue -->
         <Storyboard x:Key="ShowBoxTrue">
@@ -118,6 +118,13 @@
             </Grid>
         </Border>
 
+        <Border x:Name="BoxErrorManual" VerticalAlignment="Top" Margin="100,40,100,0" Visibility="Collapsed" Grid.ColumnSpan="3">
+            <Grid>
+                <Rectangle Height="30" Stroke="#FF5F5F5F" Fill="#DD7907" VerticalAlignment="Center"/>
+                <Label x:Name="ErrorManual" Content="Keine Buchstaben erlaubt!" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0"  VerticalAlignment="Center" Foreground="WhiteSmoke" FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+            </Grid>
+        </Border>
+
 
         <local:TopBar x:Name="Leiste" Grid.ColumnSpan="3"  HorizontalAlignment="Stretch" VerticalAlignment="Top" />
 
@@ -130,7 +137,7 @@
             </StackPanel>
         </Border>
 
-        <TextBox Grid.Column="2" Margin="0,93,57,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="22" HorizontalAlignment="Right" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+        <TextBox x:Name="manualData" Grid.Column="2" Margin="0,93,57,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="22" HorizontalAlignment="Right" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyDown="manualData_KeyDown" />
         <Label Grid.Column="2" Content="Scanner nicht vorhanden:" Margin="0,90,158,0" VerticalAlignment="Top" FontSize="13" HorizontalAlignment="Right" Width="156"/>
         <Button Grid.Column="2" Content="+" Margin="0,93,30,0" VerticalAlignment="Top" Height="22" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="72" FontWeight="Bold" FontSize="14" HorizontalAlignment="Right" Width="22"/>
 
