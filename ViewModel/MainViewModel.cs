@@ -4,7 +4,6 @@ namespace RunTrack
 {
     public class MainViewModel : BaseModel
     {
-        private ObservableCollection<FileItem> _lstFiles = new();
         private ObservableCollection<Runde> _lstRunden = new();
         private ObservableCollection<Runde> _lstLetzteRunde = new();
         private Benutzer? _benutzer;
@@ -53,55 +52,22 @@ namespace RunTrack
 
         }
 
-        public ObservableCollection<FileItem> LstFiles
+        private ScanItem? _selScanItem;
+        public ScanItem? SelScanItem
         {
             get
             {
-                return this._lstFiles;
-            }
-            set
-            {
-
-                this._lstFiles = value;
-                OnPropertyChanged("LstFiles");
-            }
-        }
-
-        private ScanItem? _selSC;
-        public ScanItem? selSC
-        {
-            get
-            {
-                return this._selSC;
+                return this._selScanItem;
             }
 
             set
             {
-                this._selSC = value;
+                this._selScanItem = value;
 
-                this.isSCSelected = this._selSC != null;
-
-
-                OnPropertyChanged("SelSC");
-            }
-        }
-
-        private FileItem? _selFI;
-        public FileItem? selFI
-        {
-            get
-            {
-                return this._selFI;
-            }
-
-            set
-            {
-                this._selFI = value;
-
-                this.isFISelected = this._selFI != null;
+                this.isSCSelected = this._selScanItem != null;
 
 
-                OnPropertyChanged("SelFI");
+                OnPropertyChanged("SelScanItem");
             }
         }
 
@@ -117,22 +83,6 @@ namespace RunTrack
             {
                 this._isSCSelected = value;
                 OnPropertyChanged("IsSCSelected");
-            }
-
-        }
-
-        private bool _isFISelected;
-        public bool isFISelected
-        {
-            get
-            {
-                return _isFISelected;
-            }
-
-            set
-            {
-                this._isFISelected = value;
-                OnPropertyChanged("IsFISelected");
             }
 
         }

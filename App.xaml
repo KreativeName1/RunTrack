@@ -7,6 +7,7 @@
         <local:PageModel x:Key="pmodel"/>
         <local:MainViewModel x:Key="mvmodel"/>
         <local:DatenuebersichtModel x:Key="dumodel"/>
+        <local:DateiVerwaltungModel x:Key="dvmodel"/>
         <local:PDFEditorModel x:Key="pemodel"/>
         <local:AuswertungModel x:Key="amodel"/>
         <local:ImportModel x:Key="imodel"/>

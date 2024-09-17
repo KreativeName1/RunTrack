@@ -10,20 +10,15 @@ namespace RunTrack
 {
     public partial class Dateiverwaltung : Page
     {
-        private MainViewModel _mvmodel;
+        private MainViewModel _dvmodel;
         private PageModel _pmodel;
 
         public Dateiverwaltung()
         {
             InitializeComponent();
-            _mvmodel = FindResource("mvmodel") as MainViewModel ?? new MainViewModel();
-            _pmodel = FindResource("pmodel") as PageModel ?? new PageModel();
-
-
-        }
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            _mvmodel.LstFiles = new ObservableCollection<FileItem>(FileItem.AlleLesen());
+            _dvmodel = FindResource("dvmodel") as MainViewModel ?? new();
+            _pmodel = FindResource("pmodel") as PageModel ?? new();
+            _dvmodel.LstFiles = new(FileItem.AlleLesen());
         }
 
         private void UploadFiles_Click(object sender, RoutedEventArgs e)
@@ -43,7 +38,7 @@ namespace RunTrack
                     if (extension == ".asv" || extension == ".db" || extension == ".csv")
                     {
                         // Datei in die Liste hinzufügen
-                        _mvmodel.LstFiles.Add(new FileItem
+                        _dvmodel.LstFiles.Add(new FileItem
                         {
                             FileName = Path.GetFileName(fileName),
                             UploadDate = DateTime.Now

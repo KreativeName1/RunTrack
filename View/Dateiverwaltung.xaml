@@ -3,10 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RunTrack" xmlns:fc="http://devpelux.github.io/fullcontrols"
-        mc:Ignorable="d" Loaded="Window_Loaded"
+        xmlns:local="clr-namespace:RunTrack" xmlns:fc="http://devpelux.github.io/fullcontrols" d:DataContext="{d:DesignInstance Type=local:DateiVerwaltungModel}"
+      mc:Ignorable="d"
         Title="Dateiverwaltung" Height="750" Width="1000">
-    <Grid DataContext="{StaticResource mvmodel}">
+    <Grid DataContext="{StaticResource dvmodel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto" MinHeight="80"/>
