@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RunTrack" xmlns:fc="http://devpelux.github.io/fullcontrols"
         mc:Ignorable="d"
-        Title="Einstellungen" Height="380" Width="450">
+        Title="Einstellungen" Height="400" Width="450">
     <Grid>
         <Grid x:Name="grdStandard">
             <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
             <Label Content="🏃🏻 RunTrack" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" FontSize="14" Foreground="White" FontWeight="Bold"/>
 
-            <Image Source="pack://application:,,,/Images/credits.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" MouseDown="btnCredits_Click" Grid.Column="2">
+            <Image Source="pack://application:,,,/Images/credits.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" x:Name="btnCredits" Grid.Column="2">
                 <Image.ToolTip>
                     <ToolTip Cursor="">Credits</ToolTip>
                 </Image.ToolTip>
@@ -51,7 +51,7 @@
             </Label>
 
             <Grid x:Name="newPasswd" HorizontalAlignment="Left" Height="30" Margin="87,216,0,0" VerticalAlignment="Top" Width="273">
-                <Label Content="neues Passwort:" HorizontalAlignment="Left" FontSize="14" FontFamily="72" FontWeight="Bold" Height="26" VerticalAlignment="Center"/>
+                <Label Content="Passwort:" HorizontalAlignment="Left" FontSize="14" FontFamily="72" FontWeight="Bold" Height="26" VerticalAlignment="Center"/>
                 <fc:PasswordBoxPlus x:Name="txtPasswordNew" HorizontalAlignment="Left" BackgroundOnDisabled="#ffffff" ForegroundOnDisabled="#41678D" Margin="123,0,0,0" EnablePeekButton="True" Foreground="Blue" ForegroundOnSelected="Blue" UnderlineBrushOnSelected="#28713E" CornerRadius="3" Width="150" FontSize="14" Padding="5" Height="30" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswort_LostFocus" PasswordChanged="txtPasswort_PasswordChanged"/>
             </Grid>
 
@@ -70,9 +70,9 @@
                 </Label.ToolTip>
             </Label>
 
-            <fc:ButtonPlus x:Name="btnErstellen" Content="Erstellen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White"  HorizontalAlignment="Center" Margin="0,280,0,0" CornerRadius="5.5" VerticalAlignment="Top" Width="250" Cursor="Hand" Background="#6C7C98" Foreground="White" FontSize="15" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35" Click="btnErstellen_Click"/>
-            <fc:ButtonPlus x:Name="btnAendern" Content="Passwort ändern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White"  HorizontalAlignment="Center" Margin="0,280,0,0" CornerRadius="5.5" VerticalAlignment="Top" Width="250" Cursor="Hand" Background="#6C7C98" Foreground="White" FontSize="15" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35" Click="btnErstellen_Click" Visibility="Collapsed"/>
-            <fc:ButtonPlus x:Name="btnAbbrechen" Content="Abbrechen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White"  HorizontalAlignment="Center" Margin="0,320,0,0" CornerRadius="5.5" VerticalAlignment="Top" Width="250" Cursor="Hand" Background="#6C7C98" Foreground="White" FontSize="15" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35" Click="btnAbbrechen_Click"/>
+            <fc:ButtonPlus x:Name="btnErstellen" Content="Erstellen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White"  HorizontalAlignment="Center" Margin="0,0,0,60" CornerRadius="5.5" VerticalAlignment="Bottom" Width="250" Cursor="Hand" Background="#6C7C98" Foreground="White" FontSize="15" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+            <fc:ButtonPlus x:Name="btnAendern" Content="Passwort ändern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White"  HorizontalAlignment="Center" Margin="0,0,0,60" CornerRadius="5.5" VerticalAlignment="Bottom" Width="250" Cursor="Hand" Background="#6C7C98" Foreground="White" FontSize="15" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35" Visibility="Collapsed"/>
+            <fc:ButtonPlus x:Name="btnAbbrechen" Content="Abbrechen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White"  HorizontalAlignment="Center" Margin="0,0,0,20" CornerRadius="5.5" VerticalAlignment="Bottom" Width="250" Cursor="Hand" Background="#6C7C98" Foreground="White" FontSize="15" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
         </Grid>
     </Grid>
 </Page>

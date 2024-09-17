@@ -36,7 +36,7 @@ namespace RunTrack
             {
                 if (db.Benutzer.Count() == 0)
                 {
-                    _pageModel.Navigate(new AdminErstellen());
+                    _pageModel.Navigate(new AdminEinstellungen(DialogMode.Neu));
                     return;
                 }
             }
