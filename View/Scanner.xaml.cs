@@ -116,6 +116,7 @@ namespace RunTrack
                if (isSchuelerAlreadyScanned) Fehlermeldung.Content = $"Der Schüler wurde bereits innerhalb von {IntervalInSekunden} Sekunden eingescannt. ";
                else Fehlermeldung.Content = $"Schüler mit der ID {id} existiert nicht.";
 
+               this.BoxErrorManual.Visibility = Visibility.Collapsed;
                this.BoxTrue.Visibility = Visibility.Collapsed;
                this.BoxFalse.Visibility = Visibility.Visible;
 
@@ -127,6 +128,7 @@ namespace RunTrack
             }
             else
             {
+               this.BoxErrorManual.Visibility = Visibility.Collapsed;
                this.BoxFalse.Visibility = Visibility.Collapsed;
                this.BoxTrue.Visibility = Visibility.Visible;
 
@@ -209,10 +211,17 @@ namespace RunTrack
             }
             else
             {
+               this.BoxTrue.Visibility = Visibility.Collapsed;
+               this.BoxFalse.Visibility = Visibility.Collapsed;
                this.BoxErrorManual.Visibility = Visibility.Visible;
 
+               // Start fade-in animation for BoxFalse
+               Storyboard sb = FindResource("ShowBoxErrorManual") as Storyboard ?? new();
+               sb.Begin(BoxErrorManual);
 
-               new Popup().Display("Fehler", "Die Eingabe ist keine gültige Zahl!", PopupType.Error, PopupButtons.Ok);
+               StartHideTimer();
+
+               //new Popup().Display("Fehler", "Die Eingabe ist keine gültige Zahl!", PopupType.Error, PopupButtons.Ok);
             }
          }
       }
