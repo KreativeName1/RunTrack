@@ -10,13 +10,13 @@ namespace RunTrack
 {
     public partial class Dateiverwaltung : Page
     {
-        private MainViewModel _dvmodel;
+        private DateiVerwaltungModel _dvmodel;
         private PageModel _pmodel;
 
         public Dateiverwaltung()
         {
             InitializeComponent();
-            _dvmodel = FindResource("dvmodel") as MainViewModel ?? new();
+            _dvmodel = FindResource("dvmodel") as DateiVerwaltungModel ?? new();
             _pmodel = FindResource("pmodel") as PageModel ?? new();
             _dvmodel.LstFiles = new(FileItem.AlleLesen());
         }
@@ -53,7 +53,7 @@ namespace RunTrack
                         {
                             ImportFenster fenster = new(Path.GetFullPath(destPath));
                             fenster.ShowDialog();
-                            _mvmodel.LstFiles = new ObservableCollection<FileItem>(FileItem.AlleLesen());
+                            _dvmodel.LstFiles = new ObservableCollection<FileItem>(FileItem.AlleLesen());
                         }
                     }
                     else
@@ -66,16 +66,16 @@ namespace RunTrack
 
         private void DeleteSelectedFiles_Click(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i < _mvmodel.LstFiles.Count; i++)
+            for (int i = 0; i < _dvmodel.LstFiles.Count; i++)
             {
-                if (_mvmodel.LstFiles[i].IsSelected)
+                if (_dvmodel.LstFiles[i].IsSelected)
                 {
-                    MessageBoxResult result = MessageBox.Show($"Willst du die Datei '{_mvmodel.LstFiles[i].FileName}' wirklich löschen?", "Datei Löschen", MessageBoxButton.YesNo);
+                    MessageBoxResult result = MessageBox.Show($"Willst du die Datei '{_dvmodel.LstFiles[i].FileName}' wirklich löschen?", "Datei Löschen", MessageBoxButton.YesNo);
                     if (result == MessageBoxResult.Yes)
                     {
-                        if (_mvmodel.LstFiles[i].FileName == null) continue;
-                        File.Delete(Path.Combine("Dateien", _mvmodel.LstFiles[i].FileName ?? string.Empty));
-                        _mvmodel.LstFiles.RemoveAt(i);
+                        if (_dvmodel.LstFiles[i].FileName == null) continue;
+                        File.Delete(Path.Combine("Dateien", _dvmodel.LstFiles[i].FileName ?? string.Empty));
+                        _dvmodel.LstFiles.RemoveAt(i);
                     }
                 }
             }
@@ -84,10 +84,7 @@ namespace RunTrack
         private void SelectAllCheckBox_Click(object sender, RoutedEventArgs e)
         {
             bool newValue = (SelectAllCheckBox.IsChecked == true);
-            foreach (FileItem file in _mvmodel.LstFiles)
-            {
-                file.IsSelected = newValue;
-            }
+            foreach (FileItem file in _dvmodel.LstFiles) file.IsSelected = newValue;
 
             SelectAllTextBlock.Text = SelectAllCheckBox.IsChecked == true ? "Deselect All" : "Select All";
         }
@@ -101,7 +98,7 @@ namespace RunTrack
         private void DownloadFiles_Click(object sender, RoutedEventArgs e)
         {
             // get the selected file
-            foreach (FileItem file in _mvmodel.LstFiles)
+            foreach (FileItem file in _dvmodel.LstFiles)
             {
                 if (file.IsSelected)
                 {
@@ -138,26 +135,20 @@ namespace RunTrack
             List<FileItem> sortedList;
             if (propertyName == "FileName")
             {
-                sortedList = ascending ? _mvmodel.LstFiles.OrderBy(f => f.FileName).ToList()
-                                       : _mvmodel.LstFiles.OrderByDescending(f => f.FileName).ToList();
+                sortedList = ascending ? _dvmodel.LstFiles.OrderBy(f => f.FileName).ToList()
+                                       : _dvmodel.LstFiles.OrderByDescending(f => f.FileName).ToList();
                 sortByFileNameAscending = !ascending;
             }
             else if (propertyName == "UploadDate")
             {
-                sortedList = ascending ? _mvmodel.LstFiles.OrderBy(f => f.UploadDate).ToList()
-                                       : _mvmodel.LstFiles.OrderByDescending(f => f.UploadDate).ToList();
+                sortedList = ascending ? _dvmodel.LstFiles.OrderBy(f => f.UploadDate).ToList()
+                                       : _dvmodel.LstFiles.OrderByDescending(f => f.UploadDate).ToList();
                 sortByUploadDateAscending = !ascending;
             }
-            else
-            {
-                return;
-            }
+            else return;
 
-            _mvmodel.LstFiles.Clear();
-            foreach (var item in sortedList)
-            {
-                _mvmodel.LstFiles.Add(item);
-            }
+            _dvmodel.LstFiles.Clear();
+            foreach (var item in sortedList) _dvmodel.LstFiles.Add(item);
         }
 
 

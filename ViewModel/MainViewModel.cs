@@ -48,43 +48,7 @@ namespace RunTrack
             _lstLetzteRunde.Clear();
             _lstLetzteRunde.Add(runde);
             OnPropertyChanged("LstLetzteRunden");
-
-
         }
 
-        private ScanItem? _selScanItem;
-        public ScanItem? SelScanItem
-        {
-            get
-            {
-                return this._selScanItem;
-            }
-
-            set
-            {
-                this._selScanItem = value;
-
-                this.isSCSelected = this._selScanItem != null;
-
-
-                OnPropertyChanged("SelScanItem");
-            }
-        }
-
-        private bool _isSCSelected;
-        public bool isSCSelected
-        {
-            get
-            {
-                return _isSCSelected;
-            }
-
-            set
-            {
-                this._isSCSelected = value;
-                OnPropertyChanged("IsSCSelected");
-            }
-
-        }
     }
 }
