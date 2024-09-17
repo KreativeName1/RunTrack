@@ -10,7 +10,6 @@ namespace RunTrack
     internal class DateiVerwaltungModel : BaseModel
     {
         private ObservableCollection<FileItem> _lstFiles = new();
-        private FileItem? _selFileItem;
         public ObservableCollection<FileItem> LstFiles
         {
             get

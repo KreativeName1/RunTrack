@@ -10,7 +10,6 @@ namespace RunTrack
     public partial class MainWindow : Page
     {
         public ResizeMode ResizeMode { get; set; }
-        private ScannerModel _viewModel;
         private MainModel _pageModel;
 
         public MainWindow()

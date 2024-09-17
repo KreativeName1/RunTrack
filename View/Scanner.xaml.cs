@@ -135,7 +135,7 @@ namespace RunTrack
                     Runde runde = new();
                     runde.Schueler = schueler;
                     runde.Zeitstempel = DateTime.Now;
-                    runde.BenutzerName = $"{_pmodel.Benutzer.Vorname} {_pmodel.Benutzer.Nachname}";
+                    runde.BenutzerName = $"{_pmodel?.Benutzer.Vorname} {_pmodel?.Benutzer.Nachname}";
                     db.Runden.Add(runde);
                     db.SaveChanges();
                     _smodel.hinzufügeLetzteRunde(runde);

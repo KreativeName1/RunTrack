@@ -6,7 +6,7 @@ namespace RunTrack
     public class MainModel : BaseModel
     {
         private object? _currentPage;
-        private string _pageTitle;
+        private string? _pageTitle;
 
         private List<object> _history = new List<object>();
 
@@ -45,7 +45,7 @@ namespace RunTrack
             }
         }
 
-        public string PageTitle
+        public string? PageTitle
         {
             get { return _pageTitle; }
             set
@@ -72,7 +72,7 @@ namespace RunTrack
 
                 if (CurrentPage.GetType().GetProperty("ResizeMode") != null)
                 {
-                    if (CurrentPage.GetType().GetProperty("ResizeMode").GetValue(CurrentPage).ToString() == "CanResize")
+                    if (CurrentPage.GetType()?.GetProperty("ResizeMode")?.GetValue(CurrentPage)?.ToString() == "CanResize")
                     {
                         window.ResizeMode = ResizeMode.CanResize;
                     }
