@@ -12,19 +12,23 @@ namespace RunTrack
     /// </summary>
     public partial class AdminEinstellungen : Page
     {
-
-        public static ResizeMode ResizeMode { get; set; } = ResizeMode.NoResize;
         private DialogMode mode = DialogMode.Neu;
 
         private string firstName = string.Empty;
         private string lastName = string.Empty;
 
-        private PageModel? _pmodel;
+        private MainModel? _pmodel;
+
+        public AdminEinstellungen()
+        {
+            InitializeComponent();
+            _pmodel = FindResource("pmodel") as MainModel ?? new();
+        }
 
         public AdminEinstellungen(DialogMode mode, string firstName = "", string lastName = "")
         {
             InitializeComponent();
-            _pmodel = FindResource("pmodel") as PageModel ?? new();
+            _pmodel = FindResource("pmodel") as MainModel ?? new();
             this.mode = mode;
             this.firstName = firstName;
             this.lastName = lastName;
@@ -34,30 +38,29 @@ namespace RunTrack
             this.txtVorname.Text = firstName;
             this.txtNachname.Text = lastName;
 
-            txtVorname.IsEnabled = mode == DialogMode.Neu;
-            txtNachname.IsEnabled = mode == DialogMode.Neu;
-            btnAendern.Visibility = mode == DialogMode.Bearbeiten ? Visibility.Visible : Visibility.Collapsed;
-            btnErstellen.Visibility = mode == DialogMode.Neu ? Visibility.Visible : Visibility.Collapsed;
-
-            this.btnAendern.Click += (sender, e) =>
-            {
-                bool result = ChangePassword(this.txtPasswordOld.Password, this.txtPasswordNew.Password);
-                if (result) _pmodel?.Navigate(_pmodel.History[^1]);
-            };
-            this.btnErstellen.Click += (sender, e) => AdminErstellen();
-            this.btnAbbrechen.Click += (sender, e) => _pmodel?.Navigate(_pmodel.History[^1]);
-            this.btnCredits.MouseDown += (sender, e) => _pmodel?.Navigate(new Credits());
-
             if (mode == DialogMode.Bearbeiten)
             {
                 this.txtPasswordOld.Focus();
+                this.btnAendern.Visibility = Visibility.Visible;
+                this.btnErstellen.Visibility = Visibility.Collapsed;
                 this.paswdWDH.Visibility = Visibility.Visible;
+                this.txtVorname.IsEnabled = false;
+                this.txtNachname.IsEnabled = false;
                 this.txtPasswordNew.IsEnabled = false;
                 this.Title = "Passwort bearbeiten";
+
+                this.btnAendern.Click += (sender, e) =>
+                {
+                    ChangePassword(this.txtPasswordOld.Password, this.txtPasswordNew.Password);
+                };
             }
             else if (mode == DialogMode.Neu)
             {
                 this.txtVorname.Focus();
+                this.txtVorname.IsEnabled = true;
+                this.txtNachname.IsEnabled = true;
+                this.btnAendern.Visibility = Visibility.Collapsed;
+                this.btnErstellen.Visibility = Visibility.Visible;
                 this.txtPasswordNew.IsEnabled = true;
                 this.paswdWDH.Visibility = Visibility.Collapsed;
                 this.Title = "Admin anlegen";
@@ -66,10 +69,20 @@ namespace RunTrack
 
         private void SetWindowSize()
         {
-            if (mode != DialogMode.Neu) return;
-            this.warningPassword.Margin = new Thickness(368, 192, 0, 0);
-            this.newPasswd.Margin = new Thickness(87, 176, 0, 0);
-            this.borderPasswordWdh.Margin = new Thickness(87, 216, 0, 0);
+            if (mode == DialogMode.Bearbeiten)
+            {
+                this.Width = 460;
+                this.Height = 440.5;
+            }
+            else if (mode == DialogMode.Neu)
+            {
+                this.warningPassword.Margin = new Thickness(368, 192, 0, 0);
+                this.newPasswd.Margin = new Thickness(87, 176, 0, 0);
+                this.borderPasswordWdh.Margin = new Thickness(87, 216, 0, 0);
+                this.btnErstellen.Margin = new Thickness(0, 280, 0, 0);
+                this.Width = 460;
+                this.Height = 400.5;
+            }
         }
 
         private bool ChangePassword(string oldPassword, string newPassword)
@@ -119,46 +132,88 @@ namespace RunTrack
 
         private bool ValidateNewPassword(string newPassword)
         {
-#if DEBUG
-            return !string.IsNullOrEmpty(newPassword) && newPassword.Length >= 1;
-#endif
+            // Beispielhafte Validierungsanforderungen für ein sicheres Passwort
             return !string.IsNullOrEmpty(newPassword) &&
-                   newPassword.Length >= 8 &&
-            newPassword.Any(char.IsUpper) &&
-            newPassword.Any(char.IsLower) &&
-            newPassword.Any(char.IsDigit) && newPassword.Any(char.IsSymbol);
+                   newPassword.Length >= 1;
+            //&&
+            //newPassword.Any(char.IsUpper) &&
+            //newPassword.Any(char.IsLower) &&
+            //newPassword.Any(char.IsDigit);
         }
 
-        private void AdminErstellen()
+        private void btnErstellen_Click(object sender, RoutedEventArgs e)
         {
             if (ValidateInputs())
             {
                 using (var db = new LaufDBContext())
                 {
-                    var existingUser = db.Benutzer.FirstOrDefault(b => b.Vorname == txtVorname.Text && b.Nachname == txtNachname.Text);
-
-                    if (existingUser == null)
+                    if (mode == DialogMode.Neu)
                     {
-                        if (ValidateNewPassword(txtPasswordNew.Password))
+                        var existingUser = db.Benutzer.FirstOrDefault(b => b.Vorname == txtVorname.Text && b.Nachname == txtNachname.Text);
 
+                        if (existingUser == null)
                         {
-                            Benutzer benutzer = new()
+                            if (ValidateNewPassword(txtPasswordNew.Password))
                             {
-                                Vorname = txtVorname.Text,
-                                Nachname = txtNachname.Text,
-                                Passwort = BCrypt.Net.BCrypt.HashPassword(txtPasswordNew.Password)
-                            };
-                            db.Benutzer.Add(benutzer);
-                            db.SaveChanges();
+                                // Überprüfen, ob das Passwort bereits von einem anderen Benutzer verwendet wird
+                                bool passwordInUse = db.Benutzer.Any(b => b.Passwort == BCrypt.Net.BCrypt.HashPassword(txtPasswordNew.Password));
+                                if (passwordInUse)
+                                {
+                                    new Popup().Display("Fehler", "Das Passwort wird bereits von einem anderen Benutzer verwendet.", PopupType.Error, PopupButtons.Ok);
+                                }
+                                else
+                                {
+                                    Benutzer benutzer = new()
+                                    {
+                                        Vorname = txtVorname.Text,
+                                        Nachname = txtNachname.Text,
+                                        Passwort = BCrypt.Net.BCrypt.HashPassword(txtPasswordNew.Password)
+                                    };
+                                    db.Benutzer.Add(benutzer);
+                                    db.SaveChanges();
+                                    new Popup().Display("Erfolg", "Benutzer erfolgreich erstellt :)", PopupType.Success, PopupButtons.Ok);
+                                }
+                            }
+                            else
+                            {
+                                new Popup().Display("Fehler", "Das neue Passwort erfüllt nicht die Sicherheitsanforderungen.", PopupType.Error, PopupButtons.Ok);
+                            }
                         }
                         else
                         {
-                            new Popup().Display("Fehler", "Das neue Passwort erfüllt nicht die Sicherheitsanforderungen.", PopupType.Error, PopupButtons.Ok);
+                            new Popup().Display("Fehler", "Ein Benutzer mit diesem Namen existiert bereits.", PopupType.Error, PopupButtons.Ok);
                         }
                     }
-                    else
+                    else if (mode == DialogMode.Bearbeiten)
                     {
-                        new Popup().Display("Fehler", "Ein Benutzer mit diesem Namen existiert bereits.", PopupType.Error, PopupButtons.Ok);
+                        // Find the existing user and update the password
+                        var existingUser = db.Benutzer.FirstOrDefault(b => b.Vorname == this.firstName && b.Nachname == this.lastName);
+
+                        if (existingUser != null)
+                        {
+                            if (ValidateNewPassword(txtPasswordNew.Password))
+                            {
+                                bool passwordInUse = db.Benutzer.Any(b => b.Passwort == BCrypt.Net.BCrypt.HashPassword(txtPasswordNew.Password) && !(b.Vorname == this.firstName && b.Nachname == this.lastName));
+                                if (passwordInUse)
+                                {
+                                    new Popup().Display("Fehler", "Das Passwort wird bereits von einem anderen Benutzer verwendet.", PopupType.Error, PopupButtons.Ok);
+                                }
+                                else
+                                {
+                                    existingUser.Passwort = BCrypt.Net.BCrypt.HashPassword(txtPasswordNew.Password);
+                                    db.SaveChanges();
+                                    new Popup().Display("Erfolg", "Passwort erfolgreich geändert :)", PopupType.Success, PopupButtons.Ok);
+                                }
+                            }
+                            else
+                            {
+                                new Popup().Display("Fehler", "Das neue Passwort erfüllt nicht die Sicherheitsanforderungen.", PopupType.Error, PopupButtons.Ok);
+                            }
+                        }
+                        else
+                        {
+                            new Popup().Display("Fehler", "Der Benutzer existiert nicht.", PopupType.Error, PopupButtons.Ok);
+                        }
                     }
                 }
                 _pmodel?.Navigate(_pmodel.History[^1]);
@@ -318,7 +373,7 @@ namespace RunTrack
                 }
                 if (ValidateInputs())
                 {
-                    AdminErstellen();
+                    btnErstellen_Click(sender, e);
                 }
             }
         }
@@ -394,9 +449,17 @@ namespace RunTrack
             PasswordBoxPlus passwordBox = (PasswordBoxPlus)sender;
             passwordBox.Foreground = new SolidColorBrush(Colors.Blue);
 
-            // Sichtbarkeit der Passwortwiederholung
-            if (!string.IsNullOrEmpty(passwordBox.Password)) borderPasswordWdh.Visibility = Visibility.Visible;
-            else borderPasswordWdh.Visibility = Visibility.Collapsed;
+            // Sichtbarkeit der Passwortwiederholung und Anpassung der Button-Position
+            if (!string.IsNullOrEmpty(passwordBox.Password))
+            {
+                borderPasswordWdh.Visibility = Visibility.Visible;
+                btnErstellen.Margin = new Thickness(0, 260, 0, 0); // Button nach unten verschieben
+            }
+            else
+            {
+                borderPasswordWdh.Visibility = Visibility.Collapsed;
+                btnErstellen.Margin = new Thickness(0, 238, 0, 0); // Button nach oben verschieben
+            }
 
             ValidatePassword(); // Passwortvalidierung durchführen
         }
@@ -421,7 +484,10 @@ namespace RunTrack
 
         private void txtPasswordOld_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtPasswordOld.Password)) ValidateOldPassword(txtPasswordOld.Password);
+            if (!string.IsNullOrEmpty(txtPasswordOld.Password))
+            {
+                ValidateOldPassword(txtPasswordOld.Password);
+            }
         }
 
         private void ValidateOldPassword(string oldPassword)
@@ -465,6 +531,11 @@ namespace RunTrack
 
             // Dynamische Überprüfung des alten Passworts
             ValidateOldPassword(passwordBox.Password);
+        }
+
+        private void btnCredits_Click(object sender, MouseButtonEventArgs e)
+        {
+            _pmodel?.Navigate(new Credits());
         }
     }
 }

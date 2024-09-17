@@ -10,11 +10,11 @@ namespace RunTrack
     /// </summary>
     public partial class Credits : Page
     {
-        private PageModel? _pmodel;
+        private MainModel? _pmodel;
         public Credits()
         {
             InitializeComponent();
-            _pmodel = FindResource("pmodel") as PageModel ?? new();
+            _pmodel = FindResource("pmodel") as MainModel ?? new();
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)

@@ -11,13 +11,13 @@ namespace RunTrack
     public partial class Dateiverwaltung : Page
     {
         private DateiVerwaltungModel _dvmodel;
-        private PageModel _pmodel;
+        private MainModel _pmodel;
 
         public Dateiverwaltung()
         {
             InitializeComponent();
             _dvmodel = FindResource("dvmodel") as DateiVerwaltungModel ?? new();
-            _pmodel = FindResource("pmodel") as PageModel ?? new();
+            _pmodel = FindResource("pmodel") as MainModel ?? new();
             _dvmodel.LstFiles = new(FileItem.AlleLesen());
         }
 

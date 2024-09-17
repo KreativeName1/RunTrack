@@ -13,16 +13,14 @@ namespace RunTrack
     /// </summary>
     public partial class Einstellungen : Page
     {
-        private MainViewModel _mvmodel;
-        private PageModel _pmodel;
+        private MainModel _pmodel;
         private bool _changesMade;
 
         public Einstellungen()
         {
             InitializeComponent();
 
-            _mvmodel = FindResource("mvmodel") as MainViewModel ?? new MainViewModel();
-            _pmodel = FindResource("pmodel") as PageModel ?? new PageModel();
+            _pmodel = FindResource("pmodel") as MainModel ?? new MainModel();
 
             DataContext = this;
 
@@ -331,7 +329,7 @@ namespace RunTrack
         private void btnPasswordChange_Click(object sender, RoutedEventArgs e)
         {
             // DialogMode + Zusatz noch hinzufügen wie bei OptionsButton_Click
-            AdminEinstellungen adminEinstellungen = new(DialogMode.Bearbeiten, this._mvmodel.Benutzer.Vorname, this._mvmodel.Benutzer.Nachname);
+            AdminEinstellungen adminEinstellungen = new(DialogMode.Bearbeiten, this._pmodel.Benutzer.Vorname, this._pmodel.Benutzer.Nachname);
             _pmodel.Navigate(adminEinstellungen);
         }
     }

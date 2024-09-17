@@ -11,12 +11,12 @@ namespace RunTrack
     public partial class TopBar : UserControl
     {
 
-        private PageModel? _pmodel;
+        private MainModel? _pmodel;
         public TopBar()
         {
             InitializeComponent();
             this.DataContext = this;
-            _pmodel = FindResource("pmodel") as PageModel ?? new();
+            _pmodel = FindResource("pmodel") as MainModel ?? new();
         }
 
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)

@@ -7,16 +7,14 @@ namespace RunTrack
     public partial class PDFEditor : Page
     {
         private PDFEditorModel? _pemodel;
-        private MainViewModel? _mvmodel;
-        private PageModel? _pmodel;
+        private MainModel? _pmodel;
         private string? _wertungArt;
 
         public PDFEditor(Klasse klasse) : base()
         {
             InitializeComponent();
             _pemodel = FindResource("pemodel") as PDFEditorModel ?? new PDFEditorModel();
-            _mvmodel = FindResource("mvmodel") as MainViewModel ?? new MainViewModel();
-            _pmodel = FindResource("pmodel") as PageModel ?? new PageModel();
+            _pmodel = FindResource("pmodel") as MainModel ?? new MainModel();
             Reset();
             _pemodel.Klasse = klasse;
             init();
@@ -26,8 +24,7 @@ namespace RunTrack
         {
             InitializeComponent();
             _pemodel = FindResource("pemodel") as PDFEditorModel ?? new PDFEditorModel();
-            _mvmodel = FindResource("mvmodel") as MainViewModel ?? new MainViewModel();
-            _pmodel = FindResource("pmodel") as PageModel ?? new PageModel();
+            _pmodel = FindResource("pmodel") as MainModel ?? new MainModel();
             Reset();
             _pemodel.Schueler = new ObservableCollection<Schueler>(schueler);
 
@@ -43,8 +40,7 @@ namespace RunTrack
         {
             InitializeComponent();
             _pemodel = FindResource("pemodel") as PDFEditorModel ?? new PDFEditorModel();
-            _mvmodel = FindResource("mvmodel") as MainViewModel ?? new MainViewModel();
-            _pmodel = FindResource("pmodel") as PageModel ?? new PageModel();
+            _pmodel = FindResource("pmodel") as MainModel ?? new MainModel();
             Reset();
             _wertungArt = wertungArt;
 

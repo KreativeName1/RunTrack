@@ -9,7 +9,7 @@
     <ContentControl.Resources>
         <local:BoolToVisibilityConverter x:Key="bvcon"/>
     </ContentControl.Resources>
-    <Grid DataContext="{StaticResource mvmodel}">
+    <Grid DataContext="{StaticResource pmodel}">
         <Rectangle Height="30" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top" Grid.ColumnSpan="2" />
         <Label Content="Benutzer:" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Height="26" Width="64"/>
         <Label x:Name="ScannerName" Content="{Binding Benutzer.Benutzername}" HorizontalAlignment="Left" Margin="79,1,0,0" VerticalAlignment="Top" Foreground="Wheat" Height="26" Width="150"/>

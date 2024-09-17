@@ -3,7 +3,7 @@ using System.Windows.Controls;
 
 namespace RunTrack
 {
-    public class PageModel : BaseModel
+    public class MainModel : BaseModel
     {
         private object? _currentPage;
         private string _pageTitle;
@@ -17,6 +17,21 @@ namespace RunTrack
             {
                 _currentPage = value;
                 OnPropertyChanged("CurrentPage");
+            }
+        }
+
+        private Benutzer? _benutzer;
+
+        public Benutzer Benutzer
+        {
+            get
+            {
+                return this._benutzer ?? new Benutzer();
+            }
+            set
+            {
+                this._benutzer = value;
+                OnPropertyChanged("Benutzer");
             }
         }
 
@@ -39,8 +54,6 @@ namespace RunTrack
                 OnPropertyChanged("PageTitle");
             }
         }
-
-
 
         public void Navigate(object page, bool? addToHistory = true)
         {

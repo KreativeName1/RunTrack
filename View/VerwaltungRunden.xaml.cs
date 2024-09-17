@@ -11,7 +11,7 @@ namespace RunTrack
         private DialogMode mode;
         private RundenArt? rundenArt;
 
-        private PageModel? _pmodel;
+        private MainModel? _pmodel;
 
         private string? originalBezeichnung;
         private int? originalLength;
@@ -21,7 +21,7 @@ namespace RunTrack
         public VerwaltungRunden(DialogMode mode, RundenArt? rundenArt = null)
         {
             InitializeComponent();
-            _pmodel = FindResource("pmodel") as PageModel ?? new();
+            _pmodel = FindResource("pmodel") as MainModel ?? new();
             this.Loaded += VerwaltungRunden_Loaded;
 
             this.mode = mode;

@@ -9,12 +9,12 @@ namespace RunTrack
     public partial class ImportFenster : Window
     {
         private ImportModel _imodel;
-        private PageModel _pmodel;
+        private MainModel _pmodel;
         public ImportFenster(string pfad)
         {
             InitializeComponent();
             _imodel = FindResource("imodel") as ImportModel ?? new ImportModel();
-            _pmodel = FindResource("pmodel") as PageModel ?? new PageModel();
+            _pmodel = FindResource("pmodel") as MainModel ?? new MainModel();
             _imodel.Pfad = pfad;
             DataContext = _imodel;
             _imodel.ShowImport1();

@@ -10,15 +10,14 @@ namespace RunTrack
     public partial class MainWindow : Page
     {
         public ResizeMode ResizeMode { get; set; }
-        private MainViewModel _viewModel;
-        private PageModel _pageModel;
+        private ScannerModel _viewModel;
+        private MainModel _pageModel;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            _viewModel = FindResource("mvmodel") as MainViewModel ?? new();
-            _pageModel = FindResource("pmodel") as PageModel ?? new();
+            _pageModel = FindResource("pmodel") as MainModel ?? new();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -44,7 +43,7 @@ namespace RunTrack
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            _viewModel.Benutzer = new Benutzer
+            _pageModel.Benutzer = new Benutzer
             {
                 Vorname = FirstNameTextBox.Text,
                 Nachname = LastNameTextBox.Text,
@@ -56,28 +55,28 @@ namespace RunTrack
                 using (var db = new LaufDBContext())
                 {
                     // Suchen Sie den Benutzer in der Datenbank
-                    Benutzer? user = db.Benutzer.FirstOrDefault(b => b.Vorname == _viewModel.Benutzer.Vorname && b.Nachname == _viewModel.Benutzer.Nachname);
+                    Benutzer? user = db.Benutzer.FirstOrDefault(b => b.Vorname == _pageModel.Benutzer.Vorname && b.Nachname == _pageModel.Benutzer.Nachname);
 
                     // Wenn der Benutzer nicht gefunden wurde, melden Sie den Benutzer ohne Passwortüberprüfung an
                     if (user == null)
                     {
-                        _viewModel.Benutzer.IsAdmin = false; // Oder true, wenn Sie annehmen möchten, dass der Benutzer Administratorrechte hat
+                        _pageModel.Benutzer.IsAdmin = false; // Oder true, wenn Sie annehmen möchten, dass der Benutzer Administratorrechte hat
                         _pageModel.Navigate(new Scanner());
                     }
                     else
                     {
                         // Wenn der Benutzer existiert, überprüfen Sie das Passwort
-                        _viewModel.Benutzer.Passwort = AdminPasswordBox.Password;
+                        _pageModel.Benutzer.Passwort = AdminPasswordBox.Password;
                         if (string.IsNullOrEmpty(AdminPasswordBox.Password))
                         {
                             // Kein Passwort eingegeben, anmelden als normaler Benutzer
-                            _viewModel.Benutzer.IsAdmin = false; // Setzen Sie auf true, falls der Benutzer Administratorrechte haben soll
+                            _pageModel.Benutzer.IsAdmin = false; // Setzen Sie auf true, falls der Benutzer Administratorrechte haben soll
                             _pageModel.Navigate(new Scanner());
                         }
                         else if (BCrypt.Net.BCrypt.Verify(AdminPasswordBox.Password, user.Passwort))
                         {
                             // Passwort stimmt überein, anmelden als Administrator
-                            _viewModel.Benutzer.IsAdmin = true;
+                            _pageModel.Benutzer.IsAdmin = true;
 
                             _pageModel.Navigate(new Scanner());
                         }

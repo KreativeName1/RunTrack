@@ -24,7 +24,7 @@
         
         <local:TimestampConverter x:Key="TimestampConverter"/>
     </Page.Resources>
-    <Grid DataContext="{StaticResource mvmodel}" Cursor="">
+    <Grid DataContext="{StaticResource smodel}" Cursor="">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="305*"/>
             <ColumnDefinition Width="100*"/>

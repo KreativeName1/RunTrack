@@ -11,13 +11,13 @@ namespace RunTrack
     public partial class Datenuebersicht : Page
     {
         private DatenuebersichtModel _dumodel;
-        private PageModel _pmodel;
+        private MainModel _pmodel;
         public Datenuebersicht()
         {
             InitializeComponent();
             DataContext = this;
             this._dumodel = FindResource("dumodel") as DatenuebersichtModel ?? new DatenuebersichtModel();
-            this._pmodel = FindResource("pmodel") as PageModel ?? new PageModel();
+            this._pmodel = FindResource("pmodel") as MainModel ?? new MainModel();
             _dumodel.CurrentPage = new Startseite();
         }
 

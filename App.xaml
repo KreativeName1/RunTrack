@@ -4,8 +4,8 @@
              xmlns:local="clr-namespace:RunTrack"
              StartupUri="View/Main.xaml">
     <Application.Resources>
-        <local:PageModel x:Key="pmodel"/>
-        <local:MainViewModel x:Key="mvmodel"/>
+        <local:MainModel x:Key="pmodel"/>
+        <local:ScannerModel x:Key="smodel"/>
         <local:DatenuebersichtModel x:Key="dumodel"/>
         <local:DateiVerwaltungModel x:Key="dvmodel"/>
         <local:PDFEditorModel x:Key="pemodel"/>

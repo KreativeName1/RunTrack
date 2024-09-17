@@ -15,15 +15,13 @@ namespace RunTrack
         private string[] _pfade;
         private List<RadioButtonPlus> _rundenArten = new();
         private AuswertungModel _amodel;
-        private MainViewModel _mvmodel;
-        private PageModel _pmodel;
+        private MainModel _pmodel;
         public Auswertung()
         {
             if (!System.IO.Directory.Exists("Dateien")) System.IO.Directory.CreateDirectory("Dateien");
             _pfade = System.IO.Directory.GetFiles("Dateien", "*.db");
             _amodel = FindResource("amodel") as AuswertungModel ?? new AuswertungModel();
-            _mvmodel = FindResource("mvmodel") as MainViewModel ?? new MainViewModel();
-            _pmodel = FindResource("pmodel") as PageModel ?? new PageModel();
+            _pmodel = FindResource("pmodel") as MainModel ?? new MainModel();
             _amodel.Liste = new ObservableCollection<object>();
 
             InitializeComponent();
@@ -150,6 +148,7 @@ namespace RunTrack
                         if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
 
+
                         _amodel.Liste.Add(new { SchuelerId = schueler.Id, Name = schueler.Vorname + " " + schueler.Nachname, Schule = schueler.Klasse.Schule.Name, Klasse = schueler.Klasse.Name, Bewertung = bewertung, Geschlecht = geschlecht });
                     }
                 }
@@ -165,7 +164,6 @@ namespace RunTrack
 
                         if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
-
                         _amodel.Liste.Add(new { SchuelerId = schueler.Id, Name = schueler.Vorname + " " + schueler.Nachname, Klasse = schueler.Klasse.Name, Bewertung = bewertung, Geschlecht = geschlecht });
                     }
                 }
@@ -181,7 +179,6 @@ namespace RunTrack
 
                         if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
-
                         _amodel.Liste.Add(new { SchuelerId = schueler.Id, Name = schueler.Vorname + " " + schueler.Nachname, Bewertung = bewertung, Geschlecht = geschlecht });
                     }
                 }
@@ -197,7 +194,6 @@ namespace RunTrack
 
                         if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
-
                         _amodel.Liste.Add(new { SchuelerId = schueler.Id, Name = schueler.Vorname + " " + schueler.Nachname, Klasse = schueler.Klasse.Name, Schule = schueler.Klasse.Schule.Name, Bewertung = bewertung, Geschlecht = geschlecht });
                     }
                 }

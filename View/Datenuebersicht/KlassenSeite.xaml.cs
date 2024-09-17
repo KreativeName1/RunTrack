@@ -10,14 +10,14 @@ namespace RunTrack.View.Datenuebersicht
     public partial class KlassenSeite : Page
     {
         private DatenuebersichtModel _model;
-        private MainViewModel _mainViewModel;
-        private PageModel _pmodel;
+        private ScannerModel _mainViewModel;
+        private MainModel _pmodel;
         public KlassenSeite()
         {
             InitializeComponent();
-            _mainViewModel = FindResource("mvmodel") as MainViewModel ?? new MainViewModel();
+            _mainViewModel = FindResource("mvmodel") as ScannerModel ?? new ScannerModel();
             _model = FindResource("dumodel") as DatenuebersichtModel ?? new DatenuebersichtModel();
-            _pmodel = FindResource("pmodel") as PageModel ?? new PageModel();
+            _pmodel = FindResource("pmodel") as MainModel ?? new MainModel();
             btnBarcodes.Click += (sender, e) =>
             {
                 PDFEditor pdfEditor = new(_model.SelKlasse ?? new());
