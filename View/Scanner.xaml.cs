@@ -1,5 +1,4 @@
-﻿using RunTrack.View;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,6 +28,10 @@ namespace RunTrack
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(5);
             timer.Tick += Timer_Tick;
+
+            Window window = Application.Current.MainWindow;
+            window.PreviewKeyDown += Window_PreviewKeyDown_1;
+
 
         }
 
@@ -158,7 +161,10 @@ namespace RunTrack
         }
 
         private void Window_PreviewKeyDown_1(object sender, KeyEventArgs e)
-        {
+          {
+            // if sender is from a TextBox, do not handle the event
+            
+            if (e.OriginalSource is TextBox && e.Key == Key.Enter) manualData_KeyDown(sender, new KeyEventArgs(Keyboard.PrimaryDevice, PresentationSource.FromVisual(this), 0, Key.Enter));
             TimeSpan timeSinceLastKeystroke = DateTime.Now - lastKeystroke;
             lastKeystroke = DateTime.Now;
 
@@ -167,7 +173,7 @@ namespace RunTrack
                 barcodeInput.Clear();
             }
 
-            if (e.Key == Key.Enter)
+            if (e.Key == Key.Enter || e.Key == Key.Tab)
             {
                 string scannedData = barcodeInput.ToString().Trim();
                 if (!string.IsNullOrEmpty(scannedData))
@@ -175,6 +181,7 @@ namespace RunTrack
                     try
                     {
                         int scannedDataInt = int.Parse(scannedData);
+                        Trace.WriteLine($"Scanned Data: {scannedDataInt}");
                         AddScannedData(scannedDataInt);
                     }
                     catch (FormatException)
@@ -194,14 +201,33 @@ namespace RunTrack
             }
         }
 
+        // Funktioniert nicht
         private void manualData_KeyDown(object sender, KeyEventArgs e)
+        
         {
+            if (e.Key == Key.Enter)
+            {
+                int scannedData = _smodel.ManuelleEingabe;
+                Trace.WriteLine($"Scanned Data: {scannedData}");
 
+                try
+                {
+                    AddScannedData(_smodel.ManuelleEingabe);
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Ungültige Eingabe. Der String konnte nicht in eine Zahl umgewandelt werden.");
+                }
+                finally
+                {
+                }
+            }
         }
 
+        // Funktioniert für den Button
         private void ButtonPlus_Click_1(object sender, RoutedEventArgs e)
         {
-
+            manualData_KeyDown(sender, new KeyEventArgs(Keyboard.PrimaryDevice, PresentationSource.FromVisual(this), 0, Key.Enter));
         }
     }
 }

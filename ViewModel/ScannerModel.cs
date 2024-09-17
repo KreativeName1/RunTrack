@@ -6,7 +6,7 @@ namespace RunTrack
     {
         private ObservableCollection<Runde> _lstRunden = new();
         private ObservableCollection<Runde> _lstLetzteRunde = new();
-        
+        private int _manuelleEingabe = 0;
 
         public ObservableCollection<Runde> LstRunden
         {
@@ -29,6 +29,20 @@ namespace RunTrack
                 return this._lstLetzteRunde;
             }
         }
+
+        public int ManuelleEingabe
+        {
+            get
+            {
+                return this._manuelleEingabe;
+            }
+            set
+            {
+                this._manuelleEingabe = value;
+                OnPropertyChanged("ManuelleEingabe");
+            }
+        }
+
 
         public void hinzufügeLetzteRunde(Runde runde)
         {
