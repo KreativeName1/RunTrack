@@ -99,7 +99,8 @@ namespace RunTrack
 
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
-            _pmodel.Navigate(_pmodel.History[^1], false);
+            Object? page  = _pmodel.History.FindLast(p => p.GetType() != GetType());
+            if (page != null) _pmodel.Navigate(page);
         }
 
         private void DownloadFiles_Click(object sender, RoutedEventArgs e)
