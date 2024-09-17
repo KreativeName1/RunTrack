@@ -226,6 +226,27 @@ namespace RunTrack
          }
       }
 
+      private void ButtonPlus_Click_1(object sender, RoutedEventArgs e)
+      {
+         if (int.TryParse(manualData.Text, out int scannedDataInt))
+         {
+            AddScannedData(scannedDataInt);
+            manualData.Text = "";
+         }
+         else
+         {
+            this.BoxTrue.Visibility = Visibility.Collapsed;
+            this.BoxFalse.Visibility = Visibility.Collapsed;
+            this.BoxErrorManual.Visibility = Visibility.Visible;
 
+            // Start fade-in animation for BoxFalse
+            Storyboard sb = FindResource("ShowBoxErrorManual") as Storyboard ?? new();
+            sb.Begin(BoxErrorManual);
+
+            StartHideTimer();
+
+            //new Popup().Display("Fehler", "Die Eingabe ist keine gültige Zahl!", PopupType.Error, PopupButtons.Ok);
+         }
+      }
    }
 }
