@@ -21,7 +21,7 @@
         <Storyboard x:Key="ShowBoxErrorManual">
             <DoubleAnimation Storyboard.TargetName="BoxErrorManual" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.5"/>
         </Storyboard>
-        
+
         <local:TimestampConverter x:Key="TimestampConverter"/>
     </Page.Resources>
     <Grid DataContext="{StaticResource smodel}" Cursor="">
@@ -143,7 +143,8 @@
             </StackPanel>
         </Border>
 
-        <TextBox x:Name="manualData" Text="{Binding ManuelleEingabe, Mode=TwoWay}"   Grid.Column="2" Margin="0,93,57,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="22" HorizontalAlignment="Right" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+        <!--<TextBox x:Name="manualData" Text="{Binding ManuelleEingabe, Mode=TwoWay}"   Grid.Column="2" Margin="0,93,57,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="22" HorizontalAlignment="Right" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />-->
+        <TextBox x:Name="manualData" Grid.Column="2" Margin="0,93,57,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="22" HorizontalAlignment="Right" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyDown="manualData_KeyDown" />
         <Label Grid.Column="2" Content="Scanner nicht vorhanden:" Margin="0,90,158,0" VerticalAlignment="Top" FontSize="13" HorizontalAlignment="Right" Width="156"/>
         <fc:ButtonPlus Grid.Column="2" Content="+" Margin="0,93,30,0" VerticalAlignment="Top" Height="22" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="72" FontWeight="Bold" FontSize="14" HorizontalAlignment="Right" Width="22" Cursor="Hand" Click="ButtonPlus_Click_1"/>
 

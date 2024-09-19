@@ -115,10 +115,11 @@ namespace RunTrack
                 if (schueler == null)
                 {
                     if (isSchuelerAlreadyScanned) Fehlermeldung.Content = $"Der Schüler wurde bereits innerhalb von {IntervalInSekunden} Sekunden eingescannt. ";
-                    else Fehlermeldung.Content = "Schüler mit dieser ID existiert nicht.";
-
+                    //else Fehlermeldung.Content = "Schüler mit dieser ID existiert nicht.";
+                    else Fehlermeldung.Content = $"Schüler mit der ID {id} existiert nicht.";
                     this.BoxTrue.Visibility = Visibility.Collapsed;
                     this.BoxFalse.Visibility = Visibility.Visible;
+                    this.BoxErrorManual.Visibility = Visibility.Collapsed;
 
                     // Start fade-in animation for BoxFalse
                     Storyboard sb = FindResource("ShowBoxFalse") as Storyboard ?? new();
@@ -130,6 +131,7 @@ namespace RunTrack
                 {
                     this.BoxFalse.Visibility = Visibility.Collapsed;
                     this.BoxTrue.Visibility = Visibility.Visible;
+                    this.BoxErrorManual.Visibility = Visibility.Collapsed;
 
                     // Start fade-in animation for BoxTrue
                     Storyboard sb = FindResource("ShowBoxTrue") as Storyboard ?? new();
@@ -158,13 +160,14 @@ namespace RunTrack
         {
             this.BoxTrue.Visibility = Visibility.Collapsed;
             this.BoxFalse.Visibility = Visibility.Collapsed;
+            this.BoxErrorManual.Visibility = Visibility.Collapsed;
         }
 
         private void Window_PreviewKeyDown_1(object sender, KeyEventArgs e)
           {
             // if sender is from a TextBox, do not handle the event
             
-            if (e.OriginalSource is TextBox && e.Key == Key.Enter) manualData_KeyDown(sender, new KeyEventArgs(Keyboard.PrimaryDevice, PresentationSource.FromVisual(this), 0, Key.Enter));
+            //if (e.OriginalSource is TextBox && e.Key == Key.Enter) manualData_KeyDown(sender, new KeyEventArgs(Keyboard.PrimaryDevice, PresentationSource.FromVisual(this), 0, Key.Enter));
             TimeSpan timeSinceLastKeystroke = DateTime.Now - lastKeystroke;
             lastKeystroke = DateTime.Now;
 
@@ -181,7 +184,7 @@ namespace RunTrack
                     try
                     {
                         int scannedDataInt = int.Parse(scannedData);
-                        Trace.WriteLine($"Scanned Data: {scannedDataInt}");
+                        //Trace.WriteLine($"Scanned Data: {scannedDataInt}");
                         AddScannedData(scannedDataInt);
                     }
                     catch (FormatException)
@@ -207,19 +210,39 @@ namespace RunTrack
         {
             if (e.Key == Key.Enter)
             {
-                int scannedData = _smodel.ManuelleEingabe;
-                Trace.WriteLine($"Scanned Data: {scannedData}");
+                //int scannedData = _smodel.ManuelleEingabe;
+                //Trace.WriteLine($"Scanned Data: {scannedData}");
 
-                try
+                //try
+                //{
+                //    AddScannedData(_smodel.ManuelleEingabe);
+                //}
+                //catch (FormatException)
+                //{
+                //    Console.WriteLine("Ungültige Eingabe. Der String konnte nicht in eine Zahl umgewandelt werden.");
+                //}
+                //finally
+                //{
+                //}
+
+                if (int.TryParse(manualData.Text, out int scannedDataInt))
                 {
-                    AddScannedData(_smodel.ManuelleEingabe);
+                    AddScannedData(scannedDataInt);
+                    manualData.Text = "";
                 }
-                catch (FormatException)
+                else
                 {
-                    Console.WriteLine("Ungültige Eingabe. Der String konnte nicht in eine Zahl umgewandelt werden.");
-                }
-                finally
-                {
+                    this.BoxTrue.Visibility = Visibility.Collapsed;
+                    this.BoxFalse.Visibility = Visibility.Collapsed;
+                    this.BoxErrorManual.Visibility = Visibility.Visible;
+
+                    // Start fade-in animation for BoxFalse
+                    Storyboard sb = FindResource("ShowBoxErrorManual") as Storyboard ?? new();
+                    sb.Begin(BoxErrorManual);
+
+                    StartHideTimer();
+
+                    //new Popup().Display("Fehler", "Die Eingabe ist keine gültige Zahl!", PopupType.Error, PopupButtons.Ok);
                 }
             }
         }
@@ -227,7 +250,26 @@ namespace RunTrack
         // Funktioniert für den Button
         private void ButtonPlus_Click_1(object sender, RoutedEventArgs e)
         {
-            manualData_KeyDown(sender, new KeyEventArgs(Keyboard.PrimaryDevice, PresentationSource.FromVisual(this), 0, Key.Enter));
+            //manualData_KeyDown(sender, new KeyEventArgs(Keyboard.PrimaryDevice, PresentationSource.FromVisual(this), 0, Key.Enter));
+            if (int.TryParse(manualData.Text, out int scannedDataInt))
+            {
+                AddScannedData(scannedDataInt);
+                manualData.Text = "";
+            }
+            else
+            {
+                this.BoxTrue.Visibility = Visibility.Collapsed;
+                this.BoxFalse.Visibility = Visibility.Collapsed;
+                this.BoxErrorManual.Visibility = Visibility.Visible;
+
+                // Start fade-in animation for BoxFalse
+                Storyboard sb = FindResource("ShowBoxErrorManual") as Storyboard ?? new();
+                sb.Begin(BoxErrorManual);
+
+                StartHideTimer();
+
+                //new Popup().Display("Fehler", "Die Eingabe ist keine gültige Zahl!", PopupType.Error, PopupButtons.Ok);
+            }
         }
     }
 }
