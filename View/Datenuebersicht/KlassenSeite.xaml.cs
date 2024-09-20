@@ -15,7 +15,7 @@ namespace RunTrack.View.Datenuebersicht
         public KlassenSeite()
         {
             InitializeComponent();
-            _mainViewModel = FindResource("mvmodel") as ScannerModel ?? new ScannerModel();
+            _mainViewModel = FindResource("smodel") as ScannerModel ?? new ScannerModel();
             _model = FindResource("dumodel") as DatenuebersichtModel ?? new DatenuebersichtModel();
             _pmodel = FindResource("pmodel") as MainModel ?? new MainModel();
             btnBarcodes.Click += (sender, e) =>
