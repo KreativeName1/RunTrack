@@ -20,6 +20,16 @@ namespace RunTrack
             init();
         }
 
+        public PDFEditor(List<Urkunde> urkunden) : base()
+        {
+            InitializeComponent();
+            _pemodel = FindResource("pemodel") as PDFEditorModel ?? new PDFEditorModel();
+            _pmodel = FindResource("pmodel") as MainModel ?? new MainModel();
+            Reset();
+            _pemodel.Urkunden = new ObservableCollection<Urkunde>(urkunden);
+            init();
+        }
+
         public PDFEditor(List<Schueler> schueler) : base()
         {
             InitializeComponent();
@@ -61,6 +71,7 @@ namespace RunTrack
             _pemodel.Liste = null;
             _pemodel.Klasse = null;
             _pemodel.Schueler = null;
+            _pemodel.Urkunden = null;
         }
 
         public void init()
@@ -310,6 +321,7 @@ namespace RunTrack
             string pfad;
             if (_pemodel.Klasse != null) pfad = PDFGenerator.BarcodesPDF(_pemodel.Klasse, _pemodel.Klasse.Schule.Name, _pemodel.Format ?? new());
             else if (_pemodel.Liste != null) pfad = PDFGenerator.AuswertungListe(_pemodel.Liste.ToList(), _pemodel.Format ?? new(), _wertungArt ?? string.Empty);
+            else if (_pemodel.Urkunden != null) pfad = PDFGenerator.Urkunde(_pemodel.Urkunden.ToList());
             else pfad = PDFGenerator.SchuelerBewertungPDF(new List<Schueler>(_pemodel.Schueler ?? new()), _pemodel.Format ?? new(), _pemodel.NeueSeiteProSchueler);
             webView.Source = new Uri(pfad);
         }

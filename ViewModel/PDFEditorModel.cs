@@ -13,6 +13,8 @@ namespace RunTrack
 
         private ObservableCollection<object>? _liste;
 
+        private ObservableCollection<Urkunde>? _urkunden;
+
         public Format? Format
         {
             get { return _format; }
@@ -51,6 +53,16 @@ namespace RunTrack
             {
                 _liste = value;
                 OnPropertyChanged("Liste");
+            }
+        }
+
+        public ObservableCollection<Urkunde>? Urkunden
+        {
+            get { return _urkunden; }
+            set
+            {
+                _urkunden = value;
+                OnPropertyChanged("Urkunden");
             }
         }
 

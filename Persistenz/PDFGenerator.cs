@@ -234,5 +234,52 @@ namespace RunTrack
         }
 
 
+        public static string Urkunde(List<Urkunde> liste)
+        {
+            Format format = new()
+            {
+                BlattGroesse = new BlattGroesse(595f, 842f),
+                Orientierung = Orientierung.Hochformat,
+                SchriftGroesse = 12,
+                SeitenRandOben = 50,
+                SeitenRandRechts = 50,
+                SeitenRandUnten = 50,
+                SeitenRandLinks = 50,
+
+            };
+
+            string datei = DokumentErstellen(format);
+            if (Dokument == null) return string.Empty;
+
+
+            foreach (Urkunde obj in liste)
+            {
+                Dokument.Add(new Paragraph("Urkunde").SetTextAlignment(TextAlignment.CENTER).SetBold().SetFontSize(24));
+
+                Dokument.Add(new Paragraph("für die Teilnahme am " + obj.LaufName).SetTextAlignment(TextAlignment.CENTER).SetFontSize(16));
+                // Schülername obj->Name
+                Dokument.Add(new Paragraph(obj.GetType().GetProperty("Name")?.GetValue(obj)?.ToString()).SetTextAlignment(TextAlignment.CENTER).SetBold().SetFontSize(20));
+                
+                // In der Klasse/Schule/Insgesamt
+                Dokument.Add(new Paragraph(obj.Kategorie).SetTextAlignment(TextAlignment.CENTER).SetFontSize(16));
+
+                // Bewertung
+                Dokument.Add(new Paragraph(obj.Auswertungsart + ": " + obj.Wert).SetTextAlignment(TextAlignment.CENTER).SetFontSize(16));
+
+                // Ort und Datum feld links und rechts unterschrift feld (beide nur linien, per hand ausfüllen)
+                Table table = new(2);
+                Cell cell = new();
+                cell.Add(new Paragraph("Ort und Datum").SetTextAlignment(TextAlignment.LEFT).SetFontSize(12));
+                table.AddCell(cell);
+                cell = new();
+                cell.Add(new Paragraph("Unterschrift").SetTextAlignment(TextAlignment.RIGHT).SetFontSize(12));
+                table.AddCell(cell);
+                Dokument.Add(table);
+                Dokument.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+            }
+            return datei;
+        }
+
+
     }
 }

@@ -10,7 +10,7 @@ namespace RunTrack
     /// <summary>
     /// Interaktionslogik für Auswertung.xaml
     /// </summary>
-    public partial class Auswertung :  Page
+    public partial class Auswertung : Page
     {
         private string[] _pfade;
         private List<RadioButtonPlus> _rundenArten = new();
@@ -51,7 +51,7 @@ namespace RunTrack
             };
             btnSchliessen.Click += (s, e) =>
             {
-                _pmodel.Navigate(new Scanner());;
+                _pmodel.Navigate(new Scanner()); ;
             };
             btnDiagramm.Click += (s, e) =>
             {
@@ -95,6 +95,42 @@ namespace RunTrack
 
                 }
 
+            };
+            btnUrkunde.Click += (s, e) =>
+            {
+                List<object> liste = new();
+                liste = _amodel.Liste.ToList().GetRange(0, 3);
+
+                // Ob es Klasse, Schule, Insgessamt, Jahrgang ist
+                string auswertungsart = "";
+                if (_amodel.IsAnzahl) auswertungsart = "Rundenanzahl";
+                else if (_amodel.IsZeit) auswertungsart = "Zeit";
+                else if (_amodel.IsDistanz) auswertungsart = "Distanz";
+                else auswertungsart = "Rundenanzahl";
+
+                string worin = "";
+                if (_amodel.IsInsgesamt) worin = "Insgesamt";
+                else if (_amodel.IsSchule) worin = "Schule " + _amodel.SelectedSchule;
+                else if (_amodel.IsKlasse) worin = "Klasse " + _amodel.SelectedKlasse;
+                else if (_amodel.IsJahrgang) worin = "Jahrgang " + _amodel.Jahrgang;
+
+                InputPopup input = new("Urkunde", "Bitte geben Sie den Namen des Laufs ein");
+                input.ShowDialog();
+                string laufName = input.GetInputValue<string>();
+
+                List<Urkunde> urkunden = new();
+
+                foreach (object obj in liste)
+                {
+                    string bewertung = obj.GetType().GetProperty("Bewertung")?.GetValue(obj, null).ToString();
+                    urkunden.Add(new Urkunde(laufName, worin, auswertungsart, bewertung, (liste.IndexOf(obj) + 1).ToString(), obj.GetType().GetProperty("Name")?.GetValue(obj, null).ToString()));
+                }
+
+                if (laufName != null && input.Result)
+                {
+                    _pmodel.Navigate(new PDFEditor(urkunden));
+
+                }
             };
         }
 
