@@ -11,69 +11,51 @@ namespace RunTrack
     public partial class SchulenSeite : Page
     {
         private DatenuebersichtModel _model;
-        private ObservableCollection<Schule> _removed = new();
-        private ObservableCollection<Schule> _added = new();
         public SchulenSeite()
         {
             InitializeComponent();
             _model = FindResource("dumodel") as DatenuebersichtModel ?? new();
-            ObservableCollection<Schule> entities = new(new LaufDBContext().Schulen);
-            this.lstSchule.ItemsSource = entities;
             btnNeu.Click += (sender, e) =>
             {
-                MessageBox.Show("Neu");
-                _added.Add(new Schule());
-                _model.LstSchule.Add(new Schule());
+                using (var db = new LaufDBContext()) {
+                    Schule neu = new();
+                    db.Schulen.Add(neu);
+                    db.SaveChanges();
+                    _model.LstSchule.Add(neu);
+                }
+
             };
 
             btnDel.Click += (sender, e) =>
             {
-                MessageBox.Show("Del");
-                if (_model.SelSchule != null)
-                {
-                    if (_added.Contains(_model.SelSchule as Schule))
-                    {
-                        _added.Remove(_model.SelSchule as Schule);
-                    }
-                    else
-                    {
-                        _removed.Add(_model.SelSchule as Schule);
-                    }
-                    _model.LstSchule.Remove(_model.SelSchule as Schule);
-
-                }
-            };
-
-            btnSpeichern.Click += (sender, e) =>
-            {
-                MessageBox.Show("Speichern");
                 using (var db = new LaufDBContext())
                 {
-                    // update
-                    foreach (var schule in _model.LstSchule)
+                    Schule schule = lstSchule.SelectedItem as Schule;
+                    if (schule == null) return;
+                    _model.LstSchule.Remove(schule);
+                    Schule dbSchule = db.Schulen.Find(schule.Id);
+                    if (dbSchule != null)
                     {
-                        if (_added.Contains(schule)) continue;
-                        if (_removed.Contains(schule)) continue;
-                        db.Schulen.Update(schule);
+                        db.Schulen.Remove(dbSchule);
+                        db.SaveChanges();
                     }
-                    // add
-                    foreach (var schule in _added)
-                    {
-                        db.Schulen.Add(schule);
-                    }
-                    // delete
-                    foreach (var schule in _removed)
-                    {
-                        db.Schulen.Remove(schule);
-                    }
-
-                    db.SaveChanges();
-                    _added.Clear();
-                    _removed.Clear();
-                    _model.LoadData();
-
                 }
             };
+            lstSchule.CellEditEnding += (sender, e) =>
+            {
+                Schule schule = lstSchule.SelectedItem as Schule;
+                if (schule == null) return;
+                using (var db = new LaufDBContext())
+                {
+                    Schule dbSchule = db.Schulen.Find(schule.Id);
+                    if (dbSchule != null)
+                    {
+                        dbSchule.Name = schule.Name;
+                        db.SaveChanges();
+                    }
+                }
+            };
+
         }
 
 
