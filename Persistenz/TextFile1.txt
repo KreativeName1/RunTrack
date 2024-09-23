@@ -1,60 +1,4 @@
-﻿using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-
-namespace RunTrack
-{
-    public class UebersichtMethoden
-    {
-        public static int CurrentSelectedRow { get; set; } = -1;
-
-        /*public static void SetSelectedRow(object sender, MouseButtonEventArgs e)
-        {
-            DataGridRow row = sender as DataGridRow;
-            if (row != null)
-            {
-                CurrentSelectedRow = row.GetIndex();
-            }
-        }
-
-        public static void Search(DataGrid dataGrid, TextBox searchBox)
-        {
-            string filter = searchBox.Text;
-            if (filter == "")
-            {
-                dataGrid.Items.Filter = null;
-            }
-            else
-            {
-                foreach (var row in dataGrid.Items)
-                {
-                    foreach (var cell in dataGrid.Columns /* row.GetType().GetProperties() *//*)
-                    {
-                        if (row.ToString().Contains(filter))
-                        {
-                            dataGrid.Items.Filter = null;
-
-                            // Highlight the row
-                            cell.Foreground = Brushes.Red;
-                            cell.CellStyle = DataGrid.CellStyleProperty;
-                        }
-                        else
-                        {
-                            dataGrid.Items.Filter = null;
-                        }
-                    }
-
-                }
-            }
-        }
-
-        public static void SearchDataGrid(DataGrid dataGrid, TextBox searchBox)
-        {
-            Search(dataGrid, searchBox);
-        }
-
-        */
-        public static void SearchDataGrid(DataGrid dataGrid, string searchTerm)
+﻿public static void SearchDataGrid(DataGrid dataGrid, string searchTerm)
         {
             List<int> lstFoundRows = new List<int>();
             searchTerm = searchTerm.ToLower();
@@ -157,5 +101,3 @@ namespace RunTrack
 
 
         }
-    }
-}

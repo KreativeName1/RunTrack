@@ -12,6 +12,8 @@ namespace RunTrack.View.Datenuebersicht
         private DatenuebersichtModel _model;
         private ScannerModel _mainViewModel;
         private MainModel _pmodel;
+
+        private LaufDBContext _db = new();
         public KlassenSeite()
         {
             InitializeComponent();
@@ -23,6 +25,47 @@ namespace RunTrack.View.Datenuebersicht
                 PDFEditor pdfEditor = new(_model.SelKlasse ?? new());
                 _pmodel.Navigate(pdfEditor);
             };
+
+
+            _model = FindResource("dumodel") as DatenuebersichtModel ?? new();
+            btnNeu.Click += (sender, e) =>
+            {
+                Klasse neu = new();
+                _db.Klassen.Add(neu);
+                _model.LstKlasse.Add(neu);
+
+            };
+            btnSpeichern.Click += (sender, e) =>
+            {
+                _db.SaveChanges();
+            };
+
+            btnDel.Click += (sender, e) =>
+            {
+                Klasse klasse = lstKlasse.SelectedItem as Klasse;
+                if (klasse == null) return;
+                _model.LstKlasse.Remove(klasse);
+                Klasse dbKlasse = _db.Klassen.Find(klasse.Id);
+                if (dbKlasse != null)
+                {
+                    _db.Klassen.Remove(dbKlasse);
+                    _db.SaveChanges();
+                }
+            };
+            lstKlasse.CellEditEnding += (sender, e) =>
+            {
+                Klasse klasse = lstKlasse.SelectedItem as Klasse;
+                if (klasse == null) return;
+                Klasse dbKlasse = _db.Klassen.Find(klasse.Id);
+                if (dbKlasse != null)
+                {
+                    dbKlasse.Name = klasse.Name;
+                    _db.SaveChanges();
+                }
+            };
+
+            if (this.Visibility != Visibility)
+                _db.Dispose();
         }
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)

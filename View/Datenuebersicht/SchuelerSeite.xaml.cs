@@ -9,9 +9,49 @@ namespace RunTrack
     /// </summary>
     public partial class SchuelerSeite : Page
     {
+        private DatenuebersichtModel _model;
+        private LaufDBContext _db = new();
+
         public SchuelerSeite()
         {
             InitializeComponent();
+
+            _model = FindResource("dumodel") as DatenuebersichtModel ?? new();
+            btnNeu.Click += (sender, e) =>
+            {
+                Schueler neu = new();
+                _db.Schueler.Add(neu);
+                _model.LstSchueler.Add(neu);
+
+            };
+            btnSpeichern.Click += (sender, e) =>
+            {
+                _db.SaveChanges();
+            };
+
+            btnDel.Click += (sender, e) =>
+            {
+                Schueler schueler = lstSchueler.SelectedItem as Schueler;
+                if (schueler == null) return;
+                _model.LstSchueler.Remove(schueler);
+                Schueler dbSchueler = _db.Schueler.Find(schueler.Id);
+                if (dbSchueler != null)
+                {
+                    _db.Schueler.Remove(dbSchueler);
+                    _db.SaveChanges();
+                }
+            };
+            lstSchueler.CellEditEnding += (sender, e) =>
+            {
+                Schueler schueler = lstSchueler.SelectedItem as Schueler;
+                if (schueler == null) return;
+                Schueler dbSchueler = _db.Schueler.Find(schueler.Id);
+                if (dbSchueler != null)
+                {
+                    dbSchueler.Nachname = schueler.Nachname;
+                    _db.SaveChanges();
+                }
+            };
         }
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
