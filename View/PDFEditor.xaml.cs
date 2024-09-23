@@ -101,6 +101,7 @@ namespace RunTrack
                 string pfad;
                 if (_pemodel.Klasse != null) pfad = PDFGenerator.BarcodesPDF(_pemodel.Klasse, _pemodel.Klasse.Schule.Name, _pemodel.Format);
                 else if (_pemodel.Liste != null) pfad = PDFGenerator.AuswertungListe(_pemodel.Liste.ToList(), _pemodel.Format, _wertungArt ?? string.Empty);
+                else if (_pemodel.Urkunden != null) pfad = PDFGenerator.Urkunde(_pemodel.Urkunden.ToList(), _pemodel.Format);
                 else pfad = PDFGenerator.SchuelerBewertungPDF(new List<Schueler>(_pemodel.Schueler ?? new()), _pemodel.Format, _pemodel.NeueSeiteProSchueler);
                 webView.Source = new Uri(pfad);
 
@@ -321,7 +322,7 @@ namespace RunTrack
             string pfad;
             if (_pemodel.Klasse != null) pfad = PDFGenerator.BarcodesPDF(_pemodel.Klasse, _pemodel.Klasse.Schule.Name, _pemodel.Format ?? new());
             else if (_pemodel.Liste != null) pfad = PDFGenerator.AuswertungListe(_pemodel.Liste.ToList(), _pemodel.Format ?? new(), _wertungArt ?? string.Empty);
-            else if (_pemodel.Urkunden != null) pfad = PDFGenerator.Urkunde(_pemodel.Urkunden.ToList());
+            else if (_pemodel.Urkunden != null) pfad = PDFGenerator.Urkunde(_pemodel.Urkunden.ToList(), _pemodel.Format ?? new());
             else pfad = PDFGenerator.SchuelerBewertungPDF(new List<Schueler>(_pemodel.Schueler ?? new()), _pemodel.Format ?? new(), _pemodel.NeueSeiteProSchueler);
             webView.Source = new Uri(pfad);
         }

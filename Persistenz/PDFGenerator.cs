@@ -234,23 +234,11 @@ namespace RunTrack
         }
 
 
-        public static string Urkunde(List<Urkunde> liste)
+        public static string Urkunde(List<Urkunde> liste, Format format)
         {
-            Format format = new()
-            {
-                BlattGroesse = new BlattGroesse(595f, 842f),
-                Orientierung = Orientierung.Hochformat,
-                SchriftGroesse = 12,
-                SeitenRandOben = 50,
-                SeitenRandRechts = 50,
-                SeitenRandUnten = 50,
-                SeitenRandLinks = 50,
-
-            };
 
             string datei = DokumentErstellen(format);
             if (Dokument == null) return string.Empty;
-
 
             foreach (Urkunde obj in liste)
             {
@@ -266,23 +254,37 @@ namespace RunTrack
                 // Bewertung
                 Dokument.Add(new Paragraph(obj.Auswertungsart + ": " + obj.Wert).SetTextAlignment(TextAlignment.CENTER).SetFontSize(16));
 
-                // Ort und Datum feld links und rechts unterschrift feld (beide nur linien, per hand ausfüllen)
-                Table table = new(2);
+                Table table = new Table(3);
                 table.SetWidth(UnitValue.CreatePercentValue(100));
-                Cell cell = new();
-                cell.SetBorderTop(new SolidBorder(ColorConstants.BLACK, 1));
-                cell.SetBorderLeft(Border.NO_BORDER);
-                cell.SetBorderRight(Border.NO_BORDER);
-                cell.SetBorderBottom(Border.NO_BORDER);
-                cell.Add(new Paragraph("Ort und Datum").SetTextAlignment(TextAlignment.LEFT).SetFontSize(12));
-                table.AddCell(cell);
-                cell = new();
-                cell.SetBorderTop(new SolidBorder(ColorConstants.BLACK, 1));
-                cell.SetBorderLeft(Border.NO_BORDER);
-                cell.SetBorderRight(Border.NO_BORDER);
-                cell.SetBorderBottom(Border.NO_BORDER);
-                cell.Add(new Paragraph("Unterschrift").SetTextAlignment(TextAlignment.RIGHT).SetFontSize(12));
-                table.AddCell(cell);
+
+                Cell leftCell = new Cell().Add(new Paragraph("Datum und Ort"));
+                leftCell.SetTextAlignment(TextAlignment.LEFT);
+                leftCell.SetBorder(Border.NO_BORDER);
+                leftCell.SetBorderTop(new SolidBorder(1));
+                leftCell.SetWidth(UnitValue.CreatePercentValue(30));
+
+                Cell rightCell = new Cell().Add(new Paragraph("Unterschrift"));
+                rightCell.SetTextAlignment(TextAlignment.RIGHT);
+                rightCell.SetBorder(Border.NO_BORDER);
+                rightCell.SetBorderTop(new SolidBorder(1));
+                rightCell.SetWidth(UnitValue.CreatePercentValue(30));
+
+                Cell spacerCell = new Cell();
+                spacerCell.SetWidth(UnitValue.CreatePercentValue(40));
+                spacerCell.SetBorder(Border.NO_BORDER);
+
+                table.AddCell(leftCell);
+                table.AddCell(spacerCell);
+                table.AddCell(rightCell);
+
+                table.SetVerticalAlignment(VerticalAlignment.BOTTOM);
+                
+                // set pos to bottom 
+                
+                table.SetFixedPosition(liste.IndexOf(obj)+1, format.SeitenRandLinks, 50, format.BlattGroesse.Breite - (format.SeitenRandRechts + format.SeitenRandLinks));
+
+
+
                 Dokument.Add(table);
                 Dokument.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
             }

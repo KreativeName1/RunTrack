@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RunTrack" xmlns:fc="http://devpelux.github.io/fullcontrols"
         mc:Ignorable="d" Loaded="Window_Loaded"
+      d:Height="750" d:Width="1000"
       HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
          Title="Anmeldung">
     <Grid>
@@ -22,43 +23,43 @@
             </Image.ToolTip>
         </Image>
 
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,86,0,0" Width="345" Height="40" VerticalAlignment="Top" Cursor="">
 
-        <Label Content="Vorname:" Margin="98,86,0,0" HorizontalAlignment="Left" Width="100" FontSize="14" FontWeight="Bold" Height="29" VerticalAlignment="Top"/>
-        <Label Content="Nachname:" HorizontalAlignment="Left" Margin="98,132,0,0" FontSize="14" RenderTransformOrigin="0.529,0.231" FontFamily="72" FontWeight="Bold" Height="26" VerticalAlignment="Top"/>
+            <Label Content="Vorname:" Width="100" Margin="45,0,0,0" FontSize="14" FontWeight="Bold" Height="29"/>
+            <fc:TextBoxPlus x:Name="FirstNameTextBox" ForegroundBrushOnSelected="Blue" UnderlineBrushOnSelected="#28713E" TextWrapping="Wrap" Width="150" FontSize="14" Padding="5" Foreground="Gray" Text="Max" GotFocus="FirstNameTextBox_GotFocus" LostFocus="FirstNameTextBox_LostFocus" Height="30" KeyDown="TextBox_KeyDown" TextChanged="FirstNameTextBox_TextChanged"/>
+            <Label x:Name="warningVorname" Content="⚠️" FontSize="18" Margin="10,0,0,0" Height="35" Foreground="Red" Cursor="Help" Visibility="Collapsed">
+                <Label.ToolTip>
+                    <ToolTip Content="Bitte geben Sie Ihren Vornamen ein."/>
+                </Label.ToolTip>
+            </Label>
+        </StackPanel>
 
-        <fc:TextBoxPlus x:Name="FirstNameTextBox" ForegroundBrushOnSelected="Blue" UnderlineBrushOnSelected="#28713E" Margin="0,85,100,0" TextWrapping="Wrap" HorizontalAlignment="Right" Width="150" FontSize="14" Padding="5" Foreground="Gray" Text="Max" GotFocus="FirstNameTextBox_GotFocus" LostFocus="FirstNameTextBox_LostFocus" Height="30" VerticalAlignment="Top" KeyDown="TextBox_KeyDown" TextChanged="FirstNameTextBox_TextChanged"/>
-        <Label x:Name="warningVorname" Content="⚠️" FontSize="18" HorizontalAlignment="Right" Margin="0,83,65,0" VerticalAlignment="Top" Foreground="Red" Cursor="Help" Visibility="Collapsed">
-            <Label.ToolTip>
-                <ToolTip>
-                    Bitte geben Sie Ihren Vornamen ein.
-                </ToolTip>
-            </Label.ToolTip>
-        </Label>
-
-        <fc:TextBoxPlus x:Name="LastNameTextBox" ForegroundBrushOnSelected="Blue" UnderlineBrushOnSelected="#28713E" HorizontalAlignment="Right" Margin="0,130,100,0" TextWrapping="Wrap" Width="150" FontSize="14" Padding="5" Foreground="Gray" Text="Mustermann" GotFocus="LastNameTextBox_GotFocus" LostFocus="LastNameTextBox_LostFocus" Height="30" VerticalAlignment="Top" KeyDown="TextBox_KeyDown" TextChanged="LastNameTextBox_TextChanged"/>
-        <Label x:Name="warningNachname" Content="⚠️" FontSize="18" HorizontalAlignment="Right" Margin="0,128,65,0" VerticalAlignment="Top" Foreground="Red" Cursor="Help" Visibility="Collapsed">
-            <Label.ToolTip>
-                <ToolTip>
-                    Bitte geben Sie Ihren Nachnamen ein.
-                </ToolTip>
-            </Label.ToolTip>
-        </Label>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,132,0,0" Width="345" Height="40" VerticalAlignment="Top" Cursor="">
+            <Label Content="Nachname:" VerticalContentAlignment="Center" Margin="45,0,0,0" FontSize="14" Width="100" RenderTransformOrigin="0.529,0.231" FontFamily="72" FontWeight="Bold" Height="26"/>
+            <fc:TextBoxPlus x:Name="LastNameTextBox" ForegroundBrushOnSelected="Blue" UnderlineBrushOnSelected="#28713E" TextWrapping="Wrap" Width="150" FontSize="14" Padding="5" Foreground="Gray" Text="Mustermann" GotFocus="LastNameTextBox_GotFocus" LostFocus="LastNameTextBox_LostFocus" Height="30" KeyDown="TextBox_KeyDown" TextChanged="LastNameTextBox_TextChanged" Cursor=""/>
+            <Label x:Name="warningNachname" Content="⚠️" FontSize="18" Margin="10,0,0,0" Height="35" Foreground="Red" Cursor="Help" Visibility="Collapsed">
+                <Label.ToolTip>
+                    <ToolTip Content="Bitte geben Sie Ihren Nachnamen ein."/>
+                </Label.ToolTip>
+            </Label>
+        </StackPanel>
 
 
-        <Grid x:Name="gridPasswordLable" Visibility="Visible" HorizontalAlignment="Center" Height="27" Margin="0,168,0,0" VerticalAlignment="Top" Width="70">
+
+        <Grid x:Name="gridPasswordLable" Visibility="Visible" HorizontalAlignment="Center" Height="27" Margin="0,178,0,0" VerticalAlignment="Top" Width="70">
             <Label Content="Optional:" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="72 Light" FontSize="15"/>
             <Rectangle HorizontalAlignment="Right" Height="1" Margin="0,20,54,0" Stroke="#7E8182" VerticalAlignment="Top" Width="17"/>
             <Rectangle HorizontalAlignment="Left" Height="1" Margin="21,20,0,0" Stroke="#7E8182" VerticalAlignment="Top" Width="50"/>
         </Grid>
 
-        <Border x:Name="borderPassword" CornerRadius="5" Visibility="Visible" Background="#FFECECEC" HorizontalAlignment="Center" Height="40" Margin="0,195,0,0" VerticalAlignment="Top" Width="270">
+        <Border x:Name="borderPassword" CornerRadius="5" Visibility="Visible" Background="#FFECECEC" HorizontalAlignment="Center" Height="40" Margin="0,205,0,0" VerticalAlignment="Top" Width="270">
             <Grid x:Name="gridPassword" Background="Transparent">
                 <Label x:Name="lblPasswort" Content="Admin Passwort:" VerticalContentAlignment="Center" HorizontalAlignment="Left" FontSize="13" FontFamily="72 Light" VerticalAlignment="Center" Margin="1,0,0,0"/>
                 <fc:PasswordBoxPlus x:Name="AdminPasswordBox" ForegroundOnSelected="Blue" Foreground="Blue" UnderlineBrushOnSelected="#28713E" EnablePeekButton="True" CornerRadius="3" HorizontalAlignment="Right" Margin="0,0,5,0" Width="150" FontSize="13" Padding="5" Height="30" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswort_LostFocus" PasswordChanged="txtPasswort_PasswordChanged" MouseEnter="AdminPasswordBox_MouseEnter" MouseLeave="AdminPasswordBox_MouseLeave" Cursor=""/>
 
             </Grid>
         </Border>
-        <Label x:Name="warningPassword" Content="⚠️" FontSize="18" HorizontalAlignment="Right" Margin="0,198,50,0" VerticalAlignment="Top" Foreground="Red" Cursor="Help" Visibility="Collapsed">
+        <Label x:Name="warningPassword" Content="⚠️" FontSize="18" HorizontalAlignment="Right" Margin="0,208,50,0" VerticalAlignment="Top" Foreground="Red" Cursor="Help" Visibility="Collapsed">
             <Label.ToolTip>
                 <ToolTip Cursor="">
                     Das Passwort ist inkorrekt!
