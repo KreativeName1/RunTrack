@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RunTrack"
-        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:fc="http://devpelux.github.io/fullcontrols"
-        mc:Ignorable="d"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:fc="http://devpelux.github.io/fullcontrols" d:DataContext="{d:DesignInstance Type=local:PDFEditorModel}"
+			mc:Ignorable="d"
       HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
         Title="Drucker Einstellungen">
 
@@ -176,21 +176,27 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,5,0,1" HorizontalAlignment="Center">
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+					</Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" x:Name="spKopf" Grid.Row="0" Margin="0,5,0,1" HorizontalAlignment="Center">
                         <CheckBox IsChecked="{Binding Format.KopfAnzeigen}" x:Name="chkKopf" VerticalAlignment="Center" Foreground="blue"/>
-                        <Label Content="Kopf Anzeigen" VerticalAlignment="Center" Width="120"/>
+                        <Label Content="Kopf Anzeigen" x:Name="lblKopf" VerticalAlignment="Center" Width="120"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,1,0,5" HorizontalAlignment="Center">
+					          <StackPanel Orientation="Horizontal" Grid.Row="1" x:Name="spZentriert" Margin="0,1,0,5" HorizontalAlignment="Center">
                         <CheckBox IsChecked="{Binding Format.Zentriert}" x:Name="chkZentriert" VerticalAlignment="Center" Foreground="blue"/>
-                        <Label Content="Zentriert" VerticalAlignment="Center" Width="120"/>
+                        <Label Content="Zentriert" x:Name="lblZentriert" VerticalAlignment="Center" Width="120"/>
                     </StackPanel>
-                    <StackPanel Grid.Row="2" Margin="0,5,0,10" HorizontalAlignment="Center">
-                        <Label Content="Spaltenanzahl" HorizontalAlignment="Center" x:Name="lblSpalten" VerticalAlignment="Center"/>
-                        <xctk:DoubleUpDown Text="{Binding Format.SpaltenAnzahl}" x:Name="txtSpalten" HorizontalAlignment="Center" Height="23" VerticalAlignment="Center" Width="148" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="blue"/>
-                    </StackPanel>
-                </Grid>
+					<StackPanel Grid.Row="2" Margin="0,5,0,10"  HorizontalAlignment="Center">
+						<Label Content="Spaltenanzahl" HorizontalAlignment="Center" x:Name="lblSpalten" VerticalAlignment="Center"/>
+						<xctk:DoubleUpDown Text="{Binding Format.SpaltenAnzahl}" x:Name="txtSpalten" HorizontalAlignment="Center" Height="23" VerticalAlignment="Center" Width="148" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="blue"/>
+					</StackPanel>
+					<StackPanel Grid.Row="3">
+						<!--Zeilenabstand-->
+						<Label Content="Zeilenabstand" HorizontalAlignment="Center" Visibility="Collapsed" x:Name="lblZeilenAbstand" VerticalAlignment="Center"/>
+						<xctk:DoubleUpDown Text="{Binding Format.ZeilenAbstand}" Visibility="Collapsed" x:Name="txtZeilenAbstand"   HorizontalAlignment="Center" Height="23" VerticalAlignment="Center" Width="148" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="blue"/>
+					</StackPanel>
+				</Grid>
             </Border>
         </StackPanel>
 
