@@ -254,7 +254,7 @@ namespace RunTrack
 
             foreach (Urkunde obj in liste)
             {
-                Dokument.Add(new Paragraph("Urkunde").SetTextAlignment(TextAlignment.CENTER).SetBold().SetFontSize(24));
+                Dokument.Add(new Paragraph("Urkunde").SetTextAlignment(TextAlignment.CENTER).SetBold().SetFontSize(36));
 
                 Dokument.Add(new Paragraph("für die Teilnahme am " + obj.LaufName).SetTextAlignment(TextAlignment.CENTER).SetFontSize(16));
                 // Schülername obj->Name
@@ -268,15 +268,25 @@ namespace RunTrack
 
                 // Ort und Datum feld links und rechts unterschrift feld (beide nur linien, per hand ausfüllen)
                 Table table = new(2);
+                table.SetWidth(UnitValue.CreatePercentValue(100));
                 Cell cell = new();
+                cell.SetBorderTop(new SolidBorder(ColorConstants.BLACK, 1));
+                cell.SetBorderLeft(Border.NO_BORDER);
+                cell.SetBorderRight(Border.NO_BORDER);
+                cell.SetBorderBottom(Border.NO_BORDER);
                 cell.Add(new Paragraph("Ort und Datum").SetTextAlignment(TextAlignment.LEFT).SetFontSize(12));
                 table.AddCell(cell);
                 cell = new();
+                cell.SetBorderTop(new SolidBorder(ColorConstants.BLACK, 1));
+                cell.SetBorderLeft(Border.NO_BORDER);
+                cell.SetBorderRight(Border.NO_BORDER);
+                cell.SetBorderBottom(Border.NO_BORDER);
                 cell.Add(new Paragraph("Unterschrift").SetTextAlignment(TextAlignment.RIGHT).SetFontSize(12));
                 table.AddCell(cell);
                 Dokument.Add(table);
                 Dokument.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
             }
+            Dokument.Close();
             return datei;
         }
 

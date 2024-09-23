@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RunTrack" xmlns:fc="http://devpelux.github.io/fullcontrols" d:DataContext="{d:DesignInstance Type=local:DateiVerwaltungModel}"
       mc:Ignorable="d"
-        Title="Dateiverwaltung" Height="750" Width="1000">
+      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+        Title="Dateiverwaltung">
     <Grid DataContext="{StaticResource dvmodel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

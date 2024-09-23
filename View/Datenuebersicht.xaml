@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:RunTrack" xmlns:fc="http://devpelux.github.io/fullcontrols" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:lcmd="clr-namespace:RunTrack"
         mc:Ignorable="d"
-        Title="Datenübersicht" Height="750" Width="1000" >
+      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+        Title="Datenübersicht" >
     <Page.DataContext>
         <local:ScannerModel/>
     </Page.DataContext>

@@ -66,30 +66,6 @@ namespace RunTrack
             PageTitle = (CurrentPage as Page)?.Title;
 
             Window window = Application.Current.MainWindow;
-            if (window != null)
-            {
-                window.SizeToContent = SizeToContent.WidthAndHeight;
-
-                if (CurrentPage.GetType().GetProperty("ResizeMode") != null)
-                {
-                    if (CurrentPage.GetType()?.GetProperty("ResizeMode")?.GetValue(CurrentPage)?.ToString() == "CanResize")
-                    {
-                        window.ResizeMode = ResizeMode.CanResize;
-                    }
-                    else
-                    {
-                        window.ResizeMode = ResizeMode.NoResize;
-                    }
-
-                }
-                else
-                {
-                    window.ResizeMode = ResizeMode.CanResize;
-                }
-            }
-
-
-
         }
 
     }

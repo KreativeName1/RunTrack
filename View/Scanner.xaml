@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RunTrack" xmlns:fc="http://devpelux.github.io/fullcontrols"
         mc:Ignorable="d" Loaded="Window_Loaded"
-        Title="Startseite" Height="750" Width="1000" MinWidth="578" MinHeight="450">
+        Title="Startseite" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="578" MinHeight="450">
     <Page.Resources>
         <!-- Animation für BoxTrue -->
         <Storyboard x:Key="ShowBoxTrue">

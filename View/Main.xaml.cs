@@ -28,16 +28,5 @@ namespace RunTrack
             MainWindow main = new();
             _pmodel.CurrentPage = main;
         }
-
-        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
-        {
-            base.OnRenderSizeChanged(sizeInfo);
-
-            if (sizeInfo.HeightChanged)
-                this.Top += (sizeInfo.PreviousSize.Height - sizeInfo.NewSize.Height) / 2;
-
-            if (sizeInfo.WidthChanged)
-                this.Left += (sizeInfo.PreviousSize.Width - sizeInfo.NewSize.Width) / 2;
-        }
     }
 }

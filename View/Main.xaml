@@ -9,8 +9,6 @@
         Content="{Binding CurrentPage}"
         Title="{Binding PageTitle}"
         Icon="pack://application:,,,/Images/iconRunMan.ico"
-         WindowStartupLocation="CenterScreen" 
-        SizeToContent="WidthAndHeight"
-        
-        >
+        WindowStartupLocation="CenterScreen"
+        Height="750" Width="1000">
 </Window>
