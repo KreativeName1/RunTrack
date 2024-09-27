@@ -12,8 +12,9 @@ namespace RunTrack
     /// </summary>
     public partial class AdminEinstellungen : Page
     {
+      private bool isPasswordRepeatVisible = false;
 
-        public static ResizeMode ResizeMode { get; set; } = ResizeMode.NoResize;
+      public static ResizeMode ResizeMode { get; set; } = ResizeMode.NoResize;
         private DialogMode mode = DialogMode.Neu;
 
         private string firstName = string.Empty;
@@ -222,50 +223,66 @@ namespace RunTrack
             }
         }
 
-        private bool ValidatePassword()
-        {
-            bool isValid = true;
+      private bool ValidatePassword()
+      {
+         bool isValid = true;
 
-            // Überprüfe, ob das neue Passwort gültig ist
-            if (string.IsNullOrEmpty(txtPasswordNew.Password))
-            {
-                SetInvalidInputStyle(txtPasswordNew);
-                txtPasswordNewWdh.Password = "";
-                isValid = false;
-            }
-            else
-            {
-                SetValidInputStyle(txtPasswordNew);
-            }
+         // Überprüfe, ob das neue Passwort gültig ist
+         if (string.IsNullOrEmpty(txtPasswordNew.Password))
+         {
+            SetInvalidInputStyle(txtPasswordNew);
+            txtPasswordNewWdh.Password = "";
+            isValid = false;
+         }
+         else
+         {
+            SetValidInputStyle(txtPasswordNew);
+         }
 
-            // Überprüfe, ob das Passwort zur Bestätigung ausgefüllt ist
-            if (string.IsNullOrEmpty(txtPasswordNewWdh.Password) || txtPasswordNew.Password != txtPasswordNewWdh.Password)
-            {
-                SetInvalidInputStyle(txtPasswordNewWdh);
-                SetInvalidInputStyle(txtPasswordNew); // Setze rote Unterstreichung für beide
-                warningPassword.Visibility = Visibility.Visible; // Warnung anzeigen
-                isValid = false;
-            }
-            else
-            {
-                SetValidInputStyle(txtPasswordNewWdh);
-                SetValidInputStyle(txtPasswordNew);
-                warningPassword.Visibility = Visibility.Collapsed; // Warnung ausblenden
-            }
+         // Überprüfe, ob das Passwort zur Bestätigung ausgefüllt ist
+         if (string.IsNullOrEmpty(txtPasswordNewWdh.Password))
+         {
+            // Wenn txtPasswordNewWdh leer ist, wird warningPassword nicht angezeigt
+            SetValidInputStyle(txtPasswordNewWdh);
+            warningPassword.Visibility = Visibility.Collapsed;
+         }
+         else if (txtPasswordNew.Password != txtPasswordNewWdh.Password)
+         {
+            // Wenn die Passwörter nicht übereinstimmen
+            SetInvalidInputStyle(txtPasswordNewWdh);
+            SetInvalidInputStyle(txtPasswordNew);
+            warningPassword.Visibility = Visibility.Visible; // Zeige Warnung an
+            warningPassword.ToolTip = "Die neuen Passwörter stimmt nicht überein!";
+            isValid = false;
+         }
+         else
+         {
+            SetValidInputStyle(txtPasswordNewWdh);
+            SetValidInputStyle(txtPasswordNew);
+            warningPassword.Visibility = Visibility.Collapsed; // Ausblenden, wenn die Passwörter übereinstimmen
+         }
 
-            // Überprüfe, ob sich das neue Passwort vom alten unterscheidet (inkl. Groß- und Kleinschreibung)
-            if (!string.IsNullOrEmpty(txtPasswordOld.Password) && string.Equals(txtPasswordNew.Password, txtPasswordOld.Password, StringComparison.Ordinal))
-            {
-                SetInvalidInputStyle(txtPasswordNew);
-                warningPassword.Visibility = Visibility.Visible;
-                isValid = false;
-            }
+         // Überprüfe, ob sich das neue Passwort vom alten unterscheidet
+         if (!string.IsNullOrEmpty(txtPasswordOld.Password) && string.Equals(txtPasswordNew.Password, txtPasswordOld.Password, StringComparison.Ordinal))
+         {
+            SetInvalidInputStyle(txtPasswordNew);
+            warningPassword.Visibility = Visibility.Visible; // Zeige Warnung an
+            warningPassword.ToolTip = "Das neue Passwort darf nicht mit dem alten Passwort übereinstimmen."; // Tooltip für übereinstimmendes Passwort
+            isValid = false;
+         }
+         else if (!string.IsNullOrEmpty(txtPasswordOld.Password) && !string.Equals(txtPasswordNew.Password, txtPasswordOld.Password, StringComparison.Ordinal))
+         {
+            txtPasswordNew.ToolTip = null; // Tooltip entfernen, wenn die Passwörter unterschiedlich sind
+         }
 
-            return isValid;
-        }
+         return isValid;
+      }
 
 
-        private void SetInvalidInputStyle(PasswordBoxPlus passwordBox)
+
+
+
+      private void SetInvalidInputStyle(PasswordBoxPlus passwordBox)
         {
             passwordBox.UnderlineBrush = new SolidColorBrush(Colors.Red);
             passwordBox.UnderlineThickness = new Thickness(0, 0, 0, 2.5);
@@ -389,19 +406,23 @@ namespace RunTrack
             SetValidInputStyle(passwordBox);
         }
 
-        private void txtPasswort_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            PasswordBoxPlus passwordBox = (PasswordBoxPlus)sender;
-            passwordBox.Foreground = new SolidColorBrush(Colors.Blue);
+      private void txtPasswort_PasswordChanged(object sender, RoutedEventArgs e)
+      {
+         PasswordBoxPlus passwordBox = (PasswordBoxPlus)sender;
+         passwordBox.Foreground = new SolidColorBrush(Colors.Blue);
 
-            // Sichtbarkeit der Passwortwiederholung
-            if (!string.IsNullOrEmpty(passwordBox.Password)) borderPasswordWdh.Visibility = Visibility.Visible;
-            else borderPasswordWdh.Visibility = Visibility.Collapsed;
+         // Sobald die Wiederholung des Passworts eingeblendet wurde, soll sie nicht mehr ausgeblendet werden
+         if (!string.IsNullOrEmpty(passwordBox.Password) || isPasswordRepeatVisible)
+         {
+            borderPasswordWdh.Visibility = Visibility.Visible;
+            isPasswordRepeatVisible = true; // Behalte den Zustand
+         }
 
-            ValidatePassword(); // Passwortvalidierung durchführen
-        }
+         ValidatePassword(); // Passwortvalidierung durchführen
+      }
 
-        private void btnCredits_Click(object sender, RoutedEventArgs e)
+
+      private void btnCredits_Click(object sender, RoutedEventArgs e)
         {
             _mmodel?.Navigate(new Credits());
         }
