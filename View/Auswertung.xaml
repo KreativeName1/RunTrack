@@ -6,10 +6,12 @@
         xmlns:local="clr-namespace:RunTrack"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:fc="http://devpelux.github.io/fullcontrols"
         mc:Ignorable="d"
+			Loaded="Page_Loaded"
       HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
         Title="Auswertung">
     <Page.Resources>
-        <local:ObjectToBoolConverter x:Key="otbcon"/>
+		<local:AuswertungModel x:Key="amodel"/>
+		<local:ObjectToBoolConverter x:Key="otbcon"/>
         <local:BoolToVisibilityConverter x:Key="btocon"/>
         <local:BoolInverterConverter x:Key="boolinvcon"/>
     </Page.Resources>

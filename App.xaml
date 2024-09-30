@@ -8,8 +8,7 @@
         <local:ScannerModel x:Key="smodel"/>
         <local:DatenuebersichtModel x:Key="dumodel"/>
         <local:DateiVerwaltungModel x:Key="dvmodel"/>
-        <local:PDFEditorModel x:Key="pemodel"/>
-        <local:AuswertungModel x:Key="amodel"/>
-        <local:ImportModel x:Key="imodel"/>
+		<local:PDFEditorModel x:Key="pemodel"/>
+		<local:ImportModel x:Key="imodel"/>
     </Application.Resources>
 </Application>
