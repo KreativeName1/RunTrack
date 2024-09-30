@@ -20,11 +20,11 @@
             </Image>
 
             <!--Höhe = 85-->
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Width="325">
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Background="AliceBlue">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Width="330">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal" Width="275" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top">
                         <Label Content="Vorname:" Margin="0,0,0,0" HorizontalAlignment="Left" Width="125" FontSize="14" FontWeight="Bold" Height="28" VerticalAlignment="Center"/>
-                        <fc:TextBoxPlus x:Name="txtVorname" ForegroundBrushOnDisabled="Blue" ForegroundBrushOnSelected="Blue" UnderlineBrushOnSelected="#28713E" TextWrapping="Wrap" HorizontalAlignment="Left" Width="150" FontSize="14" Padding="5" Text="Max" Height="30" CornerRadius="3" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" TextChanged="txtVorname_TextChanged" GotFocus="txtVorname_GotFocus" LostFocus="txtVorname_LostFocus" Cursor=""/>
+                        <fc:TextBoxPlus x:Name="txtVorname" ForegroundBrushOnDisabled="Blue" ForegroundBrushOnSelected="Blue" UnderlineBrushOnSelected="#28713E" TextWrapping="Wrap" HorizontalAlignment="Left" Width="150" FontSize="14" Padding="5" Text="Max" Height="30" CornerRadius="3,0,0,3" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" TextChanged="txtVorname_TextChanged" GotFocus="txtVorname_GotFocus" LostFocus="txtVorname_LostFocus" Cursor=""/>
 
                     </StackPanel>
 
@@ -38,7 +38,7 @@
                         <Grid x:Name="paswdWDH" HorizontalAlignment="Left" Height="30" VerticalAlignment="Center" Visibility="Visible" Cursor="">
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="altes Passwort:" Margin="0,0,0,0" HorizontalAlignment="Left" FontSize="14" Width="125" FontFamily="72" FontWeight="Bold" Height="26" VerticalAlignment="Center"/>
-                                <fc:PasswordBoxPlus x:Name="txtPasswordOld" HorizontalAlignment="Left" EnablePeekButton="True" Foreground="Blue" ForegroundOnSelected="Blue" UnderlineBrushOnSelected="#28713E" CornerRadius="3" Width="150" FontSize="14" Padding="5" Height="30" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswordOld_LostFocus" PasswordChanged="txtPasswordOld_PasswordChanged"/>
+                                <fc:PasswordBoxPlus x:Name="txtPasswordOld" HorizontalAlignment="Left" EnablePeekButton="True" Foreground="Blue" ForegroundOnSelected="Blue" UnderlineBrushOnSelected="#28713E" CornerRadius="3,0,0,3" Width="150" FontSize="14" Padding="5" Height="30" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswordOld_LostFocus" PasswordChanged="txtPasswordOld_PasswordChanged"/>
                             </StackPanel>
                         </Grid>
                     </StackPanel>
@@ -47,16 +47,26 @@
                         <Grid x:Name="newPasswd" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top">
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="Passwort:" HorizontalAlignment="Left" FontSize="14" FontFamily="72" Width="125" FontWeight="Bold" Height="26" VerticalAlignment="Center"/>
-                                <fc:PasswordBoxPlus x:Name="txtPasswordNew" HorizontalAlignment="Left" BackgroundOnDisabled="#ffffff" ForegroundOnDisabled="#41678D" EnablePeekButton="True" Foreground="Blue" ForegroundOnSelected="Blue" UnderlineBrushOnSelected="#28713E" CornerRadius="3" Width="150" FontSize="14" Padding="5" Height="30" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswort_LostFocus" PasswordChanged="txtPasswort_PasswordChanged"/>
+                                <fc:PasswordBoxPlus x:Name="txtPasswordNew" HorizontalAlignment="Left" BackgroundOnDisabled="#ffffff" ForegroundOnDisabled="#41678D" EnablePeekButton="True" Foreground="Blue" ForegroundOnSelected="Blue" UnderlineBrushOnSelected="#28713E" CornerRadius="3,0,0,3" Width="150" FontSize="14" Padding="5" Height="30" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswort_LostFocus" PasswordChanged="txtPasswort_PasswordChanged"/>
                             </StackPanel>
                         </Grid>
                     </StackPanel>
+                    <StackPanel Orientation="Horizontal" Width="275" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Border x:Name="borderPasswordWdh" CornerRadius="5,0,0,5" Background="#FFECECEC" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="276" Visibility="Visible">
+                            <Grid x:Name="gridPasswordWdh">
+                                <Label x:Name="lblPasswortWdh" Content="Wiederholen:" HorizontalAlignment="Left" FontSize="11" FontFamily="72" Height="20" VerticalAlignment="Center" FontWeight="Bold"/>
+                                <fc:PasswordBoxPlus x:Name="txtPasswordNewWdh" ForegroundOnSelected="Blue" Foreground="Blue" UnderlineBrushOnSelected="#28713E" EnablePeekButton="True" CornerRadius="3,0,0,3" HorizontalAlignment="Left" Margin="125,0,0,0" Width="150" FontSize="11" Padding="5" Height="24" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswortWdh_LostFocus" PasswordChanged="txtPasswortWdh_PasswordChanged" Cursor=""/>
+                            </Grid>
+                        </Border>
+
+                    </StackPanel>
                 </StackPanel>
-                <StackPanel Orientation="Vertical" Background="Blue" Height="150" VerticalAlignment="Top" Width="50" HorizontalAlignment="Right">
+                <StackPanel Background="Blue">
                     <Grid>
 
-                        <fc:TextBoxPlus Width="50" Margin="0,5,0,-59" IsEnabled="False" BackgroundOnDisabled="White" HorizontalAlignment="Center" CornerRadius="0,3,3,0"/>
-                        <Label x:Name="warningVorname" Content="⚠️" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Foreground="Red" Cursor="Help" Visibility="Visible">
+                        <fc:TextBoxPlus Width="50" Height="183" Margin="0,5,0,0" IsEnabled="False" BackgroundOnDisabled="#fbfbfb" BorderBrushOnDisabled="#e5e5e5" BorderThickness="1.5" HorizontalAlignment="Center" CornerRadius="0,3,3,0" Cursor=""/>
+
+                        <Label x:Name="warningVorname" Content="⚠️" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Foreground="Red" Cursor="Help" Visibility="Visible">
                             <Label.ToolTip>
                                 <ToolTip>
                                     Bitte geben Sie Ihren Vornamen ein.
@@ -64,7 +74,7 @@
                             </Label.ToolTip>
                         </Label>
 
-                        <Label x:Name="warningNachname" Content="⚠️" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Foreground="Red" Cursor="Help" Visibility="Visible">
+                        <Label x:Name="warningNachname" Content="⚠️" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Foreground="Red" Cursor="Help" Visibility="Visible" Margin="0,40,0,0">
                             <Label.ToolTip>
                                 <ToolTip>
                                     Bitte geben Sie Ihren Nachnamen ein.
@@ -72,10 +82,10 @@
                             </Label.ToolTip>
                         </Label>
 
-                        <Label x:Name="warningPasswordOld" Content="⚠️" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Foreground="Red" Cursor="Help" Visibility="Visible" Margin="0,81,0,0">
+                        <Label x:Name="warningPasswordOld" Content="⚠️" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Foreground="Red" Cursor="Help" Visibility="Visible" Margin="0,80,0,0">
                             <Label.ToolTip>
                                 <ToolTip>
-                                    Das Alte Passwort stimmt nicht!
+                                    Das alte Passwort stimmt nicht!
                                 </ToolTip>
                             </Label.ToolTip>
                         </Label>
@@ -94,12 +104,7 @@
 
 
 
-            <Border x:Name="borderPasswordWdh" CornerRadius="5" Background="#FFECECEC" HorizontalAlignment="Left" Height="32" Margin="87,256,0,0" VerticalAlignment="Top" Width="276" Visibility="Collapsed">
-                <Grid x:Name="gridPasswordWdh">
-                    <Label x:Name="lblPasswortWdh" Content="Wiederholen:" HorizontalAlignment="Left" FontSize="11" FontFamily="72" Height="20" VerticalAlignment="Center" FontWeight="Bold"/>
-                    <fc:PasswordBoxPlus x:Name="txtPasswordNewWdh" ForegroundOnSelected="Blue" Foreground="Blue" UnderlineBrushOnSelected="#28713E" EnablePeekButton="True" CornerRadius="3" HorizontalAlignment="Left" Margin="123,0,0,0" Width="150" FontSize="11" Padding="5" Height="25" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswortWdh_LostFocus" PasswordChanged="txtPasswortWdh_PasswordChanged" Cursor=""/>
-                </Grid>
-            </Border>
+
 
             <Label x:Name="warningPassword" Content="⚠" FontSize="18" HorizontalAlignment="Left" Margin="368,232,0,0" VerticalAlignment="Top" Foreground="Red" Cursor="Help" Visibility="Visible">
                 <Label.ToolTip>
