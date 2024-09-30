@@ -60,7 +60,7 @@
             <fc:PasswordBoxPlus x:Name="txtPasswordNew" HorizontalAlignment="Left" BackgroundOnDisabled="#ffffff" ForegroundOnDisabled="#41678D" Margin="123,0,0,0" EnablePeekButton="True" Foreground="Blue" ForegroundOnSelected="Blue" UnderlineBrushOnSelected="#28713E" CornerRadius="3" Width="150" FontSize="14" Padding="5" Height="30" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswort_LostFocus" PasswordChanged="txtPasswort_PasswordChanged"/>
         </Grid>
 
-        <Border x:Name="borderPasswordWdh" CornerRadius="5" Background="#FFECECEC" HorizontalAlignment="Left" Height="32" Margin="87,256,0,0" VerticalAlignment="Top" Width="276" Visibility="Collapsed">
+        <Border x:Name="borderPasswordWdh" CornerRadius="5" Background="#FFECECEC" HorizontalAlignment="Left" Height="32" Margin="87,256,0,0" VerticalAlignment="Top" Width="276" Visibility="Visible">
             <Grid x:Name="gridPasswordWdh">
                 <Label x:Name="lblPasswortWdh" Content="Wiederholen:" HorizontalAlignment="Left" FontSize="11" FontFamily="72" Height="20" VerticalAlignment="Center" FontWeight="Bold"/>
                 <fc:PasswordBoxPlus x:Name="txtPasswordNewWdh" ForegroundOnSelected="Blue" Foreground="Blue" UnderlineBrushOnSelected="#28713E" EnablePeekButton="True" CornerRadius="3" HorizontalAlignment="Left" Margin="123,0,0,0" Width="150" FontSize="11" Padding="5" Height="25" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" GotFocus="txtPasswort_GotFocus" LostFocus="txtPasswortWdh_LostFocus" PasswordChanged="txtPasswortWdh_PasswordChanged" Cursor=""/>
@@ -71,6 +71,14 @@
             <Label.ToolTip>
                 <ToolTip>
                     Die neuen Passwörter stimmt nicht überein!
+                </ToolTip>
+            </Label.ToolTip>
+        </Label>
+
+        <Label x:Name="warningPasswordNeuAlt" Content="⚠" FontSize="18" HorizontalAlignment="Left" Margin="368,197,0,0" VerticalAlignment="Top" Foreground="Red" Cursor="Help" Visibility="Visible">
+            <Label.ToolTip>
+                <ToolTip>
+                    Das neue Passwort darf nicht mit dem alten Passwort übereinstimmen!
                 </ToolTip>
             </Label.ToolTip>
         </Label>

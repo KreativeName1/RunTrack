@@ -252,7 +252,7 @@ namespace RunTrack
             SetInvalidInputStyle(txtPasswordNewWdh);
             SetInvalidInputStyle(txtPasswordNew);
             warningPassword.Visibility = Visibility.Visible; // Zeige Warnung an
-            warningPassword.ToolTip = "Die neuen Passwörter stimmt nicht überein!";
+            //warningPassword.ToolTip = "Die neuen Passwörter stimmt nicht überein!";
             isValid = false;
          }
          else
@@ -267,7 +267,7 @@ namespace RunTrack
          {
             SetInvalidInputStyle(txtPasswordNew);
             warningPassword.Visibility = Visibility.Visible; // Zeige Warnung an
-            warningPassword.ToolTip = "Das neue Passwort darf nicht mit dem alten Passwort übereinstimmen."; // Tooltip für übereinstimmendes Passwort
+            //warningPassword.ToolTip = "Das neue Passwort darf nicht mit dem alten Passwort übereinstimmen."; // Tooltip für übereinstimmendes Passwort
             isValid = false;
          }
          else if (!string.IsNullOrEmpty(txtPasswordOld.Password) && !string.Equals(txtPasswordNew.Password, txtPasswordOld.Password, StringComparison.Ordinal))
