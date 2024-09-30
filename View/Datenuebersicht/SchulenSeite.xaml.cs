@@ -39,18 +39,37 @@ namespace RunTrack
                     _db.SaveChanges();
                 }
             };
-            lstSchule.CellEditEnding += (sender, e) =>
+
+            btnSpeichern.Click += (sender, e) =>
             {
-                Schule schule = lstSchule.SelectedItem as Schule;
-                if (schule == null) return;
-                Schule dbSchule = _db.Schulen.Find(schule.Id);
-                if (dbSchule != null)
+                MessageBox.Show("Speichern");
+                using (var db = new LaufDBContext())
                 {
-                    dbSchule.Name = schule.Name;
-                    _db.SaveChanges();
+                    // update
+                    foreach (var schule in _model.LstSchule)
+                    {
+                        if (_added.Contains(schule)) continue;
+                        if (_removed.Contains(schule)) continue;
+                        db.Schulen.Update(schule);
+                    }
+                    // add
+                    foreach (var schule in _added)
+                    {
+                        db.Schulen.Add(schule);
+                    }
+                    // delete
+                    foreach (var schule in _removed)
+                    {
+                        db.Schulen.Remove(schule);
+                    }
+
+                    db.SaveChanges();
+                    _added.Clear();
+                    _removed.Clear();
+                    _model.LoadData();
+
                 }
             };
-
         }
 
 
