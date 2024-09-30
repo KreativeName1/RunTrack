@@ -40,18 +40,18 @@ namespace RunTrack
                 }
             };
             lstSchule.CellEditEnding += (sender, e) =>
+            {
+                Schule schule = lstSchule.SelectedItem as Schule;
+                if (schule == null) return;
+                Schule dbSchule = _db.Schulen.Find(schule.Id);
+                if (dbSchule != null)
                 {
-                    Schule schule = lstSchule.SelectedItem as Schule;
-                    if (schule == null) return;
-                    Schule dbSchule = _db.Schulen.Find(schule.Id);
-                    if (dbSchule != null)
-                    {
-                        dbSchule.Name = schule.Name;
-                        _db.SaveChanges();
+                    dbSchule.Name = schule.Name;
+                    _db.SaveChanges();
                     }
-                };
+            };
 
-        }
+                }
 
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)

@@ -39,8 +39,8 @@
 						            <DataGridTemplateColumn Header="Schule" Width="15*">
 							<DataGridTemplateColumn.CellTemplate>
 								<DataTemplate>
-									<ComboBox ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=Page}, Path=DataContext.LstSchule}" 
-                                        SelectedItem="{Binding Schule, Mode=TwoWay}"/>
+									<ComboBox x:Name="cbSchule" ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=Page}, Path=DataContext.LstSchule}" 
+                                        SelectedItem="{Binding Schule, Mode=TwoWay}" SelectionChanged="cbSchule_SelectionChanged"/>
 								</DataTemplate>
 							</DataGridTemplateColumn.CellTemplate>
 						</DataGridTemplateColumn>       

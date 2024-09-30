@@ -53,8 +53,12 @@ namespace RunTrack
             {
                 using (var db = new LaufDBContext())
                 {
-                    // Suchen Sie den Benutzer in der Datenbank
-                    Benutzer? user = db.Benutzer.FirstOrDefault(b => b.Vorname == _pageModel.Benutzer.Vorname && b.Nachname == _pageModel.Benutzer.Nachname);
+                    // Suchen Sie den Benutzer in der Datenbank, Vorname und Nachname werden in Kleinbuchstaben verglichen
+                    string eingabeVorname = _pageModel.Benutzer.Vorname.ToLower();
+                    string eingabeNachname = _pageModel.Benutzer.Nachname.ToLower();
+
+                    Benutzer? user = db.Benutzer
+                        .FirstOrDefault(b => b.Vorname.ToLower() == eingabeVorname && b.Nachname.ToLower() == eingabeNachname);
 
                     // Wenn der Benutzer nicht gefunden wurde, melden Sie den Benutzer ohne Passwortüberprüfung an
                     if (user == null)
@@ -76,7 +80,6 @@ namespace RunTrack
                         {
                             // Passwort stimmt überein, anmelden als Administrator
                             _pageModel.Benutzer.IsAdmin = true;
-
                             _pageModel.Navigate(new Scanner());
                         }
                         else
@@ -88,6 +91,7 @@ namespace RunTrack
                 }
             }
         }
+
 
 
 

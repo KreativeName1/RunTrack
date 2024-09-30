@@ -12,6 +12,7 @@ namespace RunTrack
     /// </summary>
     public partial class AdminEinstellungen : Page
     {
+        private bool isPasswordRepeatVisible = false;
 
         public static ResizeMode ResizeMode { get; set; } = ResizeMode.NoResize;
         private DialogMode mode = DialogMode.Neu;
@@ -50,9 +51,9 @@ namespace RunTrack
 
             if (mode == DialogMode.Bearbeiten)
             {
-                this.txtPasswordOld.Focus();
                 this.paswdWDH.Visibility = Visibility.Visible;
                 this.txtPasswordNew.IsEnabled = false;
+                this.txtPasswordNewWdh.IsEnabled = false;
                 this.Title = "Passwort bearbeiten";
             }
             else if (mode == DialogMode.Neu)
@@ -67,9 +68,9 @@ namespace RunTrack
         private void SetWindowSize()
         {
             if (mode != DialogMode.Neu) return;
-            this.warningPassword.Margin = new Thickness(368, 192, 0, 0);
-            this.newPasswd.Margin = new Thickness(87, 176, 0, 0);
-            this.borderPasswordWdh.Margin = new Thickness(87, 216, 0, 0);
+            //this.warningPasswordWDH.Margin = new Thickness(0, 0, 0, 0);
+            //this.newPasswd.Margin = new Thickness(87, 176, 0, 0);
+            //this.borderPasswordWdh.Margin = new Thickness(0, 0, 0, 0);
         }
 
         private bool ChangePassword(string oldPassword, string newPassword)
@@ -120,7 +121,7 @@ namespace RunTrack
         private bool ValidateNewPassword(string newPassword)
         {
 #if DEBUG
-            return !string.IsNullOrEmpty(newPassword) && newPassword.Length >= 1;
+            return !string.IsNullOrEmpty(newPassword) && newPassword.Length >= 3;
 #endif
             return !string.IsNullOrEmpty(newPassword) &&
                    newPassword.Length >= 8 &&
@@ -229,40 +230,82 @@ namespace RunTrack
             // Überprüfe, ob das neue Passwort gültig ist
             if (string.IsNullOrEmpty(txtPasswordNew.Password))
             {
-                SetInvalidInputStyle(txtPasswordNew);
+                txtPasswordNew.UnderlineBrush = new SolidColorBrush(Colors.Red);
+                txtPasswordNew.UnderlineThickness = new Thickness(0, 0, 0, 2.5);
                 txtPasswordNewWdh.Password = "";
+                txtPasswordNewWdh.IsEnabled = false;
                 isValid = false;
             }
             else
             {
-                SetValidInputStyle(txtPasswordNew);
+                txtPasswordNew.UnderlineBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0067c0"));
+                txtPasswordNew.UnderlineThickness = new Thickness(0, 0, 0, 2.5);
             }
+
+
 
             // Überprüfe, ob das Passwort zur Bestätigung ausgefüllt ist
-            if (string.IsNullOrEmpty(txtPasswordNewWdh.Password) || txtPasswordNew.Password != txtPasswordNewWdh.Password)
+            if (string.IsNullOrEmpty(txtPasswordNewWdh.Password))
             {
-                SetInvalidInputStyle(txtPasswordNewWdh);
-                SetInvalidInputStyle(txtPasswordNew); // Setze rote Unterstreichung für beide
-                warningPassword.Visibility = Visibility.Visible; // Warnung anzeigen
+                // Wenn txtPasswordNewWdh leer ist, wird warningPassword nicht angezeigt
+                txtPasswordNewWdh.UnderlineBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0067c0"));
+                txtPasswordNewWdh.UnderlineThickness = new Thickness(0, 0, 0, 2.5);
+                warningPasswordWDH.Visibility = Visibility.Collapsed;
+            }
+            else if (txtPasswordNew.Password != txtPasswordNewWdh.Password)
+            {
+                // Wenn die Passwörter nicht übereinstimmen
+                txtPasswordNewWdh.UnderlineBrush = new SolidColorBrush(Colors.Red);
+                txtPasswordNewWdh.UnderlineThickness = new Thickness(0, 0, 0, 2.5);
+                warningPasswordWDH.Visibility = Visibility.Visible;
                 isValid = false;
             }
             else
             {
-                SetValidInputStyle(txtPasswordNewWdh);
-                SetValidInputStyle(txtPasswordNew);
-                warningPassword.Visibility = Visibility.Collapsed; // Warnung ausblenden
+                warningPasswordWDH.Visibility = Visibility.Collapsed; // Ausblenden, wenn die Passwörter übereinstimmen
             }
 
-            // Überprüfe, ob sich das neue Passwort vom alten unterscheidet (inkl. Groß- und Kleinschreibung)
+            // Überprüfe, ob sich das neue Passwort vom alten unterscheidet
             if (!string.IsNullOrEmpty(txtPasswordOld.Password) && string.Equals(txtPasswordNew.Password, txtPasswordOld.Password, StringComparison.Ordinal))
             {
-                SetInvalidInputStyle(txtPasswordNew);
-                warningPassword.Visibility = Visibility.Visible;
+                // flasch
+                txtPasswordNew.UnderlineBrush = new SolidColorBrush(Colors.Red);
+                txtPasswordNew.UnderlineThickness = new Thickness(0, 0, 0, 2.5);
+                warningPasswordNeuAlt.Visibility = Visibility.Visible; // Zeige Warnung an
+                warningPasswordNeu.Visibility = Visibility.Collapsed;
                 isValid = false;
+            }
+            else if (!string.IsNullOrEmpty(txtPasswordOld.Password) && !string.Equals(txtPasswordNew.Password, txtPasswordOld.Password, StringComparison.Ordinal))
+            {
+                // richtig
+
+                warningPasswordNeuAlt.Visibility = Visibility.Collapsed;
+
+                if (ValidateNewPassword(txtPasswordNew.Password))
+                {
+                    // richtig
+                    txtPasswordNew.UnderlineBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0067c0"));
+                    txtPasswordNew.UnderlineThickness = new Thickness(0, 0, 0, 2.5);
+                    txtPasswordNewWdh.IsEnabled = true;
+                    this.warningPasswordNeu.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    // falsch
+                    txtPasswordNew.UnderlineBrush = new SolidColorBrush(Colors.Red);
+                    txtPasswordNew.UnderlineThickness = new Thickness(0, 0, 0, 2.5);
+                    txtPasswordNewWdh.Password = "";
+                    txtPasswordNewWdh.IsEnabled = false;
+                    this.warningPasswordNeu.Visibility = Visibility.Visible;
+                    warningPasswordNeu.ToolTip = "Das neue Passwort erfüllt nicht die Anforderungen\n\t- min. Länge: 8 Zeichen\n\t- Min. ein Groß und Kleinbuchstabe\n\t- Min. ein Symbol und Zahl ";
+                }
             }
 
             return isValid;
         }
+
+
+
 
 
         private void SetInvalidInputStyle(PasswordBoxPlus passwordBox)
@@ -271,15 +314,13 @@ namespace RunTrack
             passwordBox.UnderlineThickness = new Thickness(0, 0, 0, 2.5);
             if (passwordBox.Name == "txtPasswordOld")
                 warningPasswordOld.Visibility = Visibility.Visible;
-            else if (passwordBox.Name == "txtPasswordNew" || passwordBox.Name == "txtPasswordNewWdh")
-                warningPassword.Visibility = Visibility.Visible;
         }
 
 
         private void SetValidInputStyle(PasswordBoxPlus passwordBox)
         {
             passwordBox.UnderlineBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0067c0"));
-            warningPassword.Visibility = Visibility.Collapsed;
+            //warningPasswordWDH.Visibility = Visibility.Collapsed;
             passwordBox.UnderlineThickness = new Thickness(0, 0, 0, 2);
         }
 
@@ -394,12 +435,16 @@ namespace RunTrack
             PasswordBoxPlus passwordBox = (PasswordBoxPlus)sender;
             passwordBox.Foreground = new SolidColorBrush(Colors.Blue);
 
-            // Sichtbarkeit der Passwortwiederholung
-            if (!string.IsNullOrEmpty(passwordBox.Password)) borderPasswordWdh.Visibility = Visibility.Visible;
-            else borderPasswordWdh.Visibility = Visibility.Collapsed;
+            // Sobald die Wiederholung des Passworts eingeblendet wurde, soll sie nicht mehr ausgeblendet werden
+            if (!string.IsNullOrEmpty(passwordBox.Password) || isPasswordRepeatVisible)
+            {
+                borderPasswordWdh.Visibility = Visibility.Visible;
+                isPasswordRepeatVisible = true; // Behalte den Zustand
+            }
 
             ValidatePassword(); // Passwortvalidierung durchführen
         }
+
 
         private void btnCredits_Click(object sender, RoutedEventArgs e)
         {
@@ -457,7 +502,7 @@ namespace RunTrack
                 {
                     txtPasswordNew.Password = "";
                     txtPasswordNew.IsEnabled = false;
-                    warningPassword.Visibility = Visibility.Collapsed;
+                    warningPasswordWDH.Visibility = Visibility.Collapsed;
                 }
             }
 
