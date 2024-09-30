@@ -10,19 +10,17 @@ namespace RunTrack
     public partial class SchulenSeite : Page
     {
         private DatenuebersichtModel _model;
-        private ObservableCollection<Schule> _removed = new();
-        private ObservableCollection<Schule> _added = new();
+        private LaufDBContext _db = new();
         public SchulenSeite()
         {
             InitializeComponent();
             _model = FindResource("dumodel") as DatenuebersichtModel ?? new();
-            ObservableCollection<Schule> entities = new(new LaufDBContext().Schulen);
-            this.lstSchule.ItemsSource = entities;
             btnNeu.Click += (sender, e) =>
             {
-                MessageBox.Show("Neu");
-                _added.Add(new Schule());
-                _model.LstSchule.Add(new Schule());
+                Schule neu = new();
+                _db.Schulen.Add(neu);
+                _model.LstSchule.Add(neu);
+
             };
             btnSpeichern.Click += (sender, e) =>
             {
@@ -31,52 +29,28 @@ namespace RunTrack
 
             btnDel.Click += (sender, e) =>
             {
-                MessageBox.Show("Del");
-                if (_model.SelSchule != null)
+                Schule schule = lstSchule.SelectedItem as Schule;
+                if (schule == null) return;
+                _model.LstSchule.Remove(schule);
+                Schule dbSchule = _db.Schulen.Find(schule.Id);
+                if (dbSchule != null)
                 {
-                    if (_added.Contains(_model.SelSchule as Schule))
-                    {
-                        _added.Remove(_model.SelSchule as Schule);
-                    }
-                    else
-                    {
-                        _removed.Add(_model.SelSchule as Schule);
-                    }
-                    _model.LstSchule.Remove(_model.SelSchule as Schule);
-
+                    _db.Schulen.Remove(dbSchule);
+                    _db.SaveChanges();
                 }
             };
-
-            btnSpeichern.Click += (sender, e) =>
+            lstSchule.CellEditEnding += (sender, e) =>
             {
-                MessageBox.Show("Speichern");
-                using (var db = new LaufDBContext())
+                Schule schule = lstSchule.SelectedItem as Schule;
+                if (schule == null) return;
+                Schule dbSchule = _db.Schulen.Find(schule.Id);
+                if (dbSchule != null)
                 {
-                    // update
-                    foreach (var schule in _model.LstSchule)
-                    {
-                        if (_added.Contains(schule)) continue;
-                        if (_removed.Contains(schule)) continue;
-                        db.Schulen.Update(schule);
-                    }
-                    // add
-                    foreach (var schule in _added)
-                    {
-                        db.Schulen.Add(schule);
-                    }
-                    // delete
-                    foreach (var schule in _removed)
-                    {
-                        db.Schulen.Remove(schule);
-                    }
-
-                    db.SaveChanges();
-                    _added.Clear();
-                    _removed.Clear();
-                    _model.LoadData();
-
+                    dbSchule.Name = schule.Name;
+                    _db.SaveChanges();
                 }
             };
+
         }
 
 
