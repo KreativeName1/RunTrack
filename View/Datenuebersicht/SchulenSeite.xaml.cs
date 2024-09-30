@@ -39,38 +39,19 @@ namespace RunTrack
                     _db.SaveChanges();
                 }
             };
-
-            btnSpeichern.Click += (sender, e) =>
+            lstSchule.CellEditEnding += (sender, e) =>
             {
-                MessageBox.Show("Speichern");
-                using (var db = new LaufDBContext())
+                Schule schule = lstSchule.SelectedItem as Schule;
+                if (schule == null) return;
+                Schule dbSchule = _db.Schulen.Find(schule.Id);
+                if (dbSchule != null)
                 {
-                    // update
-                    foreach (var schule in _model.LstSchule)
-                    {
-                        if (_added.Contains(schule)) continue;
-                        if (_removed.Contains(schule)) continue;
-                        db.Schulen.Update(schule);
+                    dbSchule.Name = schule.Name;
+                    _db.SaveChanges();
                     }
-                    // add
-                    foreach (var schule in _added)
-                    {
-                        db.Schulen.Add(schule);
-                    }
-                    // delete
-                    foreach (var schule in _removed)
-                    {
-                        db.Schulen.Remove(schule);
-                    }
-
-                    db.SaveChanges();
-                    _added.Clear();
-                    _removed.Clear();
-                    _model.LoadData();
+            };
 
                 }
-            };
-        }
 
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
