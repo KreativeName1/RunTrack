@@ -88,5 +88,22 @@ namespace RunTrack.View.Datenuebersicht
             txtSearch.ForegroundBrush = new SolidColorBrush(Colors.Blue);
             txtSearch.Foreground = new SolidColorBrush(Colors.Blue);
         }
+        private void cbSchule_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox cbSchule = sender as ComboBox;
+
+            Klasse sel = _model.SelKlasse;
+            if (sel == null) return;
+            Klasse klasse = _db.Klassen.Find(sel.Id);
+
+            _model.SelSchule = cbSchule.SelectedItem as Schule;
+
+            klasse.Schule = cbSchule.SelectedItem as Schule;
+
+            _db.SaveChanges();
+
+            _model.SelKlasse = null;
+
+        }
     }
 }
