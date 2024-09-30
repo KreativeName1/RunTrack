@@ -48,10 +48,10 @@ namespace RunTrack
                 {
                     dbSchule.Name = schule.Name;
                     _db.SaveChanges();
-                }
+                    }
             };
 
-        }
+                }
 
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
