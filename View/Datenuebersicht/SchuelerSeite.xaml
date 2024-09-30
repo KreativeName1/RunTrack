@@ -29,8 +29,8 @@
                     </DataGrid.Resources>
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding Id}" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="25*" Header="Namen" Binding="{Binding Vorname}"/>
-                        <DataGridTextColumn Width="25*" Header="Namen" Binding="{Binding Nachname}"/>
+                        <DataGridTextColumn Width="25*" Header="Vorname" Binding="{Binding Vorname}"/>
+                        <DataGridTextColumn Width="25*" Header="Nachname" Binding="{Binding Nachname}"/>
                         <DataGridTextColumn Width="15*" Header="Geschlecht" Binding="{Binding Geschlecht}"/>
                         <DataGridTextColumn Header="Jahrgang" Binding="{Binding Geburtsjahrgang}"/>
                         <DataGridTextColumn Width="15*" Header="Klasse" Binding="{Binding Klasse.Name}" IsReadOnly="True"/>

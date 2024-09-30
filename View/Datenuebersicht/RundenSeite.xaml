@@ -3,8 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:RunTrack.View.Datenuebersicht" xmlns:fc="http://devpelux.github.io/fullcontrols"
-      mc:Ignorable="d" 
+      xmlns:local="clr-namespace:RunTrack.View.Datenuebersicht" xmlns:fc="http://devpelux.github.io/fullcontrols" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+			mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="RundenSeite">
     <Grid DataContext="{StaticResource dumodel}">
@@ -29,11 +29,19 @@
                     </DataGrid.Resources>
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding Id}" IsReadOnly="True" />
-                        <DataGridTextColumn Width="15*" Header="Laufnr." Binding="{Binding Schueler.Id}"/>
-                        <DataGridTextColumn Width="25*" Header="Vorname" Binding="{Binding Schueler.Vorname}"/>
-                        <DataGridTextColumn Width="25*" Header="Nachname" Binding="{Binding Schueler.Nachname}"/>
-                        <DataGridTextColumn Width="25*" Header="Nachname" Binding="{Binding Zeitstempel}"/>
-                        <DataGridTextColumn Width="15*" Header="Rundengröße" Binding="{Binding Schueler.Klasse.RundenArt.LaengeInMeter, StringFormat= {}{0} m}" IsReadOnly="True"/>
+						<DataGridTextColumn Width="15*" Header="Laufnr." Binding="{Binding Schueler.Id}" IsReadOnly="True"/>
+						<DataGridTextColumn Width="25*" Header="Vorname" Binding="{Binding Schueler.Vorname}" IsReadOnly="True"/>
+						<DataGridTextColumn Width="25*" Header="Nachname" Binding="{Binding Schueler.Nachname}" IsReadOnly="True"/>
+
+						<DataGridTemplateColumn Header="Zeitstempel">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<xctk:DateTimePicker Format="SortableDateTime" TimeFormat="LongTime" Text="{Binding Path=Zeitstempel, Mode=TwoWay}" />
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+
+						<DataGridTextColumn Width="15*" Header="Rundenart" Binding="{Binding Schueler.Klasse.RundenArt}" IsReadOnly="True"/>
                         <DataGridTextColumn Width="18*" Header="Scanner" Binding="{Binding BenutzerName}"/>
                     </DataGrid.Columns>
                 </DataGrid>
