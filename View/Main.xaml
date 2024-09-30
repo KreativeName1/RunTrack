@@ -1,4 +1,4 @@
-﻿<Window x:Class="RunTrack.Main"
+﻿<mah:MetroWindow  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="RunTrack.Main"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,6 +9,6 @@
         Content="{Binding CurrentPage}"
         Title="{Binding PageTitle}"
         Icon="pack://application:,,,/Images/iconRunMan.ico"
-        WindowStartupLocation="CenterScreen"
-        Height="750" Width="1000">
-</Window>
+        WindowStartupLocation="CenterScreen" WindowTitleBrush="#005746" Background="White" TitleAlignment="Center"
+        TitleBarHeight="30" GlowBrush="#005746" ResizeMode="CanResizeWithGrip" BorderBrush="#005746" BorderThickness="1"
+        Height="750" Width="1000" NonActiveBorderBrush="#005746" NonActiveGlowBrush="#FF5A00FF" NonActiveWindowTitleBrush="#005746"/>

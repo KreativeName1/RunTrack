@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,7 @@ namespace RunTrack
     /// <summary>
     /// Interaktionslogik für Main.xaml
     /// </summary>
-    public partial class Main : Window
+    public partial class Main : MetroWindow
     {
         private MainModel _pmodel;
         public Main()
@@ -28,5 +29,10 @@ namespace RunTrack
             MainWindow main = new();
             _pmodel.CurrentPage = main;
         }
-    }
+
+      private void MetroWindow_DropDownOpened(object sender, EventArgs e)
+      {
+
+      }
+   }
 }
