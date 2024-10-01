@@ -29,18 +29,33 @@ namespace RunTrack
             _pmodel = FindResource("pmodel") as MainModel ?? new();
             MainWindow main = new();
             _pmodel.CurrentPage = main;
+
+            this.PreviewKeyDown += (sender, e) =>
+            {
+                if (e.Key == Key.F11) ChangeState();
+            };
+
+
+
         }
 
-      private void MetroWindow_DropDownOpened(object sender, EventArgs e)
-      {
-
-      }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ChangeState()
         {
-
+            if (this.WindowState == WindowState.Maximized)
+            {
+                WindowState = WindowState.Normal;
+                WindowStyle = WindowStyle.SingleBorderWindow;
+                this.IgnoreTaskbarOnMaximize = false;
+                this.ShowTitleBar = true;
+            }
+            else
+            {
+                WindowState = WindowState.Maximized;
+                WindowStyle = WindowStyle.None;
+                this.IgnoreTaskbarOnMaximize = true;
+                this.ShowTitleBar = false;
+            }
         }
-
         private void BTN_Minimize_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
