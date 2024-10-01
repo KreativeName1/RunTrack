@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using MahApps.Metro.Controls;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -72,6 +73,23 @@ namespace RunTrack.View.Datenuebersicht
         {
             txtSearch.ForegroundBrush = new SolidColorBrush(Colors.Blue);
             txtSearch.Foreground = new SolidColorBrush(Colors.Blue);
+        }
+
+        private void DateTimePicker_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            DateTimePicker dateTimePicker = sender as DateTimePicker;
+
+            if (dateTimePicker != null)
+            {
+                Runde runde = lstRunden.SelectedItem as Runde;
+                if (runde == null) return;
+                Runde dbRunde = _db.Runden.Find(runde.Id);
+                if (dbRunde != null)
+                {
+                    dbRunde.Zeitstempel = (DateTime)dateTimePicker.SelectedDateTime;
+                    _db.SaveChanges();
+                }
+            }
         }
     }
 }

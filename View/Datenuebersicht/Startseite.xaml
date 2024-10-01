@@ -33,8 +33,8 @@
                         <DataGridTextColumn Width="15*" Header="Vorname" Binding="{Binding Vorname}"/>
                         <DataGridTextColumn Width="15*" Header="Nachname" Binding="{Binding Nachname}"/>
                         <DataGridTextColumn Width="15*" Header="Klasse" Binding="{Binding Klasse.Name}" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="20*" Header="Schule" Binding="{Binding Klasse.Schule.Name}" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="11*" Header="Runden" Binding="{Binding Runden.Count}" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="25*" Header="Schule" Binding="{Binding Klasse.Schule.Name}" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="6*" Header="Runden" Binding="{Binding Runden.Count}" IsReadOnly="True"/>
                         <DataGridTextColumn Width="15*" Header="Rundengröße" Binding="{Binding Klasse.RundenArt.LaengeInMeter, StringFormat={}{0} m}" IsReadOnly="True"/>
                     </DataGrid.Columns>
                 </DataGrid>

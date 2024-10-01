@@ -47,9 +47,8 @@
 						<DataGridTemplateColumn Header="Rundenart" Width="25*">
 							<DataGridTemplateColumn.CellTemplate>
 								<DataTemplate>
-									<ComboBox 
-          ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=Page}, Path=DataContext.LstRundenArt}" 
-          SelectedItem="{Binding RundenArt, Mode=TwoWay}"/>
+									<ComboBox x:Name="cbRundenArt" ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=Page}, Path=DataContext.LstRundenArt}" 
+                                      SelectedItem="{Binding RundenArt, Mode=TwoWay}" SelectionChanged="cbRundenArt_SelectionChanged"/>
 								</DataTemplate>
 							</DataGridTemplateColumn.CellTemplate>
 

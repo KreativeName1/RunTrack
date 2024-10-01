@@ -98,12 +98,37 @@ namespace RunTrack.View.Datenuebersicht
 
             _model.SelSchule = cbSchule.SelectedItem as Schule;
 
-            klasse.Schule = cbSchule.SelectedItem as Schule;
+            sel.Schule = klasse.Schule = cbSchule.SelectedItem as Schule;
+            // sel.Schule = klasse.Schule;
 
             _db.SaveChanges();
+            // cbSchule.SelectedItem = klasse.Schule;
 
             _model.SelKlasse = null;
 
+        }
+
+        private void cbRundenArt_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox checkBox = sender as ComboBox;
+
+            Klasse sel = _model.SelKlasse;
+
+            if (sel == null)
+                return;
+
+            Klasse klasse = _db.Klassen.Find(sel.Id);
+
+            RundenArt rundenArt = checkBox.SelectedItem as RundenArt;
+
+            _model.SelRundenArt = rundenArt;
+            sel.RundenArt = klasse.RundenArt = rundenArt;
+            // sel.RundenArt = klasse.RundenArt;
+
+            _db.SaveChanges();
+            checkBox.SelectedItem = klasse.RundenArt;
+
+            _model.SelKlasse = null;
         }
     }
 }
