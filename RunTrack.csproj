@@ -21,6 +21,8 @@
     <None Remove="Images\popupIcons\success.png" />
     <None Remove="Images\popupIcons\warning.png" />
     <None Remove="Images\RunTrack_transparent.png" />
+    <None Remove="Images\titelbarIcons\maximize.png" />
+    <None Remove="Images\titelbarIcons\minimize.png" />
     <None Remove="MainWindow.xaml~RF6d463b42.TMP" />
     <None Remove="View\AdminEinstellungen.xaml~RFd832464d.TMP" />
     <None Remove="View\AdminErstellen.xaml.cs~RF9b0defe3.TMP" />
@@ -78,6 +80,12 @@
     </Resource>
     <Resource Include="Images\RunTrack_transparent.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\titelbarIcons\maximize.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\titelbarIcons\minimize.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
 
