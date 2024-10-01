@@ -10,18 +10,19 @@
          Title="Anmeldung">
     <Grid>
         <Rectangle Height="30" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
+        <Rectangle Height="1.5" Margin="0,0,0,0" Stroke="#2A2D2F" Fill="#2A2D2F" VerticalAlignment="Top"/>
         <Label Content="🏃🏻 RunTrack" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" FontSize="14" Foreground="White" FontWeight="Bold"/>
 
-        <Image Source="pack://application:,,,/Images/credits.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,3,45,0" HorizontalAlignment="Right" MouseDown="Image_MouseDown_1">
+        <Image Source="pack://application:,,,/Images/credits.png" Width="23" Height="23" VerticalAlignment="Top" Cursor="Hand" Margin="0,4,10,0" HorizontalAlignment="Right" MouseDown="Image_MouseDown_1">
             <Image.ToolTip>
                 <ToolTip Cursor="">Credits</ToolTip>
             </Image.ToolTip>
         </Image>
-        <Image Source="pack://application:,,,/Images/close.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,3,10,0" HorizontalAlignment="Right" MouseDown="Image_MouseDown">
+        <!--<Image Source="pack://application:,,,/Images/close.png" Width="23" Height="23" VerticalAlignment="Top" Cursor="Hand" Margin="0,4,10,0" HorizontalAlignment="Right" MouseDown="Image_MouseDown">
             <Image.ToolTip>
                 <ToolTip Cursor="">Beenden</ToolTip>
             </Image.ToolTip>
-        </Image>
+        </Image>-->
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,86,0,0" Width="345" Height="40" VerticalAlignment="Top" Cursor="">
 

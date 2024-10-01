@@ -121,7 +121,7 @@ namespace RunTrack
         private bool ValidateNewPassword(string newPassword)
         {
 #if DEBUG
-            return !string.IsNullOrEmpty(newPassword) && newPassword.Length >= 3;
+            return !string.IsNullOrEmpty(newPassword) && newPassword.Length >= 1;
 #endif
             return !string.IsNullOrEmpty(newPassword) &&
                    newPassword.Length >= 8 &&
