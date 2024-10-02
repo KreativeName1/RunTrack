@@ -63,11 +63,19 @@
             </Button>
             <!--<Rectangle Height="20" Width="2" Margin="0,0,0,0" Stroke="#2A2D2F" Fill="#2A2D2F" VerticalAlignment="Center"/>-->
             <!-- Maximize Button -->
-            <Button x:Name="BTN_Maximize" Click="BTN_Maximize_Click"
-                Background="#007d64" BorderThickness="0" Padding="0" Margin="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            <Button x:Name="BTN_Maximize" Click="BTN_Maximize_Click" MouseEnter="BTN_Maximize_MouseEnter" MouseLeave="BTN_Maximize_MouseLeave"
+                Background="#009664" BorderThickness="0" Padding="0" Margin="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                 <Button.Style>
                     <Style TargetType="Button">
-                        <Setter Property="Background" Value="#007d64" />
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,9">
+                                    <GradientStop Color="#009664" Offset="0.0" />
+                                    <GradientStop Color="#007d64" Offset="1.0" />
+                                    <!-- Dunklere Farbe für den Übergang -->
+                                </LinearGradientBrush>
+                            </Setter.Value>
+                        </Setter>
                         <Setter Property="Foreground" Value="White" />
                         <Setter Property="FontWeight" Value="Bold" />
                         <Setter Property="FontSize" Value="20" />
@@ -94,11 +102,19 @@
             </Button>
 
             <!-- Close Button -->
-            <Button x:Name="BTN_Close" Click="BTN_Close_Click"
-                Background="#B42041" BorderThickness="0" Padding="0" Margin="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            <Button x:Name="BTN_Close" Click="BTN_Close_Click" MouseEnter="BTN_Close_MouseEnter" MouseLeave="BTN_Close_MouseLeave"
+                Background="#009664" BorderThickness="0" Padding="0" Margin="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                 <Button.Style>
                     <Style TargetType="Button">
-                        <Setter Property="Background" Value="#B42041" />
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,9">
+                                    <GradientStop Color="#009664" Offset="0.0" />
+                                    <GradientStop Color="#007d64" Offset="1.0" />
+                                    <!-- Dunklere Farbe für den Übergang -->
+                                </LinearGradientBrush>
+                            </Setter.Value>
+                        </Setter>
                         <Setter Property="Foreground" Value="White" />
                         <Setter Property="FontWeight" Value="Bold" />
                         <Setter Property="FontSize" Value="20" />
