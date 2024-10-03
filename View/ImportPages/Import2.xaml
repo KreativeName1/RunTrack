@@ -26,7 +26,7 @@
                         <DataTemplate>
                             <ComboBox 
                                  SelectionChanged="ComboBox_SelectionChanged"
-                        ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.RundenArten}" 
+                        ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=Page}, Path=DataContext.RundenArten}" 
                         SelectedItem="{Binding RundenArt, Mode=TwoWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

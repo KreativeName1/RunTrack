@@ -51,8 +51,8 @@ namespace RunTrack
 
 						if (extension == ".asv" || extension == ".csv")
 						{
-							ImportFenster fenster = new(Path.GetFullPath(destPath));
-							fenster.ShowDialog();
+							_pmodel.Navigate(new Import1(Path.GetFullPath(destPath)));
+
 							_dvmodel.LstFiles = new ObservableCollection<FileItem>(FileItem.AlleLesen());
 						}
 					}
@@ -91,7 +91,7 @@ namespace RunTrack
 
 		private void CloseWindow_Click(object sender, RoutedEventArgs e)
 		{
-			Object? page = _pmodel.History.FindLast(p => p.GetType() != GetType());
+			Object? page = _pmodel.History.FindLast(x => !new[] { typeof(Import1), typeof(Import2), typeof(Import3), GetType() }.Contains(x.GetType()));
 			if (page != null) _pmodel.Navigate(page);
 		}
 
