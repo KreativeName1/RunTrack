@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace RunTrack
 {
@@ -11,12 +12,18 @@ namespace RunTrack
     {
         public ResizeMode ResizeMode { get; set; }
         private MainModel _pageModel;
+        private DispatcherTimer passwordTimer;
 
         public MainWindow()
         {
             InitializeComponent();
 
             _pageModel = FindResource("pmodel") as MainModel ?? new();
+
+
+            passwordTimer = new DispatcherTimer();
+            passwordTimer.Interval = TimeSpan.FromMilliseconds(500); // 500 ms of inactivity before validation
+            passwordTimer.Tick += txtPasswort_PasswordTimerTick;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -432,12 +439,24 @@ namespace RunTrack
                 }
             }
 
-            // ValidatePassword() takes between 223 and 589 milliseconds to execute. 
-            // This is primarily because BCrypt.Net.BCrypt.Verify, which is used for password verification, is a time-consuming operation.
-            // To keep the UI responsive, we run this in a background task.
-            // However, since ValidatePassword interacts with UI elements, we need to marshal the call back to the UI thread using Dispatcher.Invoke.
+            // Reset the timer
+            if (passwordTimer.IsEnabled)
+            {
+                passwordTimer.Stop();
+            }
 
-            Task.Run(() =>
+            // Start the timer again
+            passwordTimer.Start();
+        }
+
+        // ValidatePassword() takes between 223 and 589 milliseconds to execute. 
+        // This is primarily because BCrypt.Net.BCrypt.Verify, which is used for password verification, is a time-consuming operation.
+        private async void txtPasswort_PasswordTimerTick(object? sender, EventArgs e)
+        {
+            // Stop the timer to avoid multiple triggers
+            passwordTimer.Stop();
+
+            await Task.Run(() =>
             {
                 // ValidatePassword needs to be invoked on the UI thread because it accesses UI components.
                 Application.Current.Dispatcher.Invoke(() =>
