@@ -37,6 +37,7 @@ namespace RunTrack.View
                     {
                         Content = benutzer.Id,
                         FontSize = 14,
+                        MinWidth = 25,
                         HorizontalAlignment = HorizontalAlignment.Right,
                         VerticalAlignment = VerticalAlignment.Center,
                         Margin = new Thickness(0, 1.5, 0, 2.5)
@@ -49,6 +50,7 @@ namespace RunTrack.View
                     {
                         Content = "→",
                         FontSize = 14,
+                        Width = 25,
                         HorizontalAlignment = HorizontalAlignment.Right,
                         VerticalAlignment = VerticalAlignment.Center,
                         Margin = new Thickness(0, 1.5, 8, 2.5)
@@ -61,6 +63,7 @@ namespace RunTrack.View
                     {
                         Content = benutzer.Vorname,
                         FontSize = 14,
+                        MinWidth = 100,
                         HorizontalAlignment = HorizontalAlignment.Left,
                         VerticalAlignment = VerticalAlignment.Center,
                         Margin = new Thickness(0, 1.5, 0, 2.5)
@@ -74,6 +77,7 @@ namespace RunTrack.View
                     {
                         Content = benutzer.Nachname,
                         FontSize = 14,
+                        MinWidth = 100,
                         HorizontalAlignment = HorizontalAlignment.Left,
                         VerticalAlignment = VerticalAlignment.Center,
                         Margin = new Thickness(0, 1.5, 0, 2.5)

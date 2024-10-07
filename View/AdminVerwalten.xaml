@@ -10,10 +10,22 @@
       d:Height="750" d:Width="1000"
       Title="AdminVerwalten">
 
-    <Grid>
+    <Grid Cursor="">
+        <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
+        <Rectangle Height="1.5" Margin="0,0,0,0" Stroke="#2A2D2F" Fill="#2A2D2F" VerticalAlignment="Top"/>
+        <Label Content="🏃🏻 RunTrack" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" FontSize="14" Foreground="White" FontWeight="Bold"/>
+
+        <Image Source="pack://application:,,,/Images/credits.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" x:Name="btnCredits" Grid.Column="2">
+            <Image.ToolTip>
+                <ToolTip Cursor="">Credits</ToolTip>
+            </Image.ToolTip>
+        </Image>
+
+        <TextBlock Text="Id" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-250,-420,0,10"/>
         <!-- ScrollViewer für die GridSettings -->
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Height="300" HorizontalAlignment="Center" Margin="0,0,0,0">
-            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5">
+        <Rectangle Height="402.5" Width="378" Margin="0,0,0,0" Stroke="#2A2D2F" Fill="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center" Cursor=""/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Height="400" HorizontalAlignment="Center" Margin="0,0,0,0">
+            <!--<Border BorderBrush="Gray" BorderThickness="1,1,1,1">-->
                 <Grid x:Name="GridSettings" VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="Visible" Margin="0,0,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -27,7 +39,7 @@
                         <!-- Dynamische Zeilen werden im Code-Behind hinzugefügt -->
                     </Grid.RowDefinitions>
                 </Grid>
-            </Border>
+            <!--</Border>-->
         </ScrollViewer>
 
         <StackPanel Orientation="Horizontal" Margin="0,0,10,10" HorizontalAlignment="Right" Width="235" VerticalAlignment="Bottom">
