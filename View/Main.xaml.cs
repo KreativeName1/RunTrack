@@ -80,6 +80,8 @@ namespace RunTrack
             }
         }
 
+
+
         private void BTN_Close_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();

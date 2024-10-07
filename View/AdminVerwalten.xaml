@@ -21,10 +21,12 @@
             </Image.ToolTip>
         </Image>
 
-        <TextBlock Text="Id" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-250,-420,0,10"/>
+        <TextBlock Text="Id" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF3957FF" Margin="-350,-520,0,10"/>
+        <TextBlock Text="Vorname" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF3957FF" Margin="-180,-520,0,10"/>
+        <TextBlock Text="Nachname" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF3957FF" Margin="35,-520,0,10"/>
         <!-- ScrollViewer für die GridSettings -->
-        <Rectangle Height="402.5" Width="378" Margin="0,0,0,0" Stroke="#2A2D2F" Fill="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center" Cursor=""/>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Height="400" HorizontalAlignment="Center" Margin="0,0,0,0">
+        <Rectangle Height="502.5" Width="371" Margin="0,0,0,0" Stroke="#2A2D2F" Fill="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center" Cursor=""/>
+        <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Height="500" HorizontalAlignment="Center" Margin="0,0,0,0">
             <!--<Border BorderBrush="Gray" BorderThickness="1,1,1,1">-->
                 <Grid x:Name="GridSettings" VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="Visible" Margin="0,0,0,0">
                     <Grid.ColumnDefinitions>
@@ -44,7 +46,7 @@
 
         <StackPanel Orientation="Horizontal" Margin="0,0,10,10" HorizontalAlignment="Right" Width="235" VerticalAlignment="Bottom">
             <fc:ButtonPlus x:Name="btnSave" Content="Speichern" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Visibility="Hidden" Click="Save_Click" Width="100" Height="25" Margin="5,5,20,5"/>
-            <fc:ButtonPlus Content="Schließen" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Click="CloseWindow_Click" Width="100" Height="25" Margin="5"/>
+            <fc:ButtonPlus x:Name="btnAbbrechen" Content="Abbrechen" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="100" Height="25" Margin="5"/>
         </StackPanel>
     </Grid>
 </Page>

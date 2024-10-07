@@ -306,11 +306,6 @@ namespace RunTrack
             return isValid;
         }
 
-
-
-
-
-
         private void SetInvalidInputStyle(PasswordBoxPlus passwordBox)
         {
             passwordBox.UnderlineBrush = new SolidColorBrush(Colors.Red);
