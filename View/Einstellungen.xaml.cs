@@ -326,6 +326,12 @@ namespace RunTrack
             _pmodel.Navigate(adminEinstellungen);
         }
 
+        private void btnAdminSum_Click(object sender, RoutedEventArgs e)
+        {
+            AdminEinstellungen adminEinstellungen = new(DialogMode.Neu);
+            _pmodel.Navigate(adminEinstellungen);
+        }
+
         private void btnPasswordChange_Click(object sender, RoutedEventArgs e)
         {
             // DialogMode + Zusatz noch hinzufügen wie bei OptionsButton_Click
