@@ -5,8 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RunTrack" xmlns:fc="http://devpelux.github.io/fullcontrols" d:DataContext="{d:DesignInstance Type=local:DateiVerwaltungModel}"
       mc:Ignorable="d"
+      d:Height="750"
+      d:Width="1000"
       HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
         Title="Dateiverwaltung">
+    <Page.Resources>
+        <local:BoolToVisibilityConverter x:Key="con"/>
+    </Page.Resources>
     <Grid DataContext="{StaticResource dvmodel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -38,7 +43,7 @@
 
             <TextBlock Text="Uploaddatum ⇅" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" MouseDown="UploadDateLabel_MouseDown" MouseEnter="Label_MouseEnter" MouseLeave="Label_MouseLeave" x:Name="UploadDateLabel" Cursor="Hand"/>
         </Grid>
-        <ListBox x:Name="FilesListBox" ItemsSource="{Binding LstFiles}" Grid.Row="3" Margin="10,5,10,10" BorderBrush="Gray" BorderThickness="1"
+        <ListBox x:Name="FilesListBox" AllowDrop="True" ItemsSource="{Binding LstFiles}" Grid.Row="3" Margin="10,5,10,10" BorderBrush="Gray" BorderThickness="1"
                  HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -57,6 +62,8 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <local:DragDropOverlay Drop="FilesListBox_Drop" AllowDrop="True" Grid.Row="3" Visibility="{Binding IsDragging, Converter={StaticResource con}}" x:Name="DragDropOverlay"/>
+
         <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,5,10,10" HorizontalAlignment="Right" Width="235">
             <fc:ButtonPlus x:Name="btnLoeschen" Click="DeleteSelectedFiles_Click" Content="Löschen" Margin="5" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" Cursor="Hand" FontSize="12"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
             <fc:ButtonPlus x:Name="btnSchliessen" Click="CloseWindow_Click" Content="Schließen" Margin="5" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" Cursor="Hand" FontSize="12"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
