@@ -7,11 +7,41 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Rectangle Fill="#000" Opacity="0.2" Margin="10,5,10,10" />
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-        <TextBlock HorizontalAlignment="Center" Text="Datei Importieren" FontSize="24px" FontWeight="Bold"/>
-            <TextBlock HorizontalAlignment="Center" Text="Unterstütze Formate: db, sqlite, csv"/>
+        <!-- Transparenter Hintergrund -->
+        <Rectangle Fill="#000" Opacity="0.2"  Margin="10,5,10,10" />
+        <Border Width="250" Height="100" Background="#4c4c4c" Opacity="0.1" CornerRadius="20">
+            <!-- Optional: Inhalt des Borders -->
+        </Border>
 
+        <!-- Obere linke Ecke -->
+        <Rectangle Fill="Black" Width="20" Height="5" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,5,0,0" />
+        <Rectangle Fill="Black" Width="5" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,5,0,0" />
+        <Ellipse Fill="Black" Width="5" Height="5" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27.5,5,0,0" />
+        <Ellipse Fill="Black" Width="5" Height="5" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,22.5,0,0" />
+
+        <!-- Obere rechte Ecke -->
+        <Rectangle Fill="Black" Width="20" Height="5" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0" />
+        <Rectangle Fill="Black" Width="5" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0" />
+        <Ellipse Fill="Black" Width="5" Height="5" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,22.5,10,0" />
+        <Ellipse Fill="Black" Width="5" Height="5" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,27.5,0" />
+
+        <!-- Untere linke Ecke -->
+        <Rectangle Fill="Black" Width="20" Height="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,10" />
+        <Rectangle Fill="Black" Width="5" Height="20" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,10" />
+        <Ellipse Fill="Black" Width="5" Height="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,27.5" />
+        <Ellipse Fill="Black" Width="5" Height="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="27.5,0,0,10" />
+
+        <!-- Untere rechte Ecke -->
+        <Rectangle Fill="Black" Width="20" Height="5" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" />
+        <Rectangle Fill="Black" Width="5" Height="20" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" />
+        <Ellipse Fill="Black" Width="5" Height="5" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,27.5,10" />
+        <Ellipse Fill="Black" Width="5" Height="5" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,27.5" />
+
+        <!-- Text in der Mitte -->
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock HorizontalAlignment="Center" Text="Datei Importieren" FontSize="25" Margin="0,0,0,5" FontWeight="Bold"/>
+            <TextBlock HorizontalAlignment="Center" Text="Unterstütze Formate:" FontSize="13"/>
+            <TextBlock HorizontalAlignment="Center" Text="db, sqlite, csv" FontSize="13"/>
         </StackPanel>
     </Grid>
 </UserControl>
