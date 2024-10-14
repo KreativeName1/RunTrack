@@ -61,7 +61,7 @@ namespace RunTrack
 
       btnCancel.Click += (s, e) =>
       {
-        if (new Popup().Display("Abbrechen", "Möchten Sie den Import wirklich abbrechen?", PopupType.Question, PopupButtons.YesNo).Result == true)
+        if (new Popup().Display("Abbrechen", "Möchten Sie den Import wirklich abbrechen?", PopupType.Question, PopupButtons.YesNo) == true)
           _model.Navigate(_model.History.FindLast(x => !new[] { typeof(Import1), typeof(Import2), typeof(Import3) }.Contains(x.GetType())));
       };
       btnWeiter.Click += (s, e) =>

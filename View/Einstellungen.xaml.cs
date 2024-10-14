@@ -234,7 +234,7 @@ namespace RunTrack
         private void DeleteRundenart(string rundenartName)
         {
             // if (System.Windows.MessageBox.Show("Wollen Sie wirklich " + rundenartName + " löschen?", "Löschne", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-            if (new Popup().Display("Löschen", "Wollen Sie wirklich " + rundenartName + " löschen?", PopupType.Question, PopupButtons.YesNo).Result == true)
+            if (new Popup().Display("Löschen", "Wollen Sie wirklich " + rundenartName + " löschen?", PopupType.Question, PopupButtons.YesNo) == true)
             {
                 using (var db = new LaufDBContext())
                 {

@@ -60,7 +60,7 @@ namespace RunTrack
         {
             if (IsDataChanged())
             {
-                if (new Popup().Display("Sie haben nicht gespeichert!", "Wirklich Beenden?", PopupType.Warning, PopupButtons.YesNo).Result == false) return;
+                if (new Popup().Display("Sie haben nicht gespeichert!", "Wirklich Beenden?", PopupType.Warning, PopupButtons.YesNo) == false) return;
             }
 
             _pmodel?.Navigate(_pmodel.History[^1]);
@@ -135,8 +135,7 @@ namespace RunTrack
         {
             if (!isSaveClicked && IsDataChanged())
             {
-                PopupResult result = new Popup().Display("Sie haben nicht gespeichert!", "Wirklich Beenden?", PopupType.Warning, PopupButtons.YesNo);
-                if (result.Result == true) e.Cancel = true; // Cancel the closing action
+                if (new Popup().Display("Sie haben nicht gespeichert!", "Wirklich Beenden?", PopupType.Warning, PopupButtons.YesNo) == true) e.Cancel = true;
             }
         }
 

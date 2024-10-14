@@ -79,8 +79,8 @@ namespace RunTrack
             {
                 if (_dvmodel.LstFiles[i].IsSelected)
                 {
-                    PopupResult Result = new Popup().Display($"Datei löschen", $"Willst du die Datei '{_dvmodel.LstFiles[i].FileName}' wirklich löschen?", PopupType.Question, PopupButtons.YesNo);
-                    if (Result.Result == true)
+                    bool? result = new Popup().Display($"Datei löschen", $"Willst du die Datei '{_dvmodel.LstFiles[i].FileName}' wirklich löschen?", PopupType.Question, PopupButtons.YesNo);
+                    if (result == true)
                     {
                         if (_dvmodel.LstFiles[i].FileName == null) continue;
                         File.Delete(Path.Combine("Dateien", _dvmodel.LstFiles[i].FileName ?? string.Empty));
