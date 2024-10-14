@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Rectangle Fill="#000" Opacity="0.2" />
+        <Rectangle Fill="#000" Opacity="0.2" Margin="10,5,10,10" />
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
         <TextBlock HorizontalAlignment="Center" Text="Datei Importieren" FontSize="24px" FontWeight="Bold"/>
             <TextBlock HorizontalAlignment="Center" Text="Unterstütze Formate: db, sqlite, csv"/>
