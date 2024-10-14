@@ -10,7 +10,8 @@ namespace RunTrack
         public bool IsDragging
         {
 
-            get {
+            get
+            {
                 return _isDragging;
             }
             set
