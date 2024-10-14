@@ -7,6 +7,7 @@
         <local:MainModel x:Key="pmodel"/>
         <local:ScannerModel x:Key="smodel"/>
         <local:DatenuebersichtModel x:Key="dumodel"/>
+        <local:AdminModel x:Key="admodel"/>
         <local:DateiVerwaltungModel x:Key="dvmodel"/>
 		<local:PDFEditorModel x:Key="pemodel"/>
 		<local:ImportModel x:Key="imodel"/>

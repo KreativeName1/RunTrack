@@ -10,7 +10,7 @@
       d:Height="750" d:Width="1000"
       Title="AdminVerwalten">
 
-    <Grid Cursor="">
+    <Grid DataContext="{StaticResource admodel}">
         <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
         <Rectangle Height="1.5" Margin="0,0,0,0" Stroke="#2A2D2F" Fill="#2A2D2F" VerticalAlignment="Top"/>
         <Label Content="🏃🏻 RunTrack" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" FontSize="14" Foreground="White" FontWeight="Bold"/>
@@ -25,9 +25,9 @@
         <TextBlock Text="Vorname" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF3957FF" Margin="-180,-520,0,10"/>
         <TextBlock Text="Nachname" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF3957FF" Margin="35,-520,0,10"/>
         <!-- ScrollViewer für die GridSettings -->
-        <Rectangle Height="502.5" Width="371" Margin="0,0,0,0" Stroke="#2A2D2F" Fill="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center" Cursor=""/>
+        <!--<Rectangle Height="502.5" Width="371" Margin="0,0,0,0" Stroke="#2A2D2F" Fill="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center" Cursor=""/>
         <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Height="500" HorizontalAlignment="Center" Margin="0,0,0,0">
-            <!--<Border BorderBrush="Gray" BorderThickness="1,1,1,1">-->
+            --><!--<Border BorderBrush="Gray" BorderThickness="1,1,1,1">--><!--
                 <Grid x:Name="GridSettings" VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="Visible" Margin="0,0,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -38,11 +38,28 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <!-- Dynamische Zeilen werden im Code-Behind hinzugefügt -->
+                        --><!-- Dynamische Zeilen werden im Code-Behind hinzugefügt --><!--
                     </Grid.RowDefinitions>
                 </Grid>
-            <!--</Border>-->
-        </ScrollViewer>
+            --><!--</Border>--><!--
+        </ScrollViewer>-->
+
+        <DataGrid x:Name="lstAdmins" ItemsSource="{Binding LstBenutzer}" SelectedItem="{Binding SelBenutzer}" Margin="100,100,100,100" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="False">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="HorizontalContentAlignment" Value="center"/>
+                    <Setter Property="Foreground" Value="#FF3957FF"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding Bentzer.Id}" IsReadOnly="True" />
+                <DataGridTextColumn Width="25*" Header="Vorname" Binding="{Binding Benutzer.Vorname}" IsReadOnly="True"/>
+                <DataGridTextColumn Width="25*" Header="Nachname" Binding="{Binding Benutzer.Nachname}" IsReadOnly="True"/>
+                
+            </DataGrid.Columns>
+        </DataGrid>
 
         <StackPanel Orientation="Horizontal" Margin="0,0,10,10" HorizontalAlignment="Right" Width="235" VerticalAlignment="Bottom">
             <fc:ButtonPlus x:Name="btnSave" Content="Speichern" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Visibility="Hidden" Click="Save_Click" Width="100" Height="25" Margin="5,5,20,5"/>
