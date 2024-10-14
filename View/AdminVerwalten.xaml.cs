@@ -11,15 +11,12 @@ namespace RunTrack.View
    /// </summary>
    public partial class AdminVerwalten : Page
    {
-      private MainModel _pmodel;
       private MainModel? _mmodel;
         private AdminModel _model;
         private LaufDBContext _db = new();
         public AdminVerwalten()
       {
          InitializeComponent();
-
-         _pmodel = FindResource("pmodel") as MainModel ?? new MainModel();
          _model = FindResource("admodel") as AdminModel ?? new();
 
          _mmodel = FindResource("pmodel") as MainModel ?? new();
@@ -184,7 +181,7 @@ namespace RunTrack.View
 
       private void CloseWindow_Click(object sender, RoutedEventArgs e)
       {
-         _pmodel.Navigate(new Scanner());
+         _mmodel.Navigate(new Scanner());
       }
 
       private void Save_Click(object sender, RoutedEventArgs e)

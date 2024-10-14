@@ -102,7 +102,7 @@ namespace RunTrack
 		}
 		public DatenuebersichtModel()
 		{
-			LoadData();
+			Task.Run(() => LoadData());
 		}
 		public void LoadData()
 		{

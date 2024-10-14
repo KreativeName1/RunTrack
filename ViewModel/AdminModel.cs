@@ -36,8 +36,10 @@ namespace RunTrack
 
         public AdminModel()
         {
-            
-            this.LstBenutzer = new ObservableCollection<Benutzer>();
+            using (LaufDBContext db = new())
+            {
+                this.LstBenutzer = new ObservableCollection<Benutzer>(db.Benutzer.ToList());
+            }
         }
     }
 }
