@@ -21,11 +21,11 @@ namespace RunTrack
         private AuswertungModel _amodel;
         private List<DiagrammWert> diagrammliste = new();
 
-        public Diagramm()
+        public Diagramm(AuswertungModel model)
         {
             string Diagrammtitel = "";
             InitializeComponent();
-            _amodel = FindResource("amodel") as AuswertungModel ?? new();
+            _amodel = model;
 
             btnClose.Click += (s, e) => Close();
 

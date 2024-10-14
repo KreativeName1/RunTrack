@@ -32,7 +32,7 @@ namespace RunTrack
                 if (saveFileDialog.ShowDialog() == true) System.IO.File.Copy("internal.db", saveFileDialog.FileName);
             };
             btnSchliessen.Click += (s, e) => _pmodel.Navigate(new Scanner());
-            btnDiagramm.Click += (s, e) => new Diagramm().ShowDialog();
+            btnDiagramm.Click += (s, e) => new Diagramm(_amodel).ShowDialog();
             btnWertung.Click += (s, e) =>
             {
                 string auswertungsart = "";
