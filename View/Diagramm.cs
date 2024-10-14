@@ -23,7 +23,6 @@ namespace RunTrack
 
         public Diagramm(AuswertungModel model)
         {
-            string Diagrammtitel = "";
             InitializeComponent();
             _amodel = model;
 
@@ -39,31 +38,19 @@ namespace RunTrack
 
                 if (_amodel.IsDistanz)
                 {
-                    Diagrammtitel = "Diagramm nach Distanz";
-                    foreach (char a in bewertung)
-                    {
-                        if (a != '.' && a != ' ' && a != 'm')
-                        {
-                            bewertung2 += a;
-                        }
-                    }
-                    try
-                    {
-                        bewertungzr = Convert.ToInt32(bewertung2);
-                    }
-                    catch (Exception)
-                    {
-                        // Handle the exception if needed
-                    }
+                    label.Content = "Diagramm nach Distanz";
+                    foreach (char character in bewertung) if (character != '.' && character != ' ' && character != 'm') bewertung2 += character;
+                    try { bewertungzr = Convert.ToInt32(bewertung2); }
+                    catch (Exception) { }
                 }
                 else if (_amodel.IsAnzahl)
                 {
-                    Diagrammtitel = "Diagramm nach RundenAnzahl";
+                    label.Content = "Diagramm nach RundenAnzahl";
                     bewertungzr = Convert.ToInt32(bewertung);
                 }
                 else if (_amodel.IsZeit)
                 {
-                    Diagrammtitel = "Diagramm nach Schnellster Runde";
+                    label.Content = "Diagramm nach Schnellster Runde";
                     string[] split = bewertung.Split(':');
                     split[0] = split[0].Trim();
                     split[1] = split[1].Trim();
@@ -83,16 +70,8 @@ namespace RunTrack
                 diagrammliste.Add(d);
             }
 
-            label.Content = Diagrammtitel;
 
-            try
-            {
-                drawCanvas();
-            }
-            catch (Exception)
-            {
-                // Handle the exception if needed
-            }
+            try { drawCanvas(); } catch (Exception) { }
         }
 
         private string FormatWert(int wert)
@@ -102,30 +81,14 @@ namespace RunTrack
                 // Zeit im Format Minuten:Sekunden
                 double minutes = wert / 60;
                 double seconds = wert % 60;
-                if (minutes <= 1)
-                {
-                    return $"{minutes:0}:{seconds:00} Minute";
-                }
-                else
-                {
-                    return $"{minutes:0}:{seconds:00} Minuten";
-                }
+                if (minutes <= 1) return $"{minutes:0}:{seconds:00} Minute";
+                else return $"{minutes:0}:{seconds:00} Minuten";
             }
-            else if (_amodel.IsDistanz)
-            {
-                // Distanz in Metern
-                return $"{wert} m";
-            }
+            else if (_amodel.IsDistanz) return $"{wert} m";
             else
             {
-                if (wert <= 1)
-                {
-                    return $"{wert} Runde";
-                }
-                else
-                {
-                    return $"{wert} Runden";
-                }
+                if (wert <= 1) return $"{wert} Runde";
+                else return $"{wert} Runden";
             }
         }
 
@@ -136,41 +99,22 @@ namespace RunTrack
                 // Zeit im Format Minuten:Sekunden
                 double minutes = wert / 60;
                 double seconds = wert % 60;
-
                 return $"Ø {minutes:0}:{seconds:00} min";
-
             }
-            else if (_amodel.IsDistanz)
-            {
-                // Distanz in Metern
-                return $"Ø {wert} m";
-            }
-            else
-            {
-                return $"Ø {wert}";
-
-            }
+            else if (_amodel.IsDistanz) return $"Ø {wert} m";
+            else return $"Ø {wert}";
         }
 
         private string FormatWertWithShortUnit(int wert)
         {
             if (_amodel.IsZeit)
             {
-                // Zeit im Format Minuten:Sekunden
                 double minutes = wert / 60;
                 double seconds = wert % 60;
                 return $"{minutes:0}:{seconds:00} min";
             }
-            else if (_amodel.IsDistanz)
-            {
-                // Distanz in Metern
-                return $"{wert} m";
-            }
-            else
-            {
-                // Anzahl oder andere Daten
-                return $"{wert}";
-            }
+            else if (_amodel.IsDistanz) return $"{wert} m";
+            else return $"{wert}";
         }
 
         private void drawCanvas()
@@ -183,15 +127,11 @@ namespace RunTrack
 
             foreach (DiagrammWert dgwert in diagrammliste)
             {
-                if (dgwert.wert > maxWert)
-                {
-                    maxWert = dgwert.wert;
-                }
-
+                if (dgwert.wert > maxWert) maxWert = dgwert.wert;
                 durchschnitt += dgwert.wert;
             }
 
-            durchschnitt = Math.Round(durchschnitt / diagrammliste.Count, 3); // Round to 3 decimal places
+            durchschnitt = Math.Round(durchschnitt / diagrammliste.Count, 3);
 
             try
             {
@@ -204,7 +144,7 @@ namespace RunTrack
 
             if (Diagrammcanvas.ActualHeight > 1)
             {
-                double pixelprozahl = Math.Round((Diagrammcanvas.ActualHeight - 24) / maxWert, 3); // Round to 3 decimal places
+                double pixelprozahl = Math.Round((Diagrammcanvas.ActualHeight - 24) / maxWert, 3);
 
                 double canvasHeight = Diagrammcanvas.ActualHeight;
                 double canvasWidth = Diagrammcanvas.ActualWidth;
@@ -215,7 +155,7 @@ namespace RunTrack
                 for (int i = 0; i < diagrammliste.Count; i++)
                 {
                     DiagrammWert d = diagrammliste[i];
-                    double balkenHoehe = Math.Round(d.wert * pixelprozahl, 3); // Round to 3 decimal places
+                    double balkenHoehe = Math.Round(d.wert * pixelprozahl, 3);
 
                     if (balkenHoehe < 22)
                     {
@@ -256,14 +196,8 @@ namespace RunTrack
 
         private void Grid_SizeChanged_1(object sender, SizeChangedEventArgs e)
         {
-            try
-            {
-                drawCanvas();
-            }
-            catch (Exception)
-            {
-                // Handle the exception if needed
-            }
+            try { drawCanvas(); }
+            catch (Exception) { }
         }
 
         private void Seitendiagramm_Linie(double durchschnitt, double maxwert)
