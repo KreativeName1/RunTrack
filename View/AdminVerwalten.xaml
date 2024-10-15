@@ -44,8 +44,8 @@
             --><!--</Border>--><!--
         </ScrollViewer>-->
 
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="100,100,100,100">
-            <DataGrid x:Name="lstAdmins" ItemsSource="{Binding LstBenutzer}" SelectedItem="{Binding SelBenutzer}" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="False">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="150,50,150,100">
+            <DataGrid x:Name="lstAdmins" Height="350" ItemsSource="{Binding LstBenutzer}" SelectedItem="{Binding SelBenutzer}" Cursor="Hand" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="False">
                 <DataGrid.Resources>
                     <Style TargetType="DataGridColumnHeader">
                         <Setter Property="FontWeight" Value="Bold"/>
@@ -55,9 +55,15 @@
                     </Style>
                 </DataGrid.Resources>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding Id}" IsReadOnly="True" />
-                    <DataGridTextColumn Width="25*" Header="Vorname" Binding="{Binding Vorname}" IsReadOnly="True"/>
-                    <DataGridTextColumn Width="25*" Header="Nachname" Binding="{Binding Nachname}" IsReadOnly="True"/>
+                    <DataGridTextColumn Width="8*" FontSize="13" Header="Id" Binding="{Binding Id}" IsReadOnly="True" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style>
+                                <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Width="25*" FontSize="13" Header="Vorname" Binding="{Binding Vorname}" IsReadOnly="True"/>
+                    <DataGridTextColumn Width="25*" FontSize="13" Header="Nachname" Binding="{Binding Nachname}" IsReadOnly="True"/>
 
                 </DataGrid.Columns>
             </DataGrid>
