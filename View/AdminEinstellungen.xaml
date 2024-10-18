@@ -25,7 +25,7 @@
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal" Width="275" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top">
                         <Label Content="Vorname:" Margin="0,0,0,0" HorizontalAlignment="Left" Width="125" FontSize="14" FontWeight="Bold" Height="28" VerticalAlignment="Center"/>
-                        <fc:TextBoxPlus x:Name="txtVorname" ForegroundBrushOnDisabled="Blue" ForegroundBrushOnSelected="Blue" UnderlineBrushOnSelected="#28713E" TextWrapping="Wrap" HorizontalAlignment="Left" Width="150" FontSize="14" Padding="5" Text="Max" Height="30" CornerRadius="3,0,0,3" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" TextChanged="txtVorname_TextChanged" GotFocus="txtVorname_GotFocus" LostFocus="txtVorname_LostFocus" Cursor=""/>
+                        <fc:TextBoxPlus x:Name="txtVorname" ForegroundBrushOnDisabled="Blue" ForegroundBrushOnSelected="Blue" UnderlineBrushOnSelected="#28713E" TextWrapping="Wrap" HorizontalAlignment="Left" Width="150" FontSize="14" Padding="5" Text="Max" Height="30" CornerRadius="3,0,0,3" VerticalAlignment="Center" KeyDown="TextBox_KeyDown" TextChanged="txtVorname_TextChanged" GotFocus="txtVorname_GotFocus" LostFocus="txtVorname_LostFocus"/>
 
                     </StackPanel>
 

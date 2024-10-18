@@ -177,7 +177,6 @@ namespace RunTrack
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
             txtVorname.ForegroundBrush = new SolidColorBrush(Colors.Gray);
             txtNachname.ForegroundBrush = new SolidColorBrush(Colors.Gray);
         }
