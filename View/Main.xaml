@@ -8,7 +8,183 @@
         DataContext="{StaticResource pmodel}"
         Content="{Binding CurrentPage}"
         Title="{Binding PageTitle}"
+        ShowTitleBar="True" ShowMinButton="False" ShowMaxRestoreButton="False" ShowCloseButton="False"
         Icon="pack://application:,,,/Images/iconRunMan.ico"
-        WindowStartupLocation="CenterScreen" WindowTitleBrush="#005746" Background="White" TitleAlignment="Center"
-        TitleBarHeight="20" GlowBrush="#005746" ResizeMode="CanResizeWithGrip" BorderBrush="#005746" BorderThickness="1"
-        Height="750" Width="1000" NonActiveBorderBrush="#005746" NonActiveGlowBrush="#FF5A00FF" NonActiveWindowTitleBrush="#005746"/>
+        WindowStartupLocation="CenterScreen" WindowTitleBrush="#007d64" Background="White" TitleAlignment="Center"
+        TitleBarHeight="30" GlowBrush="#2A2D2F" ResizeMode="CanResizeWithGrip" BorderBrush="#2A2D2F" BorderThickness="1"
+        Height="750" Width="1000" NonActiveBorderBrush="#4c5155" NonActiveGlowBrush="#a3a6a8" NonActiveWindowTitleBrush="#007d64" ShowIconOnTitleBar="False">
+    <mah:MetroWindow.Resources>
+        <local:BoolToVisibilityConverter x:Key="bvcon"/>
+    </mah:MetroWindow.Resources>
+
+    <mah:MetroWindow.LeftWindowCommands>
+        <mah:WindowCommands ShowSeparators="False">
+            <Image Source="pack://application:,,,/Images/iconRunMan.ico"
+                   Width="30" Height="30" Margin="5,0,10,0" />
+            <Label Visibility="{Binding Benutzer.IsAdmin, Converter={StaticResource bvcon}}" Content="Admin" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
+        </mah:WindowCommands>
+    </mah:MetroWindow.LeftWindowCommands>
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands ShowSeparators="False">
+            <Button x:Name="BTN_Settings" Click="BTN_Settings_Click" 
+             Background="#009664" BorderThickness="0" Padding="0" Margin="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" MouseEnter="BTN_Settings_MouseEnter" MouseLeave="BTN_Settings_MouseLeave">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,9">
+                                    <GradientStop Color="#009664" Offset="0.0" />
+                                    <GradientStop Color="#007d64" Offset="1.0" />
+                                    <!-- Dunklere Farbe für den Übergang -->
+                                </LinearGradientBrush>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="FontSize" Value="20" />
+                        <Setter Property="Width" Value="28" />
+                        <Setter Property="Height" Value="28" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                        <Setter Property="ToolTip" Value="Minimieren" />
+                        <Setter Property="Cursor" Value="Hand" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="15" >
+                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+                <Button.Content>
+                    <Image Source="pack://application:,,,/Images/titelbarIcons/settings.png" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Button.Content>
+            </Button>
+            <Rectangle Height="20" Width="2" Margin="10,0,10,0" Stroke="#2A2D2F" Fill="#2A2D2F" VerticalAlignment="Center"/>
+            <!-- Minimize Button -->
+            <Button x:Name="BTN_Minimize" Click="BTN_Minimize_Click" 
+                Background="#009664" BorderThickness="0" Padding="0" Margin="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" MouseEnter="BTN_Minimize_MouseEnter" MouseLeave="BTN_Minimize_MouseLeave">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,9">
+                                    <GradientStop Color="#009664" Offset="0.0" />
+                                    <GradientStop Color="#007d64" Offset="1.0" />
+                                    <!-- Dunklere Farbe für den Übergang -->
+                                </LinearGradientBrush>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="FontSize" Value="20" />
+                        <Setter Property="Width" Value="28" />
+                        <Setter Property="Height" Value="28" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                        <Setter Property="ToolTip" Value="Minimieren" />
+                        <Setter Property="Cursor" Value="Hand" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="15" >
+                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+                <Button.Content>
+                    <Image Source="pack://application:,,,/Images/titelbarIcons/minimize.png" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Button.Content>
+            </Button>
+            <!-- Maximize Button -->
+            <Button x:Name="BTN_Maximize" Click="BTN_Maximize_Click" MouseEnter="BTN_Maximize_MouseEnter" MouseLeave="BTN_Maximize_MouseLeave"
+                Background="#009664" BorderThickness="0" Padding="0" Margin="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,9">
+                                    <GradientStop Color="#009664" Offset="0.0" />
+                                    <GradientStop Color="#007d64" Offset="1.0" />
+                                    <!-- Dunklere Farbe für den Übergang -->
+                                </LinearGradientBrush>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="FontSize" Value="20" />
+                        <Setter Property="Width" Value="28" />
+                        <Setter Property="Height" Value="28" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                        <Setter Property="ToolTip" Value="Vergrößern" />
+                        <Setter Property="Cursor" Value="Hand" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="15">
+                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+                <Button.Content>
+                    <Image Source="pack://application:,,,/Images/titelbarIcons/maximize.png" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Button.Content>
+            </Button>
+
+            <!-- Close Button -->
+            <Button x:Name="BTN_Close" Click="BTN_Close_Click" MouseEnter="BTN_Close_MouseEnter" MouseLeave="BTN_Close_MouseLeave"
+                Background="#009664" BorderThickness="0" Padding="0" Margin="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,9">
+                                    <GradientStop Color="#009664" Offset="0.0" />
+                                    <GradientStop Color="#007d64" Offset="1.0" />
+                                    <!-- Dunklere Farbe für den Übergang -->
+                                </LinearGradientBrush>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="FontSize" Value="20" />
+                        <Setter Property="Width" Value="28" />
+                        <Setter Property="Height" Value="28" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                        <Setter Property="ToolTip" Value="Schließen" />
+                        <Setter Property="Cursor" Value="Hand" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="15">
+                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+                <Button.Content>
+                    <Image Source="pack://application:,,,/Images/titelbarIcons/close.png" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Button.Content>
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
+
+
+</mah:MetroWindow>

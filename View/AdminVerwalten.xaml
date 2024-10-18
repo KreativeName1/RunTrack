@@ -1,0 +1,83 @@
+﻿<Page x:Class="RunTrack.View.AdminVerwalten"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RunTrack.View" 
+      xmlns:fc="http://devpelux.github.io/fullcontrols" 
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:local1="clr-namespace:RunTrack"
+      mc:Ignorable="d" 
+      d:Height="750" d:Width="1000"
+      Title="AdminVerwalten">
+    <Page.Resources>
+        <local1:NullToBoolConverter x:Key="n2bconv"/>
+    </Page.Resources>
+    <Grid DataContext="{StaticResource admodel}">
+        <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
+        <Rectangle Height="1.5" Margin="0,0,0,0" Stroke="#2A2D2F" Fill="#2A2D2F" VerticalAlignment="Top"/>
+        <Label Content="🏃🏻 RunTrack" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" FontSize="14" Foreground="White" FontWeight="Bold"/>
+
+        <Image Source="pack://application:,,,/Images/credits.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" x:Name="btnCredits" Grid.Column="2">
+            <Image.ToolTip>
+                <ToolTip Cursor="">Credits</ToolTip>
+            </Image.ToolTip>
+        </Image>
+
+        <!--<TextBlock Text="Id" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF3957FF" Margin="-350,-520,0,10"/>
+        <TextBlock Text="Vorname" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF3957FF" Margin="-180,-520,0,10"/>
+        <TextBlock Text="Nachname" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF3957FF" Margin="35,-520,0,10"/>-->
+        <!-- ScrollViewer für die GridSettings -->
+        <!--<Rectangle Height="502.5" Width="371" Margin="0,0,0,0" Stroke="#2A2D2F" Fill="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center" Cursor=""/>
+        <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Height="500" HorizontalAlignment="Center" Margin="0,0,0,0">
+            --><!--<Border BorderBrush="Gray" BorderThickness="1,1,1,1">--><!--
+                <Grid x:Name="GridSettings" VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="Visible" Margin="0,0,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        --><!-- Dynamische Zeilen werden im Code-Behind hinzugefügt --><!--
+                    </Grid.RowDefinitions>
+                </Grid>
+            --><!--</Border>--><!--
+        </ScrollViewer>-->
+
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="150,50,150,100">
+            <DataGrid x:Name="lstAdmins" Height="350" ItemsSource="{Binding LstBenutzer}" SelectedItem="{Binding SelBenutzer}" Cursor="Hand" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="False">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="FontSize" Value="14"/>
+                        <Setter Property="HorizontalContentAlignment" Value="center"/>
+                        <Setter Property="Foreground" Value="#FF3957FF"/>
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="8*" FontSize="13" Header="Id" Binding="{Binding Id}" IsReadOnly="True" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style>
+                                <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Width="25*" FontSize="13" Header="Vorname" Binding="{Binding Vorname}" IsReadOnly="True"/>
+                    <DataGridTextColumn Width="25*" FontSize="13" Header="Nachname" Binding="{Binding Nachname}" IsReadOnly="True"/>
+
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <StackPanel x:Name="ctrBtn" Orientation="Horizontal" IsEnabled="{Binding SelBenutzer, Converter={StaticResource n2bconv}}" Margin="0,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <fc:ButtonPlus x:Name="btnBearbeiten" Content="Bearbeiten" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Click="btnBearbeiten_Click"  Width="100" Height="25" Margin="0,5,0,0"/>
+                <fc:ButtonPlus x:Name="btnLoeschen" Content="Löschen" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Click="btnLoeschen_Click" Width="100" Height="25" Margin="10,5,0,0"/>
+            </StackPanel>        
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0,0,10,10" HorizontalAlignment="Right" Width="235" VerticalAlignment="Bottom">
+            <fc:ButtonPlus x:Name="btnSave" Content="Speichern" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Visibility="Hidden" Click="Save_Click" Width="100" Height="25" Margin="5,5,20,5"/>
+            <fc:ButtonPlus x:Name="btnAbbrechen" Content="Abbrechen" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="100" Height="25" Margin="5"/>
+        </StackPanel>
+    </Grid>
+</Page>

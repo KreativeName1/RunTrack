@@ -34,35 +34,8 @@ namespace RunTrack
                 OnPropertyChanged("Pfad");
             }
         }
-
-        private object? _currentView;
-
-        public object? CurrentView
-        {
-            get => _currentView;
-            set
-            {
-                SetProperty(ref _currentView, value);
-            }
-        }
-        public Import1? Import1;
-        public Import2? Import2;
-        public Import3? Import3;
-        public void ShowImport1()
-        {
-            CurrentView = Import1 ??= new Import1();
-        }
-        public void ShowImport2()
-        {
-            CurrentView = Import2 ??= new Import2();
-        }
-        public void ShowImport3()
-        {
-            CurrentView = Import3 ??= new Import3();
-        }
         public void CloseWindow()
         {
-            CurrentView = null;
         }
 
 

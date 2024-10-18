@@ -136,13 +136,6 @@ namespace RunTrack
             get { return _selectedItem; }
             set { _selectedItem = value; OnPropertyChanged("SelectedItem"); }
         }
-
-        public void newList()
-        {
-            Liste = new ObservableCollection<object>();
-        }
-
-
     }
 
 }

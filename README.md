@@ -2,25 +2,34 @@
 ![Logo](https://raw.githubusercontent.com/KreativeName1/RunTrack/main/Images/RunTrack_Logo_Farbe.png)
 
 ## Beschreibung
-Dieses Projekt wurde erstellt für den RunTrack
-und ist auch eine Übung für die Projektarbeit in der 12. Klasse.
-Das Projekt ist ein Programm für die Verwaltung von Schülerläufen.
-Dieses Programm ist gedacht für Schulen, die einen Lauf veranstalten.
-Es ist in C# WPF geschrieben und verwendet eine SQLite Datenbank, die mit Entity Framework Core verwaltet wird.
+Dieses Projekt entstand im Rahmen der Veranstaltung 'Klimalauf'
+als praktische Übung für die Projektprüfung in der 12. Klasse. Ziel war es,
+die manuelle Auswertung der Laufdaten, die mittels Barcode-Scannern
+in einer Excel-Datei erfasst wurden, zu verbessern.
+Unsere Klasse wurde dazu aufgeteilt in mehreren Gruppen, die alle eine eigene Software entwickelt.
 In diesem Projekt haben wir auch gelernt, wie man mit Git und GitHub zusammenarbeitet.
 
-## Features
-- Login System mit einen Admin der beim Ersten Start erstellt wird
-- Datenübersicht für Schulen, Klassen, Schüler, Rundenarten, etc
-- Generierung von Barcodes der Schüler in einem eingebauten PDF-Editor
-- Scannen von Barcodes und speichern der Runden mit Liste der zuletzt gescannten Schüler
-- Auswertung der Daten in Diagrammen und Tabellen
-- Erstellung von Urkunden und Bewertungen für die Schüler als PDF
-- Export und Import von Daten und Datenbank
-- Einstellungen für das Programm
+## Funktionen
+* **Teilnehmerverwaltung:** Einfache Verwaltung von Schülern, Klassen und Schulen.
+* **Rundenerfassung:** Scannen von Barcodes und automatische Speicherung der Ergebnisse.
+* **Auswertung:** Detaillierte Auswertungen in Form von Diagrammen und Tabellen.
+* **Urkundengenerierung:** Personalisierte Urkunden für jeden Teilnehmer.
+* **Datenbank:** SQLite-Datenbank zur Speicherung aller Daten, die auch importiert/exportiert werden kann.
+* **PDF-Editor:** Erstellung und Apassungen von PDF-Dateien für die Barcodes, Auswertung und Urkunden
 
-## Anleitung
-TODO
+## Installation
+
+1. **Voraussetzungen:** .NET Framework 7.0
+2. **Download:** Lade das neueste Release von GitHub herunter.
+3. **Ausführen:** Starte die RunTrack.exe.
+
+## Technische Details
+
+* **Programmiersprache:** C#
+* **Framework:** WPF
+* **Datenbank:** SQLite (Entity Framework Core)
+* **PDF-Erstellung:** iText
+* **PDF-Anzeige** WebView2
 
 ## Mitwirkende
 - [Paul Fischer](https://github.com/Fuxson)

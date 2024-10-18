@@ -1,15 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 
 namespace RunTrack
 {
     internal class DateiVerwaltungModel : BaseModel
     {
         private ObservableCollection<FileItem> _lstFiles = new();
+        private bool _isDragging = false;
+
+        public bool IsDragging
+        {
+
+            get
+            {
+                return _isDragging;
+            }
+            set
+            {
+                _isDragging = value;
+                OnPropertyChanged("IsDragging");
+            }
+        }
+
         public ObservableCollection<FileItem> LstFiles
         {
             get

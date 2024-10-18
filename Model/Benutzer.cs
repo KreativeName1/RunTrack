@@ -1,4 +1,5 @@
-﻿namespace RunTrack
+﻿
+namespace RunTrack
 {
     public class Benutzer
     {

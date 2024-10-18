@@ -76,6 +76,14 @@ namespace RunTrack
         private bool ChangePassword(string oldPassword, string newPassword)
         {
             bool result = false;
+
+            // Überprüfen, ob das neue Passwort mit der Wiederholung übereinstimmt
+            if (newPassword != txtPasswordNewWdh.Password)
+            {
+                new Popup().Display("Fehler", "Die Passwörter stimmen nicht überein.", PopupType.Error, PopupButtons.Ok);
+                return false;
+            }
+
             using (var db = new LaufDBContext())
             {
                 Benutzer? admin = db.Benutzer.FirstOrDefault(b => b.Vorname == this.firstName && b.Nachname == this.lastName);
@@ -118,10 +126,11 @@ namespace RunTrack
             return result;
         }
 
+
         private bool ValidateNewPassword(string newPassword)
         {
 #if DEBUG
-            return !string.IsNullOrEmpty(newPassword) && newPassword.Length >= 3;
+            return !string.IsNullOrEmpty(newPassword) && newPassword.Length >= 1;
 #endif
             return !string.IsNullOrEmpty(newPassword) &&
                    newPassword.Length >= 8 &&
@@ -132,7 +141,7 @@ namespace RunTrack
 
         private void AdminErstellen()
         {
-            if (ValidateInputs())
+            if (ValidateInputs() && ValidatePassword()) // Stelle sicher, dass das Passwort validiert wird
             {
                 using (var db = new LaufDBContext())
                 {
@@ -141,7 +150,6 @@ namespace RunTrack
                     if (existingUser == null)
                     {
                         if (ValidateNewPassword(txtPasswordNew.Password))
-
                         {
                             Benutzer benutzer = new()
                             {
@@ -165,6 +173,7 @@ namespace RunTrack
                 _mmodel?.Navigate(_mmodel.History[^1]);
             }
         }
+
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -242,15 +251,13 @@ namespace RunTrack
                 txtPasswordNew.UnderlineThickness = new Thickness(0, 0, 0, 2.5);
             }
 
-
-
             // Überprüfe, ob das Passwort zur Bestätigung ausgefüllt ist
             if (string.IsNullOrEmpty(txtPasswordNewWdh.Password))
             {
-                // Wenn txtPasswordNewWdh leer ist, wird warningPassword nicht angezeigt
-                txtPasswordNewWdh.UnderlineBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0067c0"));
+                txtPasswordNewWdh.UnderlineBrush = new SolidColorBrush(Colors.Red);
                 txtPasswordNewWdh.UnderlineThickness = new Thickness(0, 0, 0, 2.5);
                 warningPasswordWDH.Visibility = Visibility.Collapsed;
+                isValid = false;
             }
             else if (txtPasswordNew.Password != txtPasswordNewWdh.Password)
             {
@@ -262,51 +269,42 @@ namespace RunTrack
             }
             else
             {
+                txtPasswordNewWdh.UnderlineBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0067c0"));
+                txtPasswordNewWdh.UnderlineThickness = new Thickness(0, 0, 0, 2.5);
                 warningPasswordWDH.Visibility = Visibility.Collapsed; // Ausblenden, wenn die Passwörter übereinstimmen
             }
 
             // Überprüfe, ob sich das neue Passwort vom alten unterscheidet
             if (!string.IsNullOrEmpty(txtPasswordOld.Password) && string.Equals(txtPasswordNew.Password, txtPasswordOld.Password, StringComparison.Ordinal))
             {
-                // flasch
                 txtPasswordNew.UnderlineBrush = new SolidColorBrush(Colors.Red);
                 txtPasswordNew.UnderlineThickness = new Thickness(0, 0, 0, 2.5);
-                warningPasswordNeuAlt.Visibility = Visibility.Visible; // Zeige Warnung an
-                warningPasswordNeu.Visibility = Visibility.Collapsed;
+                warningPasswordNeuAlt.Visibility = Visibility.Visible;
                 isValid = false;
             }
             else if (!string.IsNullOrEmpty(txtPasswordOld.Password) && !string.Equals(txtPasswordNew.Password, txtPasswordOld.Password, StringComparison.Ordinal))
             {
-                // richtig
-
                 warningPasswordNeuAlt.Visibility = Visibility.Collapsed;
 
                 if (ValidateNewPassword(txtPasswordNew.Password))
                 {
-                    // richtig
                     txtPasswordNew.UnderlineBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0067c0"));
                     txtPasswordNew.UnderlineThickness = new Thickness(0, 0, 0, 2.5);
                     txtPasswordNewWdh.IsEnabled = true;
-                    this.warningPasswordNeu.Visibility = Visibility.Collapsed;
+                    warningPasswordNeu.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
-                    // falsch
                     txtPasswordNew.UnderlineBrush = new SolidColorBrush(Colors.Red);
                     txtPasswordNew.UnderlineThickness = new Thickness(0, 0, 0, 2.5);
                     txtPasswordNewWdh.Password = "";
                     txtPasswordNewWdh.IsEnabled = false;
-                    this.warningPasswordNeu.Visibility = Visibility.Visible;
-                    warningPasswordNeu.ToolTip = "Das neue Passwort erfüllt nicht die Anforderungen\n\t- min. Länge: 8 Zeichen\n\t- Min. ein Groß und Kleinbuchstabe\n\t- Min. ein Symbol und Zahl ";
+                    warningPasswordNeu.Visibility = Visibility.Visible;
                 }
             }
 
             return isValid;
         }
-
-
-
-
 
         private void SetInvalidInputStyle(PasswordBoxPlus passwordBox)
         {

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RunTrack" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:fc="http://devpelux.github.io/fullcontrols"
         mc:Ignorable="d"
+      d:Height="750" d:Width="1000"
       HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
         Title="Einstellungen">
     <Grid>
@@ -24,6 +25,7 @@
         <TextBlock x:Name="txtOptions" Text="⚙️" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Center" FontSize="70" Foreground="#7FCFD3CD"/>
         
         <StackPanel x:Name="PanelAdminSettings" Visibility="Collapsed" Orientation="Vertical" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <fc:ButtonPlus x:Name="btnAdminSum" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Cursor="Hand" Content="Admin verwalten" Width="135" Height="30" Margin="5" Click="btnAdminSum_Click"/>
             <fc:ButtonPlus x:Name="btnAdminAdd" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Cursor="Hand" Content="Admin hinzufügen" Width="135" Height="30" Margin="5" Click="btnAdminAdd_Click"/>
             <fc:ButtonPlus x:Name="btnPasswordChange" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Cursor="Hand" Content="Passwort ändern" Width="135" Height="30" Margin="5" Click="btnPasswordChange_Click"/>
         </StackPanel>
