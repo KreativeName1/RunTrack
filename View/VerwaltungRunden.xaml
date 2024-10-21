@@ -4,27 +4,37 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RunTrack" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:fc="http://devpelux.github.io/fullcontrols"
+        d:Height="750" d:Width="1000"
         mc:Ignorable="d"
-      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+        HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
         Title="Einstellungen">
     <Grid>
         <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
         <Label x:Name="operationName" Content="Bearbeiten / Hinzufügen" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
 
-        <Label Content="Bezeichnung:" HorizontalAlignment="Left" Margin="40,60,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <TextBox x:Name="BezeichnungTextBox" Margin="45,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Foreground="Blue" VerticalContentAlignment="Center" Height="20"/>
-
-        <Label Content="Ungefähre Länge:" HorizontalAlignment="Left" Margin="40,120,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <xctk:IntegerUpDown x:Name="txtLength" Margin="45,146,0,0" Minimum="5" Maximum="10000" ButtonSpinnerLocation="Left" Watermark="5" Value="5" VerticalAlignment="Top" HorizontalAlignment="Left" Width="164" HorizontalContentAlignment="Center" Foreground="Blue" Height="20"/>
-        <Rectangle x:Name="rectLength" HorizontalAlignment="Left" Height="20" Margin="209,146,0,0" Stroke="{Binding ElementName=txtLength, Path=BorderBrush}" VerticalAlignment="Top" Width="36"/>
-        <Rectangle HorizontalAlignment="Left" Height="18" Margin="208,147,0,0" Stroke="White" VerticalAlignment="Top" Width="2"/>
-        <Label Content="Meter" HorizontalAlignment="Left" Margin="204,143,0,0" VerticalAlignment="Top" Width="42"/>
-
-        <Label Content="Zeit zwischen gleiche Läufer:" Margin="40,180,0,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Left"/>
-        <xctk:IntegerUpDown x:Name="txtDauer" Width="143" ButtonSpinnerLocation="Left" Height="20" Minimum="5" Maximum="9000" Value="5" Watermark="5" HorizontalContentAlignment="Center" Foreground="blue" Margin="45,206,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
-        <Rectangle x:Name="rectSek" HorizontalAlignment="Left" Height="20" Margin="188,206,0,0" Stroke="{Binding ElementName=txtDauer, Path=BorderBrush}" VerticalAlignment="Top" Width="57"/>
-        <Rectangle HorizontalAlignment="Left" Height="18" Margin="187,207,0,0" Stroke="White" VerticalAlignment="Top" Width="2"/>
-        <Label Content="Sekunden" HorizontalAlignment="Left" Margin="183,203,0,0" VerticalAlignment="Top"/>
+        
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-25,0,0">
+            <Grid HorizontalAlignment="Center" VerticalAlignment="center" Width="200" Margin="0,5,0,5">
+                <Label Content="Bezeichnung:" HorizontalAlignment="Left" Margin="-5,-1,0,0" VerticalAlignment="Top" FontSize="14" Cursor=""/>
+                <TextBox x:Name="BezeichnungTextBox" Margin="0,25,0,0" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left" Width="200" Foreground="Blue" VerticalContentAlignment="Center" Height="20"/>
+            </Grid>
+            
+            <Grid HorizontalAlignment="Center" VerticalAlignment="center" Width="200" Margin="0,5,0,5">
+                <Label Content="Ungefähre Länge:" HorizontalAlignment="Left" Margin="-5,2,0,0" VerticalAlignment="Top" FontSize="14"/>
+                <xctk:IntegerUpDown x:Name="txtLength" Minimum="5" Maximum="10000" ButtonSpinnerLocation="Left" Margin="0,25,0,0" Watermark="5" Value="5" VerticalAlignment="Center" HorizontalAlignment="Left" Width="164" HorizontalContentAlignment="Center" Foreground="Blue" Height="20"/>
+                <Rectangle x:Name="rectLength" HorizontalAlignment="Left" Height="20" Margin="164,25,0,0" Stroke="{Binding ElementName=txtLength, Path=BorderBrush}" VerticalAlignment="Center" Width="36"/>
+                <Rectangle HorizontalAlignment="Left" Height="18" Margin="163,25,0,0" Stroke="White" VerticalAlignment="Center" Width="2"/>
+                <Label Content="Meter" HorizontalAlignment="Left" Margin="159,25,0,0" VerticalAlignment="Center" Width="42"/>
+            </Grid>
+            
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Margin="0,5,0,5">
+                <Label Content="Zeit zwischen gleiche Läufer:" Margin="-5,2,0,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Left"/>
+                <xctk:IntegerUpDown x:Name="txtDauer" Width="143" ButtonSpinnerLocation="Left" Margin="0,25,0,0" Height="20" Minimum="5" Maximum="9000" Value="5" Watermark="5" HorizontalContentAlignment="Center" Foreground="blue" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                <Rectangle x:Name="rectSek" HorizontalAlignment="Left" Height="20" Margin="143,25,0,0" Stroke="{Binding ElementName=txtDauer, Path=BorderBrush}" VerticalAlignment="Center" Width="57"/>
+                <Rectangle HorizontalAlignment="Left" Height="18" Margin="142,25,0,0" Stroke="White" VerticalAlignment="Center" Width="2"/>
+                <Label Content="Sekunden" HorizontalAlignment="Left" Margin="139,25,0,0" VerticalAlignment="Center"/>
+            </Grid>
+        </StackPanel>
 
         <StackPanel Orientation="Horizontal" Margin="0,5,5,5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Cursor="">
             <fc:ButtonPlus x:Name="btnSave" Content="Speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" HorizontalAlignment="Center" Margin="5,5,5,5" VerticalAlignment="Top" Width="100" Height="25" Cursor="Hand" Click="btnSave_Click"/>

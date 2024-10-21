@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using Xceed.Wpf.Toolkit;
 
 namespace RunTrack
@@ -77,30 +78,36 @@ namespace RunTrack
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            // Überprüfen, ob das Textfeld leer ist
+            string inputName = BezeichnungTextBox.Text.Trim();
+
+            if (string.IsNullOrEmpty(inputName))
+            {
+                BezeichnungTextBox.BorderBrush = new SolidColorBrush(Colors.Red);
+                new Popup().Display("Fehler", "Das Feld 'Bezeichnung' darf nicht leer sein.", PopupType.Error, PopupButtons.Ok);
+                return;
+            }
+
             isSaveClicked = true;
+
             using (LaufDBContext db = new())
             {
-                // Normalisierte Version des Eingabenames ohne Leerzeichen am Anfang, Ende und innen
-                string inputName = BezeichnungTextBox.Text.Trim();
                 string inputNameNormalized = inputName.Replace(" ", "").ToLower();
 
                 if (mode == DialogMode.Neu)
                 {
-                    // Überprüfen, ob der Name nach der Normalisierung bereits existiert
                     var existingRundenArt = db.RundenArten.FirstOrDefault(ra =>
                         ra.Name.Trim().Replace(" ", "").ToLower() == inputNameNormalized);
 
                     if (existingRundenArt != null)
                     {
-                        // Eintrag mit diesem Namen existiert bereits
                         new Popup().Display("Fehler", "Eine RundenArt mit diesem Namen existiert bereits. Bitte wählen Sie einen anderen Namen.", PopupType.Error, PopupButtons.Ok);
                         return;
                     }
 
-                    // Erstellen einer neuen RundenArt und Hinzufügen zur Datenbank 
                     RundenArt newRundenArt = new()
                     {
-                        Name = inputName, // Hier den bereinigten Namen verwenden
+                        Name = inputName,
                         LaengeInMeter = txtLength.Value ?? 0,
                         MaxScanIntervalInSekunden = txtDauer.Value ?? 0
                     };
@@ -111,8 +118,7 @@ namespace RunTrack
                 }
                 else if (mode == DialogMode.Bearbeiten && rundenArt != null)
                 {
-                    // Bearbeiten einer bestehenden RundenArt
-                    rundenArt.Name = inputName; // Hier den bereinigten Namen verwenden
+                    rundenArt.Name = inputName;
                     rundenArt.LaengeInMeter = txtLength.Value ?? 0;
                     rundenArt.MaxScanIntervalInSekunden = txtDauer.Value ?? 0;
 
@@ -125,6 +131,7 @@ namespace RunTrack
 
             _pmodel?.Navigate(_pmodel.History[^1]);
         }
+
 
 
 
