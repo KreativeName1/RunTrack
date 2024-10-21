@@ -177,7 +177,7 @@ namespace RunTrack
                     if (user != null)
                     {
                         SetValidInputStyle(AdminPasswordBox);
-                        warningPassword.Visibility = Visibility.Collapsed; // Kein Passwort nötig, wenn der Benutzer existiert
+                        warningPassword.Visibility = Visibility.Hidden; // Kein Passwort nötig, wenn der Benutzer existiert
                     }
                     else
                     {
@@ -196,7 +196,7 @@ namespace RunTrack
                     if (user != null && BCrypt.Net.BCrypt.Verify(AdminPasswordBox.Password, user.Passwort))
                     {
                         SetValidInputStyle(AdminPasswordBox);
-                        warningPassword.Visibility = Visibility.Collapsed; // Warnung ausblenden, wenn das Passwort korrekt ist
+                        warningPassword.Visibility = Visibility.Hidden; // Warnung ausblenden, wenn das Passwort korrekt ist
                     }
                     else
                     {
@@ -246,11 +246,11 @@ namespace RunTrack
             // Null-Überprüfung hinzufügen
             if (textBox.Name == "FirstNameTextBox" && warningVorname != null)
             {
-                warningVorname.Visibility = Visibility.Collapsed;
+                warningVorname.Visibility = Visibility.Hidden;
             }
             else if (textBox.Name == "LastNameTextBox" && warningNachname != null)
             {
-                warningNachname.Visibility = Visibility.Collapsed;
+                warningNachname.Visibility = Visibility.Hidden;
             }
         }
 
@@ -365,15 +365,13 @@ namespace RunTrack
                         // Benutzer gefunden, Passwortfeld anzeigen
                         gridPasswordLable.Visibility = Visibility.Visible;
                         borderPassword.Visibility = Visibility.Visible;
-                        btnLogin.Margin = new Thickness(btnLogin.Margin.Left, 260, btnLogin.Margin.Right, btnLogin.Margin.Bottom);
                     }
                     else
                     {
                         // Benutzer nicht gefunden, Passwortfeld ausblenden
-                        gridPasswordLable.Visibility = Visibility.Collapsed;
-                        borderPassword.Visibility = Visibility.Collapsed;
-                        warningPassword.Visibility = Visibility.Collapsed;
-                        btnLogin.Margin = new Thickness(btnLogin.Margin.Left, 200, btnLogin.Margin.Right, btnLogin.Margin.Bottom);
+                        gridPasswordLable.Visibility = Visibility.Hidden;
+                        borderPassword.Visibility = Visibility.Hidden;
+                        warningPassword.Visibility = Visibility.Hidden;
                     }
                 }
             }
@@ -391,14 +389,12 @@ namespace RunTrack
                     {
                         gridPasswordLable.Visibility = Visibility.Visible;
                         borderPassword.Visibility = Visibility.Visible;
-                        btnLogin.Margin = new Thickness(btnLogin.Margin.Left, 260, btnLogin.Margin.Right, btnLogin.Margin.Bottom);
                     }
                     else
                     {
-                        gridPasswordLable.Visibility = Visibility.Collapsed;
-                        borderPassword.Visibility = Visibility.Collapsed;
-                        warningPassword.Visibility = Visibility.Collapsed;
-                        btnLogin.Margin = new Thickness(btnLogin.Margin.Left, 200, btnLogin.Margin.Right, btnLogin.Margin.Bottom);
+                        gridPasswordLable.Visibility = Visibility.Hidden;
+                        borderPassword.Visibility = Visibility.Hidden;
+                        warningPassword.Visibility = Visibility.Hidden;
                     }
                 }
             }
@@ -435,7 +431,7 @@ namespace RunTrack
                 }
                 else
                 {
-                    borderPassword.Visibility = Visibility.Collapsed;
+                    borderPassword.Visibility = Visibility.Hidden;
                 }
             }
 
