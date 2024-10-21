@@ -23,6 +23,9 @@ namespace RunTrack.View.Datenuebersicht
                 _db.Runden.Add(neu);
                 _model.LstRunde.Add(neu);
 
+                lstRunden.ScrollIntoView(neu);
+                lstRunden.Focus();
+
             };
             btnSpeichern.Click += (sender, e) =>
             {

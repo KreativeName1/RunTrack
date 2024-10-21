@@ -21,6 +21,9 @@ namespace RunTrack
                 _db.Schulen.Add(neu);
                 _model.LstSchule.Add(neu);
 
+                lstSchule.ScrollIntoView(neu);
+                lstSchule.Focus();
+
             };
             btnSpeichern.Click += (sender, e) =>
             {

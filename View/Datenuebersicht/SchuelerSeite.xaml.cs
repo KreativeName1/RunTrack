@@ -23,6 +23,9 @@ namespace RunTrack
                 _db.Schueler.Add(neu);
                 _model.LstSchueler.Add(neu);
 
+                lstSchueler.ScrollIntoView(neu);
+                lstSchueler.Focus();
+
             };
             btnSpeichern.Click += (sender, e) =>
             {
@@ -40,6 +43,8 @@ namespace RunTrack
                     _db.Schueler.Remove(dbSchueler);
                     _db.SaveChanges();
                 }
+
+                
             };
             lstSchueler.CellEditEnding += (sender, e) =>
             {
