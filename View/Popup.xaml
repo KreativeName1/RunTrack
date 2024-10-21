@@ -51,7 +51,7 @@
                 BeginTime="0:0:0" />
         </Storyboard>
     </Window.Resources>
-    <Grid>
+    <Grid Cursor="">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
@@ -71,7 +71,7 @@
         <Grid Grid.Column="1" Grid.Row="1"  VerticalAlignment="Stretch" >
             <TextBlock x:Name="tbMessage" TextWrapping="WrapWithOverflow" Text="Message" VerticalAlignment="Top" Margin="20,30,20,10" FontSize="14"/>
         </Grid>
-        <StackPanel Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom" Cursor="Hand" x:Name="spButtons" Margin="0,0,0,20" HorizontalAlignment="Center" Orientation="Horizontal">
+        <StackPanel Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom" Cursor="Hand" x:Name="spButtons" Margin="0,0,20,20" HorizontalAlignment="right" Orientation="Horizontal">
         </StackPanel>
     </Grid>
 </Window>
