@@ -40,7 +40,8 @@ namespace RunTrack
             get { return _history; }
             set
             {
-                _history = value;
+                if (!_history.Contains(value))
+                    _history = value;
                 OnPropertyChanged("History");
             }
         }
