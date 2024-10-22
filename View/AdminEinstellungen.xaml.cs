@@ -159,6 +159,8 @@ namespace RunTrack
                             };
                             db.Benutzer.Add(benutzer);
                             db.SaveChanges();
+                            new Popup().Display("Erfolg", "Der neue Benutzer wurde erfolgreich erstellt.", PopupType.Success, PopupButtons.Ok);
+
                         }
                         else
                         {
