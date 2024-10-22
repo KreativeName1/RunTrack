@@ -24,6 +24,7 @@ namespace RunTrack.View.Datenuebersicht
                 _model.LstRunde.Add(neu);
 
                 lstRunden.ScrollIntoView(neu);
+                lstRunden.SelectedItem = neu;
                 lstRunden.Focus();
 
             };

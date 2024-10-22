@@ -22,6 +22,7 @@ namespace RunTrack
                 _model.LstSchule.Add(neu);
 
                 lstSchule.ScrollIntoView(neu);
+                lstSchule.SelectedItem = neu;
                 lstSchule.Focus();
 
             };

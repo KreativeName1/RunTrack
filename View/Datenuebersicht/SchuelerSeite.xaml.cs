@@ -24,9 +24,10 @@ namespace RunTrack
                 _model.LstSchueler.Add(neu);
 
                 lstSchueler.ScrollIntoView(neu);
+                lstSchueler.SelectedItem = neu;
                 lstSchueler.Focus();
-
             };
+
             btnSpeichern.Click += (sender, e) =>
             {
                 _db.SaveChanges();

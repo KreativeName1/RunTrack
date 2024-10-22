@@ -35,6 +35,7 @@ namespace RunTrack.View.Datenuebersicht
                 _model.LstKlasse.Add(neu);
 
                 lstKlasse.ScrollIntoView(neu);
+                lstKlasse.SelectedItem = neu;
                 lstKlasse.Focus();
 
             };
