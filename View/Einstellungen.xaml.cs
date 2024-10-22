@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Xceed.Wpf.Toolkit;
 
@@ -105,6 +106,13 @@ namespace RunTrack
                         ToolTip = "Löschen",
                         Tag = rundenArt.Name
                     };
+                    Image buttonImageDelete = new()
+                    {
+                        Source = new BitmapImage(new Uri("pack://application:,,,/Images/buttonIcons/delete.png")),
+                        Width = 20,
+                        Height = 20
+                    };
+                    deleteButton.Content = buttonImageDelete;
                     deleteButton.Click += DeleteButton_Click;
 
                     Grid.SetRow(deleteButton, rowIndex);
@@ -125,6 +133,13 @@ namespace RunTrack
                         ToolTip = "Einstellungen",
                         Tag = rundenArt.Name
                     };
+                    Image buttonImageOptions = new()
+                    {
+                        Source = new BitmapImage(new Uri("pack://application:,,,/Images/buttonIcons/settings.png")),
+                        Width = 20,
+                        Height = 20
+                    };
+                    optionsButton.Content = buttonImageOptions;
                     optionsButton.Click += OptionsButton_Click;
 
                     Grid.SetRow(optionsButton, rowIndex);
@@ -212,7 +227,7 @@ namespace RunTrack
                     }
                     else
                     {
-                        new Popup().Display("Fehler", $"Rundenart '{rundenartName}' nicht gefunden", PopupType.Error, PopupButtons.Ok);
+                        new Popup().Display("Fehler", $"Rundenart '{rundenartName.ToUpper()}' nicht gefunden", PopupType.Error, PopupButtons.Ok);
                     }
                 }
             }
@@ -234,7 +249,7 @@ namespace RunTrack
         private void DeleteRundenart(string rundenartName)
         {
             // if (System.Windows.MessageBox.Show("Wollen Sie wirklich " + rundenartName + " löschen?", "Löschne", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-            if (new Popup().Display("Löschen", "Wollen Sie wirklich " + rundenartName + " löschen?", PopupType.Question, PopupButtons.YesNo) == true)
+            if (new Popup().Display("Löschen", "Wollen Sie wirklich " + rundenartName.ToUpper() + " löschen?", PopupType.Question, PopupButtons.YesNo) == true)
             {
                 using (var db = new LaufDBContext())
                 {

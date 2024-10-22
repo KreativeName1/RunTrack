@@ -34,6 +34,9 @@ namespace RunTrack.View.Datenuebersicht
                 _db.Klassen.Add(neu);
                 _model.LstKlasse.Add(neu);
 
+                lstKlasse.ScrollIntoView(neu);
+                lstKlasse.Focus();
+
             };
             btnSpeichern.Click += (sender, e) =>
             {
