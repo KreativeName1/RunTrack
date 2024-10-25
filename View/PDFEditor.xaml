@@ -201,9 +201,8 @@
                                     <xctk:DoubleUpDown Text="{Binding Format.SpaltenAnzahl}" x:Name="txtSpalten" HorizontalAlignment="Center" Height="23" VerticalAlignment="Center" Width="148" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="blue"/>
                                 </StackPanel>
                                 <StackPanel Grid.Row="3">
-                                    <!--Zeilenabstand-->
                                     <Label Content="Zeilenabstand" HorizontalAlignment="Center" Visibility="Collapsed" x:Name="lblZeilenAbstand" VerticalAlignment="Center"/>
-                                    <xctk:DoubleUpDown Text="{Binding Format.ZeilenAbstand}" Visibility="Collapsed" x:Name="txtZeilenAbstand"   HorizontalAlignment="Center" Height="23" VerticalAlignment="Center" Width="148" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="blue"/>
+                                    <xctk:DoubleUpDown Text="{Binding Format.ZeilenAbstand}" Visibility="Collapsed" x:Name="txtZeilenAbstand" Margin="0,0,0,10"   HorizontalAlignment="Center" Height="23" VerticalAlignment="Center" Width="148" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="blue"/>
                                 </StackPanel>
                             </Grid>
                         </Border>
