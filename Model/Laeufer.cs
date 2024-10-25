@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RunTrack.Model
+namespace RunTrack
 {
 
     // NICHT FERTIG
@@ -16,12 +16,16 @@ namespace RunTrack.Model
     // Es muss noch das anlegen, scannen und die Auswertung von Runden implementiert werden.
     public class Laeufer
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Vorname { get; set; }
         public string Nachname { get; set; }
         public Geschlecht? Geschlecht { get; set; }
         public int Geburtsjahrgang { get; set; }
-        public virtual List<Runde> Runden { get; set; }
+        public List<Runde> Runden { get; set; }
+
+        // Wird nicht für Schüler benutzt, da diese in einer Klasse sind, die bereits eine RundenArt hat.
+        public RundenArt? RundenArt { get; set; }
+        public int? RundenArtId { get; set; }
 
     }
 }

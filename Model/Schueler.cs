@@ -1,6 +1,4 @@
-﻿using RunTrack.Model;
-
-namespace RunTrack
+﻿namespace RunTrack
 {
     public class Schueler : Laeufer
     {
@@ -8,7 +6,7 @@ namespace RunTrack
 
         public int KlasseId { get; set; }
 
-       
+
 
         public Schueler()
         {

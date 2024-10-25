@@ -1,11 +1,11 @@
 ﻿<Page x:Class="RunTrack.Scanner"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RunTrack" xmlns:fc="http://devpelux.github.io/fullcontrols"
-        mc:Ignorable="d" Loaded="Window_Loaded"
-        Title="Startseite" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="578" MinHeight="450">
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:local="clr-namespace:RunTrack" xmlns:fc="http://devpelux.github.io/fullcontrols"
+      mc:Ignorable="d" Loaded="Window_Loaded"
+      Title="Startseite" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="578" MinHeight="450">
     <Page.Resources>
         <!-- Animation für BoxTrue -->
         <Storyboard x:Key="ShowBoxTrue">
@@ -41,14 +41,14 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Width="10*" FontSize="16" Header="Läufernr." Binding="{Binding Schueler.Id}">
+                <DataGridTextColumn Width="10*" FontSize="16" Header="Läufernr." Binding="{Binding Laeufer.Id}">
                     <DataGridTextColumn.ElementStyle>
                         <Style>
                             <Setter Property="TextBlock.TextAlignment" Value="Center"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Width="20*" FontSize="16" Header="Namen" Binding="{Binding Schueler.Nachname}">
+                <DataGridTextColumn Width="20*" FontSize="16" Header="Namen" Binding="{Binding Laeufer.Nachname}">
                     <DataGridTextColumn.ElementStyle>
                         <Style>
                             <Setter Property="TextBlock.TextAlignment" Value="Center"/>
@@ -76,14 +76,14 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Width="10*" FontSize="13" Header="Läufernr." Binding="{Binding Schueler.Id}">
+                <DataGridTextColumn Width="10*" FontSize="13" Header="Läufernr." Binding="{Binding Laeufer.Id}">
                     <DataGridTextColumn.ElementStyle>
                         <Style>
                             <Setter Property="TextBlock.TextAlignment" Value="Center"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Width="20*" FontSize="13" Header="Namen" Binding="{Binding Schueler.Nachname}">
+                <DataGridTextColumn Width="20*" FontSize="13" Header="Namen" Binding="{Binding Laeufer.Nachname}">
                     <DataGridTextColumn.ElementStyle>
                         <Style>
                             <Setter Property="TextBlock.TextAlignment" Value="Center"/>

@@ -86,7 +86,7 @@ namespace RunTrack
         {
             if (_db.Schueler.Any())
             {
-                return _db.Schueler.Max(s => s.Id) + 1;
+                return (int) _db.Schueler.Max(s => s.Id) + 1;
             }
             return 1;
         }

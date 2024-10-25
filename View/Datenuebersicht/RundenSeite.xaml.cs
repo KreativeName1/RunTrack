@@ -1,6 +1,7 @@
 ﻿using MahApps.Metro.Controls;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 
 namespace RunTrack.View.Datenuebersicht
@@ -16,6 +17,8 @@ namespace RunTrack.View.Datenuebersicht
         {
             InitializeComponent();
             _model = FindResource("dumodel") as DatenuebersichtModel ?? new();
+
+
 
             btnNeu.Click += (sender, e) =>
             {

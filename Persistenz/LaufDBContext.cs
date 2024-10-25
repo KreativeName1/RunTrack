@@ -173,10 +173,22 @@ namespace RunTrack
                   .HasForeignKey(s => s.KlasseId)
                   .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Schueler>()
+            modelBuilder.Entity<Klasse>()
+                  .HasOne(k => k.RundenArt)
+                  .WithMany()
+                  .HasForeignKey(k => k.RundenArtId)
+                  .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Laeufer>()
+                  .HasOne(l => l.RundenArt)
+                  .WithMany()
+                  .HasForeignKey(l => l.RundenArtId)
+                  .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Laeufer>()
                   .HasMany(s => s.Runden)
-                  .WithOne(r => r.Schueler)
-                  .HasForeignKey(r => r.SchuelerId)
+                  .WithOne(r => r.Laeufer)
+                  .HasForeignKey(r => r.LaeuferId)
                   .OnDelete(DeleteBehavior.Cascade);
 
             // format has one BlattGroesse
@@ -190,6 +202,7 @@ namespace RunTrack
         public DbSet<Klasse> Klassen { get; set; }
         public DbSet<Schule> Schulen { get; set; }
         public DbSet<Schueler> Schueler { get; set; }
+        public DbSet<Laeufer> Laeufer { get; set; }
         public DbSet<Runde> Runden { get; set; }
         public DbSet<RundenArt> RundenArten { get; set; }
         public DbSet<Benutzer> Benutzer { get; set; }

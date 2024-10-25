@@ -7,7 +7,7 @@
         public Schule Schule { get; set; }
         public int SchuleId { get; set; }
 
-        public virtual List<Schueler> Schueler { get; set; }
+        public List<Schueler> Schueler { get; set; }
 
         public RundenArt RundenArt { get; set; }
         public int RundenArtId { get; set; }

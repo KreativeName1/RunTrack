@@ -18,6 +18,7 @@ namespace RunTrack
                 Schulen?.AddRange(thisDB.Schulen.ToList());
                 Klassen?.AddRange(thisDB.Klassen.ToList());
                 Schueler?.AddRange(thisDB.Schueler.ToList());
+                Laeufer?.AddRange(thisDB.Laeufer.ToList());
                 SaveChanges();
             }
 
@@ -57,15 +58,16 @@ namespace RunTrack
                 .WithOne(s => s.Klasse)
                 .HasForeignKey(s => s.KlasseId);
 
-            modelBuilder.Entity<Schueler>()
+            modelBuilder.Entity<Laeufer>()
                 .HasMany(s => s.Runden)
-                .WithOne(r => r.Schueler)
-                .HasForeignKey(r => r.SchuelerId);
+                .WithOne(r => r.Laeufer)
+                .HasForeignKey(r => r.LaeuferId);
         }
 
 
         public DbSet<Klasse> Klassen { get; set; }
         public DbSet<Schule> Schulen { get; set; }
+        public DbSet<Laeufer> Laeufer { get; set; }
         public DbSet<Schueler> Schueler { get; set; }
         public DbSet<Runde> Runden { get; set; }
         public DbSet<RundenArt> RundenArten { get; set; }

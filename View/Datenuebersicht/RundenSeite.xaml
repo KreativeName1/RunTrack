@@ -1,18 +1,19 @@
 ﻿<Page x:Class="RunTrack.View.Datenuebersicht.RundenSeite"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:RunTrack.View.Datenuebersicht" 
-      xmlns:fc="http://devpelux.github.io/fullcontrols" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:RunTrack.View.Datenuebersicht"
+      xmlns:fc="http://devpelux.github.io/fullcontrols"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:this="clr-namespace:RunTrack"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="RundenSeite">
 
     <!-- Ressourcen: Style für den DateTimePicker, der nur das Datum anzeigt -->
     <Page.Resources>
         <this:ObjectToBoolConverter x:Key="ObjectToBoolConverter"/>
+        <this:RundenArtConverter x:Key="RundenArtConverter"/>
         <Style x:Key="DateOnlyPickerStyle" TargetType="{x:Type xctk:DateTimePicker}">
             <Setter Property="Format" Value="Custom"/>
             <Setter Property="FormatString" Value="dd.MM.yyyy hh:mm:ss"/>
@@ -33,17 +34,17 @@
         <!-- Runden -->
         <GroupBox x:Name="RundenGrid" Header="Runden">
             <Grid>
-                <DataGrid x:Name="lstRunden" 
-                          ItemsSource="{Binding LstRunde}" 
-                          SelectedItem="{Binding SelRunde}" 
-                          Margin="0,5,0,0" 
-                          FontFamily="Consolas" 
-                          AutoGenerateColumns="False" 
-                          CanUserReorderColumns="False" 
-                          CanUserAddRows="False" 
-                          CanUserDeleteRows="False" 
-                          CanUserResizeRows="False" 
-                          SelectionMode="Single" 
+                <DataGrid x:Name="lstRunden"
+                          ItemsSource="{Binding LstRunde}"
+                          SelectedItem="{Binding SelRunde}"
+                          Margin="0,5,0,0"
+                          FontFamily="Consolas"
+                          AutoGenerateColumns="False"
+                          CanUserReorderColumns="False"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          CanUserResizeRows="False"
+                          SelectionMode="Single"
                           IsReadOnly="False">
 
                     <DataGrid.Resources>
@@ -57,23 +58,27 @@
 
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding Id}" IsReadOnly="True" />
-                        <DataGridTextColumn Width="8*" Header="Laufnr." Binding="{Binding Schueler.Id}" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="22*" Header="Vorname" Binding="{Binding Schueler.Vorname}" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="22*" Header="Nachname" Binding="{Binding Schueler.Nachname}" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="8*" Header="Laufnr." Binding="{Binding Laeufer.Id}" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="22*" Header="Vorname" Binding="{Binding Laeufer.Vorname}" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="22*" Header="Nachname" Binding="{Binding Laeufer.Nachname}" IsReadOnly="True"/>
 
                         <!-- DateTimePicker mit angepasstem Design -->
                         <DataGridTemplateColumn Header="Zeitstempel">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <xctk:DateTimePicker 
-                                        Style="{StaticResource DateOnlyPickerStyle}" 
-                                        Value="{Binding Path=Zeitstempel, Mode=TwoWay}" 
+                                    <xctk:DateTimePicker
+                                        Style="{StaticResource DateOnlyPickerStyle}"
+                                        Value="{Binding Path=Zeitstempel, Mode=TwoWay}"
                                         ValueChanged="DateTimePicker_ValueChanged"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTextColumn Width="18*" Header="Rundenart" Binding="{Binding Schueler.Klasse.RundenArt}" IsReadOnly="True"/>
+                        <!-- Problematische Zeile-->
+                        <DataGridTextColumn Width="18*" Header="Rundenart"
+                                            Binding="{Binding Path=., Converter={StaticResource RundenArtConverter}}"
+                                            IsReadOnly="True"/>
+
                         <DataGridTextColumn Width="15*" Header="Scanner" Binding="{Binding BenutzerName}"/>
                     </DataGrid.Columns>
                 </DataGrid>

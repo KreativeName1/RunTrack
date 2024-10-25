@@ -86,15 +86,22 @@ namespace RunTrack
          if (_smodel == null) return;
          using (LaufDBContext db = new())
          {
-            Schueler? schueler = db.Schueler.FirstOrDefault(s => s.Id == id);
+            Laeufer? laeufer = db.Laeufer.FirstOrDefault(s => s.Id == id);
 
-            bool isSchuelerAlreadyScanned = false;
+            bool isLaeuferAlreadyScanned = false;
             int IntervalInSekunden = 0;
-            if (schueler != null)
+            if (laeufer != null)
             {
-               Klasse? klasse = db.Klassen.FirstOrDefault(k => k.Schueler.Contains(schueler)) ?? new();
-               RundenArt? rundenArt = db.RundenArten.Find(klasse.RundenArtId) ?? new();
-               List<Runde> runden = db.Runden.Where(r => r.SchuelerId == schueler.Id).ToList();
+                    RundenArt? rundenArt;
+                    if (laeufer is Schueler)
+                    {
+                        Schueler schueler = laeufer as Schueler;
+                        Klasse klasse = db.Klassen.Find(schueler.KlasseId) ?? new();
+                         rundenArt = db.RundenArten.Find(klasse.RundenArtId) ?? new();
+                    } else {
+                        rundenArt = db.RundenArten.Find(laeufer.RundenArtId) ?? new();
+                    }
+               List<Runde> runden = db.Runden.Where(r => r.LaeuferId == laeufer.Id).ToList();
                IntervalInSekunden = rundenArt.MaxScanIntervalInSekunden;
 
                if (runden.Count > 0)
@@ -105,20 +112,20 @@ namespace RunTrack
                      Trace.WriteLine($"Between {DateTime.Now} and {runde.Zeitstempel}: {difference.TotalSeconds}");
                      if (difference.TotalSeconds < IntervalInSekunden)
                      {
-                        isSchuelerAlreadyScanned = true;
-                        schueler = null;
+                        isLaeuferAlreadyScanned = true;
+                        laeufer = null;
                         break;
                      }
                   }
                }
             }
 
-            if (schueler == null)
+            if (laeufer == null)
             {
-               if (isSchuelerAlreadyScanned)
-                  Fehlermeldung.Content = $"Der Schüler wurde bereits innerhalb von {IntervalInSekunden} Sekunden eingescannt.";
+               if (isLaeuferAlreadyScanned)
+                  Fehlermeldung.Content = $"Der Läufer wurde bereits innerhalb von {IntervalInSekunden} Sekunden eingescannt.";
                else
-                  Fehlermeldung.Content = $"Schüler mit der ID {id} existiert nicht.";
+                  Fehlermeldung.Content = $"Läufer mit der ID {id} existiert nicht.";
 
                this.BoxTrue.Visibility = Visibility.Collapsed;
                this.BoxFalse.Visibility = Visibility.Visible;
@@ -152,7 +159,7 @@ namespace RunTrack
                ErrorEffectManualData(false);  // Fehleranzeige zurücksetzen
 
                Runde runde = new();
-               runde.Schueler = schueler;
+               runde.Laeufer = laeufer;
                runde.Zeitstempel = DateTime.Now;
                runde.BenutzerName = $"{_pmodel?.Benutzer.Vorname} {_pmodel?.Benutzer.Nachname}";
                db.Runden.Add(runde);

@@ -246,7 +246,7 @@ namespace RunTrack
         }
         private string GetBewertung(Schueler schueler)
         {
-            if (_amodel.IsAnzahl) return Convert.ToString(schueler.Runden.Where(r => r.Schueler == schueler).Count() - 1);
+            if (_amodel.IsAnzahl) return Convert.ToString(schueler.Runden.Where(r => r.Laeufer == schueler).Count() - 1);
             else if (_amodel.IsDistanz) return ((schueler.Runden.Count() - 1) * schueler.Klasse.RundenArt.LaengeInMeter).ToString("#,##0") + " m";
             else if (_amodel.IsZeit)
             {

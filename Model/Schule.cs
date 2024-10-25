@@ -5,7 +5,7 @@
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
 
-        public virtual List<Klasse> Klassen { get; set; } = new List<Klasse>();
+        public List<Klasse> Klassen { get; set; } = new List<Klasse>();
 
 
         public Schule()
