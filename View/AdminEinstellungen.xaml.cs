@@ -29,6 +29,8 @@ namespace RunTrack
             this.mode = mode;
             this.firstName = firstName;
             this.lastName = lastName;
+            if (mode == DialogMode.Neu) tbTitel.Text = "Admin anlegen";
+            else tbTitel.Text = "Passwort ändern";
 
             SetWindowSize();
 
