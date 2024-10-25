@@ -8,6 +8,7 @@ namespace RunTrack
     {
         private ObservableCollection<Schule> _lstSchule = new();
         private ObservableCollection<Schueler> _lstSchueler = new();
+        private ObservableCollection<Laeufer> _lstLaeufer = new();
         private ObservableCollection<Klasse> _lstKlasse = new();
         private ObservableCollection<Runde> _lstRunde = new();
         private ObservableCollection<RundenArt> _lstRundenArt = new();
@@ -18,6 +19,7 @@ namespace RunTrack
         private Klasse? _selKlasse;
         private Runde? _selRunde;
         private Schueler? _selSchueler;
+        private Laeufer? _selLaeufer;
         private RundenArt? _selRundenArt;
 
 
@@ -61,6 +63,18 @@ namespace RunTrack
                 OnPropertyChanged("LstSchueler");
             }
         }
+        public ObservableCollection<Laeufer> LstLaeufer
+        {
+            get
+            {
+                return _lstLaeufer;
+            }
+            set
+            {
+                this._lstLaeufer = value;
+                OnPropertyChanged("LstLaeufer");
+            }
+        }
 
         public ObservableCollection<RundenArt> LstRundenArt
         {
@@ -88,6 +102,20 @@ namespace RunTrack
             }
         }
 
+        public Laeufer? SelLaeufer
+        {
+            get
+            {
+                return _selLaeufer;
+            }
+            set
+            {
+                this._selLaeufer = value;
+                OnPropertyChanged("SelLaeufer");
+            }
+        }
+
+
         public ObservableCollection<Klasse> LstKlasse
         {
             get
@@ -102,11 +130,12 @@ namespace RunTrack
         }
         public void LoadData()
         {
-            LstSchule = new ObservableCollection<Schule>(context.Schulen.ToList());
-            LstKlasse = new ObservableCollection<Klasse>(context.Klassen.Include(k => k.Schule).Include(r => r.RundenArt).Include(k => k.Schueler).ThenInclude(s => s.Runden).ToList());
-            LstSchueler = new ObservableCollection<Schueler>(context.Schueler.Include(s => s.Klasse).ThenInclude(k => k.Schule).Include(s => s.Runden).ToList());
-            LstRunde = new ObservableCollection<Runde>(context.Runden.Include(r => r.Laeufer));
-            LstRundenArt = new ObservableCollection<RundenArt>(context.RundenArten.ToList());
+            LstSchule = new(context.Schulen.ToList());
+            LstKlasse = new(context.Klassen.Include(k => k.Schule).Include(r => r.RundenArt).Include(k => k.Schueler).ThenInclude(s => s.Runden).ToList());
+            LstSchueler = new(context.Schueler.Include(s => s.Klasse).ThenInclude(k => k.Schule).Include(s => s.Runden).ToList());
+            LstRunde = new(context.Runden.Include(r => r.Laeufer));
+            LstRundenArt = new(context.RundenArten.ToList());
+            LstLaeufer = new(context.Laeufer.Where(l => !context.Schueler.Any(s => s.Id == l.Id)).Include(l => l.Runden).Include(x => x.RundenArt).ToList());
         }
         public ObservableCollection<Runde> LstRunde
         {

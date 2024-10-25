@@ -22,6 +22,7 @@ namespace RunTrack
             btnStartseite.Click += (s, e) => changePage(new Startseite(), s as ButtonPlus);
             btnSchule.Click += (s, e) => changePage(new SchulenSeite(), s as ButtonPlus);
             btnSchueler.Click += (s, e) => changePage(new SchuelerSeite(), s as ButtonPlus);
+            btnLaeufer.Click += (s, e) => changePage(new LaeuferSeite(), s as ButtonPlus);
             btnKlassen.Click += (s, e) => changePage(new KlassenSeite(), s as ButtonPlus);
             btnRunden.Click += (s, e) => changePage(new RundenSeite(), s as ButtonPlus);
 
@@ -36,6 +37,7 @@ namespace RunTrack
             btnKlassen.IsEnabled = true;
             btnSchueler.IsEnabled = true;
             btnRunden.IsEnabled = true;
+            btnLaeufer.IsEnabled = true;
 
             button.IsEnabled = false;
             Task.Run(() => _dumodel.LoadData());
