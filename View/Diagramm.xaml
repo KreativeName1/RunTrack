@@ -1,12 +1,73 @@
-﻿<Window x:Class="RunTrack.Diagramm"
+﻿<mah:MetroWindow  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="RunTrack.Diagramm"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+									Icon="pack://application:,,,/Images/iconRunMan.ico"
+									ShowTitleBar="True" ShowMinButton="False" ShowMaxRestoreButton="False" ShowCloseButton="False"
+									WindowStartupLocation="CenterScreen" WindowTitleBrush="#007d64" Background="White" TitleAlignment="Center"
+TitleBarHeight="30" GlowBrush="#2A2D2F" ResizeMode="CanResize"  BorderBrush="#2A2D2F" BorderThickness="1"
+ NonActiveBorderBrush="#4c5155" NonActiveGlowBrush="#a3a6a8" NonActiveWindowTitleBrush="#007d64" ShowIconOnTitleBar="False"
         xmlns:local="clr-namespace:RunTrack" xmlns:fc="http://devpelux.github.io/fullcontrols"
         mc:Ignorable="d"
-        Title="Diagrammm" Height="450" Width="800" MinHeight="250" MinWidth="400">
-    <Grid SizeChanged="Grid_SizeChanged_1">
+        Title="Diagramm" Height="450" Width="800" MinHeight="250" MinWidth="400">
+
+	<mah:MetroWindow.Resources>
+		<local:BoolToVisibilityConverter x:Key="bvcon"/>
+	</mah:MetroWindow.Resources>
+
+	<mah:MetroWindow.LeftWindowCommands>
+		<mah:WindowCommands ShowSeparators="False">
+			<Image Source="pack://application:,,,/Images/iconRunMan.ico"
+                Width="30" Height="30" Margin="5,0,10,0" />
+			<Label Visibility="{Binding Benutzer.IsAdmin, Converter={StaticResource bvcon}}" Content="Admin" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
+		</mah:WindowCommands>
+	</mah:MetroWindow.LeftWindowCommands>
+	<mah:MetroWindow.RightWindowCommands>
+		<mah:WindowCommands ShowSeparators="False">
+			<!-- Close Button -->
+			<Button x:Name="BTN_Close" Click="BTN_Close_Click" MouseEnter="BTN_Close_MouseEnter" MouseLeave="BTN_Close_MouseLeave"
+             Background="#009664" BorderThickness="0" Padding="0" Margin="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+				<Button.Style>
+					<Style TargetType="Button">
+						<Setter Property="Background">
+							<Setter.Value>
+								<LinearGradientBrush StartPoint="0,0" EndPoint="0,9">
+									<GradientStop Color="#009664" Offset="0.0" />
+									<GradientStop Color="#007d64" Offset="1.0" />
+									<!-- Dunklere Farbe für den Übergang -->
+								</LinearGradientBrush>
+							</Setter.Value>
+						</Setter>
+						<Setter Property="Foreground" Value="White" />
+						<Setter Property="FontWeight" Value="Bold" />
+						<Setter Property="FontSize" Value="20" />
+						<Setter Property="Width" Value="28" />
+						<Setter Property="Height" Value="28" />
+						<Setter Property="VerticalContentAlignment" Value="Center" />
+						<Setter Property="HorizontalContentAlignment" Value="Center" />
+						<Setter Property="BorderBrush" Value="Transparent" />
+						<Setter Property="ToolTip" Value="Schließen" />
+						<Setter Property="Cursor" Value="Hand" />
+						<Setter Property="Template">
+							<Setter.Value>
+								<ControlTemplate TargetType="Button">
+									<Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="15">
+										<ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+									</Border>
+								</ControlTemplate>
+							</Setter.Value>
+						</Setter>
+					</Style>
+				</Button.Style>
+				<Button.Content>
+					<Image Source="pack://application:,,,/Images/titelbarIcons/close.png" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+				</Button.Content>
+			</Button>
+		</mah:WindowCommands>
+	</mah:MetroWindow.RightWindowCommands>
+
+	<Grid SizeChanged="Grid_SizeChanged_1">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -35,4 +96,4 @@
             <Label x:Name="averageTimeLabel" Content="" HorizontalContentAlignment="Center" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" Margin="2"/>
         </StackPanel>
     </Grid>
-</Window>
+</mah:MetroWindow>
