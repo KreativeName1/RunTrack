@@ -56,41 +56,46 @@ namespace RunTrack
         */
         public static void SearchDataGrid(DataGrid dataGrid, string searchTerm)
         {
-            List<int> lstFoundRows = new List<int>();
             searchTerm = searchTerm.ToLower();
+            List<object> filteredItems = new List<object>();
+
             foreach (var row in dataGrid.Items)
             {
                 DataGridRow dataGridRow = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromItem(row);
                 if (dataGridRow != null)
                 {
+                    bool containsSearchTerm = false;
+
                     foreach (var cell in dataGrid.Columns)
                     {
-                        // int zeile = cell.DisplayIndex;
                         var cellContent = cell.GetCellContent(dataGridRow) as TextBlock;
-                        if (cellContent != null)
+                        if (cellContent != null && cellContent.Text.ToLower().Contains(searchTerm))
                         {
-                            if (cellContent.Text.ToLower().Contains(searchTerm) && !string.IsNullOrEmpty(searchTerm))
-                            {
-                                if (!lstFoundRows.Contains(dataGrid.Items.IndexOf(row)))
-                                    lstFoundRows.Add(dataGrid.Items.IndexOf(row));
-                                //lstFoundRows.Add(dataGrid.Items.IndexOf(row));
-                                cellContent.Background = Brushes.OrangeRed;
-                            }
-                            else
-                            {
-                                cellContent.Background = Brushes.White;
-                            }
+                            containsSearchTerm = true;
+                            break;
                         }
+                    }
+
+                    if (containsSearchTerm)
+                    {
+                        filteredItems.Add(row);
                     }
                 }
             }
 
-            if (lstFoundRows.Count > 0)
+            dataGrid.ItemsSource = filteredItems;
+
+            if (filteredItems.Count > 0)
             {
-                dataGrid.ScrollIntoView(dataGrid.Items[0]);
-                dataGrid.ScrollIntoView(dataGrid.Items[lstFoundRows[0]]);
+                dataGrid.ScrollIntoView(filteredItems[0]);
+            }
+            else
+            {
+                dataGrid.SelectedItem = null;
             }
         }
+
+
 
 
         public static void SearchDataGrid_Old(DataGrid dataGrid, string searchTerm)
