@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -12,26 +13,20 @@ namespace RunTrack
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is null)
-            {
-                return "Keine Rundenart";
-            }
+            Runde runde = (Runde)value;
+            Laeufer? laeufer = runde.Laeufer;
 
-            if (value is Schueler schueler)
+            if (laeufer.RundenArt == null)
             {
-                return schueler.Klasse?.RundenArt;
-            }
-            else if (value is Laeufer laeufer)
-            {
-                return laeufer.RundenArt;
+                Schueler schueler = laeufer as Schueler;
+                return schueler.Klasse.RundenArt;
             }
             else
             {
-                return "Ungültiger Datentyp";
+                return laeufer.RundenArt;  
             }
         }
 
-        // Rückkonvertierung (nicht benötigt für ein-weg-Binding)
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
