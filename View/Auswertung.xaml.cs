@@ -16,6 +16,7 @@ namespace RunTrack
         private List<RadioButtonPlus> _rundenArten = new();
         private AuswertungModel _amodel;
         private MainModel _pmodel;
+        private bool _isInitialized = false;
         public Auswertung()
         {
             InitializeComponent();
@@ -25,6 +26,9 @@ namespace RunTrack
 
         public void init()
         {
+            if (_isInitialized) return;
+            _isInitialized = true;
+
             btnImport.Click += (s, e) => _pmodel.Navigate(new Dateiverwaltung());
             btnExport.Click += (s, e) =>
             {
@@ -107,6 +111,13 @@ namespace RunTrack
         {
             using (var db = new MergedDBContext(_pfade))
             {
+                _amodel.Schulen = new(db.Schulen.ToList());
+                _amodel.Klassen = new(db.Klassen.ToList());
+                _amodel.SelectedSchule = _amodel.Schulen.FirstOrDefault();
+                _amodel.SelectedKlasse = _amodel.Klassen.FirstOrDefault();
+
+                if (_isInitialized) return;
+
                 bool first = true;
                 if (db.RundenArten.Count() == 0) RundenGroesse.Children.Add(new Label { Content = "Keine Rundenarten vorhanden" });
                 else foreach (RundenArt rundenArt in db.RundenArten)
@@ -125,10 +136,6 @@ namespace RunTrack
                         first = false;
                     }
 
-                _amodel.Schulen = new ObservableCollection<Schule>(db.Schulen.ToList());
-                _amodel.Klassen = new ObservableCollection<Klasse>(db.Klassen.ToList());
-                _amodel.SelectedSchule = _amodel.Schulen.FirstOrDefault();
-                _amodel.SelectedKlasse = _amodel.Klassen.FirstOrDefault();
             }
         }
 
@@ -266,8 +273,8 @@ namespace RunTrack
         {
             _amodel = FindResource("amodel") as AuswertungModel;
             _pmodel = FindResource("pmodel") as MainModel;
-            _amodel.Liste = new();
-            init(); LoadData();
+            LoadData();
+            init(); 
         }
     }
 }

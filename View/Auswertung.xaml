@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:RunTrack"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:fc="http://devpelux.github.io/fullcontrols"
         mc:Ignorable="d"
+	  d:Width="1000" d:Height="750"
 			Loaded="Page_Loaded"
       HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
         Title="Auswertung">
@@ -123,7 +124,7 @@
         <Border BorderBrush="Black" BorderThickness="0" Grid.Row="1" Grid.ColumnSpan="2" >
             <Grid VerticalAlignment="Center" Margin="10,0,10,0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="280"/>
+                    <ColumnDefinition Width="300"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="150"/>
                 </Grid.ColumnDefinitions>

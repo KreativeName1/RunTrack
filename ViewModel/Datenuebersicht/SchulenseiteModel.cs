@@ -92,10 +92,11 @@ namespace RunTrack
 
         public void LoadData()
         {
-            _db = new();
-            _db.ChangeTracker.DetectChanges();
-            LstSchule = new();
-            LstSchule = new(_db.Schulen);
+            Task.Run(() =>
+            {
+                _db = new();
+                LstSchule = new(_db.Schulen);
+            });
         }
     }
 }

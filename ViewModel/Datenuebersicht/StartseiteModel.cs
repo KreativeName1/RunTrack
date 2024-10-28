@@ -46,13 +46,16 @@ namespace RunTrack
 
         public void LoadData()
         {
+            Task.Run(() =>
+            {
             _db = new();
-            _lstSchueler = new(_db.Schueler
+            LstSchueler = new(_db.Schueler
                 .Include(s => s.Klasse)
                 .ThenInclude(k => k.Schule)
                 .Include(s => s.Klasse)
                 .ThenInclude(k => k.RundenArt)
                 .ToList());
+            });
         }
     }
 }

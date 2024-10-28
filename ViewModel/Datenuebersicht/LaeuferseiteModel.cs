@@ -110,9 +110,12 @@ namespace RunTrack
 
         public LaeuferseiteModel()
         {
-            _db = new();
-            LstLaeufer = new(_db.Laeufer.Where(x => x.RundenArt != null));
-            LstRundenart = new(_db.RundenArten);
+            Task.Run(() =>
+            {
+                _db = new();
+                LstLaeufer = new(_db.Laeufer.Where(x => x.RundenArt != null));
+                LstRundenart = new(_db.RundenArten);
+            });
         }
     }
 }

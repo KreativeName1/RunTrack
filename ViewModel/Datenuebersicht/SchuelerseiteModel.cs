@@ -119,12 +119,13 @@ namespace RunTrack
 
         public void LoadData()
         {
-            _db = new();
-            _db.ChangeTracker.DetectChanges();
-            LstSchueler = new();
-            LstSchueler = new(_db.Schueler.Include(s => s.Klasse).ThenInclude(k => k.Schule).Include(s => s.Runden).ToList());
-            LstSchule = new(_db.Schulen.ToList());
-            LstKlasse = new(_db.Klassen.ToList());
+            Task.Run(() =>
+            {
+                _db = new();
+                LstSchueler = new(_db.Schueler.Include(s => s.Klasse).ThenInclude(k => k.Schule).Include(s => s.Runden).ToList());
+                LstSchule = new(_db.Schulen.ToList());
+                LstKlasse = new(_db.Klassen.ToList());
+            });
         }
     }
 }

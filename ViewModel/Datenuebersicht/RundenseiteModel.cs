@@ -96,9 +96,11 @@ namespace RunTrack
 
         public void LoadData()
         {
-            _db = new();
-            _db.ChangeTracker.DetectChanges();
-            LstRunde = new(_db.Runden.Include(x => x.Laeufer).ToList());
+            Task.Run(() =>
+            {
+                _db = new();
+                LstRunde = new(_db.Runden.Include(x => x.Laeufer).ToList());
+            });
         }
     }
 }
