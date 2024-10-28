@@ -47,30 +47,40 @@ namespace RunTrack
         {
             string extension = Path.GetExtension(fileName).ToLower();
 
-            if (extension == ".asv" || extension == ".db" || extension == ".csv")
+            if (extension != ".asv" && extension != ".db" && extension != ".csv")
             {
-                // Datei in die Liste hinzufügen
-                _dvmodel.LstFiles.Add(new FileItem
-                {
-                    FileName = Path.GetFileName(fileName),
-                    UploadDate = DateTime.Now
-                });
-
-                // Datei in den Dateien-Ordner kopieren
-                Directory.CreateDirectory("Dateien");
-                string destPath = Path.Combine("Dateien", Path.GetFileName(fileName));
-                File.Copy(fileName, destPath, true);
-
-                if (extension == ".asv" || extension == ".csv")
-                {
-                    _pmodel.Navigate(new Import1(Path.GetFullPath(destPath)));
-
-                    _dvmodel.LstFiles = new ObservableCollection<FileItem>(FileItem.AlleLesen());
-                }
+                new Popup().Display("Fehler", $"Die Datei {fileName} hat eine ungültige Erweiterung und kann nicht hochgeladen werden.", PopupType.Error, PopupButtons.Ok);
+                return;
             }
-            else
+
+            // Falls Datei bereits existiert
+            if (File.Exists(Path.Combine("Dateien", Path.GetFileName(fileName))))
             {
-                MessageBox.Show($"Die Datei {fileName} hat eine ungültige Erweiterung und kann nicht hochgeladen werden.");
+                string extra;
+                if (Path.GetFileName(fileName) == "EigeneDatenbank.db") extra = "(Die Datenbank des Programms wird überschrieben und alle bisherigen Daten gehen verloren!)";
+                else extra = string.Empty;
+
+                bool? result = new Popup().Display("Datei überschreiben", $"Die Datei '{Path.GetFileName(fileName)}' existiert bereits. Willst du sie überschreiben? {extra}", PopupType.Question, PopupButtons.YesNo);
+                if (result == false) return;
+            }
+
+            // Datei in die Liste hinzufügen
+            _dvmodel.LstFiles.Add(new FileItem
+            {
+                FileName = Path.GetFileName(fileName),
+                UploadDate = DateTime.Now
+            });
+
+            // Datei in den Dateien-Ordner kopieren
+            Directory.CreateDirectory("Dateien");
+            string destPath = Path.Combine("Dateien", Path.GetFileName(fileName));
+            File.Copy(fileName, destPath, true);
+
+            if (extension == ".asv" || extension == ".csv")
+            {
+                _pmodel.Navigate(new Import1(Path.GetFullPath(destPath)));
+
+                _dvmodel.LstFiles = new ObservableCollection<FileItem>(FileItem.AlleLesen());
             }
         }
         private void DeleteSelectedFiles_Click(object sender, RoutedEventArgs e)
