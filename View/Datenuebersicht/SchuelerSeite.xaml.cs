@@ -9,122 +9,35 @@ namespace RunTrack
     /// </summary>
     public partial class SchuelerSeite : Page
     {
-        private DatenuebersichtModel _model;
-        private LaufDBContext _db = new();
-        private bool isNewEntry = false;
+        private SchuelerseiteModel _model;
 
         public SchuelerSeite()
         {
             InitializeComponent();
+            _model = FindResource("thismodel") as SchuelerseiteModel;
 
-            _model = FindResource("dumodel") as DatenuebersichtModel ?? new();
-            lstSchueler.PreviewMouseWheel += LstSchueler_PreviewMouseWheel;
-
-            btnNeu.Click += (sender, e) =>
+            this.Unloaded += (s, e) =>
             {
-                btnNeu.IsEnabled = false;
-                lstSchueler.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
-                isNewEntry = true;
-
-                int newId = GetNextId();
-                Schueler neu = new Schueler { Id = newId, Vorname = "Default", Nachname = "Default" };
-
-                _db.Schueler.Add(neu);
-                _model.LstSchueler.Add(neu);
-
-                lstSchueler.ScrollIntoView(neu);
-                lstSchueler.SelectedItem = neu;
-                lstSchueler.Focus();
-
-                SetEditableForNewRow(neu);
+                _model.Db.Dispose();
+                _model.HasChanges = false;
+            };
+            btnNeu.Click += (s, e) =>
+            {
+                _model.LstSchueler.Add(new Schueler());
+                _model.HasChanges = true;
+            };
+            btnSpeichern.Click += (s, e) => { _model.SaveChanges(); };
+            btnDel.Click += (s, e) =>
+            {
+                _model.LstSchueler.Remove(_model.SelSchueler);
+                _model.HasChanges = true;
             };
 
-            btnSpeichern.Click += (sender, e) =>
+            lstSchueler.CellEditEnding += (s, e) =>
             {
-                _db.SaveChanges();
-                SetAllRowsEditable();
-                lstSchueler.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
-                isNewEntry = false;
-                btnNeu.IsEnabled = true;
-            };
-
-            btnDel.Click += (sender, e) =>
-            {
-                Schueler schueler = lstSchueler.SelectedItem as Schueler;
-                if (schueler == null) return;
-                _model.LstSchueler.Remove(schueler);
-                Schueler dbSchueler = _db.Schueler.Find(schueler.Id);
-                if (dbSchueler != null)
-                {
-                    _db.Schueler.Remove(dbSchueler);
-                    _db.SaveChanges();
-                }
-            };
-
-            lstSchueler.CellEditEnding += (sender, e) =>
-            {
-                Schueler schueler = lstSchueler.SelectedItem as Schueler;
-                if (schueler == null) return;
-                Schueler dbSchueler = _db.Schueler.Find(schueler.Id);
-                if (dbSchueler != null)
-                {
-                    dbSchueler.Nachname = schueler.Nachname;
-                    _db.SaveChanges();
-                }
+                if (e.EditAction == DataGridEditAction.Commit) _model.HasChanges = true;
             };
         }
-
-        private void LstSchueler_PreviewMouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
-        {
-            if (isNewEntry)
-            {
-                e.Handled = true;  // Suppress the scroll event when adding a new entry
-            }
-        }
-
-        private int GetNextId()
-        {
-            if (_db.Schueler.Any())
-            {
-                return (int) _db.Schueler.Max(s => s.Id) + 1;
-            }
-            return 1;
-        }
-
-        private void SetEditableForNewRow(Schueler newRow)
-        {
-            foreach (var item in lstSchueler.Items)
-            {
-                if (item != newRow)
-                {
-                    var row = (DataGridRow)lstSchueler.ItemContainerGenerator.ContainerFromItem(item);
-                    if (row != null)
-                    {
-                        row.IsEnabled = false;
-                    }
-                }
-            }
-
-            var newRowContainer = (DataGridRow)lstSchueler.ItemContainerGenerator.ContainerFromItem(newRow);
-            if (newRowContainer != null)
-            {
-                newRowContainer.IsEnabled = true;
-            }
-        }
-
-        private void SetAllRowsEditable()
-        {
-            foreach (var item in lstSchueler.Items)
-            {
-                var row = (DataGridRow)lstSchueler.ItemContainerGenerator.ContainerFromItem(item);
-                if (row != null)
-                {
-                    row.IsEnabled = true;
-                }
-            }
-        }
-
-
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -145,6 +58,25 @@ namespace RunTrack
         {
             txtSearch.ForegroundBrush = new SolidColorBrush(Colors.Blue);
             txtSearch.Foreground = new SolidColorBrush(Colors.Blue);
+        }
+
+        private void cbSchule_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _model.HasChanges = true;
+        }
+        private void cbKlasse_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (_model.SelSchueler == null) return;
+            ComboBox cbKlasse = sender as ComboBox;
+            _model.HasChanges = true;
+            Klasse klasse = cbKlasse.SelectedItem as Klasse;
+
+            if (klasse != null)
+            {
+                _model.SelSchueler.Klasse = klasse;
+                _model.SelSchueler.KlasseId = klasse.Id;
+            }
+
         }
     }
 }

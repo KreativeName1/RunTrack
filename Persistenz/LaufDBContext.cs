@@ -10,8 +10,7 @@ namespace RunTrack
         public LaufDBContext()
               : base(GetDbContextOptions())
         {
-
-            Directory.CreateDirectory("./Dateien");
+            if (!Directory.Exists("./Dateien")) Directory.CreateDirectory("./Dateien");
 
 
             if (!File.Exists(_dbPath) || new FileInfo(_dbPath).Length == 0)

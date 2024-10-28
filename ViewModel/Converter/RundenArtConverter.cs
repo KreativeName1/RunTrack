@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace RunTrack
@@ -16,14 +11,27 @@ namespace RunTrack
             Runde runde = (Runde)value;
             Laeufer? laeufer = runde.Laeufer;
 
+            using (LaufDBContext db = new())
+            {
+                laeufer.RundenArt = db.RundenArten.FirstOrDefault(r => r.Id == laeufer.RundenArtId);
+            }
+
             if (laeufer.RundenArt == null)
             {
                 Schueler schueler = laeufer as Schueler;
-                return schueler.Klasse.RundenArt;
+                RundenArt rundenArt;
+                using (LaufDBContext db = new())
+                {
+                    Klasse klasse = db.Klassen.Include(k => k.RundenArt).FirstOrDefault(k => k.Id == schueler.KlasseId);
+                    rundenArt = db.RundenArten.FirstOrDefault(r => r.Id == klasse.RundenArtId);
+                    rundenArt = klasse.RundenArt;
+
+                }
+                return rundenArt;
             }
             else
             {
-                return laeufer.RundenArt;  
+                return laeufer.RundenArt;
             }
         }
 

@@ -30,8 +30,16 @@ namespace RunTrack
         }
         private void changePage(Page page, ButtonPlus button)
         {
+            if (_dumodel.HasChanges)
+            {
+                bool? result = new Popup().Display("Änderungen verwerfen?", "Es gibt ungespeicherte Änderungen. Wirklich fortfahren?", PopupType.Question, PopupButtons.YesNo);
+                if (result == true) _dumodel.HasChanges = false;
+                else if (result == false) return;
+            }
+            _dumodel.HasChanges = false;
             _dumodel.CurrentPage = page;
             UebersichtMethoden.CurrentSelectedRow = 0;
+
             btnStartseite.IsEnabled = true;
             btnSchule.IsEnabled = true;
             btnKlassen.IsEnabled = true;
@@ -40,7 +48,6 @@ namespace RunTrack
             btnLaeufer.IsEnabled = true;
 
             button.IsEnabled = false;
-            Task.Run(() => _dumodel.LoadData());
         }
     }
 }

@@ -9,67 +9,42 @@ namespace RunTrack.View.Datenuebersicht
     /// </summary>
     public partial class KlassenSeite : Page
     {
-        private DatenuebersichtModel _model;
-        private ScannerModel _mainViewModel;
-        private MainModel _pmodel;
+        private KlassenseiteModel _model;
+        private MainModel _mmodel;
 
-        private LaufDBContext _db = new();
         public KlassenSeite()
         {
             InitializeComponent();
-            _mainViewModel = FindResource("smodel") as ScannerModel ?? new ScannerModel();
-            _model = FindResource("dumodel") as DatenuebersichtModel ?? new DatenuebersichtModel();
-            _pmodel = FindResource("pmodel") as MainModel ?? new MainModel();
+            _model = FindResource("thismodel") as KlassenseiteModel;
+            _mmodel = FindResource("pmodel") as MainModel;
+
+            this.Unloaded += (s, e) =>
+            {
+                _model.Db.Dispose();
+                _model.HasChanges = false;
+            };
+            btnNeu.Click += (s, e) =>
+            {
+                _model.LstKlasse.Add(new Klasse());
+                _model.HasChanges = true;
+            };
+            btnSpeichern.Click += (s, e) => { _model.SaveChanges(); };
+            btnDel.Click += (s, e) =>
+            {
+                _model.LstKlasse.Remove(_model.SelKlasse);
+                _model.HasChanges = true;
+            };
+
+            lstKlasse.CellEditEnding += (s, e) =>
+            {
+                if (e.EditAction == DataGridEditAction.Commit) _model.HasChanges = true;
+            };
+
             btnBarcodes.Click += (sender, e) =>
             {
                 PDFEditor pdfEditor = new(_model.SelKlasse ?? new());
-                _pmodel.Navigate(pdfEditor);
+                _mmodel.Navigate(pdfEditor);
             };
-
-
-            _model = FindResource("dumodel") as DatenuebersichtModel ?? new();
-            btnNeu.Click += (sender, e) =>
-            {
-                Klasse neu = new();
-                _db.Klassen.Add(neu);
-                _model.LstKlasse.Add(neu);
-
-                lstKlasse.ScrollIntoView(neu);
-                lstKlasse.SelectedItem = neu;
-                lstKlasse.Focus();
-
-            };
-            btnSpeichern.Click += (sender, e) =>
-            {
-                _db.SaveChanges();
-            };
-
-            btnDel.Click += (sender, e) =>
-            {
-                Klasse klasse = lstKlasse.SelectedItem as Klasse;
-                if (klasse == null) return;
-                _model.LstKlasse.Remove(klasse);
-                Klasse dbKlasse = _db.Klassen.Find(klasse.Id);
-                if (dbKlasse != null)
-                {
-                    _db.Klassen.Remove(dbKlasse);
-                    _db.SaveChanges();
-                }
-            };
-            lstKlasse.CellEditEnding += (sender, e) =>
-            {
-                Klasse klasse = lstKlasse.SelectedItem as Klasse;
-                if (klasse == null) return;
-                Klasse dbKlasse = _db.Klassen.Find(klasse.Id);
-                if (dbKlasse != null)
-                {
-                    dbKlasse.Name = klasse.Name;
-                    _db.SaveChanges();
-                }
-            };
-
-            if (this.Visibility != Visibility)
-                _db.Dispose();
         }
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -94,45 +69,30 @@ namespace RunTrack.View.Datenuebersicht
         }
         private void cbSchule_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (_model.SelKlasse == null) return;
             ComboBox cbSchule = sender as ComboBox;
+            _model.HasChanges = true;
+            Schule schule = cbSchule.SelectedItem as Schule;
 
-            Klasse sel = _model.SelKlasse;
-            if (sel == null) return;
-            Klasse klasse = _db.Klassen.Find(sel.Id);
-
-            _model.SelSchule = cbSchule.SelectedItem as Schule;
-
-            sel.Schule = klasse.Schule = cbSchule.SelectedItem as Schule;
-            // sel.Schule = klasse.Schule;
-
-            _db.SaveChanges();
-            // cbSchule.SelectedItem = klasse.Schule;
-
-            _model.SelKlasse = null;
-
+            if (schule != null)
+            {
+                _model.SelKlasse.Schule = schule;
+                _model.SelKlasse.SchuleId = schule.Id;
+            }
         }
 
         private void cbRundenArt_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ComboBox checkBox = sender as ComboBox;
+            if (_model.SelKlasse == null) return;
+            ComboBox cbRundenArt = sender as ComboBox;
+            _model.HasChanges = true;
+            RundenArt rundenArt = cbRundenArt.SelectedItem as RundenArt;
 
-            Klasse sel = _model.SelKlasse;
-
-            if (sel == null)
-                return;
-
-            Klasse klasse = _db.Klassen.Find(sel.Id);
-
-            RundenArt rundenArt = checkBox.SelectedItem as RundenArt;
-
-            _model.SelRundenArt = rundenArt;
-            sel.RundenArt = klasse.RundenArt = rundenArt;
-            // sel.RundenArt = klasse.RundenArt;
-
-            _db.SaveChanges();
-            checkBox.SelectedItem = klasse.RundenArt;
-
-            _model.SelKlasse = null;
+            if (rundenArt != null)
+            {
+                _model.SelKlasse.RundenArt = rundenArt;
+                _model.SelKlasse.RundenArtId = rundenArt.Id;
+            }
         }
     }
 }

@@ -7,13 +7,18 @@
       xmlns:local="clr-namespace:RunTrack.View.Datenuebersicht" xmlns:fc="http://devpelux.github.io/fullcontrols"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-			DataContext="{StaticResource dumodel}"
+			
       Title="Klassen">
     <Page.Resources>
         <this:ObjectToBoolConverter x:Key="ObjectToBoolConverter"/>
-    </Page.Resources>
+		<this:KlassenseiteModel x:Key="thismodel"/>
+	</Page.Resources>
 
-    <Grid>
+	<Grid DataContext="{StaticResource thismodel}">
+		<Grid.Resources>
+			<CollectionViewSource x:Key="Schulen" Source="{Binding LstSchule}" />
+
+		</Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -24,6 +29,7 @@
         <!--Klasse-->
         <GroupBox x:Name="KlasseGrid" Header="Klassen">
             <Grid>
+				
                 <DataGrid x:Name="lstKlasse" ItemsSource="{Binding LstKlasse}" SelectedItem="{Binding SelKlasse}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single">
                     <DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader">
@@ -36,23 +42,25 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding Id}" IsReadOnly="True"/>
                         <DataGridTextColumn Width="15*" Header="Klasse" Binding="{Binding Name}"/>
-						            <DataGridTemplateColumn Header="Schule" Width="15*">
+
+						<DataGridTemplateColumn Header="Schule" Width="15*">
 							<DataGridTemplateColumn.CellTemplate>
 								<DataTemplate>
-									<ComboBox x:Name="cbSchule" ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=Page}, Path=DataContext.LstSchule}" 
-                                        SelectedItem="{Binding Schule, Mode=TwoWay}" SelectionChanged="cbSchule_SelectionChanged"/>
+									<ComboBox x:Name="cbSchule" ItemsSource="{Binding DataContext.LstSchule, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+											  SelectionChanged="cbSchule_SelectionChanged" SelectedItem="{Binding Schule, Mode=TwoWay}"/>
 								</DataTemplate>
 							</DataGridTemplateColumn.CellTemplate>
-						</DataGridTemplateColumn>       
+						</DataGridTemplateColumn>
+
 						<DataGridTemplateColumn Header="Rundenart" Width="25*">
 							<DataGridTemplateColumn.CellTemplate>
 								<DataTemplate>
-									<ComboBox x:Name="cbRundenArt" ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=Page}, Path=DataContext.LstRundenArt}" 
-                                      SelectedItem="{Binding RundenArt, Mode=TwoWay}" SelectionChanged="cbRundenArt_SelectionChanged"/>
+									<ComboBox x:Name="cbRundenArt" ItemsSource="{Binding DataContext.LstRundenart, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+											  SelectionChanged="cbRundenArt_SelectionChanged" SelectedItem="{Binding RundenArt, Mode=TwoWay}"/>
 								</DataTemplate>
 							</DataGridTemplateColumn.CellTemplate>
-
 						</DataGridTemplateColumn>
+						
 					</DataGrid.Columns>
                 </DataGrid>
             </Grid>
@@ -63,7 +71,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
-                <fc:ButtonPlus x:Name="btnSpeichern" Margin="10,0,0,0"  Cursor="Hand" Content="Speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
+                <fc:ButtonPlus x:Name="btnSpeichern" IsEnabled="{Binding HasChanges}" Margin="10,0,0,0"  Cursor="Hand" Content="Speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
                 <fc:ButtonPlus x:Name="btnNeu" Margin="10,0,0,0"  Cursor="Hand" Content="Neuer Eintrag" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
                 <fc:ButtonPlus x:Name="btnDel" Margin="10,0,10,0" IsEnabled="{Binding SelKlasse, Converter={StaticResource ObjectToBoolConverter}}" Cursor="Hand" Content="Eintrag löschen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
                 <fc:ButtonPlus x:Name="btnBarcodes" IsEnabled="{Binding SelKlasse, Converter={StaticResource ObjectToBoolConverter}}"  Cursor="Hand" Content="Barcodes erstellen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White"  Width="120" Height="30" Margin="0,0,10,0"/>

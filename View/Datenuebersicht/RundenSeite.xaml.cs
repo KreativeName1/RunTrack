@@ -1,7 +1,6 @@
 ﻿using MahApps.Metro.Controls;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Media;
 
 namespace RunTrack.View.Datenuebersicht
@@ -11,53 +10,32 @@ namespace RunTrack.View.Datenuebersicht
     /// </summary>
     public partial class RundenSeite : Page
     {
-        private DatenuebersichtModel _model;
-        private LaufDBContext _db = new();
+        private RundenseiteModel _model;
         public RundenSeite()
         {
             InitializeComponent();
-            _model = FindResource("dumodel") as DatenuebersichtModel ?? new();
+            _model = FindResource("thismodel") as RundenseiteModel;
 
-
-
-            btnNeu.Click += (sender, e) =>
+            this.Unloaded += (s, e) =>
             {
-                Runde neu = new();
-                _db.Runden.Add(neu);
-                _model.LstRunde.Add(neu);
-
-                lstRunden.ScrollIntoView(neu);
-                lstRunden.SelectedItem = neu;
-                lstRunden.Focus();
-
+                _model.Db.Dispose();
+                _model.HasChanges = false;
             };
-            btnSpeichern.Click += (sender, e) =>
+            btnNeu.Click += (s, e) =>
             {
-                _db.SaveChanges();
+                _model.LstRunde.Add(new Runde());
+                _model.HasChanges = true;
+            };
+            btnSpeichern.Click += (s, e) => { _model.SaveChanges(); };
+            btnDel.Click += (s, e) =>
+            {
+                _model.LstRunde.Remove(_model.SelRunde);
+                _model.HasChanges = true;
             };
 
-            btnDel.Click += (sender, e) =>
+            lstRunden.CellEditEnding += (s, e) =>
             {
-                Runde runde = lstRunden.SelectedItem as Runde;
-                if (runde == null) return;
-                _model.LstRunde.Remove(runde);
-                Runde dbRunde = _db.Runden.Find(runde.Id);
-                if (dbRunde != null)
-                {
-                    _db.Runden.Remove(dbRunde);
-                    _db.SaveChanges();
-                }
-            };
-            lstRunden.CellEditEnding += (sender, e) =>
-            {
-                Runde runde = lstRunden.SelectedItem as Runde;
-                if (runde == null) return;
-                Runde dbRunde = _db.Runden.Find(runde.Id);
-                if (dbRunde != null)
-                {
-                    dbRunde.Id = runde.Id;
-                    _db.SaveChanges();
-                }
+                if (e.EditAction == DataGridEditAction.Commit) _model.HasChanges = true;
             };
         }
 
@@ -88,14 +66,8 @@ namespace RunTrack.View.Datenuebersicht
 
             if (dateTimePicker != null)
             {
-                Runde runde = lstRunden.SelectedItem as Runde;
-                if (runde == null) return;
-                Runde dbRunde = _db.Runden.Find(runde.Id);
-                if (dbRunde != null)
-                {
-                    dbRunde.Zeitstempel = (DateTime)dateTimePicker.SelectedDateTime;
-                    _db.SaveChanges();
-                }
+                _model.HasChanges = true;
+                _model.SelRunde.Zeitstempel = (DateTime)dateTimePicker.SelectedDateTime;
             }
         }
     }

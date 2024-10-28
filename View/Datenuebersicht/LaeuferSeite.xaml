@@ -6,12 +6,12 @@
       xmlns:local="clr-namespace:RunTrack" xmlns:fc="http://devpelux.github.io/fullcontrols"
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
-      DataContext="{StaticResource dumodel}"
       Title="LäuferSeite">
     <Page.Resources>
         <this:ObjectToBoolConverter x:Key="ObjectToBoolConverter"/>
-    </Page.Resources>
-    <Grid>
+		<local:LaeuferseiteModel x:Key="thismodel"/>
+	</Page.Resources>
+    <Grid DataContext="{StaticResource thismodel}" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -34,19 +34,27 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding Id}" IsReadOnly="True"/>
                         <DataGridTextColumn Width="25*" Header="Vorname" Binding="{Binding Vorname}"/>
-                        <DataGridTextColumn Width="25*" Header="Nachname" Binding="{Binding Nachname}"/>
-                        <DataGridTextColumn Width="15*" Header="Geschlecht" Binding="{Binding Geschlecht}"/>
-                        <DataGridTextColumn Header="Jahrgang" Binding="{Binding Geburtsjahrgang}"/>
-                        <DataGridTemplateColumn Header="Rundenart" Width="25*">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ComboBox x:Name="cbRundenArt" ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=Page}, Path=DataContext.LstRundenArt}"
-                                              SelectedItem="{Binding RundenArt, Mode=TwoWay}" SelectionChanged="cbRundenArt_SelectionChanged"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
+						<DataGridTextColumn Width="25*" Header="Nachname" Binding="{Binding Nachname}"/>
+						<DataGridComboBoxColumn Header="Geschlecht" SelectedItemBinding="{Binding Geschlecht}">
+							<DataGridComboBoxColumn.ItemsSource>
+								<x:Array Type="{x:Type local:Geschlecht}">
+									<x:Static Member="local:Geschlecht.Maennlich"/>
+									<x:Static Member="local:Geschlecht.Weiblich"/>
+								</x:Array>
+							</DataGridComboBoxColumn.ItemsSource>
+						</DataGridComboBoxColumn>
+						<DataGridTextColumn Header="Jahrgang" Binding="{Binding Geburtsjahrgang}"/>
 
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
+						<DataGridTemplateColumn Header="Rundenart" Width="25*">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<ComboBox x:Name="cbRundenArt" ItemsSource="{Binding DataContext.LstRundenart, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+								  SelectionChanged="cbRundenArt_SelectionChanged" SelectedItem="{Binding RundenArt, Mode=TwoWay}"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+						
+					</DataGrid.Columns>
                 </DataGrid>
             </Grid>
         </GroupBox>
@@ -56,7 +64,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
-                <fc:ButtonPlus x:Name="btnSpeichern" Margin="10,0,0,0"  Cursor="Hand" Content="Speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30"/>
+                <fc:ButtonPlus x:Name="btnSpeichern" IsEnabled="{Binding HasChanges}" Margin="10,0,0,0"  Cursor="Hand" Content="Speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30"/>
                 <fc:ButtonPlus x:Name="btnNeu" Margin="10,0,0,0"  Cursor="Hand" Content="Neuer Eintrag" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
                 <fc:ButtonPlus x:Name="btnDel" IsEnabled="{Binding SelLaeufer, Converter={StaticResource ObjectToBoolConverter}}" Margin="10,0,10,0"  Cursor="Hand" Content="Eintrag löschen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30"/>
             </StackPanel>

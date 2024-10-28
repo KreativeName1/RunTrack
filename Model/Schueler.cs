@@ -10,7 +10,6 @@
 
         public Schueler()
         {
-            Klasse = new Klasse();
         }
 
         public override string ToString()

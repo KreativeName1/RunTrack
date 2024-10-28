@@ -9,122 +9,35 @@ namespace RunTrack
     /// </summary>
     public partial class LaeuferSeite : Page
     {
-        private DatenuebersichtModel _model;
-        private LaufDBContext _db = new();
-        private bool isNewEntry = false;
+        private LaeuferseiteModel _model;
 
         public LaeuferSeite()
         {
             InitializeComponent();
 
-            _model = FindResource("dumodel") as DatenuebersichtModel ?? new();
-            lstLaeufer.PreviewMouseWheel += LstSchueler_PreviewMouseWheel;
+            _model = FindResource("thismodel") as LaeuferseiteModel;
 
-            btnNeu.Click += (sender, e) =>
+            this.Unloaded += (s, e) =>
             {
-                btnNeu.IsEnabled = false;
-                lstLaeufer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
-                isNewEntry = true;
-
-                int newId = GetNextId();
-                Laeufer neu = new Laeufer { Id = newId, Vorname = "Default", Nachname = "Default" };
-
-                _db.Laeufer.Add(neu);
-                _model.LstLaeufer.Add(neu);
-
-                lstLaeufer.ScrollIntoView(neu);
-                lstLaeufer.SelectedItem = neu;
-                lstLaeufer.Focus();
-
-                SetEditableForNewRow(neu);
+                _model.Db.Dispose();
+                _model.HasChanges = false;
             };
-
-            btnSpeichern.Click += (sender, e) =>
+            btnNeu.Click += (s, e) =>
             {
-                _db.SaveChanges();
-                SetAllRowsEditable();
-                lstLaeufer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
-                isNewEntry = false;
-                btnNeu.IsEnabled = true;
+                _model.LstLaeufer.Add(new Laeufer());
+                _model.HasChanges = true;
             };
-
-            btnDel.Click += (sender, e) =>
+            btnSpeichern.Click += (s, e) => { _model.SaveChanges(); };
+            btnDel.Click += (s, e) =>
             {
-                Schueler schueler = lstLaeufer.SelectedItem as Schueler;
-                if (schueler == null) return;
-                _model.LstSchueler.Remove(schueler);
-                Schueler dbSchueler = _db.Schueler.Find(schueler.Id);
-                if (dbSchueler != null)
-                {
-                    _db.Schueler.Remove(dbSchueler);
-                    _db.SaveChanges();
-                }
+                _model.LstLaeufer.Remove(_model.SelLaeufer);
+                _model.HasChanges = true;
             };
-
-            lstLaeufer.CellEditEnding += (sender, e) =>
+            lstLaeufer.CellEditEnding += (s, e) =>
             {
-                Schueler schueler = lstLaeufer.SelectedItem as Schueler;
-                if (schueler == null) return;
-                Schueler dbSchueler = _db.Schueler.Find(schueler.Id);
-                if (dbSchueler != null)
-                {
-                    dbSchueler.Nachname = schueler.Nachname;
-                    _db.SaveChanges();
-                }
+                if (e.EditAction == DataGridEditAction.Commit) _model.HasChanges = true;
             };
         }
-
-        private void LstSchueler_PreviewMouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
-        {
-            if (isNewEntry)
-            {
-                e.Handled = true;  // Suppress the scroll event when adding a new entry
-            }
-        }
-
-        private int GetNextId()
-        {
-            if (_db.Laeufer.Any())
-            {
-                return (int) _db.Laeufer.Max(s => s.Id) + 1;
-            }
-            return 1;
-        }
-
-        private void SetEditableForNewRow(Laeufer newRow)
-        {
-            foreach (var item in lstLaeufer.Items)
-            {
-                if (item != newRow)
-                {
-                    var row = (DataGridRow)lstLaeufer.ItemContainerGenerator.ContainerFromItem(item);
-                    if (row != null)
-                    {
-                        row.IsEnabled = false;
-                    }
-                }
-            }
-
-            var newRowContainer = (DataGridRow)lstLaeufer.ItemContainerGenerator.ContainerFromItem(newRow);
-            if (newRowContainer != null)
-            {
-                newRowContainer.IsEnabled = true;
-            }
-        }
-
-        private void SetAllRowsEditable()
-        {
-            foreach (var item in lstLaeufer.Items)
-            {
-                var row = (DataGridRow)lstLaeufer.ItemContainerGenerator.ContainerFromItem(item);
-                if (row != null)
-                {
-                    row.IsEnabled = true;
-                }
-            }
-        }
-
-
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -148,26 +61,18 @@ namespace RunTrack
         }
 
 
-         private void cbRundenArt_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cbRundenArt_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (_model.SelLaeufer == null) return;
+            ComboBox cbRundenArt = sender as ComboBox;
+            _model.HasChanges = true;
+            RundenArt rundenArt = cbRundenArt.SelectedItem as RundenArt;
 
-            if (_model.SelLaeufer == null)
-                return;
-            ComboBox checkBox = sender as ComboBox;
-
-
-            Laeufer laeufer = _db.Laeufer.Find(_model.SelLaeufer.Id);
-
-            RundenArt rundenArt = checkBox.SelectedItem as RundenArt;
-
-            _model.SelRundenArt = rundenArt;
-
-            _model.SelLaeufer.RundenArt = laeufer.RundenArt = rundenArt;
-
-            _db.SaveChanges();
-            checkBox.SelectedItem = laeufer.RundenArt;
-
-            _model.SelKlasse = null;
+            if (rundenArt != null)
+            {
+                _model.SelLaeufer.RundenArt = rundenArt;
+                _model.SelLaeufer.RundenArtId = rundenArt.Id;
+            }
         }
     }
 }

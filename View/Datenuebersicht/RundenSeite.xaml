@@ -12,7 +12,8 @@
 
     <!-- Ressourcen: Style für den DateTimePicker, der nur das Datum anzeigt -->
     <Page.Resources>
-        <this:ObjectToBoolConverter x:Key="ObjectToBoolConverter"/>
+		<this:RundenseiteModel x:Key="thismodel"/>
+		<this:ObjectToBoolConverter x:Key="ObjectToBoolConverter"/>
         <this:RundenArtConverter x:Key="RundenArtConverter"/>
         <Style x:Key="DateOnlyPickerStyle" TargetType="{x:Type xctk:DateTimePicker}">
             <Setter Property="Format" Value="Custom"/>
@@ -22,7 +23,7 @@
         </Style>
     </Page.Resources>
 
-    <Grid DataContext="{StaticResource dumodel}">
+    <Grid DataContext="{StaticResource thismodel}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -34,7 +35,7 @@
         <!-- Runden -->
         <GroupBox x:Name="RundenGrid" Header="Runden">
             <Grid>
-                <DataGrid x:Name="lstRunden"
+				<DataGrid x:Name="lstRunden"
                           ItemsSource="{Binding LstRunde}"
                           SelectedItem="{Binding SelRunde}"
                           Margin="0,5,0,0"
@@ -68,13 +69,12 @@
                                 <DataTemplate>
                                     <xctk:DateTimePicker
                                         Style="{StaticResource DateOnlyPickerStyle}"
-                                        Value="{Binding Path=Zeitstempel, Mode=TwoWay}"
+                                        Value="{Binding Path=Zeitstempel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         ValueChanged="DateTimePicker_ValueChanged"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <!-- Problematische Zeile-->
                         <DataGridTextColumn Width="18*" Header="Rundenart"
                                             Binding="{Binding Path=., Converter={StaticResource RundenArtConverter}}"
                                             IsReadOnly="True"/>
@@ -91,7 +91,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
-                <fc:ButtonPlus x:Name="btnSpeichern" Margin="10,0,0,0"  Cursor="Hand" Content="Speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
+                <fc:ButtonPlus x:Name="btnSpeichern" IsEnabled="{Binding HasChanges}" Margin="10,0,0,0"  Cursor="Hand" Content="Speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
                 <fc:ButtonPlus x:Name="btnNeu" Margin="10,0,0,0"  Cursor="Hand" Content="Neuer Eintrag" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
                 <fc:ButtonPlus x:Name="btnDel" Margin="10,0,10,0"  Cursor="Hand" IsEnabled="{Binding SelRunde, Converter={StaticResource ObjectToBoolConverter}}" Content="Eintrag löschen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30"/>
             </StackPanel>

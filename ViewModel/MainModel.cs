@@ -56,8 +56,9 @@ namespace RunTrack
             }
         }
 
-        public void Navigate(object page, bool? addToHistory = true)
+        public void Navigate(object page, bool? addToHistory = true, bool? condition = true)
         {
+            if (condition == false) return;
             if (page == null) return;
             if (CurrentPage != null && addToHistory == true)
             {

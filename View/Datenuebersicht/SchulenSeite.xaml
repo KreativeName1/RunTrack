@@ -9,8 +9,9 @@
       Title="Schulen">
     <Page.Resources>
         <this:ObjectToBoolConverter x:Key="ObjectToBoolConverter"/>
-    </Page.Resources>
-    <Grid DataContext="{StaticResource dumodel}">
+		<local:SchulenseiteModel x:Key="thismodel"/>
+	</Page.Resources>
+	<Grid DataContext="{StaticResource thismodel}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -44,7 +45,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
-                <fc:ButtonPlus x:Name="btnSpeichern" Margin="10,0,0,0"  Cursor="Hand" Content="Speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
+				<fc:ButtonPlus x:Name="btnSpeichern" IsEnabled="{Binding HasChanges}" Margin="10,0,0,0"  Cursor="Hand" Content="Speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
                 <fc:ButtonPlus x:Name="btnNeu" Margin="10,0,0,0" Cursor="Hand" Content="Neuer Eintrag" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
                 <fc:ButtonPlus x:Name="btnDel" Margin="10,0,10,0" IsEnabled="{Binding SelSchule, Converter={StaticResource ObjectToBoolConverter}}" Cursor="Hand" Content="Eintrag löschen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30"/>
             </StackPanel>
