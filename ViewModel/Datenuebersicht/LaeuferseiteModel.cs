@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
 
 namespace RunTrack
 {
@@ -74,8 +75,37 @@ namespace RunTrack
 
         public void SaveChanges()
         {
-            _db.SaveChanges();
+            var added = LstLaeufer.ToList().Except(Db.Laeufer.AsEnumerable()).ToList();
+            var removed = Db.Laeufer.AsEnumerable().Except(LstLaeufer.ToList()).ToList();
+            var modified = LstLaeufer.ToList().Intersect(Db.Laeufer.AsEnumerable()).ToList();
+
+            foreach (var item in added)
+            {
+                Validate(item);
+                Db.Laeufer.Add(item);
+            }
+
+            foreach (var item in removed)
+            {
+                Db.Laeufer.Remove(item);
+            }
+
+            foreach (var item in modified)
+            {
+                Validate(item);
+                Db.Entry(item).State = EntityState.Modified;
+            }
+
+            Db.SaveChanges();
+
             HasChanges = false;
+        }
+
+        public void Validate(Laeufer laeufer)
+        {
+            if (laeufer.RundenArt == null || laeufer.RundenArtId == 0) throw new ValidationException("Rundenart darf nicht leer sein");
+            if (laeufer.Geschlecht == null) throw new ValidationException("Geschlecht darf nicht leer sein");
+            if (string.IsNullOrWhiteSpace(laeufer.Vorname) || string.IsNullOrWhiteSpace(laeufer.Nachname) || laeufer.Geburtsjahrgang == 0) throw new ValidationException("Alle Felder müssen ausgefüllt werden");
         }
 
         public LaeuferseiteModel()

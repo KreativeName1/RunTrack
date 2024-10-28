@@ -27,7 +27,16 @@ namespace RunTrack
                 _model.LstLaeufer.Add(new Laeufer());
                 _model.HasChanges = true;
             };
-            btnSpeichern.Click += (s, e) => { _model.SaveChanges(); };
+            btnSpeichern.Click += (s, e) => {
+                try
+                {
+                    _model.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    new Popup().Display("Fehler beim Speichern", ex.Message, PopupType.Error, PopupButtons.Ok);
+                }
+            };
             btnDel.Click += (s, e) =>
             {
                 _model.LstLaeufer.Remove(_model.SelLaeufer);

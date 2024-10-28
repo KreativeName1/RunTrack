@@ -65,6 +65,7 @@ namespace RunTrack
             // Perform the necessary actions
             foreach (var item in added)
             {
+                Validate(item);
                 Db.Schulen.Add(item);
             }
 
@@ -75,12 +76,18 @@ namespace RunTrack
 
             foreach (var item in modified)
             {
+                Validate(item);
                 Db.Entry(item).State = EntityState.Modified;
             }
 
             Db.SaveChanges();
 
             HasChanges = false;
+        }
+
+        public void Validate(Schule schule)
+        {
+            if (string.IsNullOrEmpty(schule.Name)) throw new ValidationException("Name darf nicht leer sein");
         }
 
         public void LoadData()

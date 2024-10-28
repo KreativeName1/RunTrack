@@ -86,6 +86,14 @@ namespace RunTrack
             HasChanges = false;
         }
 
+        public void Validate(Runde item)
+        {
+            if (item.Laeufer == null || item.LaeuferId == 0) throw new ValidationException("Laeufer darf nicht leer sein");
+            if (item.Zeitstempel == null) throw new ValidationException("Zeitstempel darf nicht leer sein");
+            if (item.Zeitstempel > DateTime.Now) throw new ValidationException("Zeitstempel darf nicht in der Zukunft liegen");
+            if (string.IsNullOrWhiteSpace(item.BenutzerName)) throw new ValidationException("BenutzerName darf nicht leer sein");
+        }
+
         public void LoadData()
         {
             _db = new();

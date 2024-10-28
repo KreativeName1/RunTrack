@@ -30,7 +30,14 @@ namespace RunTrack
             };
             btnSpeichern.Click += (sender, e) =>
             {
-                _model.SaveChanges();
+                try
+                {
+                    _model.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    new Popup().Display("Fehler beim Speichern", ex.Message, PopupType.Error, PopupButtons.Ok);
+                }
             };
 
             btnDel.Click += (sender, e) =>

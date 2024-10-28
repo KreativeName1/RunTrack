@@ -31,7 +31,12 @@
                             <Setter Property="Foreground" Value="#FF3957FF"/>
                         </Style>
                     </DataGrid.Resources>
-                    <DataGrid.Columns>
+					<DataGrid.RowStyle>
+						<Style TargetType="DataGridRow">
+							<Setter Property="Visibility" Value="{Binding Visibility}" />
+						</Style>
+					</DataGrid.RowStyle>
+					<DataGrid.Columns>
                         <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding Id}" IsReadOnly="True"/>
                         <DataGridTextColumn Width="25*" Header="Vorname" Binding="{Binding Vorname}"/>
 						<DataGridTextColumn Width="25*" Header="Nachname" Binding="{Binding Nachname}"/>

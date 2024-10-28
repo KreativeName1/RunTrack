@@ -90,11 +90,13 @@ namespace RunTrack
 
             foreach (var item in added)
             {
+                Validate(item);
                 Db.Klassen.Add(item);
             }
 
             foreach (var item in removed)
             {
+                Validate(item);
                 Db.Klassen.Remove(item);
             }
 
@@ -106,6 +108,15 @@ namespace RunTrack
             Db.SaveChanges();
 
             HasChanges = false;
+        }
+
+        public void Validate(Klasse klasse)
+        {
+            if (klasse.Schule == null || klasse.Schule.Id == 0) throw new ValidationException("Schule darf nicht leer sein");
+
+            if (klasse.RundenArt == null || klasse.RundenArt.Id == 0) throw new ValidationException("Rundenart darf nicht leer sein");
+
+            if (string.IsNullOrWhiteSpace(klasse.Name)) throw new ValidationException("Name darf nicht leer sein");
         }
 
         public void LoadData()

@@ -88,11 +88,9 @@ namespace RunTrack
             var removed = Db.Schueler.AsEnumerable().Except(LstSchueler.ToList()).ToList();
             var modified = LstSchueler.ToList().Intersect(Db.Schueler.AsEnumerable()).ToList();
 
-            // Perform the necessary actions
             foreach (var item in added)
             {
-                item.Klasse = Db.Klassen.Find(1);
-
+                Validate(item);
                 Db.Schueler.Add(item);
             }
 
@@ -103,12 +101,20 @@ namespace RunTrack
 
             foreach (var item in modified)
             {
+                Validate(item);
                 Db.Entry(item).State = EntityState.Modified;
             }
 
             Db.SaveChanges();
 
             HasChanges = false;
+        }
+
+        public void Validate(Schueler schueler)
+        {
+            if (schueler == null) { throw new ValidationException("Schüler darf nicht leer sein."); }
+            if (schueler.Klasse == null || schueler.Klasse.Id == 0) { throw new ValidationException("Bitte wählen Sie eine Klasse aus."); }
+            if (string.IsNullOrEmpty(schueler.Vorname) || string.IsNullOrEmpty(schueler.Nachname) || schueler.Geburtsjahrgang == 0 || schueler.Geschlecht == null) { throw new ValidationException("Es müssen alle Felder ausgefüllt sein."); }
         }
 
         public void LoadData()

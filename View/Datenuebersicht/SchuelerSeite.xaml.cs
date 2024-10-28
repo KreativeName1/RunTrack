@@ -26,7 +26,12 @@ namespace RunTrack
                 _model.LstSchueler.Add(new Schueler());
                 _model.HasChanges = true;
             };
-            btnSpeichern.Click += (s, e) => { _model.SaveChanges(); };
+            btnSpeichern.Click += (s, e) => {
+                try { _model.SaveChanges(); }
+                catch (Exception ex) {
+                    new Popup().Display("Fehler beim Speichern", ex.Message, PopupType.Error, PopupButtons.Ok);
+                }
+            };
             btnDel.Click += (s, e) =>
             {
                 _model.LstSchueler.Remove(_model.SelSchueler);

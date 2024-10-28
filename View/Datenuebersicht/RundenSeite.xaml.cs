@@ -26,7 +26,16 @@ namespace RunTrack.View.Datenuebersicht
                 _model.LstRunde.Add(new Runde());
                 _model.HasChanges = true;
             };
-            btnSpeichern.Click += (s, e) => { _model.SaveChanges(); };
+            btnSpeichern.Click += (s, e) => {
+                try
+                {
+                    _model.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    new Popup().Display("Fehler beim Speichern", ex.Message, PopupType.Error, PopupButtons.Ok);
+                }
+            };
             btnDel.Click += (s, e) =>
             {
                 _model.LstRunde.Remove(_model.SelRunde);

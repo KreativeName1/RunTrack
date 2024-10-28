@@ -1,6 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace RunTrack
 {
@@ -8,99 +8,24 @@ namespace RunTrack
     {
         public static int CurrentSelectedRow { get; set; } = -1;
 
-        /*public static void SetSelectedRow(object sender, MouseButtonEventArgs e)
-        {
-            DataGridRow row = sender as DataGridRow;
-            if (row != null)
-            {
-                CurrentSelectedRow = row.GetIndex();
-            }
-        }
-
-        public static void Search(DataGrid dataGrid, TextBox searchBox)
-        {
-            string filter = searchBox.Text;
-            if (filter == "")
-            {
-                dataGrid.Items.Filter = null;
-            }
-            else
-            {
-                foreach (var row in dataGrid.Items)
-                {
-                    foreach (var cell in dataGrid.Columns /* row.GetType().GetProperties() *//*)
-                    {
-                        if (row.ToString().Contains(filter))
-                        {
-                            dataGrid.Items.Filter = null;
-
-                            // Highlight the row
-                            cell.Foreground = Brushes.Red;
-                            cell.CellStyle = DataGrid.CellStyleProperty;
-                        }
-                        else
-                        {
-                            dataGrid.Items.Filter = null;
-                        }
-                    }
-
-                }
-            }
-        }
-
-        public static void SearchDataGrid(DataGrid dataGrid, TextBox searchBox)
-        {
-            Search(dataGrid, searchBox);
-        }
-
-        */
         public static void SearchDataGrid(DataGrid dataGrid, string searchTerm)
         {
-            searchTerm = searchTerm.ToLower();
-            List<object> filteredItems = new List<object>();
+            searchTerm = searchTerm.ToLower().Trim();
 
+            // Liste zurücksetzen
             foreach (var row in dataGrid.Items)
             {
                 DataGridRow dataGridRow = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromItem(row);
                 if (dataGridRow != null)
                 {
-                    bool containsSearchTerm = false;
-
-                    foreach (var cell in dataGrid.Columns)
-                    {
-                        var cellContent = cell.GetCellContent(dataGridRow) as TextBlock;
-                        if (cellContent != null && cellContent.Text.ToLower().Contains(searchTerm))
-                        {
-                            containsSearchTerm = true;
-                            break;
-                        }
-                    }
-
-                    if (containsSearchTerm)
-                    {
-                        filteredItems.Add(row);
-                    }
+                    dataGridRow.Visibility = System.Windows.Visibility.Visible;
                 }
             }
 
-            dataGrid.ItemsSource = filteredItems;
+            // Wenn kein Suchbegriff vorhanden, dann abbrechen
+            if (string.IsNullOrEmpty(searchTerm)) return;
 
-            if (filteredItems.Count > 0)
-            {
-                dataGrid.ScrollIntoView(filteredItems[0]);
-            }
-            else
-            {
-                dataGrid.SelectedItem = null;
-            }
-        }
-
-
-
-
-        public static void SearchDataGrid_Old(DataGrid dataGrid, string searchTerm)
-        {
-            searchTerm = searchTerm.ToLower();
+            // Suche durchführen
             foreach (var row in dataGrid.Items)
             {
                 DataGridRow dataGridRow = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromItem(row);
@@ -108,22 +33,31 @@ namespace RunTrack
                 {
                     foreach (var cell in dataGrid.Columns)
                     {
-                        var cellContent = cell.GetCellContent(dataGridRow) as TextBlock;
-                        if (cellContent != null)
+                        var cellContent = cell.GetCellContent(dataGridRow) as FrameworkElement;
+                        if (cellContent is TextBlock textBlock)
                         {
-                            if (cellContent.Text.ToLower().Contains(searchTerm) && !string.IsNullOrEmpty(searchTerm))
+                            if (textBlock.Text.ToLower().Trim().Contains(searchTerm))
                             {
-                                cellContent.Background = Brushes.OrangeRed;
+                                dataGridRow.Visibility = Visibility.Visible;
+                                break;
                             }
-                            else
+                            else dataGridRow.Visibility = Visibility.Collapsed;
+                        }
+                        else if (cellContent is ComboBox comboBox)
+                        {
+                            var comboBoxText = comboBox.Text.ToLower().Trim();
+                            if (comboBoxText.Contains(searchTerm))
                             {
-                                cellContent.Background = Brushes.White;
+                                dataGridRow.Visibility = Visibility.Visible;
+                                break;
                             }
+                            else dataGridRow.Visibility = Visibility.Collapsed;
                         }
                     }
                 }
             }
         }
+
 
         public static void SelectSearchedRow(DataGrid dataGrid, bool down, string searchTerm)
         {
@@ -159,8 +93,6 @@ namespace RunTrack
                 CurrentSelectedRow = -1;
                 SelectSearchedRow(dataGrid, down, searchTerm);
             }
-
-
         }
     }
 }
