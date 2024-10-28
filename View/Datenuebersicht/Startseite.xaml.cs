@@ -6,9 +6,17 @@ namespace RunTrack.View.Datenuebersicht
 {
     public partial class Startseite : Page
     {
+        private StartseiteModel _model;
         public Startseite()
         {
             InitializeComponent();
+
+            _model = FindResource("thismodel") as StartseiteModel;
+
+            this.Unloaded += (s, e) =>
+            {
+                _model.Db.Dispose();
+            };
         }
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)

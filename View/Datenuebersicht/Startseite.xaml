@@ -10,8 +10,9 @@
     <!--Startseite-->
     <Page.Resources>
         <this:ObjectToBoolConverter x:Key="ObjectToBoolConverter"/>
-    </Page.Resources>
-    <Grid DataContext="{StaticResource dumodel}">
+		<this:StartseiteModel x:Key="thismodel"/>
+	</Page.Resources>
+    <Grid DataContext="{StaticResource thismodel}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -30,15 +31,14 @@
                             <Setter Property="Foreground" Value="#FF3957FF"/>
                         </Style>
                     </DataGrid.Resources>
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Width="15*" Header="Klasse-Id" Binding="{Binding KlasseId}"/>
-                        <DataGridTextColumn Width="10*" Header="Laufnr." Binding="{Binding Id}" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="15*" Header="Vorname" Binding="{Binding Vorname}"/>
-                        <DataGridTextColumn Width="15*" Header="Nachname" Binding="{Binding Nachname}"/>
+					<DataGrid.Columns>
+						<DataGridTextColumn Width="10*" Header="Laufnr." Binding="{Binding Id}" IsReadOnly="True"/>
+						<DataGridTextColumn Width="15*" Header="Vorname" Binding="{Binding Vorname}" IsReadOnly="True"/>
+						<DataGridTextColumn Width="15*" Header="Nachname" Binding="{Binding Nachname}" IsReadOnly="True"/>
                         <DataGridTextColumn Width="15*" Header="Klasse" Binding="{Binding Klasse.Name}" IsReadOnly="True"/>
                         <DataGridTextColumn Width="25*" Header="Schule" Binding="{Binding Klasse.Schule.Name}" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="6*" Header="Runden" Binding="{Binding Runden.Count}" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="15*" Header="Rundengröße" Binding="{Binding Klasse.RundenArt.LaengeInMeter, StringFormat={}{0} m}" IsReadOnly="True"/>
+						<DataGridTextColumn Width="15*" Header="Runden" Binding="{Binding Klasse.RundenArt.Name}" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="10*" Header="Rundengröße" Binding="{Binding Klasse.RundenArt.LaengeInMeter, StringFormat={}{0} m}" IsReadOnly="True"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
@@ -48,11 +48,8 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
-                <fc:ButtonPlus x:Name="btnSpeichern" Margin="10,0,0,0"  Cursor="Hand" Content="Speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
-                <fc:ButtonPlus x:Name="btnNeu" Margin="10,0,0,0" Cursor="Hand" Content="Neuer Eintrag" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30"/>
-                <fc:ButtonPlus x:Name="btnDel" Margin="10,0,10,0" IsEnabled="{Binding SelSchueler, Converter={StaticResource ObjectToBoolConverter}}" Cursor="Hand" Content="Eintrag löschen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
-            </StackPanel>
+			<StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+			</StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,10,0" Cursor="">
                 <Border Background="#CFD3CD" Height="40" CornerRadius="6">
                     <Canvas Width="230" Height="40">
