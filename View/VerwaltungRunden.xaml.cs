@@ -35,12 +35,10 @@ namespace RunTrack
             if (mode == DialogMode.Neu)
             {
                 this.Title = "Hinzufügen";
-                this.operationName.Content = "Hinzufügen";
             }
             else if (mode == DialogMode.Bearbeiten && rundenArt != null)
             {
                 this.Title = "Bearbeiten";
-                this.operationName.Content = "Bearbeiten";
 
                 // Set the text of the BezeichnungTextBox to the name of the RundenArt passed in
                 this.BezeichnungTextBox.Text = rundenArt.Name;

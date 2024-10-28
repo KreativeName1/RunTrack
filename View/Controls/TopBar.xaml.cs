@@ -27,6 +27,7 @@ namespace RunTrack
 
         private void Credits_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (_pmodel?.CurrentPage is Credits) return;
             _pmodel?.Navigate(new Credits());
         }
     }

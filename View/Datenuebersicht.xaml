@@ -15,35 +15,33 @@
     <Page.Resources>
         <local:WindowHeightConverter x:Key="WindowHeightConverter"/>
     </Page.Resources>
-    <Grid  DataContext="{StaticResource dumodel}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <local:TopBar Grid.ColumnSpan="2" Grid.Row="0" x:Name="Leiste" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+	<Grid  DataContext="{StaticResource dumodel}">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
 
-            <StackPanel Grid.Row="0"  Orientation="Vertical" Margin="5,33,10,0">
-                <fc:ButtonPlus x:Name="btnStartseite" BackgroundOnDisabled="#3481B8" ForegroundOnDisabled="#F4F8F4" Cursor="Hand" Content="Startseite" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5,30,5,30" IsEnabled="False"/>
-                <fc:ButtonPlus x:Name="btnSchule" BackgroundOnDisabled="#3481B8" ForegroundOnDisabled="#F4F8F4" Cursor="Hand" Content="Schulen" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5"/>
-                <fc:ButtonPlus x:Name="btnKlassen" BackgroundOnDisabled="#3481B8" ForegroundOnDisabled="#F4F8F4" Cursor="Hand" Content="Klassen" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" />
-                <fc:ButtonPlus x:Name="btnSchueler" BackgroundOnDisabled="#3481B8" ForegroundOnDisabled="#F4F8F4" Cursor="Hand" Content="Schüler" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" />
-                <fc:ButtonPlus x:Name="btnRunden" BackgroundOnDisabled="#3481B8" ForegroundOnDisabled="#F4F8F4" Cursor="Hand" Content="Runden" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" />
-                <fc:ButtonPlus x:Name="btnLaeufer" BackgroundOnDisabled="#3481B8" ForegroundOnDisabled="#F4F8F4" Cursor="Hand" Content="Weitere Läufer" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" />
-            </StackPanel>
-            <StackPanel Orientation="Vertical" VerticalAlignment="Top" Margin="8,5,7,25" Grid.Column="0" Grid.Row="1" Grid.RowSpan="2">
-                <fc:ButtonPlus x:Name="btnSchliessen" Cursor="Hand" Content="Schließen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center"/>
-            </StackPanel>
-        </Grid>
-        <Rectangle x:Name="rectAbtrennnung" HorizontalAlignment="Left" Grid.RowSpan="2" Height="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=ActualHeight, Converter={StaticResource WindowHeightConverter}}" Margin="200,27,0,0" Fill="#FF5F5F5F" Stroke="#FF5F5F5F" VerticalAlignment="Top" Width="2.5"/>
-        <Frame NavigationUIVisibility="Hidden" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Margin="10,10,10,0" Content="{Binding CurrentPage}" />
+			<Border BorderThickness="2" BorderBrush="DarkGray" CornerRadius="5" Margin="5">
+				<Grid>
+			<StackPanel Orientation="Vertical" Margin="10,0,10,0">
+				<fc:ButtonPlus x:Name="btnStartseite" BackgroundOnDisabled="#3481B8" ForegroundOnDisabled="#F4F8F4" Cursor="Hand" Content="Startseite" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5,30,5,30" IsEnabled="False"/>
+				<fc:ButtonPlus x:Name="btnSchule" BackgroundOnDisabled="#3481B8" ForegroundOnDisabled="#F4F8F4" Cursor="Hand" Content="Schulen" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5"/>
+				<fc:ButtonPlus x:Name="btnKlassen" BackgroundOnDisabled="#3481B8" ForegroundOnDisabled="#F4F8F4" Cursor="Hand" Content="Klassen" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" />
+				<fc:ButtonPlus x:Name="btnSchueler" BackgroundOnDisabled="#3481B8" ForegroundOnDisabled="#F4F8F4" Cursor="Hand" Content="Schüler" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" />
+				<fc:ButtonPlus x:Name="btnRunden" BackgroundOnDisabled="#3481B8" ForegroundOnDisabled="#F4F8F4" Cursor="Hand" Content="Runden" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" />
+				<fc:ButtonPlus x:Name="btnLaeufer" BackgroundOnDisabled="#3481B8" ForegroundOnDisabled="#F4F8F4" Cursor="Hand" Content="Weitere Läufer" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" />
+			</StackPanel>
+			<StackPanel Orientation="Vertical" VerticalAlignment="Bottom" Margin="0,0,0,20" Grid.Column="0" Grid.Row="1" Grid.RowSpan="2">
+				<fc:ButtonPlus x:Name="btnSchliessen" Cursor="Hand" Content="Schließen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center"/>
+			</StackPanel>
+				</Grid>
+			</Border>
+		</Grid>
+		<Frame NavigationUIVisibility="Hidden" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Margin="10,10,10,0" Content="{Binding CurrentPage}" />
     </Grid>
 </Page>

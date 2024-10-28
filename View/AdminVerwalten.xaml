@@ -12,39 +12,7 @@
     <Page.Resources>
         <local1:NullToBoolConverter x:Key="n2bconv"/>
     </Page.Resources>
-    <Grid DataContext="{StaticResource admodel}">
-        <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
-        <Rectangle Height="1.5" Margin="0,0,0,0" Stroke="#2A2D2F" Fill="#2A2D2F" VerticalAlignment="Top"/>
-        <Label Content="🏃🏻 RunTrack" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" FontSize="14" Foreground="White" FontWeight="Bold"/>
-
-        <Image Source="pack://application:,,,/Images/credits.png" Width="24" Height="24" VerticalAlignment="Top" Cursor="Hand" Margin="0,2,10,0" HorizontalAlignment="Right" x:Name="btnCredits" Grid.Column="2">
-            <Image.ToolTip>
-                <ToolTip Cursor="">Credits</ToolTip>
-            </Image.ToolTip>
-        </Image>
-
-        <!--<TextBlock Text="Id" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF3957FF" Margin="-350,-520,0,10"/>
-        <TextBlock Text="Vorname" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF3957FF" Margin="-180,-520,0,10"/>
-        <TextBlock Text="Nachname" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF3957FF" Margin="35,-520,0,10"/>-->
-        <!-- ScrollViewer für die GridSettings -->
-        <!--<Rectangle Height="502.5" Width="371" Margin="0,0,0,0" Stroke="#2A2D2F" Fill="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center" Cursor=""/>
-        <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Height="500" HorizontalAlignment="Center" Margin="0,0,0,0">
-            --><!--<Border BorderBrush="Gray" BorderThickness="1,1,1,1">--><!--
-                <Grid x:Name="GridSettings" VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="Visible" Margin="0,0,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        --><!-- Dynamische Zeilen werden im Code-Behind hinzugefügt --><!--
-                    </Grid.RowDefinitions>
-                </Grid>
-            --><!--</Border>--><!--
-        </ScrollViewer>-->
+	<Grid DataContext="{StaticResource admodel}">
 		<Border BorderBrush="Black" VerticalAlignment="Center" HorizontalAlignment="Center" BorderThickness="1" CornerRadius="10">
 			<StackPanel Margin="30" MaxWidth="600" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
 				<TextBlock Text="Admins Verwalten" Margin="0,0,0,20" FontSize="36" FontWeight="Bold" HorizontalAlignment="Center"/>

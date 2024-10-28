@@ -5,6 +5,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:local="clr-namespace:RunTrack" xmlns:fc="http://devpelux.github.io/fullcontrols"
       mc:Ignorable="d" Loaded="Window_Loaded"
+	  d:Height="750" d:Width="1000"
       Title="Startseite" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="578" MinHeight="450">
     <Page.Resources>
         <!-- Animation für BoxTrue -->
@@ -124,17 +125,14 @@
             </Grid>
         </Border>
 
-        <Border x:Name="BoxErrorManual" VerticalAlignment="Top" Margin="100,40,100,0" Visibility="Collapsed" Grid.ColumnSpan="3">
-            <Grid>
-                <Rectangle Height="30" Stroke="#FF5F5F5F" Fill="#DD7907" VerticalAlignment="Center"/>
-                <Label x:Name="ErrorManual" Content="Keine Buchstaben erlaubt!" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0"  VerticalAlignment="Center" Foreground="WhiteSmoke" FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
-            </Grid>
-        </Border>
+		<Border x:Name="BoxErrorManual" VerticalAlignment="Top" Margin="100,40,100,0" Visibility="Collapsed" Grid.ColumnSpan="3">
+			<Grid>
+				<Rectangle Height="30" Stroke="#FF5F5F5F" Fill="#DD7907" VerticalAlignment="Center"/>
+				<Label x:Name="ErrorManual" Content="Keine Buchstaben erlaubt!" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0"  VerticalAlignment="Center" Foreground="WhiteSmoke" FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+			</Grid>
+		</Border>
 
-
-        <local:TopBar x:Name="Leiste" Grid.ColumnSpan="3"  HorizontalAlignment="Stretch" VerticalAlignment="Top" />
-
-        <Border x:Name="borderAdmin" Height="67" HorizontalAlignment="Center" Margin="30" VerticalAlignment="Bottom" Visibility="visible" Grid.ColumnSpan="3">
+		<Border x:Name="borderAdmin" Height="67" HorizontalAlignment="Center" Margin="30" VerticalAlignment="Bottom" Visibility="visible" Grid.ColumnSpan="3">
             <StackPanel Orientation="Horizontal">
                 <fc:ButtonPlus x:Name="btnDateien" Content="Dateiverwaltung" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Margin="0,0,10,0" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Left" Cursor="Hand" Width="150"/>
                 <fc:ButtonPlus x:Name="btnEinstellung" Content="Einstellungen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Margin="0,0,10,0" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Right" Cursor="Hand" Width="150"/>

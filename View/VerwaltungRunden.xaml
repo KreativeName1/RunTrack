@@ -8,12 +8,8 @@
         mc:Ignorable="d"
         HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
         Title="Einstellungen">
-    <Grid>
-        <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
-        <Label x:Name="operationName" Content="Bearbeiten / Hinzufügen" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
-
-        
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-25,0,0">
+	<Grid>
+		<StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-25,0,0">
             <Grid HorizontalAlignment="Center" VerticalAlignment="center" Width="200" Margin="0,5,0,5">
                 <Label Content="Bezeichnung:" HorizontalAlignment="Left" Margin="-5,-1,0,0" VerticalAlignment="Top" FontSize="14" Cursor=""/>
                 <TextBox x:Name="BezeichnungTextBox" Margin="0,25,0,0" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left" Width="200" Foreground="Blue" VerticalContentAlignment="Center" Height="20"/>

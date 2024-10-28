@@ -8,10 +8,8 @@
       d:Height="750" d:Width="1000"
       HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
         Title="Einstellungen">
-    <Grid>
-        <local:TopBar Grid.ColumnSpan="2" x:Name="Leiste" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
-
-        <StackPanel Orientation="Horizontal" Margin="0,35,0,0" HorizontalAlignment="Center" VerticalAlignment="Top">
+	<Grid>
+		<StackPanel Orientation="Horizontal" Margin="0,35,0,0" HorizontalAlignment="Center" VerticalAlignment="Top">
             <fc:ButtonPlus x:Name="btnRounds" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Cursor="Hand" Content="Runden" Click="Runden_Click" Width="120" Height="25" Margin="5,5,20,5"/>
             <fc:ButtonPlus x:Name="btnAdmin" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Cursor="Hand" Content="Admin" Click="Admin_Click" Width="120" Height="25" Margin="5"/>
         </StackPanel>

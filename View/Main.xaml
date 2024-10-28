@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:RunTrack" d:DataContext="{d:DesignInstance Type=local:MainModel}"
         mc:Ignorable="d"
         DataContext="{StaticResource pmodel}"
-        Content="{Binding CurrentPage}"
         Title="{Binding PageTitle}"
         ShowTitleBar="True" ShowMinButton="False" ShowMaxRestoreButton="False" ShowCloseButton="False"
         Icon="pack://application:,,,/Images/iconRunMan.ico"
@@ -186,5 +185,12 @@
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
 
-
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<local:TopBar Grid.Row="0" x:Name="Leiste" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
+		<Frame Grid.Row="1" Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden"/>
+	</Grid>
 </mah:MetroWindow>

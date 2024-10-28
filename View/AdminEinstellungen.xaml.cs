@@ -49,7 +49,6 @@ namespace RunTrack
             };
             this.btnErstellen.Click += (sender, e) => AdminErstellen();
             this.btnAbbrechen.Click += (sender, e) => _mmodel?.Navigate(_mmodel.History[^1]);
-            this.btnCredits.MouseDown += (sender, e) => _mmodel?.Navigate(new Credits());
 
             if (mode == DialogMode.Bearbeiten)
             {

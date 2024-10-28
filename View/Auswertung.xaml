@@ -20,14 +20,12 @@
             <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="60"/>
-        </Grid.RowDefinitions>
-        <local:TopBar Grid.Row="0" Grid.ColumnSpan="2" x:Name="Leiste"  HorizontalAlignment="Stretch" VerticalAlignment="Top" />
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="60"/>
+		</Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="1" Grid.Column="0" Margin="10,0,10,0">
+		<StackPanel Grid.Row="0" Grid.Column="0" Margin="10,0,10,0">
             <Label Content="Auswertung"  HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="2"/>
             <Border BorderBrush="Black" BorderThickness="1" Padding="10">
                     <Grid>
@@ -104,7 +102,7 @@
             
         </StackPanel>
 
-        <DataGrid Grid.Row="1" BorderThickness="1" BorderBrush="Gray" SelectionMode="Extended" ColumnWidth="*" Grid.Column="1" x:Name="Daten" ItemsSource="{Binding Liste}" SelectedItem="{Binding SelectedItem}" AutoGenerateColumns="True" CanUserResizeColumns="False" CanUserDeleteRows="False" Margin="0,10,0,0" Cursor="">
+        <DataGrid Grid.Row="0" BorderThickness="1" BorderBrush="Gray" SelectionMode="Extended" ColumnWidth="*" Grid.Column="1" x:Name="Daten" ItemsSource="{Binding Liste}" SelectedItem="{Binding SelectedItem}" AutoGenerateColumns="True" CanUserResizeColumns="False" CanUserDeleteRows="False" Margin="0,10,0,0" Cursor="">
             <DataGrid.Resources>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="FontWeight" Value="Bold"/>
@@ -122,7 +120,7 @@
 
 
 
-        <Border BorderBrush="Black" BorderThickness="0" Grid.Row="2" Grid.ColumnSpan="2" >
+        <Border BorderBrush="Black" BorderThickness="0" Grid.Row="1" Grid.ColumnSpan="2" >
             <Grid VerticalAlignment="Center" Margin="10,0,10,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="280"/>
