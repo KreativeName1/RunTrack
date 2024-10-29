@@ -16,7 +16,7 @@ namespace RunTrack
         private bool _isSchule { get; set; } = false;
         private bool _isKlasse { get; set; } = false;
         private bool _isJahrgang { get; set; } = false;
-
+        private bool _isLaeufer { get; set; } = false;
 
         private ObservableCollection<object> _liste { get; set; } = new ObservableCollection<object>();
         private object? _selectedItem { get; set; } = null;
@@ -89,6 +89,11 @@ namespace RunTrack
             get { return _isJahrgang; }
             set { _isJahrgang = value; OnPropertyChanged("IsJahrgang"); }
         }
+        public bool IsLaeufer
+        {
+            get { return _isLaeufer; }
+            set { _isLaeufer = value; OnPropertyChanged("IsLaeufer"); }
+        }
 
 
         public int Jahrgang
@@ -96,6 +101,7 @@ namespace RunTrack
             get { return _jahrgang; }
             set { _jahrgang = value; OnPropertyChanged("Jahrgang"); }
         }
+
 
         public ObservableCollection<Schule> Schulen
         {

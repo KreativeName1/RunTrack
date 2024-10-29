@@ -34,15 +34,20 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
-                        <StackPanel Grid.Row="0" Margin="0,10,0,0" Orientation="Horizontal">
-                        <fc:RadioButtonPlus GroupName="Wer"  Checked="change" x:Name="rbInsgesamt" Content="Insgesamt" IsChecked="{Binding IsInsgesamt}" VerticalAlignment="Center"/>
-                        </StackPanel>
+                        <Grid Grid.Row="0" Margin="0,10,0,0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="100"/>
+							<ColumnDefinition Width="150"/>
+						</Grid.ColumnDefinitions>
+						<fc:RadioButtonPlus GroupName="Wer" Grid.Column="0"  Checked="change" x:Name="rbInsgesamt" Content="Insgesamt" IsChecked="{Binding IsInsgesamt}" />
+					</Grid>
 
                         <Grid Grid.Row="1" Margin="0,10,0,10">
                             <Grid.ColumnDefinitions>
@@ -70,10 +75,18 @@
                         <fc:RadioButtonPlus GroupName="Wer"  Checked="change" IsChecked="{Binding IsJahrgang}" Grid.Column="0" Content="Jahrgang" VerticalAlignment="Center"/>
                         <xctk:IntegerUpDown ValueChanged="iudJahrgang_ValueChanged" HorizontalAlignment="Right" Value="{Binding Jahrgang}" Grid.Column="1" Width="145" x:Name="iudJahrgang" Margin="5,0,0,0" VerticalAlignment="Center"/>
                     </Grid>
-                    </Grid>
+
+					<Grid Grid.Row="4" Margin="0,0,0,10">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="100"/>
+							<ColumnDefinition Width="150"/>
+						</Grid.ColumnDefinitions>
+						<fc:RadioButtonPlus GroupName="Wer"  Checked="change" IsChecked="{Binding IsLaeufer}" Grid.Column="0" Content="Andere Läufer" VerticalAlignment="Center"/>
+					</Grid>
+				</Grid>
                 </Border>
 
-            <Label Content="Runden" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="16"/>
+            <Label Content="Wertung" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="16"/>
 
             <Border BorderBrush="Black" BorderThickness="1" Padding="10">
                 <StackPanel>
@@ -113,7 +126,7 @@
                 </Style>
             </DataGrid.Resources>
         </DataGrid>
-        <TextBlock Grid.Row="1" Grid.Column="1" x:Name="tbLeereListe" Visibility="{Binding IsLeerListe, Converter={StaticResource btocon }}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" >
+        <TextBlock Grid.Row="0" Grid.Column="1" x:Name="tbLeereListe" Visibility="{Binding IsLeerListe, Converter={StaticResource btocon }}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" >
             Keine Ergebnisse zur Auswahl gefunden
         </TextBlock>
         <Rectangle Grid.Column="1" Grid.Row="1" Height="2.5px" Fill="Black" Stroke="Black" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>

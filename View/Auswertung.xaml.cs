@@ -1,6 +1,5 @@
 ﻿using FullControls.Controls;
 using Microsoft.Win32;
-using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Windows;
 using System.Windows.Controls;
@@ -135,7 +134,6 @@ namespace RunTrack
 
                         first = false;
                     }
-
             }
         }
 
@@ -153,11 +151,10 @@ namespace RunTrack
                         string bewertung = GetBewertung(schueler);
                         string geschlecht = GetGeschlecht(schueler);
 
-                        if (GetRundenArt(schueler)) continue;
+                        if (!IsRundenArt(schueler)) continue;
 
                         if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
-
                         _amodel.Liste.Add(new { SchuelerId = schueler.Id, Name = schueler.Vorname + " " + schueler.Nachname, Schule = schueler.Klasse.Schule.Name, Klasse = schueler.Klasse.Name, Bewertung = bewertung, Geschlecht = geschlecht });
                     }
                 }
@@ -169,7 +166,7 @@ namespace RunTrack
                         string geschlecht = GetGeschlecht(schueler);
                         string bewertung = GetBewertung(schueler);
 
-                        if (GetRundenArt(schueler)) continue;
+                        if (!IsRundenArt(schueler)) continue;
 
                         if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
@@ -184,7 +181,7 @@ namespace RunTrack
                         string geschlecht = GetGeschlecht(schueler);
                         string bewertung = GetBewertung(schueler);
 
-                        if (GetRundenArt(schueler)) continue;
+                        if (!IsRundenArt(schueler)) continue;
 
                         if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
@@ -199,11 +196,27 @@ namespace RunTrack
                         string geschlecht = GetGeschlecht(schueler);
                         string bewertung = GetBewertung(schueler);
 
-                        if (GetRundenArt(schueler)) continue;
+                        if (!IsRundenArt(schueler)) continue;
 
                         if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
                         _amodel.Liste.Add(new { SchuelerId = schueler.Id, Name = schueler.Vorname + " " + schueler.Nachname, Klasse = schueler.Klasse.Name, Schule = schueler.Klasse.Schule.Name, Bewertung = bewertung, Geschlecht = geschlecht });
+                    }
+                }
+                else if (_amodel.IsLaeufer)
+                {
+                    _amodel.Liste = new();
+                    foreach (Laeufer laeufer in db.Laeufer.Where(l => l.RundenArt != null).Include(l => l.Runden).Include(l => l.RundenArt))
+                    {
+                        string geschlecht = GetGeschlecht(laeufer);
+                        string bewertung = GetBewertung(laeufer);
+
+                        if (!IsRundenArt(laeufer)) continue;
+
+                        if (_amodel.IsMaennlich && laeufer.Geschlecht != Geschlecht.Maennlich) continue;
+                        if (_amodel.IsWeiblich && laeufer.Geschlecht != Geschlecht.Weiblich) continue;
+                        _amodel.Liste.Add(new { SchuelerId = laeufer.Id, Name = laeufer.Vorname + " " + laeufer.Nachname, Bewertung = bewertung, Geschlecht = geschlecht });
+
                     }
                 }
             }
@@ -222,9 +235,9 @@ namespace RunTrack
             change(sender, e);
         }
 
-        private string GetGeschlecht(Schueler schueler)
+        private string GetGeschlecht(Laeufer laeufer)
         {
-            switch (schueler.Geschlecht)
+            switch (laeufer.Geschlecht)
             {
                 case Geschlecht.Maennlich:
                     return "Männlich";
@@ -236,7 +249,7 @@ namespace RunTrack
                     return "";
             }
         }
-        private bool GetRundenArt(Schueler schueler)
+        private bool IsRundenArt(Laeufer laeufer)
         {
             string rundenArtName = string.Empty;
             foreach (RadioButtonPlus rb in RundenGroesse.Children)
@@ -247,21 +260,28 @@ namespace RunTrack
                     break;
                 }
             }
-
-            if (!string.IsNullOrWhiteSpace(rundenArtName) && schueler.Klasse.RundenArt.Name != rundenArtName) return true;
+            if (laeufer is Schueler schueler)
+            {
+                if (!string.IsNullOrWhiteSpace(rundenArtName) && schueler.Klasse.RundenArt.Name != rundenArtName) return true;
+            }
+            else if (laeufer is Laeufer lauf) if (!string.IsNullOrWhiteSpace(rundenArtName) && lauf.RundenArt.Name != rundenArtName) return true;
             return false;
         }
-        private string GetBewertung(Schueler schueler)
+        private string GetBewertung(Laeufer laeufer)
         {
-            if (_amodel.IsAnzahl) return Convert.ToString(schueler.Runden.Where(r => r.Laeufer == schueler).Count() - 1);
-            else if (_amodel.IsDistanz) return ((schueler.Runden.Count() - 1) * schueler.Klasse.RundenArt.LaengeInMeter).ToString("#,##0") + " m";
+            if (_amodel.IsAnzahl) return Convert.ToString(laeufer.Runden.Where(r => r.Laeufer == laeufer).Count() - 1);
+            else if (_amodel.IsDistanz)
+            {
+                if (laeufer is Schueler schueler) return ((laeufer.Runden.Count() - 1) * schueler.Klasse.RundenArt.LaengeInMeter).ToString("#,##0") + " m";
+                else return ((laeufer.Runden.Count() - 1) * laeufer.RundenArt.LaengeInMeter).ToString("#,##0") + " m";
+            }
             else if (_amodel.IsZeit)
             {
                 List<TimeSpan> rundenZeiten = new();
                 // Alle Timestamps sammeln anhand der Zeitstempel
-                for (int i = 1; i < schueler.Runden.Count; i++)
+                for (int i = 1; i < laeufer.Runden.Count; i++)
                 {
-                    TimeSpan rundenzeit = schueler.Runden[i].Zeitstempel - schueler.Runden[i - 1].Zeitstempel;
+                    TimeSpan rundenzeit = laeufer.Runden[i].Zeitstempel - laeufer.Runden[i - 1].Zeitstempel;
                     rundenZeiten.Add(rundenzeit);
                 }
                 return rundenZeiten.Min().ToString(@"mm\:ss");
@@ -274,7 +294,12 @@ namespace RunTrack
             _amodel = FindResource("amodel") as AuswertungModel;
             _pmodel = FindResource("pmodel") as MainModel;
             LoadData();
-            init(); 
+            init();
+        }
+
+        private void iudLaeufer_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+
         }
     }
 }
