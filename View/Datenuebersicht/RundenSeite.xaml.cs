@@ -21,31 +21,6 @@ namespace RunTrack.View.Datenuebersicht
                 _model.Db.Dispose();
                 _model.HasChanges = false;
             };
-            btnNeu.Click += (s, e) =>
-            {
-                _model.LstRunde.Add(new Runde());
-                _model.HasChanges = true;
-            };
-            btnSpeichern.Click += (s, e) => {
-                try
-                {
-                    _model.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    new Popup().Display("Fehler beim Speichern", ex.Message, PopupType.Error, PopupButtons.Ok);
-                }
-            };
-            btnDel.Click += (s, e) =>
-            {
-                _model.LstRunde.Remove(_model.SelRunde);
-                _model.HasChanges = true;
-            };
-
-            lstRunden.CellEditEnding += (s, e) =>
-            {
-                if (e.EditAction == DataGridEditAction.Commit) _model.HasChanges = true;
-            };
         }
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -67,17 +42,6 @@ namespace RunTrack.View.Datenuebersicht
         {
             txtSearch.ForegroundBrush = new SolidColorBrush(Colors.Blue);
             txtSearch.Foreground = new SolidColorBrush(Colors.Blue);
-        }
-
-        private void DateTimePicker_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            DateTimePicker dateTimePicker = sender as DateTimePicker;
-
-            if (dateTimePicker != null)
-            {
-                _model.HasChanges = true;
-                _model.SelRunde.Zeitstempel = (DateTime)dateTimePicker.SelectedDateTime;
-            }
         }
     }
 }
