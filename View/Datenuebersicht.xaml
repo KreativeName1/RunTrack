@@ -27,14 +27,14 @@
 			</Grid.RowDefinitions>
 
 			<Border BorderThickness="2" BorderBrush="DarkGray" CornerRadius="5" Margin="5">
-				<Grid>
+				<Grid Cursor="">
 			<StackPanel Orientation="Vertical" Margin="10,0,10,0">
-				<fc:ButtonPlus x:Name="btnStartseite" BackgroundOnDisabled="#3481B8" ForegroundOnDisabled="#F4F8F4" Cursor="Hand" Content="Startseite" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5,30,5,30" IsEnabled="False"/>
-				<fc:ButtonPlus x:Name="btnSchule" BackgroundOnDisabled="#3481B8" ForegroundOnDisabled="#F4F8F4" Cursor="Hand" Content="Schulen" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5"/>
-				<fc:ButtonPlus x:Name="btnKlassen" BackgroundOnDisabled="#3481B8" ForegroundOnDisabled="#F4F8F4" Cursor="Hand" Content="Klassen" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" />
-				<fc:ButtonPlus x:Name="btnSchueler" BackgroundOnDisabled="#3481B8" ForegroundOnDisabled="#F4F8F4" Cursor="Hand" Content="Schüler" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" />
-				<fc:ButtonPlus x:Name="btnRunden" BackgroundOnDisabled="#3481B8" ForegroundOnDisabled="#F4F8F4" Cursor="Hand" Content="Runden" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" />
-				<fc:ButtonPlus x:Name="btnLaeufer" BackgroundOnDisabled="#3481B8" ForegroundOnDisabled="#F4F8F4" Cursor="Hand" Content="Weitere Läufer" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" />
+				<fc:ButtonPlus x:Name="btnStartseite" Cursor="Hand" Content="Startseite" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5,30,5,30" IsEnabled="False"/>
+				<fc:ButtonPlus x:Name="btnSchule" Cursor="Hand" Content="Schulen" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5"/>
+				<fc:ButtonPlus x:Name="btnKlassen" Cursor="Hand" Content="Klassen" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" />
+				<fc:ButtonPlus x:Name="btnSchueler" Cursor="Hand" Content="Schüler" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" />
+				<fc:ButtonPlus x:Name="btnRunden" Cursor="Hand" Content="Runden" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" />
+				<fc:ButtonPlus x:Name="btnLaeufer" Cursor="Hand" Content="Weitere Läufer" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" />
 			</StackPanel>
 			<StackPanel Orientation="Vertical" VerticalAlignment="Bottom" Margin="0,0,0,20" Grid.Column="0" Grid.Row="1" Grid.RowSpan="2">
 				<fc:ButtonPlus x:Name="btnSchliessen" Cursor="Hand" Content="Schließen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center"/>
