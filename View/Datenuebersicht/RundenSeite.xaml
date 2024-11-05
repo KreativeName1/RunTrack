@@ -62,10 +62,28 @@
 
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding Id}" />
-                        <DataGridTextColumn Width="8*" Header="Laufnr." Binding="{Binding Laeufer.Id}"/>
+                        <DataGridTextColumn Width="10*" Header="Laufnr." Binding="{Binding Laeufer.Id}"/>
                         <DataGridTextColumn Width="22*" Header="Vorname" Binding="{Binding Laeufer.Vorname}"/>
                         <DataGridTextColumn Width="22*" Header="Nachname" Binding="{Binding Laeufer.Nachname}"/>
-                        <DataGridTextColumn Width="30*" Header="Zeitstempel" Binding="{Binding Zeitstempel, StringFormat=\{0:dd\.MM\.yy HH\:mm\:ss\.ffff\}}"/>
+                        <DataGridTextColumn Width="30*" Header="Zeitstempel"
+                    Binding="{Binding Zeitstempel, StringFormat=\{0:dd\.MM\.yy - HH\:mm\:ss\}}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="ToolTip">
+                                        <Setter.Value>
+                                            <ToolTip>
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding Zeitstempel, StringFormat='Datum:  {0:dd.MM.yyyy}'}" FontWeight="Bold"/>
+                                                    <TextBlock Text="{Binding Zeitstempel, StringFormat='Uhrzeit: {0:HH:mm:ss.ff}'}" FontWeight="Bold"/>
+                                                </StackPanel>
+                                            </ToolTip>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
 
                         <DataGridTextColumn Width="18*" Header="Rundenart"
                                             Binding="{Binding Path=., Converter={StaticResource RundenArtConverter}}"
