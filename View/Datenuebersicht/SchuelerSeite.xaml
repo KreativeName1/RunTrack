@@ -38,9 +38,9 @@
 					</DataGrid.RowStyle>
 					<DataGrid.Columns>
                         <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding Id}" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="25*" Header="Vorname" Binding="{Binding Vorname}"/>
-						<DataGridTextColumn Width="25*" Header="Nachname" Binding="{Binding Nachname}"/>
-						<DataGridComboBoxColumn Width="15*" Header="Geschlecht" SelectedItemBinding="{Binding Geschlecht}">
+                        <DataGridTextColumn Width="15*" Header="Vorname" Binding="{Binding Vorname}"/>
+						<DataGridTextColumn Width="15*" Header="Nachname" Binding="{Binding Nachname}"/>
+						<DataGridComboBoxColumn Width="10*" Header="Geschlecht" SelectedItemBinding="{Binding Geschlecht}">
 							<DataGridComboBoxColumn.ItemsSource>
 								<x:Array Type="{x:Type local:Geschlecht}">
 									<x:Static Member="local:Geschlecht.Maennlich"/>
@@ -49,7 +49,7 @@
 							</DataGridComboBoxColumn.ItemsSource>
 						</DataGridComboBoxColumn>
 						<DataGridTextColumn Header="Jahrgang" Binding="{Binding Geburtsjahrgang}"/>
-						<DataGridTemplateColumn Header="Klasse" Width="15*">
+						<DataGridTemplateColumn Header="Klasse" Width="10*">
 							<DataGridTemplateColumn.CellTemplate>
 								<DataTemplate>
 									<ComboBox x:Name="cbKlasse" ItemsSource="{Binding DataContext.LstKlasse, RelativeSource={RelativeSource AncestorType=DataGrid}}"
@@ -58,7 +58,7 @@
 								</DataTemplate>
 							</DataGridTemplateColumn.CellTemplate>
 						</DataGridTemplateColumn>
-						<DataGridTextColumn Header="Schule" Width="15*" IsReadOnly="True" Binding="{Binding Klasse.Schule}" />
+						<DataGridTextColumn Header="Schule" Width="18*" IsReadOnly="True" Binding="{Binding Klasse.Schule}" />
 					</DataGrid.Columns>
                 </DataGrid>
             </Grid>
