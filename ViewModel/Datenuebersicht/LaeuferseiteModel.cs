@@ -11,6 +11,8 @@ namespace RunTrack
         private Laeufer _selLaeufer { get; set; }
         private RundenArt _selRundenArt { get; set; }
         private bool _hasChanges { get; set; }
+        private bool _isLoading { get; set; }
+
 
         public ObservableCollection<Laeufer> LstLaeufer
         {
@@ -72,7 +74,15 @@ namespace RunTrack
                 ((DatenuebersichtModel)App.Current.Resources["dumodel"]).HasChanges = value;
             }
         }
-
+        public bool IsLoading
+        {
+            get { return _isLoading; }
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged("IsLoading");
+            }
+        }
         public void SaveChanges()
         {
             var added = LstLaeufer.ToList().Except(Db.Laeufer.AsEnumerable()).ToList();
@@ -110,11 +120,13 @@ namespace RunTrack
 
         public LaeuferseiteModel()
         {
+            IsLoading = true;
             Task.Run(() =>
             {
                 _db = new();
                 LstLaeufer = new(_db.Laeufer.Where(x => x.RundenArt != null));
                 LstRundenart = new(_db.RundenArten);
+                IsLoading = false;
             });
         }
     }

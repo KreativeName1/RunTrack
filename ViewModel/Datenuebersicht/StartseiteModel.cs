@@ -8,6 +8,8 @@ namespace RunTrack
         private LaufDBContext? _db;
         private ObservableCollection<Schueler> _lstSchueler { get; set; }
         private Schueler? _selSchueler;
+        private bool _isLoading { get; set; }
+
 
         public LaufDBContext Db
         {
@@ -38,6 +40,15 @@ namespace RunTrack
                 OnPropertyChanged("SelSchueler");
             }
         }
+        public bool IsLoading
+        {
+            get { return _isLoading; }
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged("IsLoading");
+            }
+        }
 
         public StartseiteModel()
         {
@@ -46,15 +57,17 @@ namespace RunTrack
 
         public void LoadData()
         {
+            IsLoading = true;
             Task.Run(() =>
             {
-            _db = new();
-            LstSchueler = new(_db.Schueler
-                .Include(s => s.Klasse)
-                .ThenInclude(k => k.Schule)
-                .Include(s => s.Klasse)
-                .ThenInclude(k => k.RundenArt)
-                .ToList());
+                _db = new();
+                LstSchueler = new(_db.Schueler
+                    .Include(s => s.Klasse)
+                    .ThenInclude(k => k.Schule)
+                    .Include(s => s.Klasse)
+                    .ThenInclude(k => k.RundenArt)
+                    .ToList());
+                IsLoading = false;
             });
         }
     }

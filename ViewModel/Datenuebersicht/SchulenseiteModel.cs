@@ -9,6 +9,8 @@ namespace RunTrack
         private ObservableCollection<Schule> _lstSchule { get; set; }
         private Schule _selSchule { get; set; }
         private bool _hasChanges { get; set; }
+        private bool _isLoading { get; set; }
+
 
         public ObservableCollection<Schule> LstSchule
         {
@@ -50,7 +52,15 @@ namespace RunTrack
             }
         }
 
-
+        public bool IsLoading
+        {
+            get { return _isLoading; }
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged("IsLoading");
+            }
+        }
         public SchulenseiteModel()
         {
             LoadData();
@@ -92,10 +102,12 @@ namespace RunTrack
 
         public void LoadData()
         {
+            IsLoading = true;
             Task.Run(() =>
             {
                 _db = new();
                 LstSchule = new(_db.Schulen);
+                IsLoading = false;
             });
         }
     }

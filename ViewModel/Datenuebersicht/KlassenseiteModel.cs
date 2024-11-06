@@ -11,6 +11,8 @@ namespace RunTrack
         private ObservableCollection<RundenArt> _lstRundenart { get; set; }
         private Klasse _selKlasse { get; set; }
         private bool _hasChanges { get; set; }
+        private bool _isLoading { get; set; }
+
 
         public ObservableCollection<Klasse> LstKlasse
         {
@@ -64,7 +66,15 @@ namespace RunTrack
             }
         }
 
-
+        public bool IsLoading
+        {
+            get { return _isLoading; }
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged("IsLoading");
+            }
+        }
 
         public LaufDBContext Db
         {
@@ -121,13 +131,14 @@ namespace RunTrack
 
         public void LoadData()
         {
-
+            IsLoading = true;
             Task.Run(() =>
             {
                 _db = new();
                 LstSchule = new(_db.Schulen.ToList());
                 LstKlasse = new(_db.Klassen.Include(k => k.Schueler).ToList());
                 LstRundenart = new(_db.RundenArten.ToList());
+                IsLoading = false;
             });
         }
     }

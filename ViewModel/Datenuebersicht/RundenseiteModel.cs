@@ -9,6 +9,7 @@ namespace RunTrack
         private ObservableCollection<Runde> _lstRunde { get; set; }
         private Runde _selRunde { get; set; }
         private bool _hasChanges { get; set; }
+        private bool _isLoading { get; set; }
 
         public Runde SelRunde
         {
@@ -42,7 +43,15 @@ namespace RunTrack
             }
         }
 
-
+        public bool IsLoading
+        {
+            get { return _isLoading; }
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged("IsLoading");
+            }
+        }
 
         public LaufDBContext Db
         {
@@ -96,10 +105,12 @@ namespace RunTrack
 
         public void LoadData()
         {
+            IsLoading = true;
             Task.Run(() =>
             {
                 _db = new();
                 LstRunde = new(_db.Runden.Include(x => x.Laeufer).ToList());
+                IsLoading = false;
             });
         }
     }

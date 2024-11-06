@@ -16,6 +16,7 @@
     <None Remove="Images\iconRunMan.ico" />
     <None Remove="Images\iconRunMan.png" />
     <None Remove="Images\Lizenz.svg" />
+    <None Remove="Images\loading.gif" />
     <None Remove="Images\Logo.png" />
     <None Remove="Images\logout.png" />
     <None Remove="Images\output.png" />
@@ -41,6 +42,7 @@
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="EntityFramework" Version="6.5.1" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
+    <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
     <PackageReference Include="FullControls" Version="2.2.0" />
     <PackageReference Include="itext" Version="8.0.4" />
     <PackageReference Include="itext.bouncy-castle-adapter" Version="8.0.4" />
