@@ -15,6 +15,7 @@
     <None Remove="Images\credits.png" />
     <None Remove="Images\iconRunMan.ico" />
     <None Remove="Images\iconRunMan.png" />
+    <None Remove="Images\Lizenz.svg" />
     <None Remove="Images\Logo.png" />
     <None Remove="Images\logout.png" />
     <None Remove="Images\output.png" />
@@ -48,6 +49,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.20" />
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2592.51" />
     <PackageReference Include="RelayCommand" Version="1.0.2" />
+    <PackageReference Include="SharpVectors" Version="1.8.4.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -67,6 +69,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\iconRunMan.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Lizenz.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\Logo.png">
@@ -114,6 +119,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Images\RunTrack_Logo_Farbe.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
     <None Update="LICENSE">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
