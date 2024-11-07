@@ -25,7 +25,7 @@
         <!--Schüler-->
         <GroupBox x:Name="SchuelerGrid" Header="Schüler">
 			<Grid>
-				<DataGrid x:Name="lstSchueler" ItemsSource="{Binding LstSchueler}" SelectedItem="{Binding SelSchueler}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="False">
+                <DataGrid x:Name="lstSchueler" ItemsSource="{Binding CollectionView}" SelectedItem="{Binding SelSchueler}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="False">
                     <DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="FontWeight" Value="Bold"/>
@@ -55,7 +55,7 @@
 						<DataGridTemplateColumn Header="Klasse" Width="10*">
 							<DataGridTemplateColumn.CellTemplate>
 								<DataTemplate>
-									<ComboBox x:Name="cbKlasse" ItemsSource="{Binding DataContext.LstKlasse, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+									<ComboBox x:Name="cbKlasse" DropDownOpened="cbKlasse_DropDownOpened" DropDownClosed="cbKlasse_DropDownClosed" ItemsSource="{Binding DataContext.LstKlasse, RelativeSource={RelativeSource AncestorType=DataGrid}}"
 											  SelectionChanged="cbKlasse_SelectionChanged"
                                         SelectedItem="{Binding Klasse, Mode=TwoWay}"/>
 								</DataTemplate>
@@ -83,7 +83,7 @@
                 <Border Background="#CFD3CD" Height="40" CornerRadius="6">
                     <Canvas Width="230" Height="40">
                         <fc:ButtonPlus x:Name="tbLabel" ForegroundOnDisabled="Black" BorderBrush="#FF868686" Background="#879bbe" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" Height="30" Width="50" CornerRadius="5.5,0,0,5.5" HorizontalContentAlignment="Center" IsEnabled="False" Content="Search" Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="5" Canvas.Left="5"/>
-                        <fc:TextBoxPlus x:Name="txtSearch" ForegroundBrushOnSelected="Blue" UnderlineBrushOnSelected="#28713E" Foreground="Blue" Width="100" Height="30" CornerRadius="0,5.5,5.5,0" TextChanged="SearchTextBox_TextChanged" HorizontalAlignment="Left" Canvas.Left="55" VerticalAlignment="Center" Canvas.Top="5" LostFocus="txtSearch_LostFocus"/>
+                        <fc:TextBoxPlus x:Name="txtSearch" ForegroundBrushOnSelected="Blue" UnderlineBrushOnSelected="#28713E" Foreground="Blue" Width="100" Height="30" CornerRadius="0,5.5,5.5,0" Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Canvas.Left="55" VerticalAlignment="Center" Canvas.Top="5" LostFocus="txtSearch_LostFocus"/>
                         <fc:ButtonPlus x:Name="btnUp" BorderBrush="#FF868686" Background="#879bbe" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" Width="30" Height="30" CornerRadius="5.5,0,0,5.5" Content="▲" HorizontalContentAlignment="Center" Cursor="Hand" Click="btnUp_Click" HorizontalAlignment="Left" Canvas.Left="165" VerticalAlignment="Center" Canvas.Top="5" />
                         <fc:ButtonPlus x:Name="btnDown" BorderBrush="#FF868686" Background="#879bbe" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" Width="30" Height="30"  CornerRadius="0,5.5,5.5,0" Content="▼" HorizontalContentAlignment="Center" Cursor="Hand" Click="btnDown_Click" HorizontalAlignment="Left" Canvas.Left="195" VerticalAlignment="Center" Canvas.Top="5" Canvas.Right="5"/>
                     </Canvas>

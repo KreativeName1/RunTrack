@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -10,6 +11,7 @@ namespace RunTrack
     public partial class SchuelerSeite : Page
     {
         private SchuelerseiteModel _model;
+        private bool _isUserInteraction = false;
 
         public SchuelerSeite()
         {
@@ -42,6 +44,7 @@ namespace RunTrack
             {
                 if (e.EditAction == DataGridEditAction.Commit) _model.HasChanges = true;
             };
+
         }
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -72,8 +75,14 @@ namespace RunTrack
         private void cbKlasse_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (_model.SelSchueler == null) return;
+
+            if (_isUserInteraction)
+            {
+                _model.HasChanges = true;
+                _isUserInteraction = false;
+            }
+
             ComboBox cbKlasse = sender as ComboBox;
-            _model.HasChanges = true;
             Klasse klasse = cbKlasse.SelectedItem as Klasse;
 
             if (klasse != null)
@@ -82,6 +91,16 @@ namespace RunTrack
                 _model.SelSchueler.KlasseId = klasse.Id;
             }
 
+        }
+
+        private void cbKlasse_DropDownOpened(object sender, EventArgs e)
+        {
+            _isUserInteraction = true;
+        }
+
+        private void cbKlasse_DropDownClosed(object sender, EventArgs e)
+        {
+            _isUserInteraction = false;
         }
     }
 }

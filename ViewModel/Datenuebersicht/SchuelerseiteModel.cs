@@ -1,17 +1,46 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows.Data;
 
 namespace RunTrack
 {
     public class SchuelerseiteModel : BaseModel
     {
         private LaufDBContext? _db;
+        private ICollectionView? _collectionView { get; set; }
         private ObservableCollection<Schueler> _lstSchueler { get; set; }
         private ObservableCollection<Schule> _lstSchule { get; set; }
         private ObservableCollection<Klasse> _lstKlasse { get; set; }
         private Schueler _selSchueler { get; set; }
         private bool _hasChanges { get; set; }
         private bool _isLoading { get; set; }
+        private string _searchTerm { get; set; }
+
+        public string SearchTerm
+        {
+            get { return _searchTerm; }
+            set
+            {
+                if (_searchTerm != value)
+                {
+                    _searchTerm = value;
+                    OnPropertyChanged("SearchTerm");
+                    CollectionView?.Refresh();
+                }
+            }
+        }
+
+        public ICollectionView CollectionView
+        {
+            get { return _collectionView; }
+            set
+            {
+                _collectionView = value;
+                OnPropertyChanged("CollectionView");
+            }
+        }
+
 
         public ObservableCollection<Schueler> LstSchueler
         {
@@ -85,6 +114,22 @@ namespace RunTrack
             }
         }
 
+        private bool FilterItems(object item)
+        {
+            if (item is Schueler schueler)
+            {
+                if (string.IsNullOrEmpty(SearchTerm)) return true;
+                if (schueler.Id.ToString().Contains(SearchTerm)) return true;
+                if (schueler.Vorname.ToLower().Contains(SearchTerm.ToLower())) return true;
+                if (schueler.Nachname.ToLower().Contains(SearchTerm.ToLower())) return true;
+                if (schueler.Geburtsjahrgang.ToString().Contains(SearchTerm)) return true;
+                if (schueler.Geschlecht.ToString().ToLower().Contains(SearchTerm.ToLower())) return true;
+                if (schueler.Klasse.Name.ToLower().Contains(SearchTerm.ToLower())) return true;
+                if (schueler.Klasse.Schule.Name.ToLower().Contains(SearchTerm.ToLower())) return true;
+            }
+            return false;
+        }
+
 
         public SchuelerseiteModel()
         {
@@ -136,6 +181,9 @@ namespace RunTrack
                 LstSchule = new(_db.Schulen.ToList());
                 LstKlasse = new(_db.Klassen.ToList());
                 IsLoading = false;
+                CollectionView = CollectionViewSource.GetDefaultView(LstSchueler);
+                CollectionView.Filter = FilterItems;
+
             });
         }
     }
