@@ -11,7 +11,8 @@ namespace RunTrack.View.Datenuebersicht
     {
         private KlassenseiteModel _model;
         private MainModel _mmodel;
-
+        private bool _isUserInteractionSchule = false;
+        private bool _isUserInteractionRundenart = false;
         public KlassenSeite()
         {
             InitializeComponent();
@@ -28,12 +29,14 @@ namespace RunTrack.View.Datenuebersicht
                 _model.LstKlasse.Add(new Klasse());
                 _model.HasChanges = true;
             };
-            btnSpeichern.Click += (s, e) => {
+            btnSpeichern.Click += (s, e) =>
+            {
                 try
                 {
                     _model.SaveChanges();
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     new Popup().Display("Fehler beim Speichern", ex.Message, PopupType.Error, PopupButtons.Ok);
                 }
             };
@@ -55,11 +58,6 @@ namespace RunTrack.View.Datenuebersicht
             };
         }
 
-        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            UebersichtMethoden.SearchDataGrid(lstKlasse, txtSearch.Text);
-        }
-
         private void btnUp_Click(object sender, RoutedEventArgs e)
         {
             UebersichtMethoden.SelectSearchedRow(lstKlasse, false, txtSearch.Text);
@@ -77,9 +75,12 @@ namespace RunTrack.View.Datenuebersicht
         }
         private void cbSchule_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_model.SelKlasse == null) return;
+            if (_isUserInteractionSchule)
+            {
+                _model.HasChanges = true;
+                _isUserInteractionSchule = false;
+            }
             ComboBox cbSchule = sender as ComboBox;
-            _model.HasChanges = true;
             Schule schule = cbSchule.SelectedItem as Schule;
 
             if (schule != null)
@@ -92,8 +93,13 @@ namespace RunTrack.View.Datenuebersicht
         private void cbRundenArt_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (_model.SelKlasse == null) return;
+
+            if (_isUserInteractionRundenart)
+            {
+                _model.HasChanges = true;
+                _isUserInteractionRundenart = false;
+            }
             ComboBox cbRundenArt = sender as ComboBox;
-            _model.HasChanges = true;
             RundenArt rundenArt = cbRundenArt.SelectedItem as RundenArt;
 
             if (rundenArt != null)
@@ -101,6 +107,26 @@ namespace RunTrack.View.Datenuebersicht
                 _model.SelKlasse.RundenArt = rundenArt;
                 _model.SelKlasse.RundenArtId = rundenArt.Id;
             }
+        }
+
+        private void cbKlasse_DropDownOpened(object sender, EventArgs e)
+        {
+            _isUserInteractionSchule = true;
+        }
+
+        private void cbKlasse_DropDownClosed(object sender, EventArgs e)
+        {
+            _isUserInteractionSchule = false;
+        }
+
+        private void cbKlasse_DropDownOpened1(object sender, EventArgs e)
+        {
+            _isUserInteractionRundenart = true;
+        }
+
+        private void cbKlasse_DropDownClosed1(object sender, EventArgs e)
+        {
+            _isUserInteractionRundenart = false;
         }
     }
 }

@@ -23,12 +23,7 @@
         <!--Schüler-->
         <GroupBox x:Name="LaeuferGrid" Header="Läufer">
             <Grid>
-                <DataGrid x:Name="lstLaeufer" ItemsSource="{Binding LstLaeufer}" SelectedItem="{Binding SelLaeufer}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="False">
-					<DataGrid.RowStyle>
-						<Style TargetType="DataGridRow">
-							<Setter Property="Visibility" Value="{Binding Visibility}" />
-						</Style>
-					</DataGrid.RowStyle>
+				<DataGrid x:Name="lstLaeufer" ItemsSource="{Binding LstLaeufer}" SelectedItem="{Binding SelLaeufer}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="False">
 					<DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="FontWeight" Value="Bold"/>

@@ -24,12 +24,7 @@
         <!--Schulen-->
         <GroupBox x:Name="SchuleGrid" Header="Schulen">
             <Grid>
-                <DataGrid x:Name="lstSchule" ItemsSource="{Binding LstSchule}" SelectedItem="{Binding SelSchule}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single">
-					<DataGrid.RowStyle>
-						<Style TargetType="DataGridRow">
-							<Setter Property="Visibility" Value="{Binding Visibility}" />
-						</Style>
-					</DataGrid.RowStyle>
+				<DataGrid x:Name="lstSchule" ItemsSource="{Binding LstSchule}" SelectedItem="{Binding SelSchule}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single">
 					<DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="FontWeight" Value="Bold"/>

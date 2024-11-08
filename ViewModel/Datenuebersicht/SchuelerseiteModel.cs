@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Data;
 
 namespace RunTrack
@@ -176,13 +177,24 @@ namespace RunTrack
             IsLoading = true;
             Task.Run(() =>
             {
-                _db = new();
-                LstSchueler = new(_db.Schueler.Include(s => s.Klasse).ThenInclude(k => k.Schule).Include(s => s.Runden).ToList());
-                LstSchule = new(_db.Schulen.ToList());
-                LstKlasse = new(_db.Klassen.ToList());
-                IsLoading = false;
-                CollectionView = CollectionViewSource.GetDefaultView(LstSchueler);
-                CollectionView.Filter = FilterItems;
+                try
+                {
+                    _db = new();
+                    LstSchueler = new(_db.Schueler.Include(s => s.Klasse).ThenInclude(k => k.Schule).Include(s => s.Runden).ToList());
+                    LstSchule = new(_db.Schulen.ToList());
+                    LstKlasse = new(_db.Klassen.ToList());
+                    IsLoading = false;
+                    CollectionView = CollectionViewSource.GetDefaultView(LstSchueler);
+                    CollectionView.Filter = FilterItems;
+                }
+                catch (Exception ex)
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        new Popup().Display("Fehler beim Laden", "Ein Fehler ist beim Laden der Daten aufgetreten.", PopupType.Error, PopupButtons.Ok);
+                    });
+                    IsLoading = false;
+                }
 
             });
         }

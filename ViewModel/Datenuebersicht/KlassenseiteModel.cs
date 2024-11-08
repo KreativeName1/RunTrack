@@ -1,18 +1,45 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows.Data;
 
 namespace RunTrack
 {
     public class KlassenseiteModel : BaseModel
     {
         private LaufDBContext? _db;
+        private ICollectionView? _collectionView { get; set; }
         private ObservableCollection<Klasse> _lstKlasse { get; set; }
         private ObservableCollection<Schule> _lstSchule { get; set; }
         private ObservableCollection<RundenArt> _lstRundenart { get; set; }
         private Klasse _selKlasse { get; set; }
         private bool _hasChanges { get; set; }
         private bool _isLoading { get; set; }
+        private string _searchTerm { get; set; }
 
+        public string SearchTerm
+        {
+            get { return _searchTerm; }
+            set
+            {
+                if (_searchTerm != value)
+                {
+                    _searchTerm = value;
+                    OnPropertyChanged("SearchTerm");
+                    CollectionView?.Refresh();
+                }
+            }
+        }
+
+        public ICollectionView CollectionView
+        {
+            get { return _collectionView; }
+            set
+            {
+                _collectionView = value;
+                OnPropertyChanged("CollectionView");
+            }
+        }
 
         public ObservableCollection<Klasse> LstKlasse
         {
@@ -86,7 +113,18 @@ namespace RunTrack
             }
         }
 
-
+        private bool FilterItems(object item)
+        {
+            if (item is Klasse klasse)
+            {
+                if (string.IsNullOrEmpty(SearchTerm)) return true;
+                if (klasse.Id.ToString().Contains(SearchTerm)) return true;
+                if (klasse.Name.ToLower().Contains(SearchTerm.ToLower())) return true;
+                if (klasse.Schule.Name.ToLower().Contains(SearchTerm.ToLower())) return true;
+                if (klasse.RundenArt.ToString().ToLower().Contains(SearchTerm)) return true;
+            }
+            return false;
+        }
         public KlassenseiteModel()
         {
             LoadData();
@@ -139,6 +177,8 @@ namespace RunTrack
                 LstKlasse = new(_db.Klassen.Include(k => k.Schueler).ToList());
                 LstRundenart = new(_db.RundenArten.ToList());
                 IsLoading = false;
+                CollectionView = CollectionViewSource.GetDefaultView(LstKlasse);
+                CollectionView.Filter = FilterItems;
             });
         }
     }

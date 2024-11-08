@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -28,9 +27,11 @@ namespace RunTrack
                 _model.LstSchueler.Add(new Schueler());
                 _model.HasChanges = true;
             };
-            btnSpeichern.Click += (s, e) => {
+            btnSpeichern.Click += (s, e) =>
+            {
                 try { _model.SaveChanges(); }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     new Popup().Display("Fehler beim Speichern", ex.Message, PopupType.Error, PopupButtons.Ok);
                 }
             };
@@ -45,11 +46,6 @@ namespace RunTrack
                 if (e.EditAction == DataGridEditAction.Commit) _model.HasChanges = true;
             };
 
-        }
-
-        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            UebersichtMethoden.SearchDataGrid(lstSchueler, txtSearch.Text);
         }
 
         private void btnUp_Click(object sender, RoutedEventArgs e)
@@ -90,7 +86,6 @@ namespace RunTrack
                 _model.SelSchueler.Klasse = klasse;
                 _model.SelSchueler.KlasseId = klasse.Id;
             }
-
         }
 
         private void cbKlasse_DropDownOpened(object sender, EventArgs e)
