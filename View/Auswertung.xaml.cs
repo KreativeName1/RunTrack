@@ -206,7 +206,7 @@ namespace RunTrack
                 else if (_amodel.IsLaeufer)
                 {
                     _amodel.Liste = new();
-                    foreach (Laeufer laeufer in db.Laeufer.Where(l => l.RundenArt != null).Include(l => l.Runden).Include(l => l.RundenArt))
+                    foreach (Laeufer laeufer in db.Laeufer.Where(l => l.RundenArt != null && l.Runden.Count > 1).Include(l => l.Runden).Include(l => l.RundenArt))
                     {
                         string geschlecht = GetGeschlecht(laeufer);
                         string bewertung = GetBewertung(laeufer);
