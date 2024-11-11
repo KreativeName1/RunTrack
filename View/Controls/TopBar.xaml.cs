@@ -21,6 +21,7 @@ namespace RunTrack
 
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            _pmodel.Benutzer = null;
             _pmodel?.Navigate(new MainWindow());
 
         }

@@ -104,6 +104,27 @@ namespace RunTrack
 
                 if (laufName != null && input.Result) _pmodel.Navigate(new PDFEditor(urkunden));
             };
+
+            btnCSV.Click += (s, e) =>
+            {
+                SaveFileDialog saveFileDialog = new() { Filter = "files (*.csv)|*.csv", FileName = "Auswertung.csv" };
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    using (var writer = new System.IO.StreamWriter(saveFileDialog.FileName))
+                    {
+                        writer.WriteLine("Name;Schule;Klasse;Bewertung;Geschlecht");
+                        foreach (object item in Daten.SelectedItems)
+                        {
+                            string name = item.GetType().GetProperty("Name")?.GetValue(item, null).ToString();
+                            string schule = item.GetType().GetProperty("Schule")?.GetValue(item, null).ToString();
+                            string klasse = item.GetType().GetProperty("Klasse")?.GetValue(item, null).ToString();
+                            string bewertung = item.GetType().GetProperty("Bewertung")?.GetValue(item, null).ToString();
+                            string geschlecht = item.GetType().GetProperty("Geschlecht")?.GetValue(item, null).ToString();
+                            writer.WriteLine($"{name};{schule};{klasse};{bewertung};{geschlecht}");
+                        }
+                    }
+                }
+            };
         }
 
         public void LoadData()

@@ -21,6 +21,7 @@ namespace RunTrack
         {
             get
             {
+                if (string.IsNullOrEmpty(Vorname) && string.IsNullOrEmpty(Nachname)) return "";
                 return $"{Vorname}, {Nachname}";
             }
         }

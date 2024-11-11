@@ -22,7 +22,7 @@ namespace RunTrack
 
         private Benutzer? _benutzer;
 
-        public Benutzer Benutzer
+        public Benutzer? Benutzer
         {
             get
             {
