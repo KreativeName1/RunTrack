@@ -1,18 +1,45 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows.Data;
 
 namespace RunTrack
 {
     public class LaeuferseiteModel : BaseModel
     {
         private LaufDBContext? _db;
+        private ICollectionView? _collectionView { get; set; }
         private ObservableCollection<Laeufer> _lstLaeufer { get; set; }
         private ObservableCollection<RundenArt> _lstRundenart { get; set; }
         private Laeufer _selLaeufer { get; set; }
         private RundenArt _selRundenArt { get; set; }
         private bool _hasChanges { get; set; }
         private bool _isLoading { get; set; }
+        private string _searchTerm { get; set; }
 
+        public string SearchTerm
+        {
+            get { return _searchTerm; }
+            set
+            {
+                if (_searchTerm != value)
+                {
+                    _searchTerm = value;
+                    OnPropertyChanged("SearchTerm");
+                    CollectionView?.Refresh();
+                }
+            }
+        }
+
+        public ICollectionView CollectionView
+        {
+            get { return _collectionView; }
+            set
+            {
+                _collectionView = value;
+                OnPropertyChanged("CollectionView");
+            }
+        }
 
         public ObservableCollection<Laeufer> LstLaeufer
         {
@@ -111,6 +138,26 @@ namespace RunTrack
             HasChanges = false;
         }
 
+
+        private bool FilterItems(object item)
+        {
+            if (item is Laeufer laeufer)
+            {
+                if (string.IsNullOrEmpty(SearchTerm)) return true;
+                if (laeufer.Id.ToString().Contains(SearchTerm)) return true;
+                if (laeufer.Vorname.ToLower().Contains(SearchTerm.ToLower())) return true;
+                if (laeufer.Nachname.ToLower().Contains(SearchTerm.ToLower())) return true;
+                if (laeufer.Geburtsjahrgang.ToString().Contains(SearchTerm)) return true;
+                if (laeufer.Geschlecht.ToString().ToLower().Contains(SearchTerm.ToLower())) return true;
+                if (laeufer.RundenArt.Name.ToLower().Contains(SearchTerm.ToLower())) return true;
+            }
+            return false;
+        }
+        public LaeuferseiteModel()
+        {
+            LoadData();
+        }
+
         public void Validate(Laeufer laeufer)
         {
             if (laeufer.RundenArt == null || laeufer.RundenArtId == 0) throw new ValidationException("Rundenart darf nicht leer sein");
@@ -118,7 +165,7 @@ namespace RunTrack
             if (string.IsNullOrWhiteSpace(laeufer.Vorname) || string.IsNullOrWhiteSpace(laeufer.Nachname) || laeufer.Geburtsjahrgang == 0) throw new ValidationException("Alle Felder müssen ausgefüllt werden");
         }
 
-        public LaeuferseiteModel()
+        public void LoadData()
         {
             IsLoading = true;
             Task.Run(() =>
@@ -126,6 +173,8 @@ namespace RunTrack
                 _db = new();
                 LstLaeufer = new(_db.Laeufer.Where(x => x.RundenArt != null));
                 LstRundenart = new(_db.RundenArten);
+                CollectionView = CollectionViewSource.GetDefaultView(LstLaeufer);
+                CollectionView.Filter = FilterItems;
                 IsLoading = false;
             });
         }

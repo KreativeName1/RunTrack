@@ -23,19 +23,14 @@ namespace RunTrack.View.Datenuebersicht
             };
         }
 
-        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            UebersichtMethoden.SearchDataGrid(lstRunden, txtSearch.Text);
-        }
-
         private void btnUp_Click(object sender, RoutedEventArgs e)
         {
-            UebersichtMethoden.SelectSearchedRow(lstRunden, false, txtSearch.Text);
+            UebersichtMethoden.SelectSearchedRow(lstRunden, false);
         }
 
         private void btnDown_Click(object sender, RoutedEventArgs e)
         {
-            UebersichtMethoden.SelectSearchedRow(lstRunden, true, txtSearch.Text);
+            UebersichtMethoden.SelectSearchedRow(lstRunden, true);
         }
 
         private void txtSearch_LostFocus(object sender, RoutedEventArgs e)

@@ -60,12 +60,12 @@ namespace RunTrack.View.Datenuebersicht
 
         private void btnUp_Click(object sender, RoutedEventArgs e)
         {
-            UebersichtMethoden.SelectSearchedRow(lstKlasse, false, txtSearch.Text);
+            UebersichtMethoden.SelectSearchedRow(lstKlasse, false);
         }
 
         private void btnDown_Click(object sender, RoutedEventArgs e)
         {
-            UebersichtMethoden.SelectSearchedRow(lstKlasse, true, txtSearch.Text);
+            UebersichtMethoden.SelectSearchedRow(lstKlasse, true);
         }
 
         private void txtSearch_LostFocus(object sender, RoutedEventArgs e)

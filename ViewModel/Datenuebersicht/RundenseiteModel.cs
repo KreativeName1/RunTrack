@@ -1,15 +1,43 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows.Data;
 
 namespace RunTrack
 {
     public class RundenseiteModel : BaseModel
     {
         private LaufDBContext? _db;
+        private ICollectionView? _collectionView { get; set; }
         private ObservableCollection<Runde> _lstRunde { get; set; }
         private Runde _selRunde { get; set; }
         private bool _hasChanges { get; set; }
         private bool _isLoading { get; set; }
+        private string _searchTerm { get; set; }
+
+        public string SearchTerm
+        {
+            get { return _searchTerm; }
+            set
+            {
+                if (_searchTerm != value)
+                {
+                    _searchTerm = value;
+                    OnPropertyChanged("SearchTerm");
+                    CollectionView?.Refresh();
+                }
+            }
+        }
+
+        public ICollectionView CollectionView
+        {
+            get { return _collectionView; }
+            set
+            {
+                _collectionView = value;
+                OnPropertyChanged("CollectionView");
+            }
+        }
 
         public Runde SelRunde
         {
@@ -63,44 +91,30 @@ namespace RunTrack
             }
         }
 
+        private bool FilterItems(object item)
+        {
+            if (item is Runde runde)
+            {
+                if (string.IsNullOrEmpty(SearchTerm)) return true;
+                if (runde.Id.ToString().Contains(SearchTerm)) return true;
+                if (runde.BenutzerName.ToLower().Contains(SearchTerm.ToLower())) return true;
+                if (runde.Laeufer.Vorname.ToLower().Contains(SearchTerm.ToLower())) return true;
+                if (runde.Laeufer.Nachname.ToLower().Contains(SearchTerm.ToLower())) return true;
+                //if (runde.Laeufer is Schueler schueler)
+                //{
+                //    if (schueler.Klasse != null && schueler.Klasse.RundenArt.Name.ToLower().Contains(SearchTerm.ToLower())) return true;
+                //}
+                //else if (runde.Laeufer is Laeufer laeufer)
+                //{
+                //    if (laeufer.RundenArt.Name.ToLower().Contains(SearchTerm.ToLower())) return true;
+                //}
+            }
+            return false;
+        }
 
         public RundenseiteModel()
         {
             LoadData();
-        }
-
-        public void SaveChanges()
-        {
-            var added = LstRunde.ToList().Except(Db.Runden.AsEnumerable()).ToList();
-            var removed = Db.Runden.AsEnumerable().Except(LstRunde.ToList()).ToList();
-            var modified = LstRunde.ToList().Intersect(Db.Runden.AsEnumerable()).ToList();
-
-            foreach (var item in added)
-            {
-                Db.Runden.Add(item);
-            }
-
-            foreach (var item in removed)
-            {
-                Db.Runden.Remove(item);
-            }
-
-            foreach (var item in modified)
-            {
-                Db.Entry(item).State = EntityState.Modified;
-            }
-
-            Db.SaveChanges();
-
-            HasChanges = false;
-        }
-
-        public void Validate(Runde item)
-        {
-            if (item.Laeufer == null || item.LaeuferId == 0) throw new ValidationException("Laeufer darf nicht leer sein");
-            if (item.Zeitstempel == null) throw new ValidationException("Zeitstempel darf nicht leer sein");
-            if (item.Zeitstempel > DateTime.Now) throw new ValidationException("Zeitstempel darf nicht in der Zukunft liegen");
-            if (string.IsNullOrWhiteSpace(item.BenutzerName)) throw new ValidationException("BenutzerName darf nicht leer sein");
         }
 
         public void LoadData()
@@ -110,6 +124,8 @@ namespace RunTrack
             {
                 _db = new();
                 LstRunde = new(_db.Runden.Include(x => x.Laeufer).ToList());
+                CollectionView = CollectionViewSource.GetDefaultView(LstRunde);
+                CollectionView.Filter = FilterItems;
                 IsLoading = false;
             });
         }

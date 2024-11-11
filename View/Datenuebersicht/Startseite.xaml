@@ -23,7 +23,7 @@
         </Grid.RowDefinitions>
         <GroupBox x:Name="StartseiteGrid" Header="Startseite" Grid.Column="1">
             <Grid>
-				<DataGrid x:Name="lstStartseite" ItemsSource="{Binding LstSchueler}" SelectedItem="{Binding SelSchueler}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="False">
+                <DataGrid x:Name="lstStartseite" ItemsSource="{Binding CollectionView}" SelectedItem="{Binding SelSchueler}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="False">
 					<DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="FontWeight" Value="Bold"/>
@@ -35,11 +35,11 @@
 					<DataGrid.Columns>
 						<DataGridTextColumn Width="10*" Header="Laufnr." Binding="{Binding Id}" IsReadOnly="True"/>
 						<DataGridTextColumn Width="15*" Header="Vorname" Binding="{Binding Vorname}" IsReadOnly="True"/>
-						<DataGridTextColumn Width="15*" Header="Nachname" Binding="{Binding Nachname}" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="15*" Header="Nachname" Binding="{Binding Nachname}" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="15*" Header="Geschlecht" Binding="{Binding Geschlecht}" IsReadOnly="True"/>
                         <DataGridTextColumn Width="15*" Header="Klasse" Binding="{Binding Klasse.Name}" IsReadOnly="True"/>
                         <DataGridTextColumn Width="25*" Header="Schule" Binding="{Binding Klasse.Schule.Name}" IsReadOnly="True"/>
-						<DataGridTextColumn Width="15*" Header="Runden" Binding="{Binding Klasse.RundenArt.Name}" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="10*" Header="Rundengröße" Binding="{Binding Klasse.RundenArt.LaengeInMeter, StringFormat={}{0} m}" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="15*" Header="Runden" Binding="{Binding Klasse.RundenArt.Name}" IsReadOnly="True"/>
                     </DataGrid.Columns>
                 </DataGrid>
 				<Border Visibility="{Binding IsLoading, Converter={StaticResource bvcon}}" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="10">
@@ -58,7 +58,7 @@
                 <Border Background="#CFD3CD" Height="40" CornerRadius="6">
                     <Canvas Width="230" Height="40">
                         <fc:ButtonPlus x:Name="tbLabel" ForegroundOnDisabled="Black" BorderBrush="#FF868686" Background="#879bbe" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" Height="30" Width="50" CornerRadius="5.5,0,0,5.5" HorizontalContentAlignment="Center" IsEnabled="False" Content="Search" Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="5" Canvas.Left="5"/>
-                        <fc:TextBoxPlus x:Name="txtSearch" ForegroundBrushOnSelected="Blue" UnderlineBrushOnSelected="#28713E" Foreground="Blue" Width="100" Height="30" CornerRadius="0,5.5,5.5,0" TextChanged="SearchTextBox_TextChanged" HorizontalAlignment="Left" Canvas.Left="55" VerticalAlignment="Center" Canvas.Top="5" LostFocus="txtSearch_LostFocus"/>
+                        <fc:TextBoxPlus x:Name="txtSearch" ForegroundBrushOnSelected="Blue" UnderlineBrushOnSelected="#28713E" Foreground="Blue" Width="100" Height="30" CornerRadius="0,5.5,5.5,0" Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Canvas.Left="55" VerticalAlignment="Center" Canvas.Top="5" LostFocus="txtSearch_LostFocus"/>
                         <fc:ButtonPlus x:Name="btnUp" BorderBrush="#FF868686" Background="#879bbe" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" Width="30" Height="30" CornerRadius="5.5,0,0,5.5" Content="▲" HorizontalContentAlignment="Center" Cursor="Hand" Click="btnUp_Click" HorizontalAlignment="Left" Canvas.Left="165" VerticalAlignment="Center" Canvas.Top="5" />
                         <fc:ButtonPlus x:Name="btnDown" BorderBrush="#FF868686" Background="#879bbe" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" Width="30" Height="30"  CornerRadius="0,5.5,5.5,0" Content="▼" HorizontalContentAlignment="Center" Cursor="Hand" Click="btnDown_Click" HorizontalAlignment="Left" Canvas.Left="195" VerticalAlignment="Center" Canvas.Top="5" Canvas.Right="5"/>
                     </Canvas>

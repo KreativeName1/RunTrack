@@ -144,12 +144,12 @@ namespace RunTrack
 
             foreach (var item in removed)
             {
-                Validate(item);
                 Db.Klassen.Remove(item);
             }
 
             foreach (var item in modified)
             {
+                Validate(item);
                 Db.Entry(item).State = EntityState.Modified;
             }
 

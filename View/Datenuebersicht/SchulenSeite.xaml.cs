@@ -52,19 +52,14 @@ namespace RunTrack
 
         }
 
-        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            UebersichtMethoden.SearchDataGrid(lstSchule, txtSearch.Text);
-        }
-
         private void btnUp_Click(object sender, RoutedEventArgs e)
         {
-            UebersichtMethoden.SelectSearchedRow(lstSchule, false, txtSearch.Text);
+            UebersichtMethoden.SelectSearchedRow(lstSchule, false);
         }
 
         private void btnDown_Click(object sender, RoutedEventArgs e)
         {
-            UebersichtMethoden.SelectSearchedRow(lstSchule, true, txtSearch.Text);
+            UebersichtMethoden.SelectSearchedRow(lstSchule, true);
         }
 
         private void txtSearch_LostFocus(object sender, RoutedEventArgs e)

@@ -50,12 +50,12 @@ namespace RunTrack
 
         private void btnUp_Click(object sender, RoutedEventArgs e)
         {
-            UebersichtMethoden.SelectSearchedRow(lstSchueler, false, txtSearch.Text);
+            UebersichtMethoden.SelectSearchedRow(lstSchueler, false);
         }
 
         private void btnDown_Click(object sender, RoutedEventArgs e)
         {
-            UebersichtMethoden.SelectSearchedRow(lstSchueler, true, txtSearch.Text);
+            UebersichtMethoden.SelectSearchedRow(lstSchueler, true);
         }
 
         private void txtSearch_LostFocus(object sender, RoutedEventArgs e)

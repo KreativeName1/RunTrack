@@ -1,16 +1,43 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows.Data;
 
 namespace RunTrack
 {
     public class SchulenseiteModel : BaseModel
     {
         private LaufDBContext? _db;
+        private ICollectionView? _collectionView { get; set; }
         private ObservableCollection<Schule> _lstSchule { get; set; }
         private Schule _selSchule { get; set; }
         private bool _hasChanges { get; set; }
         private bool _isLoading { get; set; }
+        private string _searchTerm { get; set; }
 
+        public string SearchTerm
+        {
+            get { return _searchTerm; }
+            set
+            {
+                if (_searchTerm != value)
+                {
+                    _searchTerm = value;
+                    OnPropertyChanged("SearchTerm");
+                    CollectionView?.Refresh();
+                }
+            }
+        }
+
+        public ICollectionView CollectionView
+        {
+            get { return _collectionView; }
+            set
+            {
+                _collectionView = value;
+                OnPropertyChanged("CollectionView");
+            }
+        }
 
         public ObservableCollection<Schule> LstSchule
         {
@@ -61,6 +88,17 @@ namespace RunTrack
                 OnPropertyChanged("IsLoading");
             }
         }
+
+        private bool FilterItems(object item)
+        {
+            if (item is Schule schule)
+            {
+                if (string.IsNullOrEmpty(SearchTerm)) return true;
+                if (schule.Id.ToString().Contains(SearchTerm)) return true;
+                if (schule.Name.ToLower().Contains(SearchTerm.ToLower())) return true;
+            }
+            return false;
+        }
         public SchulenseiteModel()
         {
             LoadData();
@@ -108,6 +146,8 @@ namespace RunTrack
                 _db = new();
                 LstSchule = new(_db.Schulen);
                 IsLoading = false;
+                CollectionView = CollectionViewSource.GetDefaultView(LstSchule);
+                CollectionView.Filter = FilterItems;
             });
         }
     }
