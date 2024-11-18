@@ -76,16 +76,16 @@ namespace RunTrack
             {
                 _model.HasChanges = true;
                 _isUserInteraction = false;
+                ComboBox cbKlasse = sender as ComboBox;
+                Klasse klasse = cbKlasse.SelectedItem as Klasse;
+
+                if (klasse != null)
+                {
+                    _model.SelSchueler.Klasse = klasse;
+                    _model.SelSchueler.KlasseId = klasse.Id;
+                }
             }
 
-            ComboBox cbKlasse = sender as ComboBox;
-            Klasse klasse = cbKlasse.SelectedItem as Klasse;
-
-            if (klasse != null)
-            {
-                _model.SelSchueler.Klasse = klasse;
-                _model.SelSchueler.KlasseId = klasse.Id;
-            }
         }
 
         private void cbKlasse_DropDownOpened(object sender, EventArgs e)

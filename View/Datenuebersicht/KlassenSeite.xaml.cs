@@ -79,14 +79,14 @@ namespace RunTrack.View.Datenuebersicht
             {
                 _model.HasChanges = true;
                 _isUserInteractionSchule = false;
-            }
-            ComboBox cbSchule = sender as ComboBox;
-            Schule schule = cbSchule.SelectedItem as Schule;
+                ComboBox cbSchule = sender as ComboBox;
+                Schule schule = cbSchule.SelectedItem as Schule;
 
-            if (schule != null)
-            {
-                _model.SelKlasse.Schule = schule;
-                _model.SelKlasse.SchuleId = schule.Id;
+                if (schule != null)
+                {
+                    _model.SelKlasse.Schule = schule;
+                    _model.SelKlasse.SchuleId = schule.Id;
+                }
             }
         }
 
@@ -98,14 +98,14 @@ namespace RunTrack.View.Datenuebersicht
             {
                 _model.HasChanges = true;
                 _isUserInteractionRundenart = false;
-            }
-            ComboBox cbRundenArt = sender as ComboBox;
-            RundenArt rundenArt = cbRundenArt.SelectedItem as RundenArt;
+                ComboBox cbRundenArt = sender as ComboBox;
+                RundenArt rundenArt = cbRundenArt.SelectedItem as RundenArt;
 
-            if (rundenArt != null)
-            {
-                _model.SelKlasse.RundenArt = rundenArt;
-                _model.SelKlasse.RundenArtId = rundenArt.Id;
+                if (rundenArt != null)
+                {
+                    _model.SelKlasse.RundenArt = rundenArt;
+                    _model.SelKlasse.RundenArtId = rundenArt.Id;
+                }
             }
         }
 
