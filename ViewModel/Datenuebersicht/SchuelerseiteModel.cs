@@ -181,9 +181,15 @@ namespace RunTrack
                     LstSchueler = new(_db.Schueler.Include(s => s.Klasse).ThenInclude(k => k.Schule).Include(s => s.Runden).ToList());
                     LstSchule = new(_db.Schulen.ToList());
                     LstKlasse = new(_db.Klassen.ToList());
+
+
+                Application.Current.Dispatcher.Invoke(() =>
+                {
                     IsLoading = false;
                     CollectionView = CollectionViewSource.GetDefaultView(LstSchueler);
                     CollectionView.Filter = FilterItems;
+                });
+                
             });
         }
     }
