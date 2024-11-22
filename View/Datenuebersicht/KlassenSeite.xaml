@@ -41,11 +41,28 @@
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding Id}" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="15*" Header="Klasse" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding Id}" IsReadOnly="True">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="Cursor" Value="No"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Width="15*" Header="Klasse" Binding="{Binding Name}">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="Cursor" Value="Pen"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
 
-						<DataGridTemplateColumn Header="Schule" Width="15*">
-							<DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn Header="Schule" Width="15*">
+                            <DataGridTemplateColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="Cursor" Value="Pen"/>
+                                </Style>
+                            </DataGridTemplateColumn.CellStyle>
+                            <DataGridTemplateColumn.CellTemplate>
 								<DataTemplate>
 									<ComboBox x:Name="cbSchule" ItemsSource="{Binding DataContext.LstSchule, RelativeSource={RelativeSource AncestorType=DataGrid}}"
 											  SelectionChanged="cbSchule_SelectionChanged" DropDownOpened="cbKlasse_DropDownOpened" DropDownClosed="cbKlasse_DropDownClosed" SelectedItem="{Binding Schule, Mode=TwoWay}"/>
@@ -54,7 +71,12 @@
 						</DataGridTemplateColumn>
 
 						<DataGridTemplateColumn Header="Rundenart" Width="25*">
-							<DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="Cursor" Value="Pen"/>
+                                </Style>
+                            </DataGridTemplateColumn.CellStyle>
+                            <DataGridTemplateColumn.CellTemplate>
 								<DataTemplate>
 									<ComboBox x:Name="cbRundenArt" ItemsSource="{Binding DataContext.LstRundenart, RelativeSource={RelativeSource AncestorType=DataGrid}}"
 											  SelectionChanged="cbRundenArt_SelectionChanged"  DropDownOpened="cbKlasse_DropDownOpened1" DropDownClosed="cbKlasse_DropDownClosed1" SelectedItem="{Binding RundenArt, Mode=TwoWay}"/>

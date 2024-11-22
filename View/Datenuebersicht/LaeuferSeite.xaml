@@ -33,21 +33,55 @@
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding Id}" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="25*" Header="Vorname" Binding="{Binding Vorname}"/>
-						<DataGridTextColumn Width="25*" Header="Nachname" Binding="{Binding Nachname}"/>
-						<DataGridComboBoxColumn Header="Geschlecht" SelectedItemBinding="{Binding Geschlecht}">
-							<DataGridComboBoxColumn.ItemsSource>
+                        <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding Id}" IsReadOnly="True">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="Cursor" Value="No"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Width="25*" Header="Vorname" Binding="{Binding Vorname}">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="Cursor" Value="Pen"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Width="25*" Header="Nachname" Binding="{Binding Nachname}">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="Cursor" Value="Pen"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridComboBoxColumn Header="Geschlecht" SelectedItemBinding="{Binding Geschlecht}">
+                            <DataGridComboBoxColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="Cursor" Value="Pen"/>
+                                </Style>
+                            </DataGridComboBoxColumn.CellStyle>
+                            <DataGridComboBoxColumn.ItemsSource>
 								<x:Array Type="{x:Type local:Geschlecht}">
 									<x:Static Member="local:Geschlecht.Maennlich"/>
 									<x:Static Member="local:Geschlecht.Weiblich"/>
 								</x:Array>
 							</DataGridComboBoxColumn.ItemsSource>
 						</DataGridComboBoxColumn>
-						<DataGridTextColumn Header="Jahrgang" Binding="{Binding Geburtsjahrgang}"/>
+                        <DataGridTextColumn Header="Jahrgang" Binding="{Binding Geburtsjahrgang}">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="Cursor" Value="Pen"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
 
-						<DataGridTemplateColumn Header="Rundenart" Width="25*">
-							<DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn Header="Rundenart" Width="25*">
+                            <DataGridTemplateColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="Cursor" Value="Pen"/>
+                                </Style>
+                            </DataGridTemplateColumn.CellStyle>
+                            <DataGridTemplateColumn.CellTemplate>
 								<DataTemplate>
 									<ComboBox x:Name="cbRundenArt" ItemsSource="{Binding DataContext.LstRundenart, RelativeSource={RelativeSource AncestorType=DataGrid}}"
 								  SelectionChanged="cbRundenArt_SelectionChanged" SelectedItem="{Binding RundenArt, Mode=TwoWay}"/>
