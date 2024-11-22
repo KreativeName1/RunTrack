@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Data;
 
 namespace RunTrack
@@ -176,9 +177,15 @@ namespace RunTrack
                 LstSchule = new(_db.Schulen.ToList());
                 LstKlasse = new(_db.Klassen.Include(k => k.Schueler).ToList());
                 LstRundenart = new(_db.RundenArten.ToList());
-                IsLoading = false;
-                CollectionView = CollectionViewSource.GetDefaultView(LstKlasse);
-                CollectionView.Filter = FilterItems;
+
+
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    IsLoading = false;
+                    CollectionView = CollectionViewSource.GetDefaultView(LstKlasse);
+                    CollectionView.Filter = FilterItems;
+                });
+
             });
         }
     }

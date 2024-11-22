@@ -116,7 +116,7 @@ namespace RunTrack
                     CollectionView = CollectionViewSource.GetDefaultView(LstSchueler);
                     CollectionView.Filter = FilterItems;
                 });
-                
+
             });
         }
     }
