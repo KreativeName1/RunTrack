@@ -13,8 +13,6 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <local:TopBar x:Name="Leiste" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
-
         <DataGrid ItemsSource="{Binding KlasseItems}" Grid.Row="1" x:Name="Klassen_Grid"
           AutoGenerateColumns="False" CanUserAddRows="False">
             <DataGrid.Resources>

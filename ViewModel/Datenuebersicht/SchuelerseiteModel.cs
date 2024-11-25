@@ -160,9 +160,26 @@ namespace RunTrack
                 Db.Entry(item).State = EntityState.Modified;
             }
 
+            foreach (var schueler in LstSchueler)
+            {
+                if (!string.IsNullOrWhiteSpace(schueler.Vorname))
+                {
+                    schueler.Vorname = CapitalizeFirstLetter(schueler.Vorname);
+                    schueler.Nachname = CapitalizeFirstLetter(schueler.Nachname);
+                }
+            }
+
             Db.SaveChanges();
 
             HasChanges = false;
+        }
+
+        private string CapitalizeFirstLetter(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input)) return input;
+
+            input = input.Trim();
+            return char.ToUpper(input[0]) + input.Substring(1).ToLower();
         }
 
         public void Validate(Schueler schueler)

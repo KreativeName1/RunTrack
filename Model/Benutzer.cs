@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace RunTrack
 {
     public class Benutzer
@@ -22,8 +24,15 @@ namespace RunTrack
             get
             {
                 if (string.IsNullOrEmpty(Vorname) && string.IsNullOrEmpty(Nachname)) return "";
-                return $"{Vorname}, {Nachname}";
+                return $"{Capitalize(Vorname)}, {Capitalize(Nachname)}";
             }
         }
+
+        private string Capitalize(string input)
+        {
+            if (string.IsNullOrEmpty(input)) return input;
+            return char.ToUpper(input[0]) + input.Substring(1).ToLower();
+        }
+
     }
 }

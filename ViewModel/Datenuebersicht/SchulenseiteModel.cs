@@ -129,10 +129,36 @@ namespace RunTrack
                 Db.Entry(item).State = EntityState.Modified;
             }
 
+            foreach (var schule in LstSchule)
+            {
+                if (!string.IsNullOrWhiteSpace(schule.Name))
+                {
+                    schule.Name = CapitalizeWords(schule.Name);
+                }
+            }
+
             Db.SaveChanges();
 
             HasChanges = false;
         }
+
+        private string CapitalizeWords(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input)) return input;
+
+            var words = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < words.Length; i++)
+            {
+                if (!string.IsNullOrWhiteSpace(words[i]))
+                {
+                    words[i] = char.ToUpper(words[i][0]) + words[i].Substring(1).ToLower();
+                }
+            }
+
+            return string.Join(' ', words);
+        }
+
+
 
         public void Validate(Schule schule)
         {

@@ -154,8 +154,8 @@ namespace RunTrack
                         {
                             Benutzer benutzer = new()
                             {
-                                Vorname = txtVorname.Text,
-                                Nachname = txtNachname.Text,
+                                Vorname = txtVorname.Text.ToLower(),
+                                Nachname = txtNachname.Text.ToLower(),
                                 Passwort = BCrypt.Net.BCrypt.HashPassword(txtPasswordNew.Password)
                             };
                             db.Benutzer.Add(benutzer);

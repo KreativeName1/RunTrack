@@ -14,7 +14,7 @@
         <Rectangle Height="1.5" Margin="0,0,0,0" Stroke="#2A2D2F" Fill="#2A2D2F" VerticalAlignment="Top"/>
         <Label Content="Benutzer:" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Height="26" Width="64"/>
         <Label x:Name="ScannerName" Content="{Binding Benutzer.Benutzername}" HorizontalAlignment="Left" Margin="79,1,0,0" VerticalAlignment="Top" Foreground="Wheat" Height="26" Width="150"/>
-        <Label  Visibility="{Binding Benutzer.IsAdmin, Converter={StaticResource bvcon}}" Content="Admin" HorizontalAlignment="Center" Margin="0,2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Grid.ColumnSpan="2"/>
+        <Label Visibility="{Binding Benutzer.IsAdmin, Converter={StaticResource bvcon}}" Content="Admin" HorizontalAlignment="Center" Margin="0,2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Grid.ColumnSpan="2"/>
         <Image Source="pack://application:,,,/Images/credits.png" Width="23" Height="23" VerticalAlignment="Top" Cursor="Hand" Margin="0,4,45,0" HorizontalAlignment="Right" MouseDown="Credits_MouseDown">
             <Image.ToolTip>
                 <ToolTip Cursor="">Credits</ToolTip>
