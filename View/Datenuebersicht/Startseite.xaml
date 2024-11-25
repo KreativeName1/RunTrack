@@ -33,13 +33,55 @@
                         </Style>
                     </DataGrid.Resources>
 					<DataGrid.Columns>
-						<DataGridTextColumn Width="10*" Header="Laufnr." Binding="{Binding Id}" IsReadOnly="True"/>
-						<DataGridTextColumn Width="15*" Header="Vorname" Binding="{Binding Vorname}" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="15*" Header="Nachname" Binding="{Binding Nachname}" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="15*" Header="Geschlecht" Binding="{Binding Geschlecht}" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="15*" Header="Klasse" Binding="{Binding Klasse.Name}" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="25*" Header="Schule" Binding="{Binding Klasse.Schule.Name}" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="15*" Header="Runden" Binding="{Binding Klasse.RundenArt.Name}" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="10*" Header="Laufnr." Binding="{Binding Id}" IsReadOnly="True">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="Cursor" Value="No"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Width="15*" Header="Vorname" Binding="{Binding Vorname}" IsReadOnly="True">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="Cursor" Value="No"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Width="15*" Header="Nachname" Binding="{Binding Nachname}" IsReadOnly="True">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="Cursor" Value="No"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Width="15*" Header="Geschlecht" Binding="{Binding Geschlecht}" IsReadOnly="True">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="Cursor" Value="No"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Width="15*" Header="Klasse" Binding="{Binding Klasse.Name}" IsReadOnly="True">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="Cursor" Value="No"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Width="25*" Header="Schule" Binding="{Binding Klasse.Schule.Name}" IsReadOnly="True">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="Cursor" Value="No"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Width="15*" Header="Runden" Binding="{Binding Klasse.RundenArt.Name}" IsReadOnly="True">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="Cursor" Value="No"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
 				<Border Visibility="{Binding IsLoading, Converter={StaticResource bvcon}}" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="10">

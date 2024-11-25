@@ -16,7 +16,9 @@
         <x:Array x:Key="GenderOptions" Type="{x:Type local:Geschlecht}">
             <x:Static Member="local:Geschlecht.Maennlich"/>
             <x:Static Member="local:Geschlecht.Weiblich"/>
+            <x:Static Member="local:Geschlecht.Divers"/>
         </x:Array>
+        <local:YearValidationConverter x:Key="YearValidationConverter" />
 
     </Page.Resources>
 	<Grid DataContext="{StaticResource thismodel}">
@@ -76,9 +78,14 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTextColumn Header="Jahrgang" Binding="{Binding Geburtsjahrgang}">
+                        <DataGridTextColumn Header="Jahrgang" Binding="{Binding Geburtsjahrgang, Converter={StaticResource YearValidationConverter}}">
                             <DataGridTextColumn.CellStyle>
                                 <Style TargetType="DataGridCell">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Geburtsjahrgang}" Value="1900">
+                                            <Setter Property="Foreground" Value="Red"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
                                     <Setter Property="Cursor" Value="Pen"/>
                                 </Style>
                             </DataGridTextColumn.CellStyle>

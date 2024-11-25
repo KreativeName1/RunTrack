@@ -20,7 +20,20 @@ namespace RunTrack
         public string Vorname { get; set; }
         public string Nachname { get; set; }
         public Geschlecht? Geschlecht { get; set; }
-        public int Geburtsjahrgang { get; set; }
+        public int Geburtsjahrgang
+        {
+            get { return _geburtsjahrgang; }
+            set
+            {
+                // Wenn der Jahrgang unter 1900 ist, setzen wir ihn auf 1900.
+                if (value < 1900)
+                    _geburtsjahrgang = 1900;
+                else
+                    _geburtsjahrgang = value;
+            }
+        }
+        private int _geburtsjahrgang;
+
         public List<Runde> Runden { get; set; }
 
         // Wird nicht für Schüler benutzt, da diese in einer Klasse sind, die bereits eine RundenArt hat.

@@ -34,8 +34,20 @@
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding Id}" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="25*" Header="Schule" Binding="{Binding Name, Mode=TwoWay}"/>
+                        <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding Id}" IsReadOnly="True">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="Cursor" Value="No"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Width="25*" Header="Schule" Binding="{Binding Name, Mode=TwoWay}">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="Cursor" Value="Pen"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
 				<Border Visibility="{Binding IsLoading, Converter={StaticResource bvcon}}" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="10">

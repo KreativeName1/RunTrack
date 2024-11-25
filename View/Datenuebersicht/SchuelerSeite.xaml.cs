@@ -25,12 +25,26 @@ namespace RunTrack
             btnNeu.Click += (s, e) =>
             {
                 var neuerSchueler = new Schueler();
+                neuerSchueler.Geburtsjahrgang = 2000;
+
                 _model.LstSchueler.Add(neuerSchueler);
                 _model.SelSchueler = neuerSchueler; // Setze den neuen Schüler als ausgewählt
                 lstSchueler.SelectedItem = neuerSchueler; // Stelle sicher, dass er im DataGrid ausgewählt ist
                 lstSchueler.ScrollIntoView(neuerSchueler); // Scrolle zum neuen Eintrag
-                // Focus setzen
+
+                // Fokus auf das DataGrid setzen
                 lstSchueler.Focus();
+
+                // Dispatcher verwenden, um die Bearbeitung zu aktivieren, nachdem alle Ereignisse verarbeitet sind
+                Dispatcher.InvokeAsync(() =>
+                {
+                    var firstEditableColumn = lstSchueler.Columns.FirstOrDefault(col => !col.IsReadOnly);
+                    if (firstEditableColumn != null)
+                    {
+                        lstSchueler.CurrentCell = new DataGridCellInfo(neuerSchueler, firstEditableColumn);
+                        lstSchueler.BeginEdit();
+                    }
+                });
 
                 _model.HasChanges = true;
             };
@@ -51,8 +65,16 @@ namespace RunTrack
 
             lstSchueler.CellEditEnding += (s, e) =>
             {
-                if (e.EditAction == DataGridEditAction.Commit) _model.HasChanges = true;
+                if (e.EditAction == DataGridEditAction.Commit)
+                {
+                    if (_model.SelSchueler.Geburtsjahrgang < 1900)
+                    {
+                        _model.SelSchueler.Geburtsjahrgang = 1900;
+                    }
+                    _model.HasChanges = true;
+                }
             };
+
 
         }
 
