@@ -29,6 +29,9 @@ namespace RunTrack
                 _model.SelSchueler = neuerSchueler; // Setze den neuen Schüler als ausgewählt
                 lstSchueler.SelectedItem = neuerSchueler; // Stelle sicher, dass er im DataGrid ausgewählt ist
                 lstSchueler.ScrollIntoView(neuerSchueler); // Scrolle zum neuen Eintrag
+                // Focus setzen
+                lstSchueler.Focus();
+
                 _model.HasChanges = true;
             };
 
