@@ -24,9 +24,14 @@ namespace RunTrack
             };
             btnNeu.Click += (s, e) =>
             {
-                _model.LstSchueler.Add(new Schueler());
+                var neuerSchueler = new Schueler();
+                _model.LstSchueler.Add(neuerSchueler);
+                _model.SelSchueler = neuerSchueler; // Setze den neuen Schüler als ausgewählt
+                lstSchueler.SelectedItem = neuerSchueler; // Stelle sicher, dass er im DataGrid ausgewählt ist
+                lstSchueler.ScrollIntoView(neuerSchueler); // Scrolle zum neuen Eintrag
                 _model.HasChanges = true;
             };
+
             btnSpeichern.Click += (s, e) =>
             {
                 try { _model.SaveChanges(); }
