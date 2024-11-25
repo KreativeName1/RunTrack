@@ -22,8 +22,11 @@ namespace RunTrack
                 _model.Db.Dispose();
                 _model.HasChanges = false;
             };
+
             btnNeu.Click += (s, e) =>
             {
+                txtSearch.IsEnabled = false;
+
                 var neuerSchueler = new Schueler();
                 neuerSchueler.Geburtsjahrgang = 2000;
 
@@ -51,16 +54,38 @@ namespace RunTrack
 
             btnSpeichern.Click += (s, e) =>
             {
-                try { _model.SaveChanges(); }
+                txtSearch.IsEnabled = true;
+
+                try
+                {
+                    _model.SaveChanges();
+                }
                 catch (Exception ex)
                 {
                     new Popup().Display("Fehler beim Speichern", ex.Message, PopupType.Error, PopupButtons.Ok);
                 }
             };
+
             btnDel.Click += (s, e) =>
             {
-                _model.LstSchueler.Remove(_model.SelSchueler);
-                _model.HasChanges = true;
+                string message = "";
+
+                if (_model.SelSchueler.Id == null)
+                {
+                    message = "Möchten Sie diesen Eintrag wirklich löschen?";
+                }
+                else
+                {
+                    message = $"Möchten Sie diesen Eintrag wirklich löschen? \n- {_model.SelSchueler.Id}:\t{_model.SelSchueler.Nachname}, {_model.SelSchueler.Vorname}";
+                }
+
+                var res = new Popup().Display("Löschen", message, PopupType.Question, PopupButtons.YesNo);
+
+                if (res == true)
+                {
+                    _model.LstSchueler.Remove(_model.SelSchueler);
+                    _model.HasChanges = true;
+                }
             };
 
             lstSchueler.CellEditEnding += (s, e) =>
@@ -74,8 +99,6 @@ namespace RunTrack
                     _model.HasChanges = true;
                 }
             };
-
-
         }
 
         private void btnUp_Click(object sender, RoutedEventArgs e)

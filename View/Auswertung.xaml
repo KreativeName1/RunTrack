@@ -6,13 +6,13 @@
         xmlns:local="clr-namespace:RunTrack"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:fc="http://devpelux.github.io/fullcontrols"
         mc:Ignorable="d"
-	  d:Width="1000" d:Height="750"
-			Loaded="Page_Loaded"
-      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+	    d:Width="1000" d:Height="800"
+	    Loaded="Page_Loaded"
+        HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
         Title="Auswertung">
     <Page.Resources>
-		<local:AuswertungModel x:Key="amodel"/>
-		<local:ObjectToBoolConverter x:Key="otbcon"/>
+        <local:AuswertungModel x:Key="amodel"/>
+        <local:ObjectToBoolConverter x:Key="otbcon"/>
         <local:BoolToVisibilityConverter x:Key="btocon"/>
         <local:BoolInverterConverter x:Key="boolinvcon"/>
     </Page.Resources>
@@ -21,77 +21,78 @@
             <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="*"/>
-			<RowDefinition Height="60"/>
-		</Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="45.333"/>
+            <RowDefinition Height="45.333"/>
+        </Grid.RowDefinitions>
 
-		<StackPanel Grid.Row="0" Grid.Column="0" Margin="10,0,10,0">
-            <Label Content="Auswertung"  HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="2"/>
+        <StackPanel Grid.Row="0" Grid.Column="0" Margin="10,0,10,0">
+            <Label Content="Auswertung" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="2"/>
             <Border BorderBrush="Black" BorderThickness="1" Padding="10">
-                    <Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Margin="0,10,0,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="150"/>
                         </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-						<RowDefinition Height="Auto"/>
-						<RowDefinition Height="Auto"/>
-						<RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
+                        <fc:RadioButtonPlus GroupName="Wer" Grid.Column="0" Checked="change" x:Name="rbInsgesamt" Content="Insgesamt" IsChecked="{Binding IsInsgesamt}" />
+                    </Grid>
 
-                        <Grid Grid.Row="0" Margin="0,10,0,0">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="100"/>
-							<ColumnDefinition Width="150"/>
-						</Grid.ColumnDefinitions>
-						<fc:RadioButtonPlus GroupName="Wer" Grid.Column="0"  Checked="change" x:Name="rbInsgesamt" Content="Insgesamt" IsChecked="{Binding IsInsgesamt}" />
-					</Grid>
+                    <Grid Grid.Row="1" Margin="0,10,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="150"/>
+                        </Grid.ColumnDefinitions>
+                        <fc:RadioButtonPlus GroupName="Wer" Checked="change" IsChecked="{Binding IsSchule}" x:Name="rbSchule" Grid.Column="0" Content="Schule" VerticalAlignment="Center"/>
+                        <ComboBox SelectionChanged="SelectionChanged" x:Name="cbSchule" ItemsSource="{Binding Schulen}" SelectedItem="{Binding SelectedSchule}" HorizontalAlignment="Right" Grid.Column="1" Width="145" VerticalAlignment="Center"/>
+                    </Grid>
 
-                        <Grid Grid.Row="1" Margin="0,10,0,10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="150"/>
-                            </Grid.ColumnDefinitions>
-                        <fc:RadioButtonPlus GroupName="Wer"  Checked="change" IsChecked="{Binding IsSchule}" x:Name="rbSchule" Grid.Column="0" Content="Schule" VerticalAlignment="Center"/>
-                            <ComboBox SelectionChanged="SelectionChanged" x:Name="cbSchule" ItemsSource="{Binding Schulen}" SelectedItem="{Binding SelectedSchule}"  HorizontalAlignment="Right" Grid.Column="1" Width="145"  VerticalAlignment="Center"/>
-                        </Grid>
+                    <Grid Grid.Row="2" Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="150"/>
+                        </Grid.ColumnDefinitions>
+                        <fc:RadioButtonPlus GroupName="Wer" Checked="change" IsChecked="{Binding IsKlasse}" x:Name="rbKlasse" Grid.Column="0" Content="Klasse" VerticalAlignment="Center"/>
+                        <ComboBox SelectionChanged="SelectionChanged" x:Name="cbKlasse" ItemsSource="{Binding Klassen}" SelectedItem="{Binding SelectedKlasse}" HorizontalAlignment="Right" Grid.Column="1" Width="145" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                    </Grid>
 
-                        <Grid Grid.Row="2" Margin="0,0,0,10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="150"/>
-                            </Grid.ColumnDefinitions>
-                        <fc:RadioButtonPlus GroupName="Wer"  Checked="change" IsChecked="{Binding IsKlasse}" x:Name="rbKlasse" Grid.Column="0" Content="Klasse" VerticalAlignment="Center"/>
-                        <ComboBox SelectionChanged="SelectionChanged" x:Name="cbKlasse" ItemsSource="{Binding Klassen}" SelectedItem="{Binding SelectedKlasse}" HorizontalAlignment="Right" Grid.Column="1" Width="145"  Margin="5,0,0,0" VerticalAlignment="Center"/>
-                        </Grid>
-
-                        <Grid Grid.Row="3" Margin="0,0,0,10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="150"/>
-                            </Grid.ColumnDefinitions>
-                        <fc:RadioButtonPlus GroupName="Wer"  Checked="change" IsChecked="{Binding IsJahrgang}" Grid.Column="0" Content="Jahrgang" VerticalAlignment="Center"/>
+                    <Grid Grid.Row="3" Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="150"/>
+                        </Grid.ColumnDefinitions>
+                        <fc:RadioButtonPlus GroupName="Wer" Checked="change" IsChecked="{Binding IsJahrgang}" Grid.Column="0" Content="Jahrgang" VerticalAlignment="Center"/>
                         <xctk:IntegerUpDown ValueChanged="iudJahrgang_ValueChanged" HorizontalAlignment="Right" Value="{Binding Jahrgang}" Grid.Column="1" Width="145" x:Name="iudJahrgang" Margin="5,0,0,0" VerticalAlignment="Center"/>
                     </Grid>
 
-					<Grid Grid.Row="4" Margin="0,0,0,10">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="100"/>
-							<ColumnDefinition Width="150"/>
-						</Grid.ColumnDefinitions>
-						<fc:RadioButtonPlus GroupName="Wer"  Checked="change" IsChecked="{Binding IsLaeufer}" Grid.Column="0" Content="Andere Läufer" VerticalAlignment="Center"/>
-					</Grid>
-				</Grid>
-                </Border>
+                    <Grid Grid.Row="4" Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="150"/>
+                        </Grid.ColumnDefinitions>
+                        <fc:RadioButtonPlus GroupName="Wer" Checked="change" IsChecked="{Binding IsLaeufer}" Grid.Column="0" Content="Andere Läufer" VerticalAlignment="Center"/>
+                    </Grid>
+                </Grid>
+            </Border>
 
             <Label Content="Wertung" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="16"/>
 
             <Border BorderBrush="Black" BorderThickness="1" Padding="10">
                 <StackPanel>
-                    <fc:RadioButtonPlus GroupName="Typ" Name="Anzahl" IsChecked="{Binding IsAnzahl}" Grid.Row="0" Content="Anzahl" VerticalAlignment="Center"  Checked="change" />
-                    <fc:RadioButtonPlus Margin="0,5,0,5" GroupName="Typ" Name="Zeit" Grid.Row="1" IsChecked="{Binding IsZeit}" Content="Zeit" VerticalAlignment="Center"  Checked="change"/>
+                    <fc:RadioButtonPlus GroupName="Typ" Name="Anzahl" IsChecked="{Binding IsAnzahl}" Grid.Row="0" Content="Anzahl" VerticalAlignment="Center" Checked="change" />
+                    <fc:RadioButtonPlus Margin="0,5,0,5" GroupName="Typ" Name="Zeit" Grid.Row="1" IsChecked="{Binding IsZeit}" Content="Zeit" VerticalAlignment="Center" Checked="change"/>
                     <fc:RadioButtonPlus GroupName="Typ" Name="Distanz" Grid.Row="2" IsChecked="{Binding IsDistanz}" Content="Distanz" VerticalAlignment="Center" Checked="change" />
                 </StackPanel>
             </Border>
@@ -101,19 +102,18 @@
             <Border BorderBrush="Black" BorderThickness="1" Padding="10">
                 <StackPanel>
                     <fc:RadioButtonPlus  GroupName="Geschlecht" Name="Gesamt" IsChecked="{Binding IsGesamt}" Content="Gesamt" VerticalAlignment="Center" Checked="change"/>
-                    <fc:RadioButtonPlus Margin="0,5,0,5" GroupName="Geschlecht" Name="Maennlich" IsChecked="{Binding IsMaennlich}"  Content="Männlich" VerticalAlignment="Center"  Checked="change"/>
-                    <fc:RadioButtonPlus GroupName="Geschlecht" Name="Weiblich" IsChecked="{Binding IsWeiblich}"  Content="Weiblich" VerticalAlignment="Center"  Checked="change"/>
+                    <fc:RadioButtonPlus Margin="0,5,0,5" GroupName="Geschlecht" Name="Maennlich" IsChecked="{Binding IsMaennlich}" Content="Männlich" VerticalAlignment="Center" Checked="change"/>
+                    <fc:RadioButtonPlus GroupName="Geschlecht" Name="Weiblich" IsChecked="{Binding IsWeiblich}"  Content="Weiblich" VerticalAlignment="Center" Checked="change"/>
                 </StackPanel>
             </Border>
 
-            <Label Content="Rundenart"  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="16"/>
+            <Label Content="Rundenart" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="16"/>
 
             <Border BorderBrush="Black" BorderThickness="1" MinHeight="30" Padding="10">
                 <StackPanel x:Name="RundenGroesse">
                     <!-- Wird im Code gefüllt-->
                 </StackPanel>
             </Border>
-            
         </StackPanel>
 
         <DataGrid Grid.Row="0" BorderThickness="1" BorderBrush="Gray" SelectionMode="Extended" ColumnWidth="*" Grid.Column="1" x:Name="Daten" ItemsSource="{Binding Liste}" SelectedItem="{Binding SelectedItem}" AutoGenerateColumns="True" CanUserResizeColumns="False" CanUserDeleteRows="False" Margin="0,10,0,0" Cursor="">
@@ -126,36 +126,25 @@
                 </Style>
             </DataGrid.Resources>
         </DataGrid>
-        <TextBlock Grid.Row="0" Grid.Column="1" x:Name="tbLeereListe" Visibility="{Binding IsLeerListe, Converter={StaticResource btocon }}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" >
+        <TextBlock Grid.Column="1" x:Name="tbLeereListe" Visibility="{Binding IsLeerListe, Converter={StaticResource btocon }}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" >
             Keine Ergebnisse zur Auswahl gefunden
         </TextBlock>
-        <Rectangle Grid.Column="1" Grid.Row="1" Height="2.5px" Fill="Black" Stroke="Black" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
-        <Rectangle Grid.Column="1" Grid.Row="1" Width="2.5px" Fill="Black" Stroke="Black" VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
+        <!--<Rectangle Grid.Column="1" Grid.Row="1" Height="1.5px" Fill="Black" Stroke="Black" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>-->
+        <!--<Rectangle Grid.Column="1" Grid.Row="1" Width="1.5" Fill="Black" Stroke="Black" HorizontalAlignment="Left" Grid.RowSpan="2"/>-->
 
-
-
-        <Border BorderBrush="Black" BorderThickness="0" Grid.Row="1" Grid.ColumnSpan="2" >
-            <Grid VerticalAlignment="Center" Margin="10,0,10,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="300"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="150"/>
-                </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Orientation="Horizontal">
-                    <fc:ButtonPlus x:Name="btnImport" Content="Importieren" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="100" Cursor="Hand"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
-                    <fc:ButtonPlus x:Name="btnExport" Content="Exportieren" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="100" Cursor="Hand"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
-            </StackPanel>
-                <StackPanel Grid.Column="1" Orientation="Horizontal">
-                    <fc:ButtonPlus x:Name="btnSchuelerWertung" IsEnabled="{Binding SelectedItem, Converter={StaticResource otbcon}}" Content="Schülerwertung" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="100" Cursor="Hand"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
-                    <fc:ButtonPlus x:Name="btnWertung" IsEnabled="{Binding IsLeerListe, Converter={StaticResource boolinvcon}}" Content="Momentane Wertung" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="130" Cursor="Hand"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35" />
-                    <fc:ButtonPlus x:Name="btnDiagramm" IsEnabled="{Binding IsLeerListe, Converter={StaticResource boolinvcon}}" Content="Diagramm" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="130" Cursor="Hand"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
-                    <fc:ButtonPlus x:Name="btnUrkunde" IsEnabled="{Binding IsLeerListe, Converter={StaticResource boolinvcon}}" Content="Urkunden" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="130" Cursor="Hand"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
-                    <fc:ButtonPlus x:Name="btnCSV" IsEnabled="{Binding SelectedItem, Converter={StaticResource otbcon}}" Content="Auswahl CSV Export" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="130" Cursor="Hand"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
-                </StackPanel>
-                <StackPanel Grid.Column="3" HorizontalAlignment="Right">
-                    <fc:ButtonPlus x:Name="btnSchliessen" Content="Schließen" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="140" Cursor="Hand" FontSize="12"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
-                </StackPanel>
-            </Grid>
-        </Border>
+        <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Margin="0,0,0,0" Grid.RowSpan="2">
+            <fc:ButtonPlus x:Name="btnImport" Content="Importieren" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="120" Cursor="Hand"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+            <fc:ButtonPlus x:Name="btnExport" Content="Exportieren" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="120" Cursor="Hand"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Margin="0,0,10,0">
+            <fc:ButtonPlus x:Name="btnSchuelerWertung" IsEnabled="{Binding SelectedItem, Converter={StaticResource otbcon}}" Content="Schülerwertung" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="130" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+            <fc:ButtonPlus x:Name="btnWertung" IsEnabled="{Binding IsLeerListe, Converter={StaticResource boolinvcon}}" Content="Momentane Wertung" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="130" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35" />
+            <fc:ButtonPlus x:Name="btnDiagramm" IsEnabled="{Binding IsLeerListe, Converter={StaticResource boolinvcon}}" Content="Diagramm" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="130" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+            <fc:ButtonPlus x:Name="btnUrkunde" IsEnabled="{Binding IsLeerListe, Converter={StaticResource boolinvcon}}" Content="Urkunden" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="130" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+            <fc:ButtonPlus x:Name="btnCSV" IsEnabled="{Binding SelectedItem, Converter={StaticResource otbcon}}" Content="Auswahl CSV Export" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="130" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Margin="0,0,0,0" Grid.RowSpan="2">
+            <fc:ButtonPlus x:Name="btnSchliessen" Content="Schließen" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="130" Cursor="Hand" FontSize="12" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+        </StackPanel>
     </Grid>
 </Page>

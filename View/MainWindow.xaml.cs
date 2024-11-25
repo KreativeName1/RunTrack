@@ -1,9 +1,8 @@
 ﻿using FullControls.Controls;
-using RunTrack.View;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Controls;
 using System.Windows.Threading;
 
 namespace RunTrack
@@ -98,11 +97,6 @@ namespace RunTrack
                 }
             }
         }
-
-
-
-
-
 
         private bool ValidateInputs()
         {
@@ -284,7 +278,6 @@ namespace RunTrack
                 textBox.Text = "";
             }
 
-
             SetValidInputStyle(textBox);
         }
 
@@ -296,6 +289,7 @@ namespace RunTrack
                 textBox.Text = "Mustermann";
                 textBox.ForegroundBrush = new SolidColorBrush(Colors.Gray);
             }
+
             ValidateLastName();
         }
 
@@ -323,13 +317,12 @@ namespace RunTrack
             TextBoxPlus textBox = (TextBoxPlus)sender;
             textBox.ForegroundBrush = new SolidColorBrush(Colors.Blue);
 
-
-
             // Clear the password box and update the border visibility
             if (AdminPasswordBox != null)
             {
                 AdminPasswordBox.Password = string.Empty;
             }
+
             ValidateLastName();
             UpdateBorderPasswordVisibility();
         }
@@ -344,6 +337,7 @@ namespace RunTrack
             {
                 AdminPasswordBox.Password = string.Empty;
             }
+
             ValidateFirstName();
             UpdateBorderPasswordVisibility();
         }
@@ -377,7 +371,6 @@ namespace RunTrack
             }
         }
 
-
         private void UpdatePasswordFieldVisibility()
         {
             if (FirstNameTextBox != null && LastNameTextBox != null && borderPassword != null)
@@ -399,7 +392,6 @@ namespace RunTrack
                 }
             }
         }
-
 
         private void txtPasswort_GotFocus(object sender, RoutedEventArgs e)
         {

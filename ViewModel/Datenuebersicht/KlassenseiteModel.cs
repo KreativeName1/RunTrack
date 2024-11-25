@@ -154,9 +154,25 @@ namespace RunTrack
                 Db.Entry(item).State = EntityState.Modified;
             }
 
+            foreach (var klasse in LstKlasse)
+            {
+                if (!string.IsNullOrWhiteSpace(klasse.Name))
+                {
+                    klasse.Name = CapitalizeFirstLetter(klasse.Name);
+                }
+            }
+
             Db.SaveChanges();
 
             HasChanges = false;
+        }
+
+        private string CapitalizeFirstLetter(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input)) return input;
+
+            input = input.Trim();
+            return char.ToUpper(input[0]) + input.Substring(1).ToLower();
         }
 
         public void Validate(Klasse klasse)

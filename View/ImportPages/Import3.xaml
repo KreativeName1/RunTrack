@@ -15,7 +15,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <local:TopBar x:Name="Leiste"  HorizontalAlignment="Stretch" VerticalAlignment="Top" />
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock FontSize="32" x:Name="tbTitel" FontWeight="Bold" Margin="10" HorizontalAlignment="Center" Text="Erfolg!"/>
             <TextBlock x:Name="tbMeldung" Margin="0,5,0,15" FontSize="16" Text="Meldung"/>
