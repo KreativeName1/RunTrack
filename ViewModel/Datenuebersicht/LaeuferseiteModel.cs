@@ -117,6 +117,8 @@ namespace RunTrack
             var removed = Db.Laeufer.AsEnumerable().Except(LstLaeufer.ToList()).ToList();
             var modified = LstLaeufer.ToList().Intersect(Db.Laeufer.AsEnumerable()).ToList();
 
+            removed.RemoveAll(l => l is Schueler);
+
             foreach (var item in added)
             {
                 Validate(item);
