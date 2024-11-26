@@ -93,8 +93,16 @@ namespace RunTrack
                     if (result == true)
                     {
                         if (_dvmodel.LstFiles[i].FileName == null) continue;
-                        File.Delete(Path.Combine("Dateien", _dvmodel.LstFiles[i].FileName ?? string.Empty));
+                        try
+                        {
+                            File.Delete(Path.Combine("Dateien", _dvmodel.LstFiles[i].FileName ?? string.Empty));
+                        }
+                        catch (IOException ex)
+                        {
+                            new Popup().Display("Fehler", $"Die Datei '{_dvmodel.LstFiles[i].FileName}' konnte nicht gelöscht werden. {ex.Message}", PopupType.Error, PopupButtons.Ok);
+                        }
                         _dvmodel.LstFiles.RemoveAt(i);
+
                     }
                 }
             }

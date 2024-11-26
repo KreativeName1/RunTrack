@@ -70,7 +70,9 @@ namespace RunTrack
             };
             btnUrkunde.Click += (s, e) =>
             {
-                List<object> liste = _amodel.Liste.ToList().GetRange(0, 3);
+                List<object> liste = _amodel.Liste.ToList();
+                int count = Math.Min(liste.Count, 3);
+                liste = liste.GetRange(0, count);
 
                 string auswertungsart = "";
                 if (_amodel.IsAnzahl) auswertungsart = "Rundenanzahl";
