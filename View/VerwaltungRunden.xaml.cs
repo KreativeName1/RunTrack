@@ -126,7 +126,7 @@ namespace RunTrack
                     new Popup().Display("Erfolgreich", "RundenArt wurde erfolgreich aktualisiert.", PopupType.Success, PopupButtons.Ok);
                 }
             }
-
+            ((Einstellungen)_pmodel.History[^1]).RefreshGridSettings();
             _pmodel?.Navigate(_pmodel.History[^1]);
         }
 

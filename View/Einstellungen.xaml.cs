@@ -223,7 +223,6 @@ namespace RunTrack
                     {
                         VerwaltungRunden verwaltungRunden = new(DialogMode.Bearbeiten, rundenArt);
                         _pmodel.Navigate(verwaltungRunden);
-                        RefreshGridSettings();
                     }
                     else
                     {
@@ -265,7 +264,7 @@ namespace RunTrack
             RefreshGridSettings();
         }
 
-        private void RefreshGridSettings()
+        public void RefreshGridSettings()
         {
             GridSettings.Children.Clear();
             GridSettings.RowDefinitions.Clear();
