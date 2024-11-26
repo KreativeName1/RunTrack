@@ -25,7 +25,7 @@
     </mah:MetroWindow.LeftWindowCommands>
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands ShowSeparators="False">
-            <Button x:Name="BTN_Settings" Click="BTN_Settings_Click" 
+            <!--<Button x:Name="BTN_Settings" Click="BTN_Settings_Click" 
              Background="#009664" BorderThickness="0" Padding="0" Margin="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" MouseEnter="BTN_Settings_MouseEnter" MouseLeave="BTN_Settings_MouseLeave">
                 <Button.Style>
                     <Style TargetType="Button">
@@ -34,7 +34,7 @@
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,9">
                                     <GradientStop Color="#009664" Offset="0.0" />
                                     <GradientStop Color="#007d64" Offset="1.0" />
-                                    <!-- Dunklere Farbe für den Übergang -->
+                                    --><!-- Dunklere Farbe für den Übergang --><!--
                                 </LinearGradientBrush>
                             </Setter.Value>
                         </Setter>
@@ -63,7 +63,7 @@
                     <Image Source="pack://application:,,,/Images/titelbarIcons/settings.png" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Button.Content>
             </Button>
-            <Rectangle Height="20" Width="2" Margin="10,0,10,0" Stroke="#2A2D2F" Fill="#2A2D2F" VerticalAlignment="Center"/>
+            <Rectangle Height="20" Width="2" Margin="10,0,10,0" Stroke="#2A2D2F" Fill="#2A2D2F" VerticalAlignment="Center"/>-->
             <!-- Minimize Button -->
             <Button x:Name="BTN_Minimize" Click="BTN_Minimize_Click" 
                 Background="#009664" BorderThickness="0" Padding="0" Margin="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" MouseEnter="BTN_Minimize_MouseEnter" MouseLeave="BTN_Minimize_MouseLeave">

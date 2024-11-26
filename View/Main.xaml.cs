@@ -139,20 +139,19 @@ namespace RunTrack
             BTN_Close.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#009664"));
         }
 
-        private void BTN_Settings_MouseEnter(object sender, MouseEventArgs e)
-        {
-            BTN_Settings.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#005746"));
-        }
+        //private void BTN_Settings_MouseEnter(object sender, MouseEventArgs e)
+        //{
+        //    BTN_Settings.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#005746"));
+        //}
 
-        private void BTN_Settings_MouseLeave(object sender, MouseEventArgs e)
-        {
-            BTN_Settings.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#009664"));
-        }
+        //private void BTN_Settings_MouseLeave(object sender, MouseEventArgs e)
+        //{
+        //    BTN_Settings.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#009664"));
+        //}
 
-        private void BTN_Settings_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        //private void BTN_Settings_Click(object sender, RoutedEventArgs e)
+        //{
+        //}
 
         private void MetroWindow_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
