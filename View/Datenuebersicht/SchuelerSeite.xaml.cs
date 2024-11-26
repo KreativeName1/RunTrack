@@ -11,6 +11,7 @@ namespace RunTrack
     {
         private SchuelerseiteModel _model;
         private bool _isUserInteraction = false;
+        private bool _isUserInteractionGeschlecht = false;
 
         public SchuelerSeite()
         {
@@ -141,14 +142,29 @@ namespace RunTrack
 
         }
 
-        private void cbKlasse_DropDownOpened(object sender, EventArgs e)
+        private void cbKlasse_DropDown(object sender, EventArgs e)
         {
-            _isUserInteraction = true;
+            _isUserInteraction = !_isUserInteraction;
         }
 
-        private void cbKlasse_DropDownClosed(object sender, EventArgs e)
+
+        private void ComboBox_DropDown(object sender, EventArgs e)
         {
-            _isUserInteraction = false;
+            _isUserInteractionGeschlecht = !_isUserInteractionGeschlecht;
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (_isUserInteractionGeschlecht)
+            {
+                _model.HasChanges = true;
+                ComboBox cb = sender as ComboBox;
+                Schueler schueler = cb.DataContext as Schueler;
+                if (schueler != null)
+                {
+                    schueler.Geschlecht = (Geschlecht)cb.SelectedItem;
+                }
+            }
         }
     }
 }

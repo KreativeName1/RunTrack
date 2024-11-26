@@ -7,123 +7,124 @@
 	  mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LäuferSeite">
-    <Page.Resources>
-        <this:ObjectToBoolConverter x:Key="ObjectToBoolConverter"/>
+	<Page.Resources>
+		<this:ObjectToBoolConverter x:Key="ObjectToBoolConverter"/>
 		<local:LaeuferseiteModel x:Key="thismodel"/>
 		<this:BoolToVisibilityConverter x:Key="bvcon"/>
-        <x:Array x:Key="GenderOptions" Type="{x:Type local:Geschlecht}">
-            <x:Static Member="local:Geschlecht.Maennlich"/>
-            <x:Static Member="local:Geschlecht.Weiblich"/>
-            <x:Static Member="local:Geschlecht.Divers"/>
-        </x:Array>
-    </Page.Resources>
-    <Grid DataContext="{StaticResource thismodel}" >
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <!--Schüler-->
-        <GroupBox x:Name="LaeuferGrid" Header="Läufer">
-            <Grid>
+		<x:Array x:Key="GenderOptions" Type="{x:Type local:Geschlecht}">
+			<x:Static Member="local:Geschlecht.Maennlich"/>
+			<x:Static Member="local:Geschlecht.Weiblich"/>
+			<x:Static Member="local:Geschlecht.Divers"/>
+		</x:Array>
+	</Page.Resources>
+	<Grid DataContext="{StaticResource thismodel}" >
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="19*" />
+			<RowDefinition Height="166*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		<!--Schüler-->
+		<GroupBox x:Name="LaeuferGrid" Header="Läufer" Grid.RowSpan="2">
+			<Grid>
 				<DataGrid x:Name="lstLaeufer" ItemsSource="{Binding CollectionView}" SelectedItem="{Binding SelLaeufer}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="False">
 					<DataGrid.Resources>
-                        <Style TargetType="DataGridColumnHeader">
-                            <Setter Property="FontWeight" Value="Bold"/>
-                            <Setter Property="FontSize" Value="14"/>
-                            <Setter Property="HorizontalContentAlignment" Value="center"/>
-                            <Setter Property="Foreground" Value="#FF3957FF"/>
-                        </Style>
-                    </DataGrid.Resources>
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Width="8*" Header="Id" Binding="{Binding Id}" IsReadOnly="True">
-                            <DataGridTextColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="Cursor" Value="No"/>
-                                </Style>
-                            </DataGridTextColumn.CellStyle>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Width="25*" Header="Vorname" Binding="{Binding Vorname}">
-                            <DataGridTextColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="Cursor" Value="Pen"/>
-                                </Style>
-                            </DataGridTextColumn.CellStyle>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Width="25*" Header="Nachname" Binding="{Binding Nachname}">
-                            <DataGridTextColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="Cursor" Value="Pen"/>
-                                </Style>
-                            </DataGridTextColumn.CellStyle>
-                        </DataGridTextColumn>
-                     
-                        <DataGridTemplateColumn Header="Geschlecht">
-                            <DataGridTemplateColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="Cursor" Value="Pen"/>
-                                </Style>
-                            </DataGridTemplateColumn.CellStyle>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ComboBox SelectedItem="{Binding Geschlecht, Mode=TwoWay}"
+						<Style TargetType="DataGridColumnHeader">
+							<Setter Property="FontWeight" Value="Bold"/>
+							<Setter Property="FontSize" Value="14"/>
+							<Setter Property="HorizontalContentAlignment" Value="center"/>
+							<Setter Property="Foreground" Value="#FF3957FF"/>
+						</Style>
+					</DataGrid.Resources>
+					<DataGrid.Columns>
+						<DataGridTextColumn Width="8*" Header="Id" Binding="{Binding Id}" IsReadOnly="True">
+							<DataGridTextColumn.CellStyle>
+								<Style TargetType="DataGridCell">
+									<Setter Property="Cursor" Value="No"/>
+								</Style>
+							</DataGridTextColumn.CellStyle>
+						</DataGridTextColumn>
+						<DataGridTextColumn Width="25*" Header="Vorname" Binding="{Binding Vorname}">
+							<DataGridTextColumn.CellStyle>
+								<Style TargetType="DataGridCell">
+									<Setter Property="Cursor" Value="Pen"/>
+								</Style>
+							</DataGridTextColumn.CellStyle>
+						</DataGridTextColumn>
+						<DataGridTextColumn Width="25*" Header="Nachname" Binding="{Binding Nachname}">
+							<DataGridTextColumn.CellStyle>
+								<Style TargetType="DataGridCell">
+									<Setter Property="Cursor" Value="Pen"/>
+								</Style>
+							</DataGridTextColumn.CellStyle>
+						</DataGridTextColumn>
+
+						<DataGridTemplateColumn Header="Geschlecht">
+							<DataGridTemplateColumn.CellStyle>
+								<Style TargetType="DataGridCell">
+									<Setter Property="Cursor" Value="Pen"/>
+								</Style>
+							</DataGridTemplateColumn.CellStyle>
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<ComboBox DropDownOpened="ComboBox_DropDown" DropDownClosed="ComboBox_DropDown" SelectedItem="{Binding Geschlecht, Mode=TwoWay}" SelectionChanged="ComboBox_SelectionChanged"
                  ItemsSource="{Binding Source={StaticResource GenderOptions}}"
                  IsEnabled="True"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
 
-                        <DataGridTextColumn Header="Jahrgang" Binding="{Binding Geburtsjahrgang}">
-                            <DataGridTextColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="Cursor" Value="Pen"/>
-                                </Style>
-                            </DataGridTextColumn.CellStyle>
-                        </DataGridTextColumn>
+						<DataGridTextColumn Header="Jahrgang" Binding="{Binding Geburtsjahrgang}">
+							<DataGridTextColumn.CellStyle>
+								<Style TargetType="DataGridCell">
+									<Setter Property="Cursor" Value="Pen"/>
+								</Style>
+							</DataGridTextColumn.CellStyle>
+						</DataGridTextColumn>
 
-                        <DataGridTemplateColumn Header="Rundenart" Width="25*">
-                            <DataGridTemplateColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="Cursor" Value="Pen"/>
-                                </Style>
-                            </DataGridTemplateColumn.CellStyle>
-                            <DataGridTemplateColumn.CellTemplate>
+						<DataGridTemplateColumn Header="Rundenart" Width="25*">
+							<DataGridTemplateColumn.CellStyle>
+								<Style TargetType="DataGridCell">
+									<Setter Property="Cursor" Value="Pen"/>
+								</Style>
+							</DataGridTemplateColumn.CellStyle>
+							<DataGridTemplateColumn.CellTemplate>
 								<DataTemplate>
 									<ComboBox x:Name="cbRundenArt" ItemsSource="{Binding DataContext.LstRundenart, RelativeSource={RelativeSource AncestorType=DataGrid}}"
 								  SelectionChanged="cbRundenArt_SelectionChanged" SelectedItem="{Binding RundenArt, Mode=TwoWay}"/>
 								</DataTemplate>
 							</DataGridTemplateColumn.CellTemplate>
 						</DataGridTemplateColumn>
-						
+
 					</DataGrid.Columns>
-                </DataGrid>
+				</DataGrid>
 				<Border Visibility="{Binding IsLoading, Converter={StaticResource bvcon}}" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="10">
 					<fa:ImageAwesome Icon="Refresh" Spin="True" Height="48" Width="48" />
 				</Border>
 			</Grid>
-        </GroupBox>
-        <Grid Grid.Row="1" Height="80" HorizontalAlignment="Stretch">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
-                <fc:ButtonPlus x:Name="btnSpeichern" IsEnabled="{Binding HasChanges}" Margin="10,0,0,0"  Cursor="Hand" Content="Speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30"/>
-                <fc:ButtonPlus x:Name="btnNeu" Margin="10,0,0,0"  Cursor="Hand" Content="Neuer Eintrag" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
-                <fc:ButtonPlus x:Name="btnDel" IsEnabled="{Binding SelLaeufer, Converter={StaticResource ObjectToBoolConverter}}" Margin="10,0,10,0"  Cursor="Hand" Content="Eintrag löschen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,10,0">
-                <Border Background="#CFD3CD" Height="40" CornerRadius="6">
-                    <Canvas Width="230" Height="40">
-                        <fc:ButtonPlus x:Name="tbLabel" ForegroundOnDisabled="Black" BorderBrush="#FF868686" Background="#879bbe" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" Height="30" Width="50" CornerRadius="5.5,0,0,5.5" HorizontalContentAlignment="Center" IsEnabled="False" Content="Search" Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="5" Canvas.Left="5"/>
-                        <fc:TextBoxPlus x:Name="txtSearch" ForegroundBrushOnSelected="Blue" UnderlineBrushOnSelected="#28713E" Foreground="Blue" Width="100" Height="30" CornerRadius="0,5.5,5.5,0" Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Canvas.Left="55" VerticalAlignment="Center" Canvas.Top="5" LostFocus="txtSearch_LostFocus"/>
-                        <fc:ButtonPlus x:Name="btnUp" BorderBrush="#FF868686" Background="#879bbe" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" Width="30" Height="30" CornerRadius="5.5,0,0,5.5" Content="▲" HorizontalContentAlignment="Center" Cursor="Hand" Click="btnUp_Click" HorizontalAlignment="Left" Canvas.Left="165" VerticalAlignment="Center" Canvas.Top="5" />
-                        <fc:ButtonPlus x:Name="btnDown" BorderBrush="#FF868686" Background="#879bbe" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" Width="30" Height="30"  CornerRadius="0,5.5,5.5,0" Content="▼" HorizontalContentAlignment="Center" Cursor="Hand" Click="btnDown_Click" HorizontalAlignment="Left" Canvas.Left="195" VerticalAlignment="Center" Canvas.Top="5" Canvas.Right="5"/>
-                    </Canvas>
-                </Border>
-            </StackPanel>
-        </Grid>
-    </Grid>
+		</GroupBox>
+		<Grid Grid.Row="2" Height="80">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+			<StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+				<fc:ButtonPlus x:Name="btnSpeichern" IsEnabled="{Binding HasChanges}" Margin="10,0,0,0"  Cursor="Hand" Content="Speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30"/>
+				<fc:ButtonPlus x:Name="btnNeu" Margin="10,0,0,0"  Cursor="Hand" Content="Neuer Eintrag" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
+				<fc:ButtonPlus x:Name="btnDel" IsEnabled="{Binding SelLaeufer, Converter={StaticResource ObjectToBoolConverter}}" Margin="10,0,10,0"  Cursor="Hand" Content="Eintrag löschen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30"/>
+			</StackPanel>
+			<StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,10,0">
+				<Border Background="#CFD3CD" Height="40" CornerRadius="6">
+					<Canvas Width="230" Height="40">
+						<fc:ButtonPlus x:Name="tbLabel" ForegroundOnDisabled="Black" BorderBrush="#FF868686" Background="#879bbe" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" Height="30" Width="50" CornerRadius="5.5,0,0,5.5" HorizontalContentAlignment="Center" IsEnabled="False" Content="Search" Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="5" Canvas.Left="5"/>
+						<fc:TextBoxPlus x:Name="txtSearch" ForegroundBrushOnSelected="Blue" UnderlineBrushOnSelected="#28713E" Foreground="Blue" Width="100" Height="30" CornerRadius="0,5.5,5.5,0" Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Canvas.Left="55" VerticalAlignment="Center" Canvas.Top="5" LostFocus="txtSearch_LostFocus"/>
+						<fc:ButtonPlus x:Name="btnUp" BorderBrush="#FF868686" Background="#879bbe" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" Width="30" Height="30" CornerRadius="5.5,0,0,5.5" Content="▲" HorizontalContentAlignment="Center" Cursor="Hand" Click="btnUp_Click" HorizontalAlignment="Left" Canvas.Left="165" VerticalAlignment="Center" Canvas.Top="5" />
+						<fc:ButtonPlus x:Name="btnDown" BorderBrush="#FF868686" Background="#879bbe" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" Width="30" Height="30"  CornerRadius="0,5.5,5.5,0" Content="▼" HorizontalContentAlignment="Center" Cursor="Hand" Click="btnDown_Click" HorizontalAlignment="Left" Canvas.Left="195" VerticalAlignment="Center" Canvas.Top="5" Canvas.Right="5"/>
+					</Canvas>
+				</Border>
+			</StackPanel>
+		</Grid>
+	</Grid>
 </Page>

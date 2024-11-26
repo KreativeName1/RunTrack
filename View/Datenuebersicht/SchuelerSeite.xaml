@@ -71,7 +71,7 @@
                             </DataGridTemplateColumn.CellStyle>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ComboBox SelectedItem="{Binding Geschlecht, Mode=TwoWay}"
+                                    <ComboBox SelectedItem="{Binding Geschlecht, Mode=TwoWay}" SelectionChanged="ComboBox_SelectionChanged" DropDownOpened="ComboBox_DropDown" DropDownClosed="ComboBox_DropDown"
                                         ItemsSource="{Binding Source={StaticResource GenderOptions}}"
                                         IsEnabled="True"/>
                                 </DataTemplate>
@@ -98,7 +98,7 @@
                             </DataGridTemplateColumn.CellStyle>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ComboBox x:Name="cbKlasse" DropDownOpened="cbKlasse_DropDownOpened" DropDownClosed="cbKlasse_DropDownClosed" ItemsSource="{Binding DataContext.LstKlasse, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                    <ComboBox x:Name="cbKlasse" DropDownOpened="cbKlasse_DropDown" DropDownClosed="cbKlasse_DropDown" ItemsSource="{Binding DataContext.LstKlasse, RelativeSource={RelativeSource AncestorType=DataGrid}}"
 											  SelectionChanged="cbKlasse_SelectionChanged"
                                                 SelectedItem="{Binding Klasse, Mode=TwoWay}"/>
                                 </DataTemplate>

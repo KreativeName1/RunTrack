@@ -10,6 +10,7 @@ namespace RunTrack
     public partial class LaeuferSeite : Page
     {
         private LaeuferseiteModel _model;
+        private bool _isUserInteraction = false;
 
         public LaeuferSeite()
         {
@@ -27,7 +28,8 @@ namespace RunTrack
                 _model.LstLaeufer.Add(new Laeufer());
                 _model.HasChanges = true;
             };
-            btnSpeichern.Click += (s, e) => {
+            btnSpeichern.Click += (s, e) =>
+            {
                 try
                 {
                     _model.SaveChanges();
@@ -77,6 +79,27 @@ namespace RunTrack
                 _model.SelLaeufer.RundenArt = rundenArt;
                 _model.SelLaeufer.RundenArtId = rundenArt.Id;
             }
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (_isUserInteraction)
+            {
+                _model.HasChanges = true;
+
+                ComboBox cb = sender as ComboBox;
+                Laeufer laeufer = cb.DataContext as Laeufer;
+
+                if (laeufer != null)
+                {
+                    laeufer.Geschlecht = (Geschlecht)cb.SelectedItem;
+                }
+            }
+        }
+
+        private void ComboBox_DropDown(object sender, EventArgs e)
+        {
+            _isUserInteraction = !_isUserInteraction;
         }
     }
 }
