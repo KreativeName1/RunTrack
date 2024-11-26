@@ -6,7 +6,7 @@ namespace RunTrack
     public class MainModel : BaseModel
     {
         private object? _currentPage;
-        private string? _pageTitle;
+        private string? _pageTitle = "RunTrack";
 
         private List<object> _history = new List<object>();
 
