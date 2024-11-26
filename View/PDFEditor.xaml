@@ -36,7 +36,7 @@
 		</Grid.RowDefinitions>
 
 		<Grid Grid.Column="0" Grid.RowSpan="2" Grid.Row="0" Margin="0,2,0,0">
-            <wv2:WebView2 Source="{Binding Quelle}" x:Name="webView"/>
+            <wv2:WebView2 Source="{Binding Quelle}" x:Name="webView" ZoomFactor=".55"/>
         </Grid>
         <Border BorderBrush="Black" BorderThickness="1"  Grid.Row="0" Grid.Column="1">
             <fc:GlassScrollViewer>
