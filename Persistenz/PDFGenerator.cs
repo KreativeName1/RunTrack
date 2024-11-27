@@ -274,7 +274,7 @@ namespace RunTrack
                     .SetFontColor(primaryColor));
 
                 // Veranstaltung
-                Dokument.Add(new Paragraph("Verliehen bei")
+                Dokument.Add(new Paragraph("Verliehen bei dem")
                     .SetTextAlignment(TextAlignment.CENTER)
                     .SetFontSize(format.SchriftGroesse * 1.1f));
                 Dokument.Add(new Paragraph(obj.LaufName)
