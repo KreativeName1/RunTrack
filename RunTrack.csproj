@@ -31,6 +31,7 @@
     <None Remove="Images\titelbarIcons\maximize.png" />
     <None Remove="Images\titelbarIcons\minimize.png" />
     <None Remove="Images\titelbarIcons\settings.png" />
+    <None Remove="Images\watermark.png" />
     <None Remove="MainWindow.xaml~RF6d463b42.TMP" />
     <None Remove="View\AdminEinstellungen.xaml~RFd832464d.TMP" />
     <None Remove="View\AdminErstellen.xaml.cs~RF9b0defe3.TMP" />
@@ -116,6 +117,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\titelbarIcons\settings.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\watermark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

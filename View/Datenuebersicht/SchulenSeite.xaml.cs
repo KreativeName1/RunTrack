@@ -98,12 +98,6 @@ namespace RunTrack
 
         }
 
-        private string CapitalizeFirstLetter(string input)
-        {
-            if (string.IsNullOrEmpty(input)) return input;
-            return char.ToUpper(input[0]) + input.Substring(1).ToLower();
-        }
-
         private void btnUp_Click(object sender, RoutedEventArgs e)
         {
             UebersichtMethoden.SelectSearchedRow(lstSchule, false);

@@ -39,7 +39,7 @@
 
             <TextBlock Text="Uploaddatum ⇅" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" MouseDown="UploadDateLabel_MouseDown" MouseEnter="Label_MouseEnter" MouseLeave="Label_MouseLeave" x:Name="UploadDateLabel" Cursor="Hand"/>
         </Grid>
-        <ListBox x:Name="FilesListBox" AllowDrop="True" ItemsSource="{Binding LstFiles}" Grid.Row="3" Margin="10,5,10,10" BorderBrush="Gray" BorderThickness="1"
+        <ListBox x:Name="FilesListBox" AllowDrop="True" SelectionChanged="FilesListBox_SelectionChanged" ItemsSource="{Binding LstFiles}" Grid.Row="3" Margin="10,5,10,10" BorderBrush="Gray" BorderThickness="1"
                  HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -50,7 +50,7 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <CheckBox IsChecked="{Binding IsSelected}" VerticalAlignment="Center" Margin="5"/>
+                            <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" VerticalAlignment="Center" Margin="5"/>
                             <TextBlock Text="{Binding FileName}" VerticalAlignment="Center" Margin="30,0,0,0" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap"/>
                             <TextBlock Text="{Binding UploadDate, StringFormat=dd.MM.yyyy HH:mm}" VerticalAlignment="Center" Margin="5,0,5,0" Grid.Column="2" HorizontalAlignment="Right"/>
                         </Grid>

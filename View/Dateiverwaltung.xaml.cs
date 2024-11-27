@@ -213,5 +213,24 @@ namespace RunTrack
                 }
             }
         }
+
+        private void FilesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            foreach (var item in e.AddedItems)
+            {
+                if (item is FileItem fileItem)
+                {
+                    fileItem.IsSelected = true; // Abhacken die Checkbox
+                }
+            }
+
+            foreach (var item in e.RemovedItems)
+            {
+                if (item is FileItem fileItem)
+                {
+                    fileItem.IsSelected = false; // Deaktiviert die Checkbox
+                }
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using iText.Barcodes;
+using iText.IO.Image;
 using iText.Kernel.Colors;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
@@ -10,7 +11,10 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 using System.IO;
 using System.Reflection;
+using System.Windows;
+using HorizontalAlignment = iText.Layout.Properties.HorizontalAlignment;
 using Image = iText.Layout.Element.Image;
+using TextAlignment = iText.Layout.Properties.TextAlignment;
 
 namespace RunTrack
 {
@@ -235,78 +239,114 @@ namespace RunTrack
 		}
 
 
-		public static string Urkunde(List<Urkunde> liste, Format format)
-		{
+        public static string Urkunde(List<Urkunde> liste, Format format)
+        {
+            string datei = DokumentErstellen(format);
+            if (Dokument == null) return string.Empty;
 
-			string datei = DokumentErstellen(format);
-			if (Dokument == null) return string.Empty;
-			int lineWidth = 100;
+            int lineWidth = 200;
+            Color primaryColor = new DeviceRgb(0, 102, 204); // Ein eleganter Blauton
 
-			foreach (Urkunde obj in liste)
-			{
-				Dokument.Add(new Paragraph("Urkunde").SetTextAlignment(TextAlignment.CENTER).SetBold().SetFontSize(format.SchriftGroesse * 3));
-				// relative Schriftgröße
-				Dokument.Add(new Paragraph("Beim").SetTextAlignment(TextAlignment.CENTER).SetFontSize(format.SchriftGroesse));
-				Dokument.Add(new Paragraph(obj.LaufName).SetTextAlignment(TextAlignment.CENTER).SetBold().SetFontSize(format.SchriftGroesse * 2));
-				Dokument.Add(new LineSeparator(new SolidLine()).SetMarginLeft(lineWidth).SetMarginRight(lineWidth).SetMarginTop((float)format.ZeilenAbstand).SetMarginBottom((float)format.ZeilenAbstand));
-				// hat
-				Dokument.Add(new Paragraph("belegte").SetTextAlignment(TextAlignment.CENTER).SetFontSize(format.SchriftGroesse));
-				// name
-				Dokument.Add(new Paragraph(obj.Name).SetTextAlignment(TextAlignment.CENTER).SetBold().SetFontSize(format.SchriftGroesse * 2));
-				Dokument.Add(new LineSeparator(new SolidLine()).SetMarginLeft(lineWidth).SetMarginRight(lineWidth).SetMarginTop((float)format.ZeilenAbstand).SetMarginBottom((float)format.ZeilenAbstand));
-				// den
-				Dokument.Add(new Paragraph("den").SetTextAlignment(TextAlignment.CENTER).SetFontSize(format.SchriftGroesse));
-				// platz
-				Dokument.Add(new Paragraph(obj.Platzierung.ToString() + ". Platz").SetTextAlignment(TextAlignment.CENTER).SetBold().SetFontSize(26));
-				Dokument.Add(new LineSeparator(new SolidLine()).SetMarginLeft(lineWidth).SetMarginRight(lineWidth).SetMarginTop((float)format.ZeilenAbstand).SetMarginBottom((float)format.ZeilenAbstand));
-				// erreicht
-				Dokument.Add(new Paragraph("erreicht in").SetTextAlignment(TextAlignment.CENTER).SetFontSize(format.SchriftGroesse));
-				// in der Klasse/Schule/Insgesamt
-				Dokument.Add(new Paragraph(obj.Auswertungsart).SetTextAlignment(TextAlignment.CENTER).SetBold().SetFontSize(format.SchriftGroesse));
-				Dokument.Add(new LineSeparator(new SolidLine()).SetMarginLeft(lineWidth).SetMarginRight(lineWidth).SetMarginTop((float)format.ZeilenAbstand).SetMarginBottom((float)format.ZeilenAbstand));
-				// in Kategeorie
-				Dokument.Add(new Paragraph("in Kategorie").SetTextAlignment(TextAlignment.CENTER).SetFontSize(format.SchriftGroesse));
-				// Kategorie
-				Dokument.Add(new Paragraph($"{obj.Kategorie} - {obj.Geschlecht}").SetTextAlignment(TextAlignment.CENTER).SetBold().SetFontSize(format.SchriftGroesse));
-				Dokument.Add(new LineSeparator(new SolidLine()).SetMarginLeft(lineWidth).SetMarginRight(lineWidth).SetMarginTop((float)format.ZeilenAbstand).SetMarginBottom((float)format.ZeilenAbstand));
-				// Bewertung
-				Dokument.Add(new Paragraph(obj.Kategorie + ": " + obj.Wert).SetTextAlignment(TextAlignment.CENTER).SetFontSize(format.SchriftGroesse));
+            foreach (Urkunde obj in liste)
+            {
+                // Hintergrund mit dezentem Wasserzeichen
+                // Load the image resource from the application
+                var uri = new Uri("pack://application:,,,/Images/watermark.png");
+                var resourceStream = Application.GetResourceStream(uri).Stream;
 
+                using (var memoryStream = new MemoryStream())
+                {
+                    resourceStream.CopyTo(memoryStream);
+                    var imageData = ImageDataFactory.Create(memoryStream.ToArray());
+                    var image = new Image(imageData)
+                        .SetFixedPosition(0, 0)
+                        .ScaleToFit(format.BlattGroesse.Breite, format.BlattGroesse.Hoehe)
+                        .SetOpacity(0.1f);
 
-				Table table = new Table(3);
-				table.SetWidth(UnitValue.CreatePercentValue(100));
+                    Dokument.Add(image);
+                }
 
-				Cell leftCell = new Cell().Add(new Paragraph("Datum und Ort"));
-				leftCell.SetTextAlignment(TextAlignment.LEFT);
-				leftCell.SetBorder(Border.NO_BORDER);
-				leftCell.SetBorderTop(new SolidBorder(1));
-				leftCell.SetWidth(UnitValue.CreatePercentValue(30));
+                // Haupttitel
+                Dokument.Add(new Paragraph("Urkunde")
+                    .SetTextAlignment(TextAlignment.CENTER)
+                    .SetBold()
+                    .SetFontSize(format.SchriftGroesse * 3)
+                    .SetFontColor(primaryColor));
 
-				Cell rightCell = new Cell().Add(new Paragraph("Unterschrift"));
-				rightCell.SetTextAlignment(TextAlignment.RIGHT);
-				rightCell.SetBorder(Border.NO_BORDER);
-				rightCell.SetBorderTop(new SolidBorder(1));
-				rightCell.SetWidth(UnitValue.CreatePercentValue(30));
+                // Veranstaltung
+                Dokument.Add(new Paragraph("Verliehen bei")
+                    .SetTextAlignment(TextAlignment.CENTER)
+                    .SetFontSize(format.SchriftGroesse * 1.1f));
+                Dokument.Add(new Paragraph(obj.LaufName)
+                    .SetTextAlignment(TextAlignment.CENTER)
+                    .SetBold()
+                    .SetFontSize(format.SchriftGroesse * 1.25f));
 
-				Cell spacerCell = new Cell();
-				spacerCell.SetWidth(UnitValue.CreatePercentValue(40));
+                // Trennlinie
+                Dokument.Add(new LineSeparator(new SolidLine())
+                    .SetMarginLeft(lineWidth)
+                    .SetMarginRight(lineWidth)
+                    .SetMarginTop((float)format.ZeilenAbstand)
+                    .SetMarginBottom((float)format.ZeilenAbstand)
+                    .SetStrokeColor(primaryColor));
+
+                // Teilnehmername
+                Dokument.Add(new Paragraph("an")
+                    .SetTextAlignment(TextAlignment.CENTER)
+                    .SetFontSize(format.SchriftGroesse * 1.1f));
+                Dokument.Add(new Paragraph(obj.Name)
+                    .SetTextAlignment(TextAlignment.CENTER)
+                    .SetBold()
+					.SetFontSize(format.SchriftGroesse * 1.25f));
+
+                Dokument.Add(new Paragraph("mit dem")
+                    .SetTextAlignment(TextAlignment.CENTER)
+                    .SetFontSize(format.SchriftGroesse * 1.1f));
+
+                // Platzierung
+                Dokument.Add(new Paragraph($"{obj.Platzierung}. Platz")
+                    .SetTextAlignment(TextAlignment.CENTER)
+                    .SetBold()
+                    .SetFontSize(format.SchriftGroesse * 1.5f)
+                    .SetFontColor(ColorConstants.ORANGE));
+
+                // Signaturbereich ans untere Ende des Dokuments verschieben
+                Table table = new Table(3);
+                table.SetWidth(UnitValue.CreatePercentValue(100));
+
+                Cell leftCell = new Cell().Add(new Paragraph("Datum und Ort").SetFontSize(format.SchriftGroesse));
+                leftCell.SetTextAlignment(TextAlignment.LEFT)
+                       .SetBorder(Border.NO_BORDER)
+                       .SetBorderTop(new SolidBorder(1));
+
+                Cell rightCell = new Cell().Add(new Paragraph("Unterschrift").SetFontSize(format.SchriftGroesse));
+                rightCell.SetTextAlignment(TextAlignment.RIGHT)
+                        .SetBorder(Border.NO_BORDER)
+                        .SetBorderTop(new SolidBorder(1));
+
+                Cell spacerCell = new Cell();
 				spacerCell.SetBorder(Border.NO_BORDER);
 
-				table.AddCell(leftCell);
-				table.AddCell(spacerCell);
-				table.AddCell(rightCell);
 
-				table.SetVerticalAlignment(VerticalAlignment.BOTTOM);
+                table.AddCell(leftCell);
+                table.AddCell(spacerCell);
+                table.AddCell(rightCell);
 
-				float size = format.Orientierung == Orientierung.Querformat ? format.BlattGroesse.Hoehe : format.BlattGroesse.Breite;
-				table.SetFixedPosition(liste.IndexOf(obj) + 1, format.SeitenRandLinks, 50, size - (format.SeitenRandRechts + format.SeitenRandLinks));
-				Dokument.Add(table);
-				Dokument.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-			}
-			Dokument.Close();
-			return datei;
-		}
+                table.SetMarginTop(50);
+                // Den Signaturbereich ans Ende verschieben
+                Dokument.Add(new Paragraph().SetHeight(425)); // Platzhalter, um Abstand zu schaffen
+                Dokument.Add(table);
+
+                // Seitenumbruch für nächste Urkunde
+                Dokument.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+            }
+
+            Dokument.Close();
+            return datei;
+        }
 
 
-	}
+
+
+    }
 }
