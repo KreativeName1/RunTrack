@@ -26,6 +26,7 @@ namespace RunTrack
                 if (e.Key == Key.F11) ChangeState();
             };
 
+            this.SizeChanged += MetroWindow_SizeChanged;
 
 
         }
