@@ -165,6 +165,7 @@ namespace RunTrack
             Db.SaveChanges();
 
             HasChanges = false;
+            LoadData();
         }
 
         private string CapitalizeFirstLetter(string input)

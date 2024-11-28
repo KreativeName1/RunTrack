@@ -140,6 +140,7 @@ namespace RunTrack
             Db.SaveChanges();
 
             HasChanges = false;
+            LoadData();
         }
 
         private string CapitalizeWords(string input)

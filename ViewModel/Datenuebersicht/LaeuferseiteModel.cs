@@ -151,6 +151,7 @@ namespace RunTrack
             Db.SaveChanges();
 
             HasChanges = false;
+            LoadData();
         }
 
 
