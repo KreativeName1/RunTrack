@@ -63,6 +63,8 @@
                                 </Style>
                             </DataGridTextColumn.CellStyle>
                         </DataGridTextColumn>
+						
+						
                         <DataGridTemplateColumn Width="12*" Header="Geschlecht">
                             <DataGridTemplateColumn.CellStyle>
                                 <Style TargetType="DataGridCell">
@@ -89,23 +91,34 @@
                                     <Setter Property="Cursor" Value="Pen"/>
                                 </Style>
                             </DataGridTextColumn.CellStyle>
+							
+							
                         </DataGridTextColumn>
-                        <DataGridTemplateColumn Header="Klasse" Width="10*">
-                            <DataGridTemplateColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="Cursor" Value="Pen"/>
-                                </Style>
-                            </DataGridTemplateColumn.CellStyle>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ComboBox x:Name="cbKlasse" DropDownOpened="cbKlasse_DropDown" DropDownClosed="cbKlasse_DropDown" ItemsSource="{Binding DataContext.LstKlasse, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-											  SelectionChanged="cbKlasse_SelectionChanged"
-                                                SelectedItem="{Binding Klasse, Mode=TwoWay}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                            
+						<DataGridTemplateColumn Header="Klasse" Width="10*">
+						<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<ComboBox x:Name="comboBox" Loaded="comboBox_Loaded" DropDownClosed="ComboBox_DropDown" SelectionChanged="comboBox_SelectionChanged_1"  DropDownOpened="ComboBox_DropDownOpened">
+										<ComboBox.GroupStyle>
+											<GroupStyle>
+												<GroupStyle.HeaderTemplate>
+													<DataTemplate>
+														<TextBlock Text="{Binding Name}"/>
+													</DataTemplate>
+												</GroupStyle.HeaderTemplate>
+											</GroupStyle>
+										</ComboBox.GroupStyle>
+										<ComboBox.ItemTemplate>
+											<DataTemplate>
+												<TextBlock Text="{Binding Name}"/>
+											</DataTemplate>
+										</ComboBox.ItemTemplate>
+									</ComboBox>
+								</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
 						</DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Schule" Width="18*" IsReadOnly="True" Binding="{Binding Klasse.Schule}">
+						
+						
+						<DataGridTextColumn Header="Schule" Width="18*" IsReadOnly="True" Binding="{Binding Klasse.Schule}">
                             <DataGridTextColumn.CellStyle>
                                 <Style TargetType="DataGridCell">
                                     <Setter Property="Cursor" Value="No"/>

@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace RunTrack
@@ -17,6 +18,7 @@ namespace RunTrack
         private bool _hasChanges { get; set; }
         private bool _isLoading { get; set; }
         private string _searchTerm { get; set; }
+
 
         public string SearchTerm
         {
@@ -172,6 +174,7 @@ namespace RunTrack
             Db.SaveChanges();
 
             HasChanges = false;
+            LoadData();
         }
 
         private string CapitalizeFirstLetter(string input)
@@ -196,9 +199,8 @@ namespace RunTrack
             {
                 _db = new();
                 LstSchueler = new(_db.Schueler.Include(s => s.Klasse).ThenInclude(k => k.Schule).Include(s => s.Runden).ToList());
-                LstSchule = new(_db.Schulen.ToList());
+                LstSchule = new(_db.Schulen.Include(s => s.Klassen).ToList());
                 LstKlasse = new(_db.Klassen.ToList());
-
 
                 Application.Current.Dispatcher.Invoke(() =>
                 {

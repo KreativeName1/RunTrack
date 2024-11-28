@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 
 namespace RunTrack
@@ -119,29 +121,6 @@ namespace RunTrack
             txtSearch.Foreground = new SolidColorBrush(Colors.Blue);
         }
 
-        private void cbSchule_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            _model.HasChanges = true;
-        }
-        private void cbKlasse_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (_model.SelSchueler == null) return;
-
-            if (_isUserInteraction)
-            {
-                _model.HasChanges = true;
-                _isUserInteraction = false;
-                ComboBox cbKlasse = sender as ComboBox;
-                Klasse klasse = cbKlasse.SelectedItem as Klasse;
-
-                if (klasse != null)
-                {
-                    _model.SelSchueler.Klasse = klasse;
-                    _model.SelSchueler.KlasseId = klasse.Id;
-                }
-            }
-
-        }
 
         private void cbKlasse_DropDown(object sender, EventArgs e)
         {
@@ -151,7 +130,7 @@ namespace RunTrack
 
         private void ComboBox_DropDown(object sender, EventArgs e)
         {
-            _isUserInteractionGeschlecht = !_isUserInteractionGeschlecht;
+            _isUserInteractionGeschlecht = false;
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -164,6 +143,50 @@ namespace RunTrack
                 if (schueler != null)
                 {
                     schueler.Geschlecht = (Geschlecht)cb.SelectedItem;
+                }
+            }
+        }
+
+        private void ComboBox_DropDownOpened(object sender, EventArgs e)
+        {
+            _isUserInteraction = true;
+        }
+
+        private void comboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+            if (_isUserInteraction)
+            {
+                _model.HasChanges = true;
+                ComboBox cb = sender as ComboBox;
+                Schueler schueler = cb.DataContext as Schueler;
+
+                // find schueler in the LstSchueler and set klasse
+
+                if (schueler != null)
+                {
+                    Schueler inListe = _model.LstSchueler.FirstOrDefault(s => s.Id == schueler.Id);
+                    if (inListe != null)
+                    {
+                        inListe.Klasse = (Klasse)cb.SelectedItem;
+                        inListe.KlasseId = inListe.Klasse.Id;
+                    }
+                }
+            }
+        }
+
+
+        private void comboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (sender is ComboBox comboBox && comboBox.DataContext is Schueler schueler)
+            {
+                Trace.WriteLine(_model.LstSchueler);
+                ListCollectionView view = new(_model.LstKlasse);
+                view.GroupDescriptions.Add(new PropertyGroupDescription("Schule.Name"));
+                comboBox.ItemsSource = view;
+
+                if (schueler.Klasse != null)
+                {
+                    comboBox.SelectedItem = schueler.Klasse;
                 }
             }
         }
