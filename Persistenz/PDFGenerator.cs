@@ -368,31 +368,31 @@ namespace RunTrack
                     .SetFontColor(ColorConstants.ORANGE));
 
                 // Signaturbereich ans untere Ende des Dokuments verschieben
-                Table table = new Table(3);
-                table.SetWidth(UnitValue.CreatePercentValue(100));
+                Table table = new Table(UnitValue.CreatePercentArray(new float[] { 2, 1.25f, 2 })).UseAllAvailableWidth();
 
                 Cell leftCell = new Cell().Add(new Paragraph("Datum und Ort").SetFontSize(format.SchriftGroesse));
-                leftCell.SetTextAlignment(TextAlignment.LEFT)
-                       .SetBorder(Border.NO_BORDER)
-                       .SetBorderTop(new SolidBorder(1));
-
-                Cell rightCell = new Cell().Add(new Paragraph("Unterschrift").SetFontSize(format.SchriftGroesse));
-                rightCell.SetTextAlignment(TextAlignment.RIGHT)
+                leftCell.SetTextAlignment(TextAlignment.CENTER)
                         .SetBorder(Border.NO_BORDER)
                         .SetBorderTop(new SolidBorder(1));
 
                 Cell spacerCell = new Cell();
-				spacerCell.SetBorder(Border.NO_BORDER);
+                spacerCell.SetBorder(Border.NO_BORDER);
 
+                Cell rightCell = new Cell().Add(new Paragraph("Unterschrift").SetFontSize(format.SchriftGroesse));
+                rightCell.SetTextAlignment(TextAlignment.CENTER)
+                         .SetBorder(Border.NO_BORDER)
+                         .SetBorderTop(new SolidBorder(1));
 
                 table.AddCell(leftCell);
                 table.AddCell(spacerCell);
                 table.AddCell(rightCell);
 
                 table.SetMarginTop(50);
+
                 // Den Signaturbereich ans Ende verschieben
-                Dokument.Add(new Paragraph().SetHeight(425)); // Platzhalter, um Abstand zu schaffen
+                Dokument.Add(new Paragraph().SetHeight(450)); // Platzhalter, um Abstand zu schaffen
                 Dokument.Add(table);
+
 
                 // Seitenumbruch für nächste Urkunde
                 Dokument.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
