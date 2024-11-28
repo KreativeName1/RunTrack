@@ -13,26 +13,25 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <DataGrid ItemsSource="{Binding KlasseItems}" Grid.Row="1" x:Name="Klassen_Grid"
-          AutoGenerateColumns="False" CanUserAddRows="False">
+        <DataGrid ItemsSource="{Binding KlasseItems}" Margin="10,0,10,0" Grid.Row="1" x:Name="Klassen_Grid" AutoGenerateColumns="False" CanUserAddRows="False">
             <DataGrid.Resources>
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Bezeichnung" Binding="{Binding Bezeichnung}" Width="200"/>
-                <DataGridTemplateColumn Header="Rundenart" Width="75">
+                <DataGridTemplateColumn Header="Rundenart" Width="175">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ComboBox 
-                                 SelectionChanged="ComboBox_SelectionChanged"
-                        ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=Page}, Path=DataContext.RundenArten}" 
-                        SelectedItem="{Binding RundenArt, Mode=TwoWay}"/>
+                            <ComboBox SelectionChanged="ComboBox_SelectionChanged" ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=Page}, Path=DataContext.RundenArten}" SelectedItem="{Binding RundenArt, Mode=TwoWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                    
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-
+        <StackPanel Orientation="Horizontal" Margin="10,5,10,10" HorizontalAlignment="Left">
+            <Label Content="Alle Rundenarten setzen:" VerticalAlignment="Center"></Label>
+            <ComboBox x:Name="SetAllRundenArtenComboBox" Margin="10" Width="175" HorizontalAlignment="Left" VerticalAlignment="Center" ItemsSource="{Binding RundenArten}" SelectedItem="{Binding SelectedRundenArt, Mode=TwoWay}" SelectionChanged="SetAllRundenArtenComboBox_SelectionChanged" />
+        </StackPanel>       
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,5,10,10" HorizontalAlignment="Right">
             <fc:ButtonPlus x:Name="btnWeiter" Content="Importieren" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Cursor="Hand" FontSize="12" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
             <fc:ButtonPlus x:Name="btnBack" Content="Zurück" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Cursor="Hand" FontSize="12" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
