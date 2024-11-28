@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -61,7 +63,23 @@ namespace RunTrack
             _model = FindResource("pmodel") as MainModel ?? new MainModel();
             _pemodel.LoadData();
 
-            btnCancel.Click += (s, e) => _model?.Navigate(_model.History[^1], false);
+            btnCancel.Click += (s, e) =>
+            {
+                _pemodel.Quelle = new Uri("about:blank");
+                Task.Run(() => {
+                    try
+                    {
+                        string[] filesToDelete = Directory.GetFiles("./Temp", "*.pdf");
+                        foreach (string file in filesToDelete) File.Delete(file);
+                    }
+                    catch (Exception ex)
+                    {
+                        Trace.WriteLine(ex.Message);
+                    }
+                });
+
+                _model?.Navigate(_model.History[^1], false);
+            };
             btnSpeichern.Click += (s, e) => Speichern();
 
             Loaded += (s, e) => _pemodel.AktualisierePDF();
