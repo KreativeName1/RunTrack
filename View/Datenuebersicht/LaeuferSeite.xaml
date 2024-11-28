@@ -10,7 +10,6 @@
 	<Page.Resources>
 		<this:ObjectToBoolConverter x:Key="ObjectToBoolConverter"/>
 		<local:LaeuferseiteModel x:Key="thismodel"/>
-		<this:BoolInverterConverter x:Key="BoolInverterConverter"/>
 		<this:BoolToVisibilityConverter x:Key="bvcon"/>
 		<x:Array x:Key="GenderOptions" Type="{x:Type local:Geschlecht}">
 			<x:Static Member="local:Geschlecht.Maennlich"/>
@@ -115,7 +114,7 @@
 				<fc:ButtonPlus x:Name="btnSpeichern" IsEnabled="{Binding HasChanges}" Margin="10,0,0,0"  Cursor="Hand" Content="Speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30"/>
 				<fc:ButtonPlus x:Name="btnNeu" Margin="10,0,0,0"  Cursor="Hand" Content="Neuer Eintrag" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
                 <fc:ButtonPlus x:Name="btnDel" IsEnabled="{Binding SelLaeufer, Converter={StaticResource ObjectToBoolConverter}}" Margin="10,0,10,0"  Cursor="Hand" Content="Eintrag löschen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30"/>
-				<fc:ButtonPlus x:Name="btnDruck" IsEnabled="{Binding HasChanges, Converter={StaticResource BoolInverterConverter}}"  Margin="10,0,10,0"  Cursor="Hand" Content="Auswahl Barcodes" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30"/>
+                <fc:ButtonPlus x:Name="btnDruck" IsEnabled="{Binding SelLaeufer, Converter={StaticResource ObjectToBoolConverter}}" Margin="10,0,10,0"  Cursor="Hand" Content="Auswahl Barcodes" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30"/>
 			</StackPanel>
 			<StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,10,0">
 				<Border Background="#CFD3CD" Height="40" CornerRadius="6">
