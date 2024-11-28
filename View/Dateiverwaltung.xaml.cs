@@ -223,40 +223,47 @@ namespace RunTrack
 
         private void FilesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // Sichtbarkeit des Buttons aktualisieren, basierend auf der aktuellen Auswahl
+            UpdateExportButtonVisibility();
 
-            foreach (var item in e.AddedItems)
+            // Verarbeite hinzugefügte Elemente
+            foreach (var item in e.AddedItems.OfType<FileItem>())
             {
-                if (item is FileItem fileItem)
-                {
-                    btnExport.Visibility = Visibility.Visible;
-                    fileItem.IsSelected = true; // Abhacken der Checkbox
-                }
+                item.IsSelected = true; // Checkbox aktivieren
             }
 
-            foreach (var item in e.RemovedItems)
+            // Verarbeite entfernte Elemente
+            foreach (var item in e.RemovedItems.OfType<FileItem>())
             {
-                if (item is FileItem fileItem)
-                {
-                    fileItem.IsSelected = false; // Deaktiviert die Checkbox
-                }
+                item.IsSelected = false; // Checkbox deaktivieren
             }
         }
 
         private void FilesListBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            // Ermitteln des angeklickten Elements
-            var listBoxItem = (e.OriginalSource as FrameworkElement)?.DataContext as FileItem;
-
-            if (listBoxItem != null && FilesListBox.SelectedItems.Contains(listBoxItem))
+            // Bestimmen, ob ein FileItem angeklickt wurde
+            if (e.OriginalSource is FrameworkElement element &&
+                element.DataContext is FileItem clickedItem &&
+                FilesListBox.SelectedItems.Contains(clickedItem))
             {
-                // Wenn das Element bereits ausgewählt ist, Auswahl entfernen und Checkbox deaktivieren
-                listBoxItem.IsSelected = false;
-                FilesListBox.SelectedItems.Remove(listBoxItem);
+                // Wenn das Element bereits ausgewählt ist, Auswahl entfernen
+                clickedItem.IsSelected = false;
+                FilesListBox.SelectedItems.Remove(clickedItem);
 
-                // Verhindert, dass das Element erneut ausgewählt wird
+                // Sichtbarkeit des Buttons aktualisieren
+                UpdateExportButtonVisibility();
+
+                // Ereignis als verarbeitet markieren
                 e.Handled = true;
             }
         }
+
+        private void UpdateExportButtonVisibility()
+        {
+            // Button nur anzeigen, wenn mindestens ein Element ausgewählt ist
+            btnExport.Visibility = FilesListBox.SelectedItems.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+        }
+
 
         private void files_Click(object sender, RoutedEventArgs e)
         {
