@@ -86,11 +86,16 @@ namespace RunTrack
         private void DeleteSelectedFiles_Click(object sender, RoutedEventArgs e)
         {
             string extra = string.Empty;
+            bool logout = false;
             for (int i = 0; i < _dvmodel.LstFiles.Count; i++)
             {
                 if (_dvmodel.LstFiles[i].IsSelected)
                 {
-                    if (Path.GetFileName(_dvmodel.LstFiles[i].FileName) == "EigeneDatenbank.db") extra = "(Die Datenbank des Programms wird gelöscht und alle bisherigen Daten gehen verloren!)";
+                    if (Path.GetFileName(_dvmodel.LstFiles[i].FileName) == "EigeneDatenbank.db")
+                    {
+                        extra = "(Die Datenbank des Programms wird gelöscht und alle bisherigen Daten gehen verloren!)";
+                        logout = true;
+                    }
                     bool? result = new Popup().Display($"Datei löschen", $"Willst du die Datei '{_dvmodel.LstFiles[i].FileName}' wirklich löschen? {extra}", PopupType.Question, PopupButtons.YesNo);
                     extra = string.Empty;
 
@@ -102,7 +107,7 @@ namespace RunTrack
                             File.Delete(Path.Combine("Dateien", _dvmodel.LstFiles[i].FileName ?? string.Empty));
                             _dvmodel.LstFiles.RemoveAt(i);
 
-                            if (Path.GetFileName(_dvmodel.LstFiles[i].FileName) == "EigeneDatenbank.db")
+                            if (logout)
                             {
                                 _pmodel.Benutzer = null;
                                 _pmodel.Navigate(new MainWindow());
