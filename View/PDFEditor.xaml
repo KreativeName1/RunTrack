@@ -241,8 +241,8 @@
             </fc:GlassScrollViewer>
         </Border>
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="1" Orientation="Horizontal" Margin="10,15,0,10" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-            <fc:ButtonPlus  x:Name="btnSave" Content="💾" ToolTip="PDF speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" HorizontalAlignment="Center" Margin="5,5,10,5" VerticalAlignment="Top" Width="50" Height="30" Cursor="Hand" Click="btnSave_Click"/>
-            <fc:ButtonPlus  x:Name="btnPrint" Content="🖨️" ToolTip="PDF drucken" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="50" Height="30" Margin="5" Cursor="Hand" Click="btnPrint_Click"/>
+            <fc:ButtonPlus  x:Name="btnSave" Content="💾" ToolTipService.InitialShowDelay="100" ToolTip="PDF speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" HorizontalAlignment="Center" Margin="5,5,10,5" VerticalAlignment="Top" Width="50" Height="30" Cursor="Hand" Click="btnSave_Click"/>
+            <fc:ButtonPlus  x:Name="btnPrint" Content="🖨️" ToolTipService.InitialShowDelay="100" ToolTip="PDF drucken" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="50" Height="30" Margin="5" Cursor="Hand" Click="btnPrint_Click"/>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="1" Orientation="Horizontal" Margin="0,15,10,10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <!--<Button  x:Name="btnCredits" Content="Credits" Width="100" Height="25" Margin="5" Click="btnCredits_Click"/>-->
