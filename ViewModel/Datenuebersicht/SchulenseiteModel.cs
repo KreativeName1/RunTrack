@@ -162,7 +162,8 @@ namespace RunTrack
 
         public void Validate(Schule schule)
         {
-            if (string.IsNullOrEmpty(schule.Name)) throw new ValidationException("Name darf nicht leer sein");
+            if (string.IsNullOrEmpty(schule.Name)) throw new ValidationException("Name darf nicht leer sein");            
+            if (Db.Schulen.Any(s => s.Name.ToLower().Trim() == schule.Name.ToLower().Trim() && s.Id != schule.Id)) throw new ValidationException("Eine Schule mit diesem Namen existiert bereits");
         }
 
         public void LoadData()

@@ -182,6 +182,13 @@ namespace RunTrack
             if (klasse.RundenArt == null || klasse.RundenArt.Id == 0) throw new ValidationException("Rundenart darf nicht leer sein");
 
             if (string.IsNullOrWhiteSpace(klasse.Name)) throw new ValidationException("Name darf nicht leer sein");
+
+            var existingKlasse = Db.Klassen.FirstOrDefault(k =>
+                k.Name.Trim().Replace(" ", "").ToLower() == klasse.Name.Trim().Replace(" ", "").ToLower() &&
+                k.SchuleId == klasse.SchuleId);
+
+            if (existingKlasse != null && existingKlasse.Id != klasse.Id) throw new ValidationException("Eine Klasse mit diesem Namen existiert bereits in dieser Schule");
+
         }
 
         public void LoadData()
