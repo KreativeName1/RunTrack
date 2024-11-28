@@ -19,9 +19,10 @@ namespace RunTrack.View.Datenuebersicht
             _model = FindResource("thismodel") as KlassenseiteModel;
             _mmodel = FindResource("pmodel") as MainModel;
 
+
             this.Unloaded += (s, e) =>
             {
-                _model.Db.Dispose();
+               // _model.Db.Dispose();
                 _model.HasChanges = false;
             };
 

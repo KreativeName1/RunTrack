@@ -23,7 +23,6 @@ namespace RunTrack
 
             this.Unloaded += (s, e) =>
             {
-                _model.Db.Dispose();
                 _model.HasChanges = false;
             };
 
