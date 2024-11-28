@@ -49,22 +49,18 @@ namespace RunTrack
             };
             btnDruck.Click += (s, e) =>
             {
-                //// get all selected Laeufer
                 List<Laeufer> list = new();
 
-                foreach (Laeufer laeufer in lstLaeufer.SelectedItems)
+                foreach (Laeufer laeufer in lstLaeufer.SelectedItems) list.Add(laeufer);
+
+                if (list.Count == 0)
                 {
-                    list.Add(laeufer);
+                    new Popup().Display("Fehler", "Keine Läufer ausgewählt", PopupType.Error, PopupButtons.Ok);
+                    return;
                 }
 
-
                 PDFEditor editor = new(list);
-                _mmodel.Navigate(editor);
-
-
-
-
-                
+                _mmodel.Navigate(editor); 
             };
             lstLaeufer.CellEditEnding += (s, e) =>
             {
