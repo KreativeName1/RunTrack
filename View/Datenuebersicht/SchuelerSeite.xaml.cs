@@ -26,6 +26,7 @@ namespace RunTrack
 
             btnNeu.Click += (s, e) =>
             {
+                txtSearch.Text = "";
                 txtSearch.IsEnabled = false;
 
                 var neuerSchueler = new Schueler();
