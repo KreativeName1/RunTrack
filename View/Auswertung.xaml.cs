@@ -68,44 +68,127 @@ namespace RunTrack
                 }
 
             };
+
+            //btnUrkunde.Click += (s, e) =>
+            //{
+            //    // New prompt for selecting whether to show all values or specific ones
+            //    MessageBoxResult result = MessageBox.Show("Möchten Sie alle Werte anzeigen oder spezifische Werte angeben?", "Option wählen", MessageBoxButton.YesNoCancel);
+
+            //    if (result == MessageBoxResult.Cancel) return;
+            //    bool showAllValues = result == MessageBoxResult.Yes;
+
+            //    List<object> liste = _amodel.Liste.ToList();
+            //    int count = Math.Min(liste.Count, 3);
+            //    liste = liste.GetRange(0, count);
+
+            //    string auswertungsart = _amodel.IsAnzahl ? "Rundenanzahl" :
+            //                            _amodel.IsZeit ? "Zeit" :
+            //                            _amodel.IsDistanz ? "Distanz" : "Rundenanzahl";
+
+            //    string worin = _amodel.IsInsgesamt ? "Insgesamt" :
+            //                   _amodel.IsSchule ? $"Schule {_amodel.SelectedSchule}" :
+            //                   _amodel.IsKlasse ? $"Klasse {_amodel.SelectedKlasse}" :
+            //                   _amodel.IsJahrgang ? $"Jahrgang {_amodel.Jahrgang}" : "";
+
+            //    InputPopup input = new("Urkunde", "Bitte geben Sie den Namen des Laufes ein");
+            //    input.ShowDialog();
+            //    string laufName = input.GetInputValue<string>();
+
+            //    List<Urkunde> urkunden = new();
+            //    foreach (object obj in liste)
+            //    {
+            //        string bewertung = obj.GetType().GetProperty("Bewertung")?.GetValue(obj, null).ToString();
+            //        string geschlecht = _amodel.IsMaennlich ? "Männlich" : _amodel.IsWeiblich ? "Weiblich" : "Gesamt";
+
+            //        List<string> specificValues = new();
+            //        if (!showAllValues)
+            //        {
+            //            // Assuming we get specific properties for display
+            //            specificValues.Add(obj.GetType().GetProperty("Name")?.GetValue(obj, null).ToString());
+            //            specificValues.Add(bewertung);
+            //        }
+
+            //        urkunden.Add(new Urkunde(
+            //            laufName,
+            //            worin,
+            //            auswertungsart,
+            //            bewertung,
+            //            showAllValues ? null : specificValues,
+            //            (liste.IndexOf(obj) + 1).ToString(),
+            //            obj.GetType().GetProperty("Name")?.GetValue(obj, null).ToString(),
+            //            geschlecht));
+            //    }
+
+            //    if (laufName != null && input.Result) _pmodel.Navigate(new PDFEditor(urkunden));
+            //};
+
             btnUrkunde.Click += (s, e) =>
             {
+                // Dialog für Auswahl: Alle Werte oder spezifische Werte
+                MessageBoxResult result = MessageBox.Show("Möchten Sie alle Werte anzeigen oder spezifische Werte angeben?", "Option wählen", MessageBoxButton.YesNoCancel);
+                if (result == MessageBoxResult.Cancel) return; // Abbrechen, falls der Nutzer "Abbrechen" wählt
+                bool showAllValues = result == MessageBoxResult.Yes;
+
+                // Liste der Objekte
                 List<object> liste = _amodel.Liste.ToList();
-                int count = Math.Min(liste.Count, 3);
+                int count = Math.Min(liste.Count, 3); // Maximale Anzahl der Einträge begrenzen
                 liste = liste.GetRange(0, count);
 
-                string auswertungsart = "";
-                if (_amodel.IsAnzahl) auswertungsart = "Rundenanzahl";
-                else if (_amodel.IsZeit) auswertungsart = "Zeit";
-                else if (_amodel.IsDistanz) auswertungsart = "Distanz";
-                else auswertungsart = "Rundenanzahl";
+                // Ermitteln der Auswertungsart
+                string auswertungsart = _amodel.IsAnzahl ? "Rundenanzahl" :
+                                        _amodel.IsZeit ? "Zeit" :
+                                        _amodel.IsDistanz ? "Distanz" : "Rundenanzahl";
 
-                string worin = "";
-                if (_amodel.IsInsgesamt) worin = "Insgesamt";
-                else if (_amodel.IsSchule) worin = "Schule " + _amodel.SelectedSchule;
-                else if (_amodel.IsKlasse) worin = "Klasse " + _amodel.SelectedKlasse;
-                else if (_amodel.IsJahrgang) worin = "Jahrgang " + _amodel.Jahrgang;
+                // Ermitteln, worin die Auswertung erfolgt
+                string worin = _amodel.IsInsgesamt ? "Insgesamt" :
+                               _amodel.IsSchule ? $"Schule {_amodel.SelectedSchule}" :
+                               _amodel.IsKlasse ? $"Klasse {_amodel.SelectedKlasse}" :
+                               _amodel.IsJahrgang ? $"Jahrgang {_amodel.Jahrgang}" : "";
 
+                // Laufname über ein Eingabepopup erfassen
                 InputPopup input = new("Urkunde", "Bitte geben Sie den Namen des Laufes ein");
                 input.ShowDialog();
                 string laufName = input.GetInputValue<string>();
 
-                List<Urkunde> urkunden = new();
+                if (string.IsNullOrEmpty(laufName) || !input.Result) return; // Abbrechen, falls kein Name eingegeben wurde
 
+                // Urkunden erstellen
+                List<Urkunde> urkunden = new();
                 foreach (object obj in liste)
                 {
-                    string bewertung = obj.GetType().GetProperty("Bewertung")?.GetValue(obj, null).ToString();
-                    string geschlecht = "";
-                    if (_amodel.IsMaennlich) geschlecht = "Männlich";
-                    else if (_amodel.IsWeiblich) geschlecht = "Weiblich";
-                    else geschlecht = "Gesamt";
+                    // Eigenschaften des aktuellen Objekts abrufen
+                    string bewertung = obj.GetType().GetProperty("Bewertung")?.GetValue(obj, null)?.ToString() ?? "N/A";
+                    string geschlecht = _amodel.IsMaennlich ? "Männlich" :
+                                        _amodel.IsWeiblich ? "Weiblich" : "Gesamt";
 
-                    urkunden.Add(new Urkunde(laufName, worin, auswertungsart, bewertung, (liste.IndexOf(obj) + 1).ToString(), obj.GetType().GetProperty("Name")?.GetValue(obj, null).ToString(), geschlecht));
+                    // Liste spezifischer Werte, falls nur bestimmte Werte angezeigt werden sollen
+                    List<string> specificValues = null;
+                    if (!showAllValues)
+                    {
+                        specificValues = new List<string>
+            {
+                obj.GetType().GetProperty("Name")?.GetValue(obj, null)?.ToString() ?? "Unbekannt",
+                bewertung
+            };
+                    }
 
+                    // Urkunde erstellen und hinzufügen
+                    urkunden.Add(new Urkunde(
+                        laufName,
+                        worin,
+                        auswertungsart,
+                        bewertung,
+                        specificValues, // Nur spezifische Werte, wenn gewünscht
+                        (liste.IndexOf(obj) + 1).ToString(), // Platzierung
+                        obj.GetType().GetProperty("Name")?.GetValue(obj, null)?.ToString() ?? "Unbekannt",
+                        geschlecht
+                    ));
                 }
 
-                if (laufName != null && input.Result) _pmodel.Navigate(new PDFEditor(urkunden));
+                // Zur PDF-Seite navigieren
+                _pmodel.Navigate(new PDFEditor(urkunden));
             };
+
 
             btnCSV.Click += (s, e) =>
             {
