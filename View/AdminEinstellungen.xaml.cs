@@ -161,16 +161,17 @@ namespace RunTrack
                             db.Benutzer.Add(benutzer);
                             db.SaveChanges();
                             new Popup().Display("Erfolg", "Der neue Benutzer wurde erfolgreich erstellt.", PopupType.Success, PopupButtons.Ok);
-
                         }
                         else
                         {
                             new Popup().Display("Fehler", "Das neue Passwort erfüllt nicht die Sicherheitsanforderungen.", PopupType.Error, PopupButtons.Ok);
+                            return;
                         }
                     }
                     else
                     {
                         new Popup().Display("Fehler", "Ein Benutzer mit diesem Namen existiert bereits.", PopupType.Error, PopupButtons.Ok);
+                        return;
                     }
                 }
                 _mmodel?.Navigate(_mmodel.History[^1]);
