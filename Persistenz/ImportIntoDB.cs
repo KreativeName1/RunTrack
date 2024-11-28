@@ -13,7 +13,8 @@
                 if (_imodel.Schule == null) throw new ImportException("Schule nicht gefunden");
                 if (_imodel.Schule.Id == 0)
                 {
-                    Schule schule = new() { Name = _imodel.NeuSchuleName ?? string.Empty };
+                    string nameCapitalised = CapitalizeWords(_imodel.NeuSchuleName);
+                    Schule schule = new() { Name = nameCapitalised ?? string.Empty };
                     db.Schulen.Add(schule);
                     _imodel.Schule = schule;
                 }
@@ -81,9 +82,24 @@
                     throw;
                 }
                 db.SaveChanges();
-
-
             }
+        }
+
+
+        private string CapitalizeWords(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input)) return input;
+
+            var words = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < words.Length; i++)
+            {
+                if (!string.IsNullOrWhiteSpace(words[i]))
+                {
+                    words[i] = char.ToUpper(words[i][0]) + words[i].Substring(1).ToLower();
+                }
+            }
+
+            return string.Join(' ', words);
         }
     }
 }

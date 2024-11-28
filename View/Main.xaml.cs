@@ -150,25 +150,31 @@ namespace RunTrack
         //    BTN_Settings.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#009664"));
         //}
 
-        //private void BTN_Settings_Click(object sender, RoutedEventArgs e)
-        //{
-        //}
-
-        private void MetroWindow_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            ChangeSize();
-        }
 
         private void MetroWindow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (WindowState != WindowState.Maximized)
+            if (this.WindowState != WindowState.Maximized)
             {
+                //this.WindowState = WindowState.Normal;
+
                 Image img = new Image();
                 img.Source = new BitmapImage(new Uri("pack://application:,,,/Images/titelbarIcons/maximize.png"));
                 img.Width = 20;
                 img.Height = 20;
 
                 this.BTN_Maximize.ToolTip = "Vergrößern";
+                this.BTN_Maximize.Content = img;
+            }
+            else
+            {
+                //this.WindowState = WindowState.Maximized;
+
+                Image img = new Image();
+                img.Source = new BitmapImage(new Uri("pack://application:,,,/Images/titelbarIcons/close_fullscreen.png"));
+                img.Width = 15;
+                img.Height = 15;
+
+                this.BTN_Maximize.ToolTip = "Verkleinern";
                 this.BTN_Maximize.Content = img;
             }
         }

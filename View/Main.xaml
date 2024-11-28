@@ -11,7 +11,7 @@
         Icon="pack://application:,,,/Images/iconRunMan.ico"
         WindowStartupLocation="CenterScreen" WindowTitleBrush="#007d64" Background="White" TitleAlignment="Center"
         TitleBarHeight="30" GlowBrush="#2A2D2F" ResizeMode="CanResizeWithGrip" BorderBrush="#2A2D2F" BorderThickness="1"
-        Height="750" Width="1000" NonActiveBorderBrush="#4c5155" NonActiveGlowBrush="#a3a6a8" NonActiveWindowTitleBrush="#007d64" ShowIconOnTitleBar="False" PreviewMouseDoubleClick="MetroWindow_PreviewMouseDoubleClick" SizeChanged="MetroWindow_SizeChanged">
+        Height="750" Width="1000" NonActiveBorderBrush="#4c5155" NonActiveGlowBrush="#a3a6a8" NonActiveWindowTitleBrush="#007d64" ShowIconOnTitleBar="False" SizeChanged="MetroWindow_SizeChanged">
     <mah:MetroWindow.Resources>
         <local:BoolToVisibilityConverter x:Key="bvcon"/>
     </mah:MetroWindow.Resources>
