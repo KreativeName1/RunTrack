@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace RunTrack
 {
@@ -10,6 +11,7 @@ namespace RunTrack
     public partial class LaeuferSeite : Page
     {
         private LaeuferseiteModel _model;
+        private MainModel _mmodel;
         private bool _isUserInteraction = false;
 
         public LaeuferSeite()
@@ -17,6 +19,7 @@ namespace RunTrack
             InitializeComponent();
 
             _model = FindResource("thismodel") as LaeuferseiteModel;
+            _mmodel = FindResource("pmodel") as MainModel;
 
             this.Unloaded += (s, e) =>
             {
@@ -44,10 +47,31 @@ namespace RunTrack
                 _model.LstLaeufer.Remove(_model.SelLaeufer);
                 _model.HasChanges = true;
             };
+            btnDruck.Click += (s, e) =>
+            {
+                //// get all selected Laeufer
+                List<Laeufer> list = new();
+
+                foreach (Laeufer laeufer in lstLaeufer.SelectedItems)
+                {
+                    list.Add(laeufer);
+                }
+
+
+                PDFEditor editor = new(list);
+                _mmodel.Navigate(editor);
+
+
+
+
+                
+            };
             lstLaeufer.CellEditEnding += (s, e) =>
             {
                 if (e.EditAction == DataGridEditAction.Commit) _model.HasChanges = true;
             };
+
+
         }
 
         private void btnUp_Click(object sender, RoutedEventArgs e)

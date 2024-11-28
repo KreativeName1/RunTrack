@@ -18,6 +18,18 @@ namespace RunTrack
         private bool _isLoading { get; set; }
         private string _searchTerm { get; set; }
 
+        private ObservableCollection<Laeufer> _selLaeufers { get; set; }
+
+        public ObservableCollection<Laeufer> SelLaeufers
+        {
+            get { return _selLaeufers; }
+            set
+            {
+                _selLaeufers = value;
+                OnPropertyChanged("SelLaeufers");
+            }
+        }
+
         public string SearchTerm
         {
             get { return _searchTerm; }

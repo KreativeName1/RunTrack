@@ -11,12 +11,15 @@ namespace RunTrack
         private PDFEditorModel? _pemodel;
         private MainModel? _model;
 
+
+        // Barcodes für Läufer in einer Klasse
         public PDFEditor(Klasse klasse) : base()
         {
             Initialize();
             _pemodel.Klasse = klasse;
         }
 
+        // Urkunden
         public PDFEditor(List<Urkunde> urkunden) : base()
         {
             Initialize();
@@ -33,6 +36,8 @@ namespace RunTrack
             spZentriert.Visibility = Visibility.Collapsed;
         }
 
+
+        // Schülerwertung
         public PDFEditor(List<Schueler> schueler) : base()
         {
             Initialize();
@@ -41,6 +46,8 @@ namespace RunTrack
             SchuelerBewertungPanel.Visibility = Visibility.Visible;
         }
 
+
+        // Auswertung
         public PDFEditor(List<object> liste, string wertungArt) : base()
         {
             Initialize();
@@ -54,6 +61,14 @@ namespace RunTrack
             borBarcodeGroesse.Visibility = Visibility.Collapsed;
             lblBarcodeAbstand.Visibility = Visibility.Collapsed;
             borBarcodeAbstand.Visibility = Visibility.Collapsed;
+        }
+
+
+        // Barcodes für Läufer
+        public PDFEditor(List<Laeufer> liste)
+        {
+            Initialize();
+            _pemodel.Laeufer = new ObservableCollection<Laeufer>(liste);
         }
 
         private void Initialize()

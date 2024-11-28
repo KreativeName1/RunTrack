@@ -13,6 +13,7 @@ namespace RunTrack
         private ObservableCollection<Format>? _formate;
         private ObservableCollection<BlattGroesse>? _blattgroessen;
         private ObservableCollection<SchriftTyp>? schriftTypen;
+        private ObservableCollection<Laeufer>? _laeufer;
         private string? _auswertungsArt;
         private Uri? _quelle;
 
@@ -72,6 +73,11 @@ namespace RunTrack
             get => schriftTypen;
             set { schriftTypen = value; OnPropertyChanged("SchriftTypen"); }
         }
+        public ObservableCollection<Laeufer>? Laeufer
+        {
+            get => _laeufer;
+            set { _laeufer = value; OnPropertyChanged("Laeufer"); }
+        }
 
 
         public void LoadData()
@@ -80,6 +86,7 @@ namespace RunTrack
             Klasse = null;
             Schueler = null;
             Urkunden = null;
+            Laeufer = null;
             using (var db = new LaufDBContext())
             {
                 Formate = new(db.Formate.ToList());
@@ -93,6 +100,7 @@ namespace RunTrack
             if (Klasse != null) Quelle = new Uri(PDFGenerator.BarcodesPDF(Klasse, Klasse.Schule.Name, Format ?? new()));
             else if (Liste != null) Quelle = new Uri(PDFGenerator.AuswertungListe(Liste.ToList(), Format ?? new(), AuswertungsArt ?? string.Empty));
             else if (Urkunden != null) Quelle = new Uri(PDFGenerator.Urkunde(Urkunden.ToList(), Format ?? new()));
+            else if (Laeufer != null) Quelle = new Uri(PDFGenerator.BarcodesPDFLaeufer(Laeufer.ToList(), Format ?? new()));
             else Quelle = new Uri(PDFGenerator.SchuelerBewertungPDF(new List<Schueler>(Schueler ?? new()), Format ?? new(), NeueSeiteProSchueler));
         }
     }

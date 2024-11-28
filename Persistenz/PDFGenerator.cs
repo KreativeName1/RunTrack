@@ -86,7 +86,64 @@ namespace RunTrack
 			return datei;
 		}
 
-		public static string DokumentErstellen(Format format)
+        public static string BarcodesPDFLaeufer(List<Laeufer> laeufer, Format format)
+        {
+            string datei = DokumentErstellen(format);
+            if (Dokument == null) return "";
+
+            // Tabelle erstellen
+            int numColumns = format.SpaltenAnzahl;
+            float columnWidth = format.ZellenBreite;
+            Table table = new(UnitValue.CreatePointArray(Enumerable.Repeat(columnWidth, numColumns).ToArray()));
+
+            // Tabelle Zentrieren oder nicht
+            if (format.Zentriert) table.SetWidth(UnitValue.CreatePercentValue(100));
+            else table.SetWidth(numColumns * columnWidth);
+
+            table.SetHorizontalAlignment(HorizontalAlignment.LEFT);
+
+            // Zellen erstellen
+            foreach (Laeufer l in laeufer)
+            {
+
+                Cell cell = new();
+                cell.SetBorder(Border.NO_BORDER);
+                cell.SetTextAlignment(TextAlignment.CENTER);
+
+                // Barcode erstellen und in PDF einfügen
+                Barcode39 code39 = new(PDFDokument);
+                code39.SetCode(l.Id.ToString().PadLeft(5, '0'));
+                code39.SetFont(null);
+                PdfFormXObject barcode = code39.CreateFormXObject(ColorConstants.BLACK, ColorConstants.BLACK, PDFDokument);
+                Image img = new(barcode);
+                img.SetHeight(format.ZellenHoehe - 10);
+                img.SetWidth(format.ZellenBreite - 10);
+                img.SetHorizontalAlignment(HorizontalAlignment.CENTER);
+                cell.Add(img);
+
+                // Läufername und ID in PDF einfügen
+                Paragraph p = new(l.Vorname + " " + l.Nachname + " - " + l.Id.ToString());
+                if (format.SchriftTyp == SchriftTyp.Fett) p.SetBold();
+                if (format.SchriftTyp == SchriftTyp.Kursiv) p.SetItalic();
+                if (format.SchriftTyp == SchriftTyp.FettKursiv) p.SetBold().SetItalic();
+                p.SetFontSize(format.SchriftGroesse);
+                p.SetTextAlignment(TextAlignment.CENTER);
+                cell.Add(p);
+
+                // Zellenabstand
+                cell.SetPaddingTop(format.ZellenAbstandHorizontal);
+                cell.SetPaddingRight(format.ZellenAbstandVertikal);
+
+                table.AddCell(cell);
+            }
+
+            Dokument.Add(table);
+            Dokument.Close();
+
+            return datei;
+        }
+
+        public static string DokumentErstellen(Format format)
 		{
 			string name = DateTime.Now.ToString("dd.MM.yyyy") + "_" + new Random().Next(1000, 9999);
 			string file = Pfad + $"{name}.pdf";
