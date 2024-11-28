@@ -68,12 +68,24 @@ namespace RunTrack
       {
         if (_imodel.Schule == null || _imodel.Schule.Name == "Neue Schule" && string.IsNullOrWhiteSpace(tbSchule.Text))
         {
-          //MessageBox.Show("Bitte wählen Sie eine Schule aus.");
           new Popup().Display("Fehler", "Bitte wählen Sie eine Schule aus.", PopupType.Error, PopupButtons.Ok);
           return;
         }
 
-        _imodel.Reihenfolge = new();
+          // prüfe ob die neue Schule schon existiert, falls es eine neue Schule ist
+          if (_imodel.Schule.Name == "Neue Schule")
+          {
+              using (var db = new LaufDBContext())
+              {
+                  if (db.Schulen.Any(s => s.Name.ToLower().Trim() == _imodel.NeuSchuleName.ToLower().Trim()))
+                  {
+                      new Popup().Display("Fehler", "Eine Schule mit diesem Namen existiert bereits.", PopupType.Error, PopupButtons.Ok);
+                      return;
+                  }
+              }
+          }
+
+              _imodel.Reihenfolge = new();
         foreach (DraggableItem item in OrderPanel.Children) _imodel.Reihenfolge.Add(item.TextContent);
         if (_imodel.Schule.Id == 0) _imodel.Schule = new Schule { Name = _imodel.NeuSchuleName ?? string.Empty };
 
