@@ -191,6 +191,7 @@ namespace RunTrack
 
         public void Validate(Laeufer laeufer)
         {
+            if (laeufer == null) { throw new ValidationException("Läufer darf nicht leer sein."); }
             if (laeufer.RundenArt == null || laeufer.RundenArtId == 0) throw new ValidationException("Rundenart darf nicht leer sein");
             if (laeufer.Geschlecht == null) throw new ValidationException("Geschlecht darf nicht leer sein");
             if (string.IsNullOrWhiteSpace(laeufer.Vorname) || string.IsNullOrWhiteSpace(laeufer.Nachname) || laeufer.Geburtsjahrgang == 0) throw new ValidationException("Alle Felder müssen ausgefüllt werden");

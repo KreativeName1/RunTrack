@@ -16,7 +16,7 @@ namespace RunTrack
     // Es muss noch das anlegen, scannen und die Auswertung von Runden implementiert werden.
     public class Laeufer
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
         public string Vorname { get; set; }
         public string Nachname { get; set; }
         public Geschlecht? Geschlecht { get; set; }

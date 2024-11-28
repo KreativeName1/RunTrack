@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Data;
+using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
 namespace RunTrack
 {
@@ -186,6 +187,7 @@ namespace RunTrack
         public void Validate(Schueler schueler)
         {
             if (schueler == null) { throw new ValidationException("Schüler darf nicht leer sein."); }
+            if(schueler.Id == 0) { throw new ValidationException("Die Id darf nicht 0 sein."); }
             if (schueler.Klasse == null || schueler.Klasse.Id == 0) { throw new ValidationException("Bitte wählen Sie eine Klasse aus."); }
             if (string.IsNullOrEmpty(schueler.Vorname) || string.IsNullOrEmpty(schueler.Nachname) || schueler.Geburtsjahrgang == 0 || schueler.Geschlecht == null) { throw new ValidationException("Es müssen alle Felder ausgefüllt sein."); }
         }

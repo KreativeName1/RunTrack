@@ -32,7 +32,7 @@ namespace RunTrack
                 txtSearch.Text = "";
                 txtSearch.IsEnabled = false;
 
-                var neuerLaeufer = new Schueler();
+                var neuerLaeufer = new Laeufer();
                 neuerLaeufer.Geburtsjahrgang = 2000;
 
                 _model.LstLaeufer.Add(neuerLaeufer);
@@ -56,7 +56,7 @@ namespace RunTrack
 
                 _model.HasChanges = true;
             };
-            
+
             btnSpeichern.Click += (s, e) =>
             {
                 txtSearch.IsEnabled = true;
