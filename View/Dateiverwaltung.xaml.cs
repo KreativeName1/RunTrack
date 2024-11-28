@@ -1,6 +1,8 @@
 ﻿using Microsoft.Win32;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -221,6 +223,7 @@ namespace RunTrack
 
         private void FilesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
             foreach (var item in e.AddedItems)
             {
                 if (item is FileItem fileItem)
@@ -234,7 +237,6 @@ namespace RunTrack
             {
                 if (item is FileItem fileItem)
                 {
-                    btnExport.Visibility = Visibility.Collapsed;
                     fileItem.IsSelected = false; // Deaktiviert die Checkbox
                 }
             }
@@ -249,7 +251,6 @@ namespace RunTrack
             {
                 // Wenn das Element bereits ausgewählt ist, Auswahl entfernen und Checkbox deaktivieren
                 listBoxItem.IsSelected = false;
-                btnExport.Visibility = Visibility.Collapsed;
                 FilesListBox.SelectedItems.Remove(listBoxItem);
 
                 // Verhindert, dass das Element erneut ausgewählt wird
@@ -259,7 +260,18 @@ namespace RunTrack
 
         private void files_Click(object sender, RoutedEventArgs e)
         {
+            string currentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
+            string folderPath = Path.Combine(currentDirectory, "Dateien");
+
+            if (Directory.Exists(folderPath))
+            {
+                Process.Start("explorer.exe", folderPath);
+            }
+            else
+            {
+                MessageBox.Show("Der Ordner 'Dateien' existiert nicht.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
