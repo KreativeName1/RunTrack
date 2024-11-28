@@ -39,8 +39,9 @@
 
             <TextBlock Text="Uploaddatum ⇅" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" MouseDown="UploadDateLabel_MouseDown" MouseEnter="Label_MouseEnter" MouseLeave="Label_MouseLeave" x:Name="UploadDateLabel" Cursor="Hand"/>
         </Grid>
-        <ListBox x:Name="FilesListBox" AllowDrop="True" SelectionChanged="FilesListBox_SelectionChanged" ItemsSource="{Binding LstFiles}" Grid.Row="3" Margin="10,5,10,10" BorderBrush="Gray" BorderThickness="1"
-                 HorizontalContentAlignment="Stretch">
+        <ListBox x:Name="FilesListBox" AllowDrop="True" SelectionChanged="FilesListBox_SelectionChanged" ItemsSource="{Binding LstFiles}" 
+         Grid.Row="3" Margin="10,5,10,10" BorderBrush="Gray" BorderThickness="1"
+         HorizontalContentAlignment="Stretch" SelectionMode="Extended" PreviewMouseDown="FilesListBox_PreviewMouseDown">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="LightGray" BorderThickness="1" Margin="0,1,0,1" Padding="5">
@@ -58,6 +59,8 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+
+
         <local:DragDropOverlay Drop="FilesListBox_Drop" AllowDrop="True" Grid.Row="3" Visibility="{Binding IsDragging, Converter={StaticResource con}}" x:Name="DragDropOverlay"/>
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,5,10,10" HorizontalAlignment="Right">

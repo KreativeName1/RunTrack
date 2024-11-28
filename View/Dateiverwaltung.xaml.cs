@@ -225,7 +225,7 @@ namespace RunTrack
             {
                 if (item is FileItem fileItem)
                 {
-                    fileItem.IsSelected = true; // Abhacken die Checkbox
+                    fileItem.IsSelected = true; // Abhacken der Checkbox
                 }
             }
 
@@ -237,5 +237,23 @@ namespace RunTrack
                 }
             }
         }
+
+        private void FilesListBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            // Ermitteln des angeklickten Elements
+            var listBoxItem = (e.OriginalSource as FrameworkElement)?.DataContext as FileItem;
+
+            if (listBoxItem != null && FilesListBox.SelectedItems.Contains(listBoxItem))
+            {
+                // Wenn das Element bereits ausgewählt ist, Auswahl entfernen und Checkbox deaktivieren
+                listBoxItem.IsSelected = false;
+                FilesListBox.SelectedItems.Remove(listBoxItem);
+
+                // Verhindert, dass das Element erneut ausgewählt wird
+                e.Handled = true;
+            }
+        }
+
+
     }
 }
