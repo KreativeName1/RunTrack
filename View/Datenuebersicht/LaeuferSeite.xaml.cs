@@ -26,13 +26,40 @@ namespace RunTrack
                 _model.Db.Dispose();
                 _model.HasChanges = false;
             };
+
             btnNeu.Click += (s, e) =>
             {
-                _model.LstLaeufer.Add(new Laeufer());
+                txtSearch.Text = "";
+                txtSearch.IsEnabled = false;
+
+                var neuerLaeufer = new Schueler();
+                neuerLaeufer.Geburtsjahrgang = 2000;
+
+                _model.LstLaeufer.Add(neuerLaeufer);
+                _model.SelLaeufer = neuerLaeufer; // Setze den neuen Schüler als ausgewählt
+                lstLaeufer.SelectedItem = neuerLaeufer; // Stelle sicher, dass er im DataGrid ausgewählt ist
+                lstLaeufer.ScrollIntoView(neuerLaeufer); // Scrolle zum neuen Eintrag
+
+                // Fokus auf das DataGrid setzen
+                lstLaeufer.Focus();
+
+                // Dispatcher verwenden, um die Bearbeitung zu aktivieren, nachdem alle Ereignisse verarbeitet sind
+                Dispatcher.InvokeAsync(() =>
+                {
+                    var firstEditableColumn = lstLaeufer.Columns.FirstOrDefault(col => !col.IsReadOnly);
+                    if (firstEditableColumn != null)
+                    {
+                        lstLaeufer.CurrentCell = new DataGridCellInfo(neuerLaeufer, firstEditableColumn);
+                        lstLaeufer.BeginEdit();
+                    }
+                });
+
                 _model.HasChanges = true;
             };
+            
             btnSpeichern.Click += (s, e) =>
             {
+                txtSearch.IsEnabled = true;
                 try
                 {
                     _model.SaveChanges();
@@ -42,11 +69,33 @@ namespace RunTrack
                     new Popup().Display("Fehler beim Speichern", ex.Message, PopupType.Error, PopupButtons.Ok);
                 }
             };
+
             btnDel.Click += (s, e) =>
             {
+                string message = "";
+
+                if (_model.SelLaeufer.Id == null)
+                {
+                    message = "Möchten Sie diesen Eintrag wirklich löschen?";
+                }
+                else
+                {
+                    message = $"Möchten Sie diesen Eintrag wirklich löschen? \n- {_model.SelLaeufer.Id}:\t{_model.SelLaeufer.Nachname}, {_model.SelLaeufer.Vorname}";
+                }
+
+                var res = new Popup().Display("Löschen", message, PopupType.Question, PopupButtons.YesNo);
+
+                if (res == true)
+                {
+                    _model.LstLaeufer.Remove(_model.SelLaeufer);
+                    _model.HasChanges = true;
+                }
+
+
                 _model.LstLaeufer.Remove(_model.SelLaeufer);
                 _model.HasChanges = true;
             };
+
             btnDruck.Click += (s, e) =>
             {
                 List<Laeufer> list = new();
@@ -62,12 +111,18 @@ namespace RunTrack
                 PDFEditor editor = new(list);
                 _mmodel.Navigate(editor); 
             };
+
             lstLaeufer.CellEditEnding += (s, e) =>
             {
-                if (e.EditAction == DataGridEditAction.Commit) _model.HasChanges = true;
+                if (e.EditAction == DataGridEditAction.Commit)
+                {
+                    if (_model.SelLaeufer.Geburtsjahrgang < 1900)
+                    {
+                        _model.SelLaeufer.Geburtsjahrgang = 1900;
+                    }
+                    _model.HasChanges = true;
+                }
             };
-
-
         }
 
         private void btnUp_Click(object sender, RoutedEventArgs e)

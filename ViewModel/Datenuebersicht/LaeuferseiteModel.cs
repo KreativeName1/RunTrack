@@ -148,12 +148,27 @@ namespace RunTrack
                 Db.Entry(item).State = EntityState.Modified;
             }
 
+            foreach (var laeufer in LstLaeufer)
+            {
+                if (!string.IsNullOrWhiteSpace(laeufer.Vorname))
+                {
+                    laeufer.Vorname = CapitalizeFirstLetter(laeufer.Vorname);
+                }
+            }
+
             Db.SaveChanges();
 
             HasChanges = false;
             LoadData();
         }
 
+        private string CapitalizeFirstLetter(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input)) return input;
+
+            input = input.Trim();
+            return char.ToUpper(input[0]) + input.Substring(1).ToLower();
+        }
 
         private bool FilterItems(object item)
         {

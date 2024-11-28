@@ -225,6 +225,7 @@ namespace RunTrack
             {
                 if (item is FileItem fileItem)
                 {
+                    btnExport.Visibility = Visibility.Visible;
                     fileItem.IsSelected = true; // Abhacken der Checkbox
                 }
             }
@@ -233,6 +234,7 @@ namespace RunTrack
             {
                 if (item is FileItem fileItem)
                 {
+                    btnExport.Visibility = Visibility.Collapsed;
                     fileItem.IsSelected = false; // Deaktiviert die Checkbox
                 }
             }
@@ -247,6 +249,7 @@ namespace RunTrack
             {
                 // Wenn das Element bereits ausgewählt ist, Auswahl entfernen und Checkbox deaktivieren
                 listBoxItem.IsSelected = false;
+                btnExport.Visibility = Visibility.Collapsed;
                 FilesListBox.SelectedItems.Remove(listBoxItem);
 
                 // Verhindert, dass das Element erneut ausgewählt wird
@@ -254,6 +257,9 @@ namespace RunTrack
             }
         }
 
+        private void files_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
     }
 }

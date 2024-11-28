@@ -17,6 +17,7 @@
 			<x:Static Member="local:Geschlecht.Weiblich"/>
 			<x:Static Member="local:Geschlecht.Divers"/>
 		</x:Array>
+        <local:YearValidationConverter x:Key="YearValidationConverter" />
 	</Page.Resources>
 	<Grid DataContext="{StaticResource thismodel}" >
 		<Grid.ColumnDefinitions>
@@ -77,15 +78,20 @@
 							</DataGridTemplateColumn.CellTemplate>
 						</DataGridTemplateColumn>
 
-						<DataGridTextColumn Header="Jahrgang" Binding="{Binding Geburtsjahrgang}">
-							<DataGridTextColumn.CellStyle>
-								<Style TargetType="DataGridCell">
-									<Setter Property="Cursor" Value="Pen"/>
-								</Style>
-							</DataGridTextColumn.CellStyle>
-						</DataGridTextColumn>
+                        <DataGridTextColumn Header="Jahrgang" Binding="{Binding Geburtsjahrgang, Converter={StaticResource YearValidationConverter}}">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Geburtsjahrgang}" Value="1900">
+                                            <Setter Property="Foreground" Value="Red"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                    <Setter Property="Cursor" Value="Pen"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
 
-						<DataGridTemplateColumn Header="Rundenart" Width="25*">
+                        <DataGridTemplateColumn Header="Rundenart" Width="25*">
 							<DataGridTemplateColumn.CellStyle>
 								<Style TargetType="DataGridCell">
 									<Setter Property="Cursor" Value="Pen"/>
