@@ -86,7 +86,7 @@ namespace RunTrack
                 else if (_amodel.IsKlasse) worin = "Klasse " + _amodel.SelectedKlasse;
                 else if (_amodel.IsJahrgang) worin = "Jahrgang " + _amodel.Jahrgang;
 
-                InputPopup input = new("Urkunde", "Bitte geben Sie den Namen des Laufs ein");
+                InputPopup input = new("Urkunde", "Bitte geben Sie den Namen des Laufes ein");
                 input.ShowDialog();
                 string laufName = input.GetInputValue<string>();
 

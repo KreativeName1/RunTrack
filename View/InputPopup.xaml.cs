@@ -16,7 +16,7 @@ namespace RunTrack
     public InputPopup(string title, string message)
     {
       InitializeComponent();
-      Title = title;
+      Title = "";
       tbTitel.Content = title;
       tbMessage.Text = message;
 

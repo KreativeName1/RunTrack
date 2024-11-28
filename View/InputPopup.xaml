@@ -3,14 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-         Icon="pack://application:,,,/Images/iconRunMan.ico"
+        Icon="pack://application:,,,/Images/iconRunMan.ico"
         xmlns:local="clr-namespace:RunTrack" xmlns:fc="http://devpelux.github.io/fullcontrols"
-																		ShowTitleBar="True" ShowMinButton="False" ShowMaxRestoreButton="False" ShowCloseButton="False"
-									WindowStartupLocation="CenterScreen" WindowTitleBrush="#007d64" Background="White" TitleAlignment="Center"
-TitleBarHeight="30" GlowBrush="#2A2D2F" ResizeMode="NoResize"  BorderBrush="#2A2D2F" BorderThickness="1"
- NonActiveBorderBrush="#4c5155" NonActiveGlowBrush="#a3a6a8" NonActiveWindowTitleBrush="#007d64" ShowIconOnTitleBar="False"
-        mc:Ignorable="d"
-        Title="PopupWindow" Height="250" Width="400" WindowStyle="None">
+		ShowTitleBar="True" ShowMinButton="False" ShowMaxRestoreButton="False" ShowCloseButton="False"
+		WindowStartupLocation="CenterScreen" WindowTitleBrush="#007d64" Background="White" TitleAlignment="Center"
+		TitleBarHeight="30" GlowBrush="#2A2D2F" ResizeMode="NoResize" BorderBrush="#2A2D2F" BorderThickness="1"
+		NonActiveBorderBrush="#4c5155" NonActiveGlowBrush="#a3a6a8" NonActiveWindowTitleBrush="#007d64" ShowIconOnTitleBar="False"
+        mc:Ignorable="d" Title="" Height="250" Width="400" WindowStyle="None">
 	<mah:MetroWindow.Resources>
 	<local:BoolToVisibilityConverter x:Key="bvcon"/>
 	</mah:MetroWindow.Resources>
@@ -83,7 +82,7 @@ TitleBarHeight="30" GlowBrush="#2A2D2F" ResizeMode="NoResize"  BorderBrush="#2A2
             <Label Content="Titel" x:Name="tbTitel" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" FontSize="14" Foreground="White" FontWeight="Bold"/>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="1"  VerticalAlignment="Stretch" >
-            <TextBlock x:Name="tbMessage" TextWrapping="WrapWithOverflow" Text="Message" VerticalAlignment="Top" Margin="20,20,20,10" FontSize="14"/>
+            <TextBlock x:Name="tbMessage" TextWrapping="WrapWithOverflow" Text="Message" VerticalAlignment="Top" Margin="20,30,20,10" FontSize="14"/>
             <fc:TextBoxPlus x:Name="txtInput" Margin="20,80,20,0" VerticalAlignment="Top" Height="30" FontSize="14" TextWrapping="Wrap" Text="Input" />
         </Grid>
         <StackPanel Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom" Cursor="Hand" x:Name="spButtons" Margin="0,0,0,10" HorizontalAlignment="Center" Orientation="Horizontal">
