@@ -310,7 +310,25 @@ namespace RunTrack
             bool? result = saveFileDialog.ShowDialog();
             return result == true ? saveFileDialog.FileName : string.Empty;
         }
+        private async void btnPrint_Click(object sender, RoutedEventArgs e)
+        {
+            if (webView.CoreWebView2 != null)
+            {
+                try
+                {
+                    webView.CoreWebView2.ShowPrintUI();
 
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Fehler beim Drucken der PDF: {ex.Message}", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("WebView2 ist noch nicht initialisiert.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
     }
 }
