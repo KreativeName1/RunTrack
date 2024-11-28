@@ -89,41 +89,102 @@ namespace RunTrack
         {
             string extra = string.Empty;
             bool logout = false;
+            List<string> otherFilesToDelete = new List<string>();
+
+            // First, check for the database file and handle it
             for (int i = 0; i < _dvmodel.LstFiles.Count; i++)
             {
                 if (_dvmodel.LstFiles[i].IsSelected)
                 {
-                    if (Path.GetFileName(_dvmodel.LstFiles[i].FileName) == "EigeneDatenbank.db")
+                    string fileName = _dvmodel.LstFiles[i].FileName;
+
+                    // Check if it's the database file
+                    if (Path.GetFileName(fileName) == "EigeneDatenbank.db")
                     {
                         extra = "(Die Datenbank des Programms wird gelöscht und alle bisherigen Daten gehen verloren!)";
                         logout = true;
-                    }
-                    bool? result = new Popup().Display($"Datei löschen", $"Willst du die Datei '{_dvmodel.LstFiles[i].FileName}' wirklich löschen? {extra}", PopupType.Question, PopupButtons.YesNo);
-                    extra = string.Empty;
 
-                    if (result == true)
+                        // Ask for confirmation for database file
+                        bool? result = new Popup().Display($"Datei löschen",
+                            $"Willst du die Datei '{fileName}' wirklich löschen? {extra}",
+                            PopupType.Question,
+                            PopupButtons.YesNo);
+                        extra = string.Empty;
+
+                        if (result == true)
+                        {
+                            if (fileName != null)
+                            {
+                                try
+                                {
+                                    File.Delete(Path.Combine("Dateien", fileName));
+                                    _dvmodel.LstFiles.RemoveAt(i);
+
+                                    // Logout and navigate to MainWindow if database was deleted
+                                    if (logout)
+                                    {
+                                        _pmodel.Benutzer = null;
+                                        _pmodel.Navigate(new MainWindow());
+                                    }
+                                }
+                                catch (IOException ex)
+                                {
+                                    new Popup().Display("Fehler",
+                                        $"Die Datei '{fileName}' konnte nicht gelöscht werden. {ex.Message}",
+                                        PopupType.Error,
+                                        PopupButtons.Ok);
+                                }
+                            }
+                        }
+                    }
+                    else
                     {
-                        if (_dvmodel.LstFiles[i].FileName == null) continue;
+                        // Add other files to the list to be deleted
+                        otherFilesToDelete.Add(fileName);
+                    }
+                }
+            }
+
+            // If there are other files to delete, show them in a second popup
+            if (otherFilesToDelete.Count > 0)
+            {
+                string fileList = string.Join(Environment.NewLine, otherFilesToDelete);
+                bool? result = new Popup().Display($"Dateien löschen",
+                    $"Möchtest du folgende Dateien löschen?{Environment.NewLine}{fileList}",
+                    PopupType.Question,
+                    PopupButtons.YesNo);
+
+                if (result == true)
+                {
+                    foreach (var file in otherFilesToDelete)
+                    {
                         try
                         {
-                            File.Delete(Path.Combine("Dateien", _dvmodel.LstFiles[i].FileName ?? string.Empty));
-                            _dvmodel.LstFiles.RemoveAt(i);
-
-                            if (logout)
+                            File.Delete(Path.Combine("Dateien", file));
+                            // Remove the file from the list after deletion
+                            // After deleting other files, loop through and remove them from the ObservableCollection
+                            foreach (var fileToDelete in otherFilesToDelete)
                             {
-                                _pmodel.Benutzer = null;
-                                _pmodel.Navigate(new MainWindow());
+                                var fileItem = _dvmodel.LstFiles.FirstOrDefault(f => f.FileName == fileToDelete);
+                                if (fileItem != null)
+                                {
+                                    _dvmodel.LstFiles.Remove(fileItem);
+                                }
                             }
+
                         }
                         catch (IOException ex)
                         {
-                            new Popup().Display("Fehler", $"Die Datei '{_dvmodel.LstFiles[i].FileName}' konnte nicht gelöscht werden. {ex.Message}", PopupType.Error, PopupButtons.Ok);
+                            new Popup().Display("Fehler",
+                                $"Die Datei '{file}' konnte nicht gelöscht werden. {ex.Message}",
+                                PopupType.Error,
+                                PopupButtons.Ok);
                         }
-
                     }
                 }
             }
         }
+
 
         private void SelectAllCheckBox_Click(object sender, RoutedEventArgs e)
         {
