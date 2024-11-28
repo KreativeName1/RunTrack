@@ -96,6 +96,11 @@ namespace RunTrack.View.Datenuebersicht
 
             btnBarcodes.Click += (sender, e) =>
             {
+                if (_model.SelKlasse == null)
+                {
+                    new Popup().Display("Fehler", "Bitte wählen Sie eine Klasse aus", PopupType.Error, PopupButtons.Ok);
+                    return;
+                }
                 PDFEditor pdfEditor = new(_model.SelKlasse ?? new());
                 _mmodel.Navigate(pdfEditor);
             };

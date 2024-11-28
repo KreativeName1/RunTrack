@@ -12,7 +12,8 @@
 	<Page.Resources>
 		<this:ObjectToBoolConverter x:Key="ObjectToBoolConverter"/>
 		<this:KlassenseiteModel x:Key="thismodel"/>
-		<this:BoolToVisibilityConverter x:Key="bvcon"/>
+        <this:BoolInverterConverter x:Key="BoolInverterConverter"/>
+        <this:BoolToVisibilityConverter x:Key="bvcon"/>
 	</Page.Resources>
 
 	<Grid DataContext="{StaticResource thismodel}">
@@ -100,7 +101,7 @@
                 <fc:ButtonPlus x:Name="btnSpeichern" IsEnabled="{Binding HasChanges}" Margin="10,0,0,0"  Cursor="Hand" Content="Speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
                 <fc:ButtonPlus x:Name="btnNeu" Margin="10,0,0,0"  Cursor="Hand" Content="Neuer Eintrag" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
                 <fc:ButtonPlus x:Name="btnDel" Margin="10,0,10,0" IsEnabled="{Binding SelKlasse, Converter={StaticResource ObjectToBoolConverter}}" Cursor="Hand" Content="Eintrag löschen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
-                <fc:ButtonPlus x:Name="btnBarcodes" IsEnabled="{Binding SelKlasse, Converter={StaticResource ObjectToBoolConverter}}"  Cursor="Hand" Content="Barcodes erstellen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White"  Width="120" Height="30" Margin="0,0,10,0"/>
+                <fc:ButtonPlus x:Name="btnBarcodes" IsEnabled="{Binding HasChanges, Converter={StaticResource BoolInverterConverter}}"  Cursor="Hand" Content="Barcodes erstellen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White"  Width="120" Height="30" Margin="0,0,10,0"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,10,0">
                 <Border Background="#CFD3CD" Height="40" CornerRadius="6">
