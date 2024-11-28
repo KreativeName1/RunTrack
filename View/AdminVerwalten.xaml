@@ -40,14 +40,14 @@
 				</DataGrid>
 
 				<StackPanel x:Name="ctrBtn" Orientation="Horizontal" IsEnabled="{Binding SelBenutzer, Converter={StaticResource n2bconv}}" Margin="0,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-					<fc:ButtonPlus x:Name="btnBearbeiten" Content="Bearbeiten" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Click="btnBearbeiten_Click"  Width="100" Height="25" Margin="0,5,0,0"/>
-					<fc:ButtonPlus x:Name="btnLoeschen" Content="Löschen" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Click="btnLoeschen_Click" Width="100" Height="25" Margin="10,5,0,0"/>
+					<fc:ButtonPlus x:Name="btnBearbeiten" Content="Bearbeiten" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Click="btnBearbeiten_Click"  Width="120" Height="30" Margin="0,5,0,0"/>
+					<fc:ButtonPlus x:Name="btnLoeschen" Content="Löschen" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Click="btnLoeschen_Click" Width="120" Height="30" Margin="10,5,0,0"/>
 				</StackPanel>
 			</StackPanel>
 		</Border>
-		<StackPanel Orientation="Horizontal" Margin="0,0,10,10" HorizontalAlignment="Right" Width="235" VerticalAlignment="Bottom">
-            <fc:ButtonPlus x:Name="btnSave" Content="Speichern" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Visibility="Hidden" Click="Save_Click" Width="100" Height="25" Margin="5,5,20,5"/>
-            <fc:ButtonPlus x:Name="btnAbbrechen" Content="Abbrechen" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="100" Height="25" Margin="5" Click="btnAbbrechen_Click"/>
+		<StackPanel Orientation="Horizontal" Margin="0,0,10,10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <fc:ButtonPlus x:Name="btnSave" Content="Speichern" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Visibility="Hidden" Click="Save_Click" Width="120" Height="30" Margin="5,5,20,5"/>
+            <fc:ButtonPlus x:Name="btnAbbrechen" Content="Abbrechen" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" Margin="5" Click="btnAbbrechen_Click"/>
         </StackPanel>
     </Grid>
 </Page>

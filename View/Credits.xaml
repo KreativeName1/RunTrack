@@ -93,7 +93,7 @@
 		</ScrollViewer>
 		</Border>
 
-		<fc:ButtonPlus Content="Schließen" Grid.Row="3" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Height="28" Width="100" Cursor="Hand" Click="Button_Click"/>
+		<fc:ButtonPlus Content="Schließen" Grid.Row="3" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Height="30" Width="120" Cursor="Hand" Click="Button_Click"/>
 
     </Grid>
 </Page>

@@ -21,8 +21,8 @@
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 		<StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,25,10,0" HorizontalAlignment="Right">
-            <fc:ButtonPlus Click="UploadFiles_Click" Content="Importieren" Margin="5" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" Cursor="Hand" FontSize="12"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
-            <fc:ButtonPlus Click="DownloadFiles_Click" Content="Exportieren" Margin="5" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" Cursor="Hand" FontSize="12"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+            <fc:ButtonPlus Click="UploadFiles_Click" Content="Importieren" Margin="5" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" Cursor="Hand" FontSize="12" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="30"/>
+            <fc:ButtonPlus Click="DownloadFiles_Click" Content="Exportieren" Margin="5" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" Cursor="Hand" FontSize="12" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="30"/>
         </StackPanel>
 
         <Grid Grid.Row="2" Margin="10,0,10,0">
@@ -60,9 +60,9 @@
         </ListBox>
         <local:DragDropOverlay Drop="FilesListBox_Drop" AllowDrop="True" Grid.Row="3" Visibility="{Binding IsDragging, Converter={StaticResource con}}" x:Name="DragDropOverlay"/>
 
-        <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,5,10,10" HorizontalAlignment="Right" Width="235">
-            <fc:ButtonPlus x:Name="btnLoeschen" Click="DeleteSelectedFiles_Click" Content="Löschen" Margin="5" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" Cursor="Hand" FontSize="12"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
-            <fc:ButtonPlus x:Name="btnSchliessen" Click="CloseWindow_Click" Content="Schließen" Margin="5" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" Cursor="Hand" FontSize="12"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+        <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,5,10,10" HorizontalAlignment="Right">
+            <fc:ButtonPlus x:Name="btnLoeschen" Click="DeleteSelectedFiles_Click" Content="Löschen" Margin="5" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" Cursor="Hand" FontSize="12" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="30"/>
+            <fc:ButtonPlus x:Name="btnSchliessen" Click="CloseWindow_Click" Content="Schließen" Margin="5" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" Cursor="Hand" FontSize="12" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="30"/>
         </StackPanel>
 
 

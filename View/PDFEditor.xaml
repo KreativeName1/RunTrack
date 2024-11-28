@@ -242,8 +242,8 @@
         </Border>
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="1" Orientation="Horizontal" Margin="0,5,10,10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <!--<Button  x:Name="btnCredits" Content="Credits" Width="100" Height="25" Margin="5" Click="btnCredits_Click"/>-->
-            <fc:ButtonPlus  x:Name="btnNeuladen" Content="Neuladen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" HorizontalAlignment="Center" Margin="5,5,20,5" VerticalAlignment="Top" Width="100" Height="25" Cursor="Hand"/>
-            <fc:ButtonPlus  x:Name="btnCancel" Content="Abbrechen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="100" Height="25" Margin="5" Cursor="Hand"/>
+            <fc:ButtonPlus  x:Name="btnNeuladen" Content="Neuladen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" HorizontalAlignment="Center" Margin="5,5,20,5" VerticalAlignment="Top" Width="120" Height="30" Cursor="Hand"/>
+            <fc:ButtonPlus  x:Name="btnCancel" Content="Abbrechen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" Margin="5" Cursor="Hand"/>
         </StackPanel>
     </Grid>
 </Page>

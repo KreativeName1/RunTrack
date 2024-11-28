@@ -8,10 +8,10 @@
       d:Height="750" d:Width="1000"
       HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
         Title="Einstellungen">
-	<Grid>
+	<Grid Cursor="">
 		<StackPanel Orientation="Horizontal" Margin="0,35,0,0" HorizontalAlignment="Center" VerticalAlignment="Top">
-            <fc:ButtonPlus x:Name="btnRounds" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Cursor="Hand" Content="Runden" Click="Runden_Click" Width="120" Height="25" Margin="5,5,20,5"/>
-            <fc:ButtonPlus x:Name="btnAdmin" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Cursor="Hand" Content="Admin" Click="Admin_Click" Width="120" Height="25" Margin="5"/>
+            <fc:ButtonPlus x:Name="btnRounds" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Cursor="Hand" Content="Runden" Click="Runden_Click" Width="120" Height="30" Margin="5,5,20,5"/>
+            <fc:ButtonPlus x:Name="btnAdmin" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Cursor="Hand" Content="Admin" Click="Admin_Click" Width="120" Height="30" Margin="5"/>
         </StackPanel>
 
         <!--<Label Content="Sekunden zum Warten zwischen den Scans nach Rundenart" HorizontalAlignment="Center" Margin="0,31,0,0" VerticalAlignment="Top" FontSize="14"/>-->
@@ -23,9 +23,9 @@
         <TextBlock x:Name="txtOptions" Text="⚙️" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Center" FontSize="70" Foreground="#7FCFD3CD"/>
         
         <StackPanel x:Name="PanelAdminSettings" Visibility="Collapsed" Orientation="Vertical" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <fc:ButtonPlus x:Name="btnAdminSum" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Cursor="Hand" Content="Admin verwalten" Width="135" Height="30" Margin="5" Click="btnAdminSum_Click"/>
-            <fc:ButtonPlus x:Name="btnAdminAdd" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Cursor="Hand" Content="Admin hinzufügen" Width="135" Height="30" Margin="5" Click="btnAdminAdd_Click"/>
-            <fc:ButtonPlus x:Name="btnPasswordChange" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Cursor="Hand" Content="Passwort ändern" Width="135" Height="30" Margin="5" Click="btnPasswordChange_Click"/>
+            <fc:ButtonPlus x:Name="btnAdminSum" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Cursor="Hand" Content="Admin verwalten" Width="130" Height="30" Margin="5" Click="btnAdminSum_Click"/>
+            <fc:ButtonPlus x:Name="btnAdminAdd" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Cursor="Hand" Content="Admin hinzufügen" Width="130" Height="30" Margin="5" Click="btnAdminAdd_Click"/>
+            <fc:ButtonPlus x:Name="btnPasswordChange" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Cursor="Hand" Content="Passwort ändern" Width="130" Height="30" Margin="5" Click="btnPasswordChange_Click"/>
         </StackPanel>
 
         <Grid x:Name="GridSettings" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed" Margin="0,60,0,0">
@@ -43,9 +43,9 @@
             </Grid.RowDefinitions>
         </Grid>
 
-        <StackPanel Orientation="Horizontal" Margin="0,0,10,10" HorizontalAlignment="Right" Width="235" VerticalAlignment="Bottom">
-            <fc:ButtonPlus x:Name="btnSave" Content="Speichern" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Visibility="Hidden" Click="Save_Click" Width="100" Height="25" Margin="5,5,20,5"/>
-            <fc:ButtonPlus Content="Schließen" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Click="CloseWindow_Click" Width="100" Height="25" Margin="5"/>
+        <StackPanel Orientation="Horizontal" Margin="0,0,10,10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <fc:ButtonPlus x:Name="btnSave" Content="Speichern" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Visibility="Hidden" Click="Save_Click" Width="120" Height="30" Margin="5,5,20,5"/>
+            <fc:ButtonPlus Content="Schließen" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Click="CloseWindow_Click" Width="120" Height="30" Margin="5"/>
         </StackPanel>
     </Grid>
 </Page>

@@ -33,8 +33,8 @@
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Margin="0,5,5,5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Cursor="">
-            <fc:ButtonPlus x:Name="btnSave" Content="Speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" HorizontalAlignment="Center" Margin="5,5,5,5" VerticalAlignment="Top" Width="100" Height="25" Cursor="Hand" Click="btnSave_Click"/>
-            <fc:ButtonPlus x:Name="btnCancel" Content="Abbrechen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="100" Height="25" Margin="5" Cursor="Hand" Click="btnCancel_Click"/>
+            <fc:ButtonPlus x:Name="btnSave" Content="Speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" HorizontalAlignment="Center" Margin="5,5,5,5" VerticalAlignment="Top" Width="120" Height="30" Cursor="Hand" Click="btnSave_Click"/>
+            <fc:ButtonPlus x:Name="btnCancel" Content="Abbrechen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" Margin="5" Cursor="Hand" Click="btnCancel_Click"/>
         </StackPanel>
     </Grid>
 </Page>

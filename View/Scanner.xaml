@@ -134,10 +134,10 @@
 
 		<Border x:Name="borderAdmin" Height="67" HorizontalAlignment="Center" Margin="30" VerticalAlignment="Bottom" Visibility="visible" Grid.ColumnSpan="3">
             <StackPanel Orientation="Horizontal">
-                <fc:ButtonPlus x:Name="btnDateien" Content="Dateiverwaltung" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Margin="0,0,10,0" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Left" Cursor="Hand" Width="150"/>
-                <fc:ButtonPlus x:Name="btnEinstellung" Content="Einstellungen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Margin="0,0,10,0" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Right" Cursor="Hand" Width="150"/>
-                <fc:ButtonPlus x:Name="btnUebersicht" Content="Datenübersicht" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Margin="0,0,10,0" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Right" Cursor="Hand" Width="150"/>
-                <fc:ButtonPlus x:Name="btnAuswertung" Content="Auswertung" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Margin="0,0,0,0" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Right" Cursor="Hand" Width="150"/>
+                <fc:ButtonPlus x:Name="btnDateien" Content="Dateiverwaltung" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Margin="0,0,10,0" Height="32.5" VerticalAlignment="Bottom" HorizontalAlignment="Left" Cursor="Hand" Width="150"/>
+                <fc:ButtonPlus x:Name="btnEinstellung" Content="Einstellungen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Margin="0,0,10,0" Height="32.5" VerticalAlignment="Bottom" HorizontalAlignment="Right" Cursor="Hand" Width="150"/>
+                <fc:ButtonPlus x:Name="btnUebersicht" Content="Datenübersicht" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Margin="0,0,10,0" Height="32.5" VerticalAlignment="Bottom" HorizontalAlignment="Right" Cursor="Hand" Width="150"/>
+                <fc:ButtonPlus x:Name="btnAuswertung" Content="Auswertung" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Margin="0,0,0,0" Height="32.5" VerticalAlignment="Bottom" HorizontalAlignment="Right" Cursor="Hand" Width="150"/>
             </StackPanel>
         </Border>
 
