@@ -5,7 +5,7 @@ namespace RunTrack
     public class PDFEditorModel : BaseModel
     {
         private Format? _format;
-        private Klasse? _klasse;
+        private List<Klasse>? _klassen;
         private ObservableCollection<Schueler>? _schueler;
         private bool _neueSeiteProSchueler = true;
         private ObservableCollection<object>? _liste;
@@ -32,10 +32,10 @@ namespace RunTrack
             get => _auswertungsArt;
             set { _auswertungsArt = value; OnPropertyChanged("AuswertungsArt"); }
         }
-        public Klasse? Klasse
+        public List<Klasse>? Klassen
         {
-            get => _klasse;
-            set { _klasse = value; OnPropertyChanged("Klasse"); }
+            get => _klassen;
+            set { _klassen = value; OnPropertyChanged("Klasse"); }
         }
         public ObservableCollection<Schueler>? Schueler
         {
@@ -83,7 +83,7 @@ namespace RunTrack
         public void LoadData()
         {
             Liste = null;
-            Klasse = null;
+            Klassen = null;
             Schueler = null;
             Urkunden = null;
             Laeufer = null;
@@ -97,7 +97,7 @@ namespace RunTrack
         public void AktualisierePDF()
         {
             Quelle = new Uri("about:blank");
-            if (Klasse != null) Quelle = new Uri(PDFGenerator.BarcodesPDF(Klasse, Klasse.Schule.Name, Format ?? new()));
+            if (Klassen != null) Quelle = new Uri(PDFGenerator.BarcodesPDF(Klassen, Format ?? new()));
             else if (Liste != null) Quelle = new Uri(PDFGenerator.AuswertungListe(Liste.ToList(), Format ?? new(), AuswertungsArt ?? string.Empty));
             else if (Urkunden != null) Quelle = new Uri(PDFGenerator.Urkunde(Urkunden.ToList(), Format ?? new()));
             else if (Laeufer != null) Quelle = new Uri(PDFGenerator.BarcodesPDFLaeufer(Laeufer.ToList(), Format ?? new()));
