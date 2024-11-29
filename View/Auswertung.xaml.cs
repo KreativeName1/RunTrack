@@ -69,59 +69,6 @@ namespace RunTrack
 
             };
 
-            //btnUrkunde.Click += (s, e) =>
-            //{
-            //    // New prompt for selecting whether to show all values or specific ones
-            //    MessageBoxResult result = MessageBox.Show("Möchten Sie alle Werte anzeigen oder spezifische Werte angeben?", "Option wählen", MessageBoxButton.YesNoCancel);
-
-            //    if (result == MessageBoxResult.Cancel) return;
-            //    bool showAllValues = result == MessageBoxResult.Yes;
-
-            //    List<object> liste = _amodel.Liste.ToList();
-            //    int count = Math.Min(liste.Count, 3);
-            //    liste = liste.GetRange(0, count);
-
-            //    string auswertungsart = _amodel.IsAnzahl ? "Rundenanzahl" :
-            //                            _amodel.IsZeit ? "Zeit" :
-            //                            _amodel.IsDistanz ? "Distanz" : "Rundenanzahl";
-
-            //    string worin = _amodel.IsInsgesamt ? "Insgesamt" :
-            //                   _amodel.IsSchule ? $"Schule {_amodel.SelectedSchule}" :
-            //                   _amodel.IsKlasse ? $"Klasse {_amodel.SelectedKlasse}" :
-            //                   _amodel.IsJahrgang ? $"Jahrgang {_amodel.Jahrgang}" : "";
-
-            //    InputPopup input = new("Urkunde", "Bitte geben Sie den Namen des Laufes ein");
-            //    input.ShowDialog();
-            //    string laufName = input.GetInputValue<string>();
-
-            //    List<Urkunde> urkunden = new();
-            //    foreach (object obj in liste)
-            //    {
-            //        string bewertung = obj.GetType().GetProperty("Bewertung")?.GetValue(obj, null).ToString();
-            //        string geschlecht = _amodel.IsMaennlich ? "Männlich" : _amodel.IsWeiblich ? "Weiblich" : "Gesamt";
-
-            //        List<string> specificValues = new();
-            //        if (!showAllValues)
-            //        {
-            //            // Assuming we get specific properties for display
-            //            specificValues.Add(obj.GetType().GetProperty("Name")?.GetValue(obj, null).ToString());
-            //            specificValues.Add(bewertung);
-            //        }
-
-            //        urkunden.Add(new Urkunde(
-            //            laufName,
-            //            worin,
-            //            auswertungsart,
-            //            bewertung,
-            //            showAllValues ? null : specificValues,
-            //            (liste.IndexOf(obj) + 1).ToString(),
-            //            obj.GetType().GetProperty("Name")?.GetValue(obj, null).ToString(),
-            //            geschlecht));
-            //    }
-
-            //    if (laufName != null && input.Result) _pmodel.Navigate(new PDFEditor(urkunden));
-            //};
-
             btnUrkunde.Click += (s, e) =>
             {
                 // Dialog für Auswahl: Alle Werte oder spezifische Werte
@@ -196,9 +143,6 @@ namespace RunTrack
                 _pmodel.Navigate(new PDFEditor(urkunden));
             };
 
-
-
-
             btnCSV.Click += (s, e) =>
             {
                 SaveFileDialog saveFileDialog = new() { Filter = "files (*.csv)|*.csv", FileName = "Auswertung.csv" };
@@ -270,6 +214,7 @@ namespace RunTrack
 
                         if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
+                        if (_amodel.IsDivers && schueler.Geschlecht != Geschlecht.Divers) continue;
                         _amodel.Liste.Add(new { SchuelerId = schueler.Id, Name = schueler.Vorname + " " + schueler.Nachname, Schule = schueler.Klasse.Schule.Name, Klasse = schueler.Klasse.Name, Bewertung = bewertung, Geschlecht = geschlecht });
                     }
                 }
@@ -285,6 +230,7 @@ namespace RunTrack
 
                         if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
+                        if (_amodel.IsDivers && schueler.Geschlecht != Geschlecht.Divers) continue;
                         _amodel.Liste.Add(new { SchuelerId = schueler.Id, Name = schueler.Vorname + " " + schueler.Nachname, Klasse = schueler.Klasse.Name, Bewertung = bewertung, Geschlecht = geschlecht });
                     }
                 }
@@ -300,6 +246,7 @@ namespace RunTrack
 
                         if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
+                        if (_amodel.IsDivers && schueler.Geschlecht != Geschlecht.Divers) continue;
                         _amodel.Liste.Add(new { SchuelerId = schueler.Id, Name = schueler.Vorname + " " + schueler.Nachname, Bewertung = bewertung, Geschlecht = geschlecht });
                     }
                 }
@@ -315,6 +262,7 @@ namespace RunTrack
 
                         if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
+                        if (_amodel.IsDivers && schueler.Geschlecht != Geschlecht.Divers) continue;
                         _amodel.Liste.Add(new { SchuelerId = schueler.Id, Name = schueler.Vorname + " " + schueler.Nachname, Klasse = schueler.Klasse.Name, Schule = schueler.Klasse.Schule.Name, Bewertung = bewertung, Geschlecht = geschlecht });
                     }
                 }
@@ -330,6 +278,7 @@ namespace RunTrack
 
                         if (_amodel.IsMaennlich && laeufer.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && laeufer.Geschlecht != Geschlecht.Weiblich) continue;
+                        if (_amodel.IsDivers && laeufer.Geschlecht != Geschlecht.Divers) continue;
                         _amodel.Liste.Add(new { SchuelerId = laeufer.Id, Name = laeufer.Vorname + " " + laeufer.Nachname, Bewertung = bewertung, Geschlecht = geschlecht });
 
                     }

@@ -6,6 +6,7 @@ namespace RunTrack
     {
         private bool _isMaennlich { get; set; } = false;
         private bool _isWeiblich { get; set; } = false;
+        private bool _isDivers { get; set; } = false;
         private bool _isGesamt { get; set; } = true;
 
         private bool _isAnzahl { get; set; } = true;
@@ -52,6 +53,13 @@ namespace RunTrack
             get { return _isGesamt; }
             set { _isGesamt = value; OnPropertyChanged("IsGesamt"); }
         }
+        public bool IsDivers
+        {
+            get { return _isDivers; }
+            set { _isDivers = value; OnPropertyChanged("IsDivers"); }
+        }
+
+
         public bool IsAnzahl
         {
             get { return _isAnzahl; }
