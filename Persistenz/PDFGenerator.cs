@@ -436,7 +436,7 @@ namespace RunTrack
                 Dokument.Add(table);
 
                 // Seitenumbruch für nächste Urkunde
-                Dokument.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                if (liste.IndexOf(obj) < liste.Count - 1) Dokument.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
             }
 
             Dokument.Close();
