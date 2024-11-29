@@ -13,10 +13,10 @@ namespace RunTrack
 
 
         // Barcodes für Läufer in einer Klasse
-        public PDFEditor(Klasse klasse) : base()
+        public PDFEditor(List<Klasse> klassen) : base()
         {
             Initialize();
-            _pemodel.Klasse = klasse;
+            _pemodel.Klassen = klassen;
         }
 
         // Urkunden

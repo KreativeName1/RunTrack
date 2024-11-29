@@ -32,7 +32,7 @@
         <GroupBox x:Name="KlasseGrid" Header="Klassen">
             <Grid>
 
-				<DataGrid x:Name="lstKlasse" ItemsSource="{Binding CollectionView}" SelectedItem="{Binding SelKlasse}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single">
+				<DataGrid x:Name="lstKlasse" ItemsSource="{Binding CollectionView}" SelectedItem="{Binding SelKlasse}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Extended">
 					<DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="FontWeight" Value="Bold"/>
