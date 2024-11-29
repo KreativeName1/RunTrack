@@ -72,7 +72,7 @@ namespace RunTrack
             btnUrkunde.Click += (s, e) =>
             {
                 // Dialog für Auswahl: Alle Werte oder spezifische Werte
-                bool? showAllValues = new Popup().Display("Option wählen", "Möchten Sie alle Werte anzeigen oder spezifische Werte angeben?", PopupType.Question, PopupButtons.YesNoCancel);
+                bool? showAllValues = new UrkundePopup().Display("Option wählen", "Möchten Sie alle Werte anzeigen oder spezifische Werte angeben?", PopupType.Question, PopupButtons.YesNoCancel);
 
                 if (showAllValues == null) return; // Abbrechen, falls der Nutzer "Abbrechen" wählt
 

@@ -86,8 +86,9 @@
             <fc:TextBoxPlus x:Name="txtInput" Margin="20,80,20,0" VerticalAlignment="Top" Height="30" FontSize="14" TextWrapping="Wrap" Text="Input" />
         </Grid>
         <StackPanel Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom" Cursor="Hand" x:Name="spButtons" Margin="0,0,0,10" HorizontalAlignment="Center" Orientation="Horizontal">
-			<fc:ButtonPlus x:Name="btnOK" Content="OK" Width="120" Height="30" Margin="5" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White"/>
-			<fc:ButtonPlus x:Name="btnCancel" Content="Abbrechen" Width="120" Height="30" Margin="5" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White"/>
+            <fc:ButtonPlus x:Name="btnBack" Content="Zurück" Width="90" Height="30" Margin="5,5,25,5" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White"/>
+			<fc:ButtonPlus x:Name="btnOK" Content="OK" Width="110" Height="30" Margin="5" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White"/>
+			<fc:ButtonPlus x:Name="btnCancel" Content="Abbrechen" Width="110" Height="30" Margin="5"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White"/>
         </StackPanel>
     </Grid>
 </mah:MetroWindow>

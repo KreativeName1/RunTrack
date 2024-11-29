@@ -101,10 +101,10 @@
 
             <Border BorderBrush="Black" BorderThickness="1" Padding="10">
                 <StackPanel>
-                    <fc:RadioButtonPlus  GroupName="Geschlecht" Name="Gesamt" IsChecked="{Binding IsGesamt}" Content="Gesamt" VerticalAlignment="Center" Checked="change"/>
-                    <fc:RadioButtonPlus Margin="0,5,0,5" GroupName="Geschlecht" Name="Maennlich" IsChecked="{Binding IsMaennlich}" Content="Männlich" VerticalAlignment="Center" Checked="change"/>
+                    <fc:RadioButtonPlus GroupName="Geschlecht" Name="Gesamt" IsChecked="{Binding IsGesamt}" Content="Gesamt" VerticalAlignment="Center" Checked="change"/>
+                    <fc:RadioButtonPlus GroupName="Geschlecht" Margin="0,5,0,5"  Name="Maennlich" IsChecked="{Binding IsMaennlich}" Content="Männlich" VerticalAlignment="Center" Checked="change"/>
                     <fc:RadioButtonPlus GroupName="Geschlecht" Name="Weiblich" IsChecked="{Binding IsWeiblich}" Content="Weiblich" VerticalAlignment="Center" Checked="change"/>
-                    <fc:RadioButtonPlus GroupName="Geschlecht" Name="Divers" IsChecked="{Binding IsDivers}" Content="Divers" VerticalAlignment="Center" Checked="change"/>
+                    <fc:RadioButtonPlus GroupName="Geschlecht" Margin="0,5,0,0"  Name="Divers" IsChecked="{Binding IsDivers}" Content="Divers" VerticalAlignment="Center" Checked="change"/>
                 </StackPanel>
             </Border>
 
