@@ -23,64 +23,70 @@ namespace RunTrack
         public static string Pfad = $"Temp/";
         public static PdfDocument? PDFDokument;
         public static Document? Dokument;
-        public static string BarcodesPDF(Klasse klasse, string schulename, Format format)
+        public static string BarcodesPDF(List<Klasse> klassen, Format format)
         {
             string datei = DokumentErstellen(format);
             if (Dokument == null) return "";
             // Schule/Klasse Anzeigen
-            if (format.KopfAnzeigen)
+            foreach (Klasse klasse in klassen)
             {
-                Dokument.Add(new Paragraph("Schule: " + schulename).SetTextAlignment(TextAlignment.LEFT).SetBold().SetFontSize(14));
-                Dokument.Add(new Paragraph("Klasse: " + klasse.Name).SetTextAlignment(TextAlignment.LEFT).SetBold().SetFontSize(14));
+                if (format.KopfAnzeigen)
+                {
+                    Dokument.Add(new Paragraph("Schule: " + klasse.Schule.Name).SetTextAlignment(TextAlignment.LEFT).SetBold().SetFontSize(14));
+                    Dokument.Add(new Paragraph("Klasse: " + klasse.Name).SetTextAlignment(TextAlignment.LEFT).SetBold().SetFontSize(14));
+                }
+
+                // Tabelle erstellen
+                int numColumns = format.SpaltenAnzahl;
+                float columnWidth = format.ZellenBreite;
+                Table table = new(UnitValue.CreatePointArray(Enumerable.Repeat(columnWidth, numColumns).ToArray()));
+
+                // Tabelle Zentrieren oder nicht
+                if (format.Zentriert) table.SetWidth(UnitValue.CreatePercentValue(100));
+                else table.SetWidth(numColumns * columnWidth);
+
+                table.SetHorizontalAlignment(HorizontalAlignment.LEFT);
+
+                // Zellen erstellen
+                for (int i = 0; i < klasse.Schueler.Count; i++)
+                {
+
+                    Cell cell = new();
+                    cell.SetBorder(Border.NO_BORDER);
+                    cell.SetTextAlignment(TextAlignment.CENTER);
+
+                    // Barcode erstellen und in PDF einfügen
+                    Barcode39 code39 = new(PDFDokument);
+                    code39.SetCode(klasse.Schueler[i].Id.ToString().PadLeft(5, '0'));
+                    code39.SetFont(null);
+                    PdfFormXObject barcode = code39.CreateFormXObject(ColorConstants.BLACK, ColorConstants.BLACK, PDFDokument);
+                    Image img = new(barcode);
+                    img.SetHeight(format.ZellenHoehe - 10);
+                    img.SetWidth(format.ZellenBreite - 10);
+                    img.SetHorizontalAlignment(HorizontalAlignment.CENTER);
+                    cell.Add(img);
+
+                    // Schülername und ID in PDF einfügen
+                    Paragraph p = new(klasse.Schueler[i].Vorname + " " + klasse.Schueler[i].Nachname + " - " + klasse.Schueler[i].Id.ToString());
+                    if (format.SchriftTyp == SchriftTyp.Fett) p.SetBold();
+                    if (format.SchriftTyp == SchriftTyp.Kursiv) p.SetItalic();
+                    if (format.SchriftTyp == SchriftTyp.FettKursiv) p.SetBold().SetItalic();
+                    p.SetFontSize(format.SchriftGroesse);
+                    p.SetTextAlignment(TextAlignment.CENTER);
+                    cell.Add(p);
+
+                    // Zellenabstand
+                    cell.SetPaddingTop(format.ZellenAbstandHorizontal);
+                    cell.SetPaddingRight(format.ZellenAbstandVertikal);
+
+                    table.AddCell(cell);
+                }
+
+                Dokument.Add(table);
+
+                if (klassen.IndexOf(klasse) < klassen.Count - 1)
+                    Dokument.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
             }
-
-            // Tabelle erstellen
-            int numColumns = format.SpaltenAnzahl;
-            float columnWidth = format.ZellenBreite;
-            Table table = new(UnitValue.CreatePointArray(Enumerable.Repeat(columnWidth, numColumns).ToArray()));
-
-            // Tabelle Zentrieren oder nicht
-            if (format.Zentriert) table.SetWidth(UnitValue.CreatePercentValue(100));
-            else table.SetWidth(numColumns * columnWidth);
-
-            table.SetHorizontalAlignment(HorizontalAlignment.LEFT);
-
-            // Zellen erstellen
-            for (int i = 0; i < klasse.Schueler.Count; i++)
-            {
-
-                Cell cell = new();
-                cell.SetBorder(Border.NO_BORDER);
-                cell.SetTextAlignment(TextAlignment.CENTER);
-
-                // Barcode erstellen und in PDF einfügen
-                Barcode39 code39 = new(PDFDokument);
-                code39.SetCode(klasse.Schueler[i].Id.ToString().PadLeft(5, '0'));
-                code39.SetFont(null);
-                PdfFormXObject barcode = code39.CreateFormXObject(ColorConstants.BLACK, ColorConstants.BLACK, PDFDokument);
-                Image img = new(barcode);
-                img.SetHeight(format.ZellenHoehe - 10);
-                img.SetWidth(format.ZellenBreite - 10);
-                img.SetHorizontalAlignment(HorizontalAlignment.CENTER);
-                cell.Add(img);
-
-                // Schülername und ID in PDF einfügen
-                Paragraph p = new(klasse.Schueler[i].Vorname + " " + klasse.Schueler[i].Nachname + " - " + klasse.Schueler[i].Id.ToString());
-                if (format.SchriftTyp == SchriftTyp.Fett) p.SetBold();
-                if (format.SchriftTyp == SchriftTyp.Kursiv) p.SetItalic();
-                if (format.SchriftTyp == SchriftTyp.FettKursiv) p.SetBold().SetItalic();
-                p.SetFontSize(format.SchriftGroesse);
-                p.SetTextAlignment(TextAlignment.CENTER);
-                cell.Add(p);
-
-                // Zellenabstand
-                cell.SetPaddingTop(format.ZellenAbstandHorizontal);
-                cell.SetPaddingRight(format.ZellenAbstandVertikal);
-
-                table.AddCell(cell);
-            }
-
-            Dokument.Add(table);
             Dokument.Close();
 
             return datei;

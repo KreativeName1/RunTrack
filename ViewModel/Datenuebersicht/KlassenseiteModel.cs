@@ -199,7 +199,7 @@ namespace RunTrack
             {
                 _db = new();
                 LstSchule = new(_db.Schulen.ToList());
-                LstKlasse = new(_db.Klassen.Include(k => k.Schueler).ToList());
+                LstKlasse = new(_db.Klassen.Include(k => k.Schueler).Include(s => s.Schule).ToList());
                 LstRundenart = new(_db.RundenArten.ToList());
 
 

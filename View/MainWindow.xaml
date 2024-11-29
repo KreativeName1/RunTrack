@@ -41,19 +41,17 @@
                     <StackPanel Orientation="Vertical">
                         <Label x:Name="warningVorname" Content="⚠️" FontSize="18" Height="35" Foreground="Red" Cursor="Help" Margin="0,2,0,0" Visibility="Hidden">
                             <Label.ToolTip>
-                                <ToolTip Content="Bitte geben Sie Ihren Vornamen ein."/>
+                                <ToolTip Content="Bitte geben Sie Ihren Vornamen ein." ToolTipService.InitialShowDelay="100"/>
                             </Label.ToolTip>
                         </Label>
                         <Label x:Name="warningNachname" Content="⚠️" FontSize="18" Height="35" Foreground="Red" Cursor="Help" Margin="0,5,0,0" Visibility="Hidden">
                             <Label.ToolTip>
-                                <ToolTip Content="Bitte geben Sie Ihren Nachnamen ein."/>
+                                <ToolTip Content="Bitte geben Sie Ihren Nachnamen ein." ToolTipService.InitialShowDelay="100"/>
                             </Label.ToolTip>
                         </Label>
                         <Label x:Name="warningPassword" Margin="0,33,0,0"  Content="⚠️" FontSize="18" Height="35" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="Red" Cursor="Help" Visibility="Hidden">
                             <Label.ToolTip>
-                                <ToolTip Cursor="">
-                                    Das Passwort ist inkorrekt!
-                                </ToolTip>
+                                <ToolTip Content="Das Passwort ist inkorrekt!" ToolTipService.InitialShowDelay="100"/>
                             </Label.ToolTip>
                         </Label>
                     </StackPanel>

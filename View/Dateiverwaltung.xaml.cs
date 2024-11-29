@@ -106,7 +106,7 @@ namespace RunTrack
 
                         // Ask for confirmation for database file
                         bool? result = new Popup().Display($"Datei löschen",
-                            $"Willst du die Datei '{fileName}' wirklich löschen? {extra}",
+                            $"Willst du die Datei '{fileName}' wirklich löschen?\n{extra}",
                             PopupType.Question,
                             PopupButtons.YesNo);
                         extra = string.Empty;
@@ -148,7 +148,7 @@ namespace RunTrack
             // If there are other files to delete, show them in a second popup
             if (otherFilesToDelete.Count > 0)
             {
-                string fileList = string.Join(Environment.NewLine, otherFilesToDelete);
+                string fileList = string.Join(Environment.NewLine, otherFilesToDelete.Select(f => $"• {f}"));
                 bool? result = new Popup().Display($"Dateien löschen",
                     $"Möchtest du folgende Dateien löschen?{Environment.NewLine}{fileList}",
                     PopupType.Question,

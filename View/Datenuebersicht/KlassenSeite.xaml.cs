@@ -22,7 +22,7 @@ namespace RunTrack.View.Datenuebersicht
 
             this.Unloaded += (s, e) =>
             {
-               // _model.Db.Dispose();
+                // _model.Db.Dispose();
                 _model.HasChanges = false;
             };
 
@@ -98,12 +98,16 @@ namespace RunTrack.View.Datenuebersicht
 
             btnBarcodes.Click += (sender, e) =>
             {
-              if (_model.SelKlasse == null)
+                if (_model.SelKlasse == null)
                 {
                     new Popup().Display("Fehler", "Bitte wählen Sie eine Klasse aus", PopupType.Error, PopupButtons.Ok);
                     return;
                 }
-                PDFEditor pdfEditor = new(_model.SelKlasse ?? new());
+
+                List<Klasse> liste = new();
+                foreach (Klasse klasse in lstKlasse.SelectedItems) liste.Add(klasse);
+
+                PDFEditor pdfEditor = new(liste ?? new());
                 _mmodel.Navigate(pdfEditor);
             };
         }
