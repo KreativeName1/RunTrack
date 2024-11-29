@@ -307,7 +307,7 @@ namespace RunTrack
             foreach (Urkunde obj in liste)
             {
                 // Hintergrund mit dezentem Wasserzeichen
-                // Load the image resource from the application
+                // Lade das Bildressourcen-Wasserzeichen
                 var uri = new Uri("pack://application:,,,/Images/watermark.png");
                 var resourceStream = Application.GetResourceStream(uri).Stream;
 
@@ -367,15 +367,10 @@ namespace RunTrack
                     .SetFontSize(format.SchriftGroesse * 1.5f)
                     .SetFontColor(ColorConstants.ORANGE));
 
-
-                Dokument.Add(new Paragraph("Gelaufene Runden:")
-                    .SetTextAlignment(TextAlignment.CENTER)
-                    .SetFontSize(format.SchriftGroesse * 1.1f));
-
-                // Platzierung
-
-                if (!obj.HasSpecificValues())
+                // Dynamisch abhängig von den angezeigten Werten
+                if (obj.HasSpecificValues())
                 {
+                    // Wenn nur spezifische Werte angezeigt werden sollen
                     foreach (var specificValue in obj._lstWerte)
                     {
                         Dokument.Add(new Paragraph(specificValue)
@@ -387,14 +382,27 @@ namespace RunTrack
                 }
                 else
                 {
-                    Dokument.Add(new Paragraph($"{obj.Wert}")
-                    .SetTextAlignment(TextAlignment.CENTER)
-                    .SetBold()
-                    .SetFontSize(format.SchriftGroesse * 1.5f)
-                    .SetFontColor(ColorConstants.ORANGE));
+                    // Anzahl der Runden, gelaufene Zeit und Distanz (angenommene Eigenschaften)
+                    int anzahlRunden = 10; // Beispielwert
+                    TimeSpan gelaufeneZeit = new TimeSpan(0, 45, 30); // Beispielwert
+                    double distanz = 12.5; // Beispielwert
+
+                    Dokument.Add(new Paragraph($"Anzahl der Runden: {anzahlRunden}")
+                        .SetTextAlignment(TextAlignment.CENTER)
+                        .SetFontSize(format.SchriftGroesse));
+
+                    Dokument.Add(new Paragraph($"Gelaufene Zeit: {gelaufeneZeit:hh\\:mm\\:ss}")
+                        .SetTextAlignment(TextAlignment.CENTER)
+                        .SetFontSize(format.SchriftGroesse));
+
+                    Dokument.Add(new Paragraph($"Distanz: {distanz} km")
+                        .SetTextAlignment(TextAlignment.CENTER)
+                        .SetFontSize(format.SchriftGroesse));
+
+                    Dokument.Add(new Paragraph($"Distanz: {distanz} km")
+                        .SetTextAlignment(TextAlignment.CENTER)
+                        .SetFontSize(format.SchriftGroesse));
                 }
-
-
 
                 // Signaturbereich ans untere Ende des Dokuments verschieben
                 Table table = new Table(UnitValue.CreatePercentArray(new float[] { 2, 1.25f, 2 })).UseAllAvailableWidth();
@@ -419,9 +427,8 @@ namespace RunTrack
                 table.SetMarginTop(50);
 
                 // Den Signaturbereich ans Ende verschieben
-                Dokument.Add(new Paragraph().SetHeight(450)); // Platzhalter, um Abstand zu schaffen
+                Dokument.Add(new Paragraph().SetHeight(425)); // Platzhalter, um Abstand zu schaffen
                 Dokument.Add(table);
-
 
                 // Seitenumbruch für nächste Urkunde
                 Dokument.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
@@ -430,7 +437,6 @@ namespace RunTrack
             Dokument.Close();
             return datei;
         }
-
 
 
 

@@ -161,24 +161,31 @@ namespace RunTrack
                     string geschlecht = _amodel.IsMaennlich ? "Männlich" :
                                         _amodel.IsWeiblich ? "Weiblich" : "Gesamt";
 
-                    // Liste spezifischer Werte, falls nur bestimmte Werte angezeigt werden sollen
-                    List<string> specificValues = null;
+                    // Anzahl der Runden, gelaufene Zeit und Distanz (angenommene Eigenschaften)
+                    int anzahlRunden = Convert.ToInt32(obj.GetType().GetProperty("Runden")?.GetValue(obj, null) ?? 0);
+
+                    // Hier TimeSpan korrekt behandeln, falls null
+                    TimeSpan gelaufeneZeit = obj.GetType().GetProperty("GelaufeneZeit")?.GetValue(obj, null) as TimeSpan? ?? TimeSpan.Zero;
+
+                    // Distanz ebenfalls behandeln
+                    double distanz = Convert.ToDouble(obj.GetType().GetProperty("Distanz")?.GetValue(obj, null) ?? 0);
+
+                    // Wenn nur spezifische Werte angezeigt werden sollen, diese aus der Objektstruktur extrahieren
+                    List<string> specificValues = new List<string>();
                     if (!showAllValues)
                     {
-                        specificValues = new List<string>
-            {
-                obj.GetType().GetProperty("Name")?.GetValue(obj, null)?.ToString() ?? "Unbekannt",
-                bewertung
-            };
+                        // Nur spezifische Werte wie Name und Bewertung
+                        specificValues.Add(obj.GetType().GetProperty("Name")?.GetValue(obj, null)?.ToString() ?? "Unbekannt");
+                        specificValues.Add(bewertung); // Füge Bewertung hinzu
                     }
 
-                    // Urkunde erstellen und hinzufügen
+                    // Erstelle die Urkunde
                     urkunden.Add(new Urkunde(
                         laufName,
                         worin,
                         auswertungsart,
                         bewertung,
-                        specificValues, // Nur spezifische Werte, wenn gewünscht
+                        showAllValues ? null : specificValues, // Alle Werte oder nur spezifische Werte
                         (liste.IndexOf(obj) + 1).ToString(), // Platzierung
                         obj.GetType().GetProperty("Name")?.GetValue(obj, null)?.ToString() ?? "Unbekannt",
                         geschlecht
@@ -188,6 +195,8 @@ namespace RunTrack
                 // Zur PDF-Seite navigieren
                 _pmodel.Navigate(new PDFEditor(urkunden));
             };
+
+
 
 
             btnCSV.Click += (s, e) =>
