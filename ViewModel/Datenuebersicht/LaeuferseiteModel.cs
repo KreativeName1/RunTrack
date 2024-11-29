@@ -153,6 +153,7 @@ namespace RunTrack
                 if (!string.IsNullOrWhiteSpace(laeufer.Vorname))
                 {
                     laeufer.Vorname = CapitalizeFirstLetter(laeufer.Vorname);
+                    laeufer.Nachname = CapitalizeFirstLetter(laeufer.Nachname);
                 }
             }
 
