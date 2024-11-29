@@ -72,9 +72,9 @@ namespace RunTrack
             btnUrkunde.Click += (s, e) =>
             {
                 // Dialog für Auswahl: Alle Werte oder spezifische Werte
-                MessageBoxResult result = MessageBox.Show("Möchten Sie alle Werte anzeigen oder spezifische Werte angeben?", "Option wählen", MessageBoxButton.YesNoCancel);
-                if (result == MessageBoxResult.Cancel) return; // Abbrechen, falls der Nutzer "Abbrechen" wählt
-                bool showAllValues = result == MessageBoxResult.Yes;
+                bool? showAllValues = new Popup().Display("Option wählen", "Möchten Sie alle Werte anzeigen oder spezifische Werte angeben?", PopupType.Question, PopupButtons.YesNoCancel);
+
+                if (showAllValues == null) return; // Abbrechen, falls der Nutzer "Abbrechen" wählt
 
                 // Liste der Objekte
                 List<object> liste = _amodel.Liste.ToList();
@@ -119,7 +119,7 @@ namespace RunTrack
 
                     // Wenn nur spezifische Werte angezeigt werden sollen, diese aus der Objektstruktur extrahieren
                     List<string> specificValues = new List<string>();
-                    if (!showAllValues)
+                    if (showAllValues == false)
                     {
                         // Nur spezifische Werte wie Name und Bewertung
                         specificValues.Add(obj.GetType().GetProperty("Name")?.GetValue(obj, null)?.ToString() ?? "Unbekannt");
@@ -132,7 +132,7 @@ namespace RunTrack
                         worin,
                         auswertungsart,
                         bewertung,
-                        showAllValues ? null : specificValues, // Alle Werte oder nur spezifische Werte
+                        (bool)showAllValues ? null : specificValues, // Alle Werte oder nur spezifische Werte
                         (liste.IndexOf(obj) + 1).ToString(), // Platzierung
                         obj.GetType().GetProperty("Name")?.GetValue(obj, null)?.ToString() ?? "Unbekannt",
                         geschlecht
