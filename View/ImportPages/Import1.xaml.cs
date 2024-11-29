@@ -61,8 +61,15 @@ namespace RunTrack
 
       btnCancel.Click += (s, e) =>
       {
-        if (new Popup().Display("Abbrechen", "Möchten Sie den Import wirklich abbrechen?", PopupType.Question, PopupButtons.YesNo) == true)
-          _model.Navigate(_model.History.FindLast(x => !new[] { typeof(Import1), typeof(Import2), typeof(Import3) }.Contains(x.GetType())));
+          if (new Popup().Display("Abbrechen", "Möchten Sie den Import wirklich abbrechen?", PopupType.Question, PopupButtons.YesNo) == true)
+          {
+              //  find last Dateiverwaltung
+              Dateiverwaltung dv = (Dateiverwaltung)_model.History.FindLast(x => x.GetType() == typeof(Dateiverwaltung));
+              DateiVerwaltungModel dvm = FindResource("dvmodel") as DateiVerwaltungModel;
+              if (File.Exists(_imodel.Pfad)) File.Delete(_imodel.Pfad);
+              dvm.LstFiles = new ObservableCollection<FileItem>(FileItem.AlleLesen());
+              _model.Navigate(dv);
+          }
       };
       btnWeiter.Click += (s, e) =>
       {
