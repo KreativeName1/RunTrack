@@ -118,6 +118,19 @@ namespace RunTrack
             LoadData();
         }
 
+
+        public void SaveChanges()
+        {
+            var currentRunden = Db.Runden.Include(x => x.Laeufer).ToList();
+            var removedRunden = currentRunden.Where(cr => !LstRunde.Any(lr => lr.Id == cr.Id)).ToList();
+            foreach (var item in removedRunden) Db.Runden.Remove(item);
+
+            Db.SaveChanges();
+            HasChanges = false;
+            LoadData();
+
+        }
+
         public void LoadData()
         {
             IsLoading = true;
