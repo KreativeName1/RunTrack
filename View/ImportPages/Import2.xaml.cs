@@ -64,9 +64,17 @@ namespace RunTrack
         {
             if (SetAllRundenArtenComboBox.SelectedItem is RundenArt selectedRundenArt)
             {
-                foreach (var klasseItem in _imodel.KlasseItems)
+                if (_imodel?.KlasseItems != null)
                 {
-                    klasseItem.RundenArt = selectedRundenArt;
+                    foreach (var klasseItem in _imodel.KlasseItems)
+                    {
+                        klasseItem.RundenArt = selectedRundenArt;
+                    }
+                }
+                else
+                {
+                    // Handle the case where _imodel or KlasseItems is null
+                    // Log an error or initialize KlasseItems if appropriate
                 }
             }
         }
