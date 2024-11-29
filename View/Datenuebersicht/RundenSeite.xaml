@@ -89,7 +89,7 @@
                     Binding="{Binding Zeitstempel, StringFormat=\{0:dd\.MM\.yy - HH\:mm\:ss\}}">
                             <DataGridTextColumn.CellStyle>
                                 <Style TargetType="DataGridCell">
-                                    <Setter Property="Cursor" Value="No"/>
+                                    <Setter Property="Cursor" Value="Help"/>
                                 </Style>
                             </DataGridTextColumn.CellStyle>
                             <DataGridTextColumn.ElementStyle>
