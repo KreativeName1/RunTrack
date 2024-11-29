@@ -12,7 +12,7 @@
     <Page.Resources>
         <local:BoolToVisibilityConverter x:Key="con"/>
     </Page.Resources>
-    <Grid DataContext="{StaticResource dvmodel}">
+    <Grid DataContext="{StaticResource dvmodel}" Cursor="">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto" MinHeight="80"/>
@@ -41,7 +41,7 @@
             <TextBlock Text="Uploaddatum ⇅" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" MouseDown="UploadDateLabel_MouseDown" MouseEnter="Label_MouseEnter" MouseLeave="Label_MouseLeave" x:Name="UploadDateLabel" Cursor="Hand"/>
         </Grid>
         <ListBox x:Name="FilesListBox" AllowDrop="True" SelectionChanged="FilesListBox_SelectionChanged" ItemsSource="{Binding LstFiles}" 
-         Grid.Row="3" Margin="10,5,10,10" BorderBrush="Gray" BorderThickness="1"
+         Grid.Row="3" Margin="10,5,10,15" BorderBrush="Gray" BorderThickness="1"
          HorizontalContentAlignment="Stretch" SelectionMode="Extended" PreviewMouseDown="FilesListBox_PreviewMouseDown">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -61,7 +61,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-
+        <TextBlock Text="Drag &amp; Drop für Import möglich" FontWeight="Bold" Margin="10,0,0,0" Grid.Row="3" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Column="1" Foreground="green" Cursor="Hand"/>
 
         <local:DragDropOverlay Drop="FilesListBox_Drop" AllowDrop="True" Grid.Row="3" Visibility="{Binding IsDragging, Converter={StaticResource con}}" x:Name="DragDropOverlay"/>
 
