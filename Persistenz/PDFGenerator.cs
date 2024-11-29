@@ -393,15 +393,14 @@ namespace RunTrack
                     TimeSpan gelaufeneZeit = new TimeSpan(0, 45, 30); // Beispielwert
                     double distanz = 12.5; // Beispielwert
 
+                    Dokument.Add(new Paragraph());
+                    Dokument.Add(new Paragraph());
+
                     Dokument.Add(new Paragraph($"Anzahl der Runden: {anzahlRunden}")
                         .SetTextAlignment(TextAlignment.CENTER)
                         .SetFontSize(format.SchriftGroesse));
-
+                    
                     Dokument.Add(new Paragraph($"Gelaufene Zeit: {gelaufeneZeit:hh\\:mm\\:ss}")
-                        .SetTextAlignment(TextAlignment.CENTER)
-                        .SetFontSize(format.SchriftGroesse));
-
-                    Dokument.Add(new Paragraph($"Distanz: {distanz} km")
                         .SetTextAlignment(TextAlignment.CENTER)
                         .SetFontSize(format.SchriftGroesse));
 
@@ -433,7 +432,7 @@ namespace RunTrack
                 table.SetMarginTop(50);
 
                 // Den Signaturbereich ans Ende verschieben
-                Dokument.Add(new Paragraph().SetHeight(425)); // Platzhalter, um Abstand zu schaffen
+                Dokument.Add(new Paragraph().SetHeight(370)); // Platzhalter, um Abstand zu schaffen
                 Dokument.Add(table);
 
                 // Seitenumbruch für nächste Urkunde
