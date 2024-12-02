@@ -26,6 +26,7 @@ namespace RunTrack
             DataContext = this;
 
             LoadContent();
+            UpdateSaveButtonVisibility();
         }
 
         private void LoadContent()
@@ -185,10 +186,10 @@ namespace RunTrack
             }
         }
 
-
         private void IntegerUpDown_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             _changesMade = true;
+            UpdateSaveButtonVisibility();
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -207,7 +208,6 @@ namespace RunTrack
                 }
             }
         }
-
 
         private void OptionsButton_Click(object sender, RoutedEventArgs e)
         {
@@ -247,7 +247,6 @@ namespace RunTrack
 
         private void DeleteRundenart(string rundenartName)
         {
-            // if (System.Windows.MessageBox.Show("Wollen Sie wirklich " + rundenartName + " löschen?", "Löschne", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             if (new Popup().Display("Löschen", "Wollen Sie wirklich " + rundenartName.ToUpper() + " löschen?", PopupType.Question, PopupButtons.YesNo) == true)
             {
                 using (var db = new LaufDBContext())
@@ -271,6 +270,7 @@ namespace RunTrack
 
             LoadContent();
             _changesMade = false;
+            UpdateSaveButtonVisibility();
         }
 
         private void LogoutIcon_MouseDown(object sender, MouseButtonEventArgs e)
@@ -294,12 +294,12 @@ namespace RunTrack
                     db.SaveChanges();
                 }
 
-                //System.Windows.MessageBox.Show("Einstellungen wurden gespeichert", "Einstellungen gespeichert", MessageBoxButton.OK, MessageBoxImage.Information);
                 new Popup().Display("Einstellungen gespeichert", "Einstellungen wurden gespeichert", PopupType.Info, PopupButtons.Ok);
+                _changesMade = false;
+                UpdateSaveButtonVisibility();
             }
             else
             {
-                //System.Windows.MessageBox.Show("Keine Änderungen zum Speichern gefunden", "Keine Änderungen", MessageBoxButton.OK, MessageBoxImage.Information);
                 new Popup().Display("Keine Änderungen", "Keine Änderungen zum Speichern gefunden", PopupType.Info, PopupButtons.Ok);
             }
         }
@@ -318,7 +318,7 @@ namespace RunTrack
             txtRoundsTitel.Visibility = Visibility.Visible;
             btnRounds.IsEnabled = false;
             btnAdmin.IsEnabled = true;
-            btnSave.Visibility = Visibility.Visible;
+            UpdateSaveButtonVisibility();
         }
 
         private void Admin_Click(object sender, RoutedEventArgs e)
@@ -335,7 +335,6 @@ namespace RunTrack
 
         private void btnAdminAdd_Click(object sender, RoutedEventArgs e)
         {
-            // DialogMode + Zusatz noch hinzufügen wie bei AddButton_Click
             AdminEinstellungen adminEinstellungen = new(DialogMode.Neu);
             _pmodel.Navigate(adminEinstellungen);
         }
@@ -348,9 +347,13 @@ namespace RunTrack
 
         private void btnPasswordChange_Click(object sender, RoutedEventArgs e)
         {
-            // DialogMode + Zusatz noch hinzufügen wie bei OptionsButton_Click
             AdminEinstellungen adminEinstellungen = new(DialogMode.Bearbeiten, this._pmodel.Benutzer.Vorname, this._pmodel.Benutzer.Nachname);
             _pmodel.Navigate(adminEinstellungen);
+        }
+
+        private void UpdateSaveButtonVisibility()
+        {
+            btnSave.Visibility = _changesMade ? Visibility.Visible : Visibility.Hidden;
         }
     }
 }
