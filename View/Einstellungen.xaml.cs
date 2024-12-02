@@ -105,7 +105,8 @@ namespace RunTrack
                         Margin = new Thickness(30, 1.5, 5, 2.5),
                         Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F4F8F4")),
                         ToolTip = "Löschen",
-                        Tag = rundenArt.Name
+                        Tag = rundenArt.Name,
+                        Cursor = Cursors.Hand
                     };
                     Image buttonImageDelete = new()
                     {
@@ -132,7 +133,8 @@ namespace RunTrack
                         Margin = new Thickness(0, 1.5, 10, 2.5),
                         Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F4F8F4")),
                         ToolTip = "Einstellungen",
-                        Tag = rundenArt.Name
+                        Tag = rundenArt.Name,
+                        Cursor = Cursors.Hand
                     };
                     Image buttonImageOptions = new()
                     {
@@ -176,7 +178,8 @@ namespace RunTrack
                     HorizontalAlignment = HorizontalAlignment.Center,
                     Margin = new Thickness(0, 20, 0, 0),
                     ToolTip = "Neue Rundenart",
-                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F4F8F4"))
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F4F8F4")),
+                    Cursor = Cursors.Hand
                 };
                 addButton.Click += AddButton_Click;
 
