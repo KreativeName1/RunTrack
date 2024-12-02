@@ -12,7 +12,7 @@ namespace RunTrack
             Database.EnsureCreated();
 
             // Erst die Daten aus der internen Datenbank laden
-            using (var thisDB = new LaufDBContext())
+            using (LaufDBContext thisDB = new())
             {
                 RundenArten?.AddRange(thisDB.RundenArten.ToList());
                 Schulen?.AddRange(thisDB.Schulen.ToList());
@@ -25,9 +25,9 @@ namespace RunTrack
             // Alle externen Datenbanken durchgehen und die Runden hinzufügen
             foreach (string db_path in databases)
             {
-                using (var db = new LaufDBContext(db_path))
+                using (LaufDBContext db = new(db_path))
                 {
-                    foreach (var runde in db.Runden)
+                    foreach (Runde runde in db.Runden)
                     {
                         runde.Id = 0;
                         Runden?.Add(runde);
@@ -35,6 +35,56 @@ namespace RunTrack
                     SaveChanges();
                 }
             }
+
+
+            int MaxScanIntervalInSekunden = 0;
+
+            Dictionary<List<Runde>, TimeSpan> RundenListe = new();
+
+            foreach (Laeufer l in Laeufer)
+            {
+                if (l is Schueler schueler) MaxScanIntervalInSekunden = schueler.Klasse.RundenArt.MaxScanIntervalInSekunden;
+                else if (l is Laeufer laeufer) MaxScanIntervalInSekunden = laeufer.RundenArt.MaxScanIntervalInSekunden;
+
+                if (l.Runden == null) continue;
+
+                if (!RundenListe.TryGetValue(l.Runden, out TimeSpan intervall))
+                {
+                    RundenListe.Add(l.Runden, TimeSpan.FromSeconds(MaxScanIntervalInSekunden));
+                }
+            }
+        }
+
+        public static List<Runde>? EntferneZuNaheRunden(Dictionary<List<Runde>, TimeSpan> dic)
+        {
+            List<Runde> bereinigteRunden = new();
+
+            if (dic == null) return bereinigteRunden;
+
+            foreach (KeyValuePair<List<Runde>, TimeSpan> item in dic)
+            {
+                List<Runde> runden = item.Key;
+                TimeSpan intervall = item.Value;
+                // Sortiere die Runden nach Zeitstempel
+                runden.Sort((r1, r2) => r1.Zeitstempel.CompareTo(r2.Zeitstempel));
+                // Initialisiere die letzte Runde und den letzten Läufer
+                Runde letzteRunde = null;
+                int? letzterLaeuferId = null;
+                foreach (Runde runde in runden)
+                {
+                    if (letzteRunde == null ||
+                        runde.Zeitstempel - letzteRunde.Zeitstempel >= intervall ||
+                        runde.LaeuferId != letzterLaeuferId)
+                    {
+                        // Abstand zwischen den Runden ist groß genug, es ist die erste Runde oder der Läufer hat sich gewechselt
+                        bereinigteRunden.Add(runde);
+                        letzteRunde = runde;
+                        letzterLaeuferId = runde.LaeuferId;
+                    }
+                }
+            }
+
+            return bereinigteRunden;
         }
 
 
