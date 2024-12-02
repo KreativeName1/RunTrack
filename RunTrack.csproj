@@ -53,6 +53,7 @@
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2903.40" />
     <PackageReference Include="RelayCommand" Version="1.0.2" />
     <PackageReference Include="SharpVectors" Version="1.8.4.2" />
+    <PackageReference Include="SQLite" Version="3.13.0" />
   </ItemGroup>
 
   <ItemGroup>

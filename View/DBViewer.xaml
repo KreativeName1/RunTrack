@@ -1,0 +1,16 @@
+﻿<Page x:Class="RunTrack.DBViewer"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RunTrack"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="DBViewer">
+	<Page.Resources>
+		<local:DBViewerModel x:Key="viewModel"/>
+	</Page.Resources>
+	<Grid DataContext="{StaticResource viewModel}">
+		<TabControl ItemsSource="{Binding Tabs}" />
+	</Grid>
+</Page>
