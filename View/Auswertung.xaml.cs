@@ -107,15 +107,28 @@ namespace RunTrack
                     string bewertung = obj.GetType().GetProperty("Bewertung")?.GetValue(obj, null)?.ToString() ?? "N/A";
                     string geschlecht = _amodel.IsMaennlich ? "Männlich" :
                                         _amodel.IsWeiblich ? "Weiblich" : "Gesamt";
+                    using (var db = new MergedDBContext(_pfade))
+                    {
+                        int id = Convert.ToInt32(obj.GetType().GetProperty("SchuelerId")?.GetValue(obj, null) ?? 0);
+                        Laeufer l = db.Laeufer.First(x => x.Id == id);
 
-                    // Anzahl der Runden, gelaufene Zeit und Distanz (angenommene Eigenschaften)
-                    int anzahlRunden = Convert.ToInt32(obj.GetType().GetProperty("Runden")?.GetValue(obj, null) ?? 0);
+                        if (l is Schueler schueler)
+                        {
 
-                    // Hier TimeSpan korrekt behandeln, falls null
-                    TimeSpan gelaufeneZeit = obj.GetType().GetProperty("GelaufeneZeit")?.GetValue(obj, null) as TimeSpan? ?? TimeSpan.Zero;
+                        }
+                        else if (l is Laeufer laeufer)
+                        {
 
-                    // Distanz ebenfalls behandeln
-                    double distanz = Convert.ToDouble(obj.GetType().GetProperty("Distanz")?.GetValue(obj, null) ?? 0);
+                        }
+                    }
+                    //// Anzahl der Runden, gelaufene Zeit und Distanz (angenommene Eigenschaften)
+                    //int anzahlRunden = Convert.ToInt32(obj.GetType().GetProperty("Runden")?.GetValue(obj, null) ?? 0);
+
+                    //// Hier TimeSpan korrekt behandeln, falls null
+                    //TimeSpan gelaufeneZeit = obj.GetType().GetProperty("GelaufeneZeit")?.GetValue(obj, null) as TimeSpan? ?? TimeSpan.Zero;
+
+                    //// Distanz ebenfalls behandeln
+                    //double distanz = Convert.ToDouble(obj.GetType().GetProperty("Distanz")?.GetValue(obj, null) ?? 0);
 
                     // Wenn nur spezifische Werte angezeigt werden sollen, diese aus der Objektstruktur extrahieren
                     List<string> specificValues = new List<string>();
