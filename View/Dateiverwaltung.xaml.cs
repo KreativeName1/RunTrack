@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using RunTrack.Model;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
@@ -14,6 +15,7 @@ namespace RunTrack
     {
         private DateiVerwaltungModel _dvmodel;
         private MainModel _pmodel;
+        private List<string> _tempSelectedFiles = new List<string>();
 
         public Dateiverwaltung()
         {
@@ -37,11 +39,56 @@ namespace RunTrack
 
             if (openFileDialog.ShowDialog() == true)
             {
-                foreach (string fileName in openFileDialog.FileNames)
+                _tempSelectedFiles.Clear();
+                _tempSelectedFiles.AddRange(openFileDialog.FileNames);
+
+                // Überprüfen, ob die Gesamtanzahl der Dateien die Grenze von 10 überschreitet
+                if (_tempSelectedFiles.Count > 10)
                 {
-                    checkFile(fileName);
+                    new Popup().Display("Fehler", "Es können maximal 10 Dateien gleichzeitig hochgeladen werden.", PopupType.Warning, PopupButtons.Ok);
+                    return;
+                }
+
+                if (_tempSelectedFiles.Count > 1)
+                {
+                    // Mehrere Dateien ausgewählt, Benutzer zur Auswahl einer Datei auffordern
+                    string selectedFile = PromptUserToSelectFile(_tempSelectedFiles.ToArray());
+                    if (!string.IsNullOrEmpty(selectedFile))
+                    {
+                        checkFile(selectedFile);
+                    }
+                }
+                else
+                {
+                    // Nur eine Datei ausgewählt
+                    checkFile(_tempSelectedFiles[0]);
                 }
             }
+        }
+
+        private string PromptUserToSelectFile(string[] fileNames)
+        {
+            var fileItems = fileNames.Select(fileName =>
+            {
+                string directoryName = Path.GetFileName(Path.GetDirectoryName(fileName));
+                string displayPath = Path.Combine(directoryName, Path.GetFileName(fileName));
+                string destPath = Path.Combine("Dateien", Path.GetFileName(fileName));
+                return new FileListItem
+                {
+                    Pfad = displayPath,
+                    Name = Path.GetFileName(fileName),
+                    InfoVisible = File.Exists(destPath),
+                    Tooltip = File.Exists(destPath) ? $"Die Datei {Path.GetFileName(fileName.ToLower())} existiert bereits." : string.Empty
+                };
+            }).ToList();
+
+            // Übergib die Liste an das Auswahlfenster
+            var selectFileWindow = new SelectFileWindow(fileItems);
+            if (selectFileWindow.ShowDialog() == true)
+            {
+                return selectFileWindow.SelectedFile;
+            }
+            return string.Empty;
         }
 
 
@@ -55,15 +102,34 @@ namespace RunTrack
                 return;
             }
 
+            string destPath = Path.Combine("Dateien", Path.GetFileName(fileName));
+
             // Falls Datei bereits existiert
-            if (File.Exists(Path.Combine("Dateien", Path.GetFileName(fileName))))
+            if (File.Exists(destPath))
             {
                 string extra;
                 if (Path.GetFileName(fileName) == "EigeneDatenbank.db") extra = "(Die Datenbank des Programms wird überschrieben und alle bisherigen Daten gehen verloren!)";
                 else extra = string.Empty;
 
                 bool? result = new Popup().Display("Datei überschreiben", $"Die Datei '{Path.GetFileName(fileName)}' existiert bereits. Willst du sie überschreiben? {extra}", PopupType.Question, PopupButtons.YesNo);
-                if (result == false) return;
+
+                if (result == false)
+                {
+                    if (_tempSelectedFiles.Count > 1)
+                    {
+                        // Benutzer zur Auswahl einer Datei auffordern
+                        string selectedFile = PromptUserToSelectFile(_tempSelectedFiles.ToArray());
+                        if (!string.IsNullOrEmpty(selectedFile))
+                        {
+                            checkFile(selectedFile);
+                        }
+                        return;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
             }
 
             // Datei in die Liste hinzufügen
@@ -75,7 +141,6 @@ namespace RunTrack
 
             // Datei in den Dateien-Ordner kopieren
             Directory.CreateDirectory("Dateien");
-            string destPath = Path.Combine("Dateien", Path.GetFileName(fileName));
             File.Copy(fileName, destPath, true);
 
             if (extension == ".asv" || extension == ".csv")
@@ -85,6 +150,8 @@ namespace RunTrack
                 _dvmodel.LstFiles = new ObservableCollection<FileItem>(FileItem.AlleLesen());
             }
         }
+
+
         private void DeleteSelectedFiles_Click(object sender, RoutedEventArgs e)
         {
             string extra = string.Empty;
@@ -272,12 +339,29 @@ namespace RunTrack
             {
                 List<string> files = new List<string>((string[])e.Data.GetData(DataFormats.FileDrop));
                 _dvmodel.IsDragging = false;
-                files.RemoveAll(x => !x.Contains(".db") && !x.Contains(".sqlite") && !x.Contains(".csv"));
+                _tempSelectedFiles.Clear();
+                _tempSelectedFiles.AddRange(files);
 
-                string ausgabe = string.Empty;
-                foreach (string file in files)
+                // Überprüfen, ob die Gesamtanzahl der Dateien die Grenze von 10 überschreitet
+                if (_tempSelectedFiles.Count > 10)
                 {
-                    checkFile(file);
+                    new Popup().Display("Fehler", "Es können maximal 10 Dateien gleichzeitig hochgeladen werden.", PopupType.Warning, PopupButtons.Ok);
+                    return;
+                }
+
+                if (_tempSelectedFiles.Count > 1)
+                {
+                    // Mehrere Dateien ausgewählt, Benutzer zur Auswahl einer Datei auffordern
+                    string selectedFile = PromptUserToSelectFile(_tempSelectedFiles.ToArray());
+                    if (!string.IsNullOrEmpty(selectedFile))
+                    {
+                        checkFile(selectedFile);
+                    }
+                }
+                else
+                {
+                    // Nur eine Datei ausgewählt
+                    checkFile(_tempSelectedFiles[0]);
                 }
             }
         }
