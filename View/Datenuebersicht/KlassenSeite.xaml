@@ -12,7 +12,8 @@
 	<Page.Resources>
 		<this:ObjectToBoolConverter x:Key="ObjectToBoolConverter"/>
 		<this:KlassenseiteModel x:Key="thismodel"/>
-        <this:BoolInverterConverter x:Key="BoolInverterConverter"/>
+		<this:InverseBoolToVisibilityConverter x:Key="ibvcon"/>
+		<this:BoolInverterConverter x:Key="BoolInverterConverter"/>
         <this:BoolToVisibilityConverter x:Key="bvcon"/>
 	</Page.Resources>
 
@@ -32,7 +33,7 @@
         <GroupBox x:Name="KlasseGrid" Header="Klassen">
             <Grid>
 
-				<DataGrid x:Name="lstKlasse" ItemsSource="{Binding CollectionView}" SelectedItem="{Binding SelKlasse}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Extended">
+				<DataGrid x:Name="lstKlasse" ItemsSource="{Binding CollectionView}" SelectedItem="{Binding SelKlasse}" IsReadOnly="{Binding ReadOnly}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Extended">
 					<DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="FontWeight" Value="Bold"/>
@@ -79,7 +80,7 @@
                             </DataGridTemplateColumn.CellStyle>
                             <DataGridTemplateColumn.CellTemplate>
 								<DataTemplate>
-									<ComboBox x:Name="cbRundenArt" ItemsSource="{Binding DataContext.LstRundenart, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+									<ComboBox x:Name="cbRundenArt"   ItemsSource="{Binding DataContext.LstRundenart, RelativeSource={RelativeSource AncestorType=DataGrid}}"
 											  SelectionChanged="cbRundenArt_SelectionChanged"  DropDownOpened="cbKlasse_DropDownOpened1" DropDownClosed="cbKlasse_DropDownClosed1" SelectedItem="{Binding RundenArt, Mode=TwoWay}"/>
 								</DataTemplate>
 							</DataGridTemplateColumn.CellTemplate>
@@ -97,7 +98,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+			<StackPanel Grid.Column="0" Visibility="{Binding ReadOnly, Converter={StaticResource ibvcon}}" Orientation="Horizontal" HorizontalAlignment="Left">
                 <fc:ButtonPlus x:Name="btnSpeichern" IsEnabled="{Binding HasChanges}" Margin="10,0,0,0"  Cursor="Hand" Content="Speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
                 <fc:ButtonPlus x:Name="btnNeu" Margin="10,0,0,0"  Cursor="Hand" Content="Neuer Eintrag" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
                 <fc:ButtonPlus x:Name="btnDel" Margin="10,0,10,0" IsEnabled="{Binding SelKlasse, Converter={StaticResource ObjectToBoolConverter}}" Cursor="Hand" Content="Eintrag löschen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />

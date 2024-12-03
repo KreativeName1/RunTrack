@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.ObjectModel;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace RunTrack
 {
@@ -9,6 +7,36 @@ namespace RunTrack
         private Page? _currentPage;
 
         private bool _hasChanges;
+
+        private bool _readOnly = true;
+
+        private string? connectionString;
+
+        public string? ConnectionString
+        {
+            get
+            {
+                return connectionString;
+            }
+            set
+            {
+                this.connectionString = value;
+                OnPropertyChanged("ConnectionString");
+            }
+        }
+
+        public bool ReadOnly
+        {
+            get
+            {
+                return _readOnly;
+            }
+            set
+            {
+                this._readOnly = value;
+                OnPropertyChanged("ReadOnly");
+            }
+        }
 
         public bool HasChanges
         {

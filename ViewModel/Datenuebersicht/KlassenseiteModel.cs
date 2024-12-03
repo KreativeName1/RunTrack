@@ -18,6 +18,22 @@ namespace RunTrack
         private bool _isLoading { get; set; }
         private string _searchTerm { get; set; }
 
+        // Nicht ganz Fertig
+
+        private bool _readOnly { get; set; }
+
+        public bool ReadOnly
+        {
+            get { return ((DatenuebersichtModel)App.Current.Resources["dumodel"]).ReadOnly ? true : false; }
+            set
+            {
+                ((DatenuebersichtModel)App.Current.Resources["dumodel"]).ReadOnly = value;
+                OnPropertyChanged("ReadOnly");
+            }
+        }
+
+        public string? ConnectionString => ((DatenuebersichtModel)App.Current.Resources["dumodel"]).ConnectionString;
+
         public string SearchTerm
         {
             get { return _searchTerm; }
@@ -197,7 +213,8 @@ namespace RunTrack
             IsLoading = true;
             Task.Run(() =>
             {
-                _db = new();
+                if (ConnectionString == null) _db = new();
+                else _db = new(ConnectionString);
                 LstSchule = new(_db.Schulen.ToList());
                 LstKlasse = new(_db.Klassen.Include(k => k.Schueler).Include(s => s.Schule).ToList());
                 LstRundenart = new(_db.RundenArten.ToList());
