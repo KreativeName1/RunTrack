@@ -11,9 +11,9 @@ namespace RunTrack
         public DBViewer(string path)
         {
             InitializeComponent();
-
+            DBService service = new(path);
             _model = FindResource("viewModel") as DBViewerModel;
-            _model.Initialize(path);
+            _model.Initialize(service);
         }
 
 

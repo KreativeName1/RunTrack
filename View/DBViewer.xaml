@@ -11,6 +11,18 @@
 		<local:DBViewerModel x:Key="viewModel"/>
 	</Page.Resources>
 	<Grid DataContext="{StaticResource viewModel}">
-		<TabControl ItemsSource="{Binding Tabs}" />
+		<TabControl ItemsSource="{Binding TableNames}" SelectedItem="{Binding SelectedTable}">
+			<TabControl.ItemTemplate>
+				<DataTemplate>
+					<TextBlock Text="{Binding}" />
+				</DataTemplate>
+			</TabControl.ItemTemplate>
+			<TabControl.ContentTemplate>
+				<DataTemplate>
+					<DataGrid ItemsSource="{Binding DataContext.CurrentTableData.DefaultView, RelativeSource={RelativeSource AncestorType=TabControl}}" 
+                              AutoGenerateColumns="True" />
+				</DataTemplate>
+			</TabControl.ContentTemplate>
+		</TabControl>
 	</Grid>
 </Page>

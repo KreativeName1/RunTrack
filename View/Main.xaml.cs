@@ -21,10 +21,6 @@ namespace RunTrack
             MainWindow main = new();
             _pmodel.CurrentPage = main;
 
-            // TEST CODE
-            //DBViewer dBViewer = new("Dateien/EigeneDatenbank.db");
-            //_pmodel.Navigate(dBViewer);
-
             this.PreviewKeyDown += (sender, e) =>
             {
                 if (e.Key == Key.F11) ChangeState();
