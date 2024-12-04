@@ -346,7 +346,11 @@ namespace RunTrack
         }
         private string GetBewertung(Laeufer laeufer)
         {
-            if (_amodel.IsAnzahl) return Convert.ToString(laeufer.Runden.Where(r => r.Laeufer == laeufer).Count() - 1) + " Runden";
+            int rundenCount = laeufer.Runden.Count() - 1;
+            if (_amodel.IsAnzahl)
+            {
+                return rundenCount == 1 ? "1 Runde  " : $"{rundenCount} Runden";
+            }
             else if (_amodel.IsDistanz)
             {
                 if (laeufer is Schueler schueler) return ((laeufer.Runden.Count() - 1) * schueler.Klasse.RundenArt.LaengeInMeter).ToString("#,##0") + " m";
