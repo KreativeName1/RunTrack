@@ -70,26 +70,29 @@ namespace RunTrack
         {
             var fileItems = fileNames.Select(fileName =>
             {
-                string directoryName = Path.GetFileName(Path.GetDirectoryName(fileName));
-                string displayPath = Path.Combine(directoryName, Path.GetFileName(fileName));
+                string displayPath = Path.GetFullPath(fileName);
                 string destPath = Path.Combine("Dateien", Path.GetFileName(fileName));
                 return new FileListItem
                 {
                     Pfad = displayPath,
                     Name = Path.GetFileName(fileName),
                     InfoVisible = File.Exists(destPath),
-                    Tooltip = File.Exists(destPath) ? $"Die Datei {Path.GetFileName(fileName.ToLower())} existiert bereits." : string.Empty
+                    Tooltip = File.Exists(destPath) ? $"Die Datei {Path.GetFileName(fileName)} existiert bereits." : string.Empty
                 };
             }).ToList();
 
-            // Übergib die Liste an das Auswahlfenster
             var selectFileWindow = new SelectFileWindow(fileItems);
             if (selectFileWindow.ShowDialog() == true)
             {
-                return selectFileWindow.SelectedFile;
+                if (File.Exists(selectFileWindow.SelectedFile))
+                {
+                    return selectFileWindow.SelectedFile;
+                }
+                new Popup().Display("Fehler", $"Die ausgewählte Datei existiert nicht mehr.", PopupType.Error, PopupButtons.Ok);
             }
             return string.Empty;
         }
+
 
 
         private void checkFile(string fileName)

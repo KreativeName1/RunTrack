@@ -1,18 +1,8 @@
 ﻿using MahApps.Metro.Controls;
 using RunTrack.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace RunTrack
 {
@@ -38,9 +28,9 @@ namespace RunTrack
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
-            if (FileListBox.SelectedItem != null)
+            if (FileListBox.SelectedItem is FileListItem selectedItem)
             {
-                SelectedFile = FileListBox.SelectedItem.ToString();
+                SelectedFile = selectedItem.Pfad;
                 DialogResult = true;
             }
             else
@@ -48,6 +38,7 @@ namespace RunTrack
                 MessageBox.Show("Bitte wählen Sie eine Datei aus.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
