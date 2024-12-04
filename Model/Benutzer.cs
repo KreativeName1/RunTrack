@@ -8,15 +8,12 @@
         public string Nachname { get; set; }
         public bool IsAdmin { get; set; } = false;
 
-        public string Key { get; set; }
-
         public Benutzer()
         {
             Id = 0;
             Passwort = "";
             Vorname = "";
             Nachname = "";
-            Key = "";
         }
 
         public string Benutzername

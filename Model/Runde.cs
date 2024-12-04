@@ -7,6 +7,7 @@
         public Laeufer? Laeufer { get; set; }
         public int? LaeuferId { get; set; }
         public string? BenutzerName { get; set; }
+        public string ProgrammKey { get; set; }
 
         public Runde()
         {

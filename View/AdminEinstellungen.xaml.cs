@@ -226,7 +226,6 @@ namespace RunTrack
                             Vorname = txtVorname.Text.ToLower(),
                             Nachname = txtNachname.Text.ToLower(),
                             Passwort = BCrypt.Net.BCrypt.HashPassword(txtPasswordNew.Password),
-                            Key = UniqueKey.GetKey()
                         };
                         db.Benutzer.Add(benutzer);
                         db.SaveChanges();
