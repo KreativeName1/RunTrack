@@ -16,7 +16,7 @@ namespace RunTrack
         public Main()
         {
             InitializeComponent();
-
+            //UniqueKey.DeleteKey();
             _pmodel = FindResource("pmodel") as MainModel ?? new();
             MainWindow main = new();
             _pmodel.CurrentPage = main;
