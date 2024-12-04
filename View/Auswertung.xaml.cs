@@ -223,7 +223,7 @@ namespace RunTrack
                         string bewertung = GetBewertung(schueler);
                         string geschlecht = GetGeschlecht(schueler);
 
-                        if (!IsRundenArt(schueler)) continue;
+                        if (IsRundenArt(schueler)) continue;
 
                         if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
@@ -239,7 +239,7 @@ namespace RunTrack
                         string geschlecht = GetGeschlecht(schueler);
                         string bewertung = GetBewertung(schueler);
 
-                        if (!IsRundenArt(schueler)) continue;
+                        if (IsRundenArt(schueler)) continue;
 
                         if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
@@ -255,7 +255,7 @@ namespace RunTrack
                         string geschlecht = GetGeschlecht(schueler);
                         string bewertung = GetBewertung(schueler);
 
-                        if (!IsRundenArt(schueler)) continue;
+                        if (IsRundenArt(schueler)) continue;
 
                         if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
@@ -271,7 +271,7 @@ namespace RunTrack
                         string geschlecht = GetGeschlecht(schueler);
                         string bewertung = GetBewertung(schueler);
 
-                        if (!IsRundenArt(schueler)) continue;
+                        if (IsRundenArt(schueler)) continue;
 
                         if (_amodel.IsMaennlich && schueler.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && schueler.Geschlecht != Geschlecht.Weiblich) continue;
@@ -287,7 +287,7 @@ namespace RunTrack
                         string geschlecht = GetGeschlecht(laeufer);
                         string bewertung = GetBewertung(laeufer);
 
-                        if (!IsRundenArt(laeufer)) continue;
+                        if (IsRundenArt(laeufer)) continue;
 
                         if (_amodel.IsMaennlich && laeufer.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && laeufer.Geschlecht != Geschlecht.Weiblich) continue;
