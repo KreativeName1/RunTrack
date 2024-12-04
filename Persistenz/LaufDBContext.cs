@@ -1,12 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.IO;
+using TracerFile;
+using TraceLevel = TracerFile.TraceLevel;
 
 namespace RunTrack
 {
     public class LaufDBContext : DbContext
     {
         private static string _dbPath = "./Dateien/EigeneDatenbank.db";
+        private Tracer Tracer = new Tracer("LOG_LaufDBContext.txt");
         public LaufDBContext()
               : base(GetDbContextOptions())
         {
@@ -19,7 +22,8 @@ namespace RunTrack
                 SeedTestData();
                 SeedBlattgroessen();
             }
-            Trace.WriteLine(Path.GetFullPath(_dbPath));
+
+            Tracer.Trace("LaufDBContext created", TraceLevel.Info);
         }
 
         public LaufDBContext(string _path)
@@ -27,6 +31,8 @@ namespace RunTrack
         {
             _dbPath = _path;
             Database.EnsureCreated();
+
+            Tracer.Trace("LaufDBContext created", TraceLevel.Info);
         }
         public void SeedBlattgroessen()
         {
@@ -153,7 +159,7 @@ namespace RunTrack
         private static DbContextOptions GetDbContextOptions()
         {
             var optionsBuilder = new DbContextOptionsBuilder<LaufDBContext>();
-            optionsBuilder.UseSqlite($"Data Source={_dbPath}");
+            optionsBuilder.UseSqlite($"Data Source={_dbPath};Pooling=False");
             optionsBuilder.EnableSensitiveDataLogging();
             return optionsBuilder.Options;
         }
@@ -196,6 +202,18 @@ namespace RunTrack
                   .WithMany()
                   .HasForeignKey(f => f.BlattGroesseId)
                   .OnDelete(DeleteBehavior.SetNull);
+        }
+
+        public override void Dispose()
+        {
+            Tracer.Trace("LaufDBContext disposed", TraceLevel.Info);
+            base.Dispose();
+        }
+
+        public override ValueTask DisposeAsync()
+        {
+            Tracer.Trace("LaufDBContext disposed", TraceLevel.Info);
+            return base.DisposeAsync();
         }
 
         public DbSet<Klasse> Klassen { get; set; }

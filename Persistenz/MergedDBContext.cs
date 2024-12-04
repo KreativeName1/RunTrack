@@ -1,10 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
+using TracerFile;
+using TraceLevel = TracerFile.TraceLevel;
 
 namespace RunTrack
 {
     public class MergedDBContext : DbContext
     {
         private static string _internalDBPath = "internal.db";
+        private Tracer Tracer = new("LOG_MergedDBContext.txt");
         public MergedDBContext(string[] databases)
         : base(GetDbContextOptions())
         {
@@ -32,8 +36,9 @@ namespace RunTrack
                         runde.Id = 0;
                         Runden?.Add(runde);
                     }
-                    SaveChanges();
+                    
                 }
+                SaveChanges();
             }
 
 
@@ -53,6 +58,12 @@ namespace RunTrack
                     RundenListe.Add(l.Runden, TimeSpan.FromSeconds(MaxScanIntervalInSekunden));
                 }
             }
+
+            Runden.RemoveRange(Runden);
+            Runden.AddRange(EntferneZuNaheRunden(RundenListe));
+
+
+            Tracer.Trace($"MergedDBContext created", TraceLevel.Info);
         }
 
         public static List<Runde>? EntferneZuNaheRunden(Dictionary<List<Runde>, TimeSpan> dic)
@@ -91,7 +102,7 @@ namespace RunTrack
         private static DbContextOptions GetDbContextOptions()
         {
             var optionsBuilder = new DbContextOptionsBuilder<MergedDBContext>();
-            optionsBuilder.UseSqlite($"Data Source={_internalDBPath}");
+            optionsBuilder.UseSqlite($"Data Source={_internalDBPath};Pooling=False");
             optionsBuilder.EnableSensitiveDataLogging();
             return optionsBuilder.Options;
         }
@@ -114,7 +125,17 @@ namespace RunTrack
                 .HasForeignKey(r => r.LaeuferId);
         }
 
+        public override void Dispose()
+        {
+            Tracer.Trace("MergedDBContext disposed", TraceLevel.Info);
+            base.Dispose();
+        }
 
+        public override ValueTask DisposeAsync()
+        {
+            Tracer.Trace("MergedDBContext disposed", TraceLevel.Info);
+            return base.DisposeAsync();
+        }
         public DbSet<Klasse> Klassen { get; set; }
         public DbSet<Schule> Schulen { get; set; }
         public DbSet<Laeufer> Laeufer { get; set; }
@@ -122,6 +143,5 @@ namespace RunTrack
         public DbSet<Runde> Runden { get; set; }
         public DbSet<RundenArt> RundenArten { get; set; }
         public DbSet<Benutzer> Benutzer { get; set; }
-
     }
 }

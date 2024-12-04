@@ -1,6 +1,8 @@
 ﻿using FullControls.Controls;
 using Microsoft.Win32;
 using System.Data.Entity;
+using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -31,12 +33,25 @@ namespace RunTrack
             btnImport.Click += (s, e) => _pmodel.Navigate(new Dateiverwaltung());
             btnExport.Click += (s, e) =>
             {
-                SaveFileDialog saveFileDialog = new() { Filter = "files (*.db)|*.db", FileName = "Auswertung.db" };
-                if (saveFileDialog.ShowDialog() == true)
+                FileStream? fs = null;
+                try
                 {
-                    if (System.IO.File.Exists(saveFileDialog.FileName)) System.IO.File.Delete(saveFileDialog.FileName);
-
-                    System.IO.File.Copy("internal.db", saveFileDialog.FileName);
+                    fs = new FileStream("internal.db", FileMode.Open, FileAccess.Read, FileShare.None);
+                    SaveFileDialog saveFileDialog = new() { Filter = "files (*.db)|*.db", FileName = "Auswertung.db" };
+                    if (saveFileDialog.ShowDialog() == true)
+                    {
+                        //if (System.IO.File.Exists(saveFileDialog.FileName)) System.IO.File.Delete(saveFileDialog.FileName);
+                        File.Copy("internal.db", saveFileDialog.FileName, true);
+                        Trace.WriteLine($"File copied to {saveFileDialog.FileName}");
+                    }
+                }
+                catch (IOException ex)
+                {
+                    Trace.WriteLine("Error accessing internal.db: " + ex.Message);
+                }
+                finally
+                {
+                    fs?.Close();
                 }
             };
             btnSchliessen.Click += (s, e) => _pmodel.Navigate(new Scanner());
