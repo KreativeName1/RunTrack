@@ -1,5 +1,5 @@
 ﻿
-using System.ComponentModel.DataAnnotations.Schema;
+using RunTrack.Model;
 
 namespace RunTrack
 {
@@ -10,6 +10,8 @@ namespace RunTrack
         public string Vorname { get; set; }
         public string Nachname { get; set; }
         public bool IsAdmin { get; set; } = false;
+        public Programm Programm { get; set; }
+        public int ProgrammId { get; set; }
 
         public Benutzer()
         {
@@ -17,6 +19,7 @@ namespace RunTrack
             Passwort = "";
             Vorname = "";
             Nachname = "";
+            Programm = new Programm();
         }
 
         public string Benutzername

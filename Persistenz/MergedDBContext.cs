@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RunTrack.Model;
 
 namespace RunTrack
 {
@@ -112,6 +113,14 @@ namespace RunTrack
                 .HasMany(s => s.Runden)
                 .WithOne(r => r.Laeufer)
                 .HasForeignKey(r => r.LaeuferId);
+
+
+            // Benutzer gehört zu Prgramm, Programm hat viele Benutzer
+            modelBuilder.Entity<Benutzer>()
+                  .HasOne(b => b.Programm)
+                  .WithMany(p => p.Benutzer)
+                  .HasForeignKey(b => b.ProgrammId)
+                  .OnDelete(DeleteBehavior.SetNull);
         }
 
 
@@ -122,6 +131,7 @@ namespace RunTrack
         public DbSet<Runde> Runden { get; set; }
         public DbSet<RundenArt> RundenArten { get; set; }
         public DbSet<Benutzer> Benutzer { get; set; }
+        public DbSet<Programm> Programme { get; set; }
 
     }
 }
