@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RunTrack.Model;
 using System.Diagnostics;
 using System.IO;
 
@@ -197,13 +196,6 @@ namespace RunTrack
                   .WithMany()
                   .HasForeignKey(f => f.BlattGroesseId)
                   .OnDelete(DeleteBehavior.SetNull);
-
-            // Benutzer gehört zu Prgramm, Programm hat viele Benutzer
-            modelBuilder.Entity<Benutzer>()
-                  .HasOne(b => b.Programm)
-                  .WithMany(p => p.Benutzer)
-                  .HasForeignKey(b => b.ProgrammId)
-                  .OnDelete(DeleteBehavior.SetNull);
         }
 
         public DbSet<Klasse> Klassen { get; set; }
@@ -215,6 +207,5 @@ namespace RunTrack
         public DbSet<Benutzer> Benutzer { get; set; }
         public DbSet<Format> Formate { get; set; }
         public DbSet<BlattGroesse> BlattGroessen { get; set; }
-        public DbSet<Programm> Programme { get; set; }
     }
 }

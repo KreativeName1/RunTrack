@@ -1,5 +1,4 @@
-﻿using RunTrack.Model;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -222,16 +221,11 @@ namespace RunTrack
                     // Wenn das Neue Passwort den Sicherheitsanforderungen entspricht, wird der Benutzer erstellt
                     if (ValidateNewPassword(txtPasswordNew.Password))
                     {
-                        Programm programm;
-                        if (!db.Programme.Any()) programm = new() { Key = UniqueKey.GetKey() };
-                        else programm = db.Programme.Single<Programm>(x => x.Key == UniqueKey.GetKey());
-                        if (programm == null) programm = new() { Key = UniqueKey.GetKey() };
                         Benutzer benutzer = new()
                         {
                             Vorname = txtVorname.Text.ToLower(),
                             Nachname = txtNachname.Text.ToLower(),
-                            Passwort = BCrypt.Net.BCrypt.HashPassword(txtPasswordNew.Password),
-                            Programm = programm
+                            Passwort = BCrypt.Net.BCrypt.HashPassword(txtPasswordNew.Password)
                         };
                         db.Benutzer.Add(benutzer);
                         db.SaveChanges();
