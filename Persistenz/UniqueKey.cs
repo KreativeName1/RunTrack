@@ -29,7 +29,7 @@ namespace RunTrack
 
         public static void GenerateKey()
         {
-            string uniqueKey = Environment.MachineName + "_" + new string(Guid.NewGuid().ToString("N").Take(15).ToArray());
+            string uniqueKey = $"{Environment.MachineName}_{DateTime.UtcNow:yyyyMMdd}_{new string(Guid.NewGuid().ToString("N").Take(15).ToArray())}";
 
             IsolatedStorageFile store = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
 
