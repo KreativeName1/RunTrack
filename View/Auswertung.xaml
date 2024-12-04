@@ -94,7 +94,6 @@
 
                 <Border BorderBrush="Black" BorderThickness="1" Padding="10">
                     <StackPanel>
-                        <fc:RadioButtonPlus Margin="0,0,0,10" GroupName="Typ" Name="Alle" Grid.Row="2" IsChecked="{Binding IsAlles}" Content="Insgesamt" VerticalAlignment="Center" Checked="change" />
                         <fc:RadioButtonPlus GroupName="Typ" Name="Anzahl" IsChecked="{Binding IsAnzahl}" Grid.Row="0" Content="Anzahl" VerticalAlignment="Center" Checked="change" />
                         <fc:RadioButtonPlus Margin="0,5,0,5" GroupName="Typ" Name="Zeit" Grid.Row="1" IsChecked="{Binding IsZeit}" Content="Zeit" VerticalAlignment="Center" Checked="change"/>
                         <fc:RadioButtonPlus GroupName="Typ" Name="Distanz" Grid.Row="2" IsChecked="{Binding IsDistanz}" Content="Distanz" VerticalAlignment="Center" Checked="change" />

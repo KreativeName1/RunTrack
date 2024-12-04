@@ -12,7 +12,6 @@ namespace RunTrack
         private bool _isAnzahl { get; set; } = true;
         private bool _isZeit { get; set; } = false;
         private bool _isDistanz { get; set; } = false;
-        private bool _isAlles = false;
 
         private bool _isInsgesamt { get; set; } = true;
         private bool _isSchule { get; set; } = false;
@@ -75,14 +74,6 @@ namespace RunTrack
         {
             get { return _isDistanz; }
             set { _isDistanz = value; OnPropertyChanged("IsDistanz"); }
-        }
-        public bool IsAlles
-        {
-            get
-            { return _isAlles; }
-
-            set
-            { _isAlles = value; OnPropertyChanged("IsAlles"); }
         }
 
 

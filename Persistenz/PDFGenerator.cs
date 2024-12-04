@@ -373,41 +373,13 @@ namespace RunTrack
                     .SetFontSize(format.SchriftGroesse * 1.5f)
                     .SetFontColor(ColorConstants.ORANGE));
 
-                // Dynamisch abhängig von den angezeigten Werten
-                if (obj.HasSpecificValues())
-                {
                     // Wenn nur spezifische Werte angezeigt werden sollen
-                    foreach (var specificValue in obj._lstWerte)
-                    {
-                        Dokument.Add(new Paragraph(specificValue)
+                        Dokument.Add(new Paragraph($"{obj.Wert}")
                             .SetTextAlignment(TextAlignment.CENTER)
                             .SetBold()
                             .SetFontSize(format.SchriftGroesse * 1.5f)
                             .SetFontColor(ColorConstants.ORANGE));
-                    }
-                }
-                else
-                {
-                    // Anzahl der Runden, gelaufene Zeit und Distanz (angenommene Eigenschaften)
-                    int anzahlRunden = 10; // Beispielwert
-                    TimeSpan gelaufeneZeit = new TimeSpan(0, 45, 30); // Beispielwert
-                    double distanz = 12.5; // Beispielwert
-
-                    Dokument.Add(new Paragraph());
-                    Dokument.Add(new Paragraph());
-
-                    Dokument.Add(new Paragraph($"Anzahl der Runden: {anzahlRunden}")
-                        .SetTextAlignment(TextAlignment.CENTER)
-                        .SetFontSize(format.SchriftGroesse));
-                    
-                    Dokument.Add(new Paragraph($"Gelaufene Zeit: {gelaufeneZeit:hh\\:mm\\:ss}")
-                        .SetTextAlignment(TextAlignment.CENTER)
-                        .SetFontSize(format.SchriftGroesse));
-
-                    Dokument.Add(new Paragraph($"Distanz: {distanz} km")
-                        .SetTextAlignment(TextAlignment.CENTER)
-                        .SetFontSize(format.SchriftGroesse));
-                }
+                
 
                 // Signaturbereich ans untere Ende des Dokuments verschieben
                 Table table = new Table(UnitValue.CreatePercentArray(new float[] { 2, 1.25f, 2 })).UseAllAvailableWidth();
