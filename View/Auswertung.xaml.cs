@@ -346,7 +346,7 @@ namespace RunTrack
         }
         private string GetBewertung(Laeufer laeufer)
         {
-            if (_amodel.IsAnzahl) return Convert.ToString(laeufer.Runden.Where(r => r.Laeufer == laeufer).Count() - 1);
+            if (_amodel.IsAnzahl) return Convert.ToString(laeufer.Runden.Where(r => r.Laeufer == laeufer).Count() - 1) + " Runden";
             else if (_amodel.IsDistanz)
             {
                 if (laeufer is Schueler schueler) return ((laeufer.Runden.Count() - 1) * schueler.Klasse.RundenArt.LaengeInMeter).ToString("#,##0") + " m";
@@ -361,7 +361,7 @@ namespace RunTrack
                     TimeSpan rundenzeit = laeufer.Runden[i].Zeitstempel - laeufer.Runden[i - 1].Zeitstempel;
                     rundenZeiten.Add(rundenzeit);
                 }
-                return rundenZeiten.Min().ToString(@"mm\:ss");
+                return rundenZeiten.Min().ToString(@"mm\:ss") + " min";
             }
             return "--:--";
         }
