@@ -255,8 +255,16 @@ namespace RunTrack
                 using (var db = new LaufDBContext())
                 {
                     var rundenart = db.RundenArten.FirstOrDefault(r => r.Name == rundenartName);
+
                     if (rundenart != null)
                     {
+                        var klasse = db.Klassen.FirstOrDefault(k => k.RundenArtId == rundenart.Id);
+                        var laeufer = db.Laeufer.FirstOrDefault(l => l.RundenArtId == rundenart.Id);
+                        if (klasse != null || laeufer != null)
+                        {
+                            new Popup().Display("Fehler", $"Rundenart '{rundenartName.ToUpper()}' kann nicht gelöscht werden, da sie in einer Klasse oder bei einem Läufer verwendet wird.", PopupType.Error, PopupButtons.Ok);
+                            return;
+                        }
                         db.RundenArten.Remove(rundenart);
                         db.SaveChanges();
                     }
