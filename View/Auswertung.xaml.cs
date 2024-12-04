@@ -32,7 +32,12 @@ namespace RunTrack
             btnExport.Click += (s, e) =>
             {
                 SaveFileDialog saveFileDialog = new() { Filter = "files (*.db)|*.db", FileName = "Auswertung.db" };
-                if (saveFileDialog.ShowDialog() == true) System.IO.File.Copy("internal.db", saveFileDialog.FileName);
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    if (System.IO.File.Exists(saveFileDialog.FileName)) System.IO.File.Delete(saveFileDialog.FileName);
+
+                    System.IO.File.Copy("internal.db", saveFileDialog.FileName);
+                }
             };
             btnSchliessen.Click += (s, e) => _pmodel.Navigate(new Scanner());
             btnDiagramm.Click += (s, e) => new Diagramm(_amodel).ShowDialog();
