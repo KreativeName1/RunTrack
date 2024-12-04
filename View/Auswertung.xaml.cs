@@ -144,25 +144,48 @@ namespace RunTrack
                 // Sortieren der Urkunden basierend auf der Auswertungsart
                 if (auswertungsart == "Rundenanzahl")
                 {
-                    urkunden = urkunden.OrderByDescending(u => u.AnzahlRunden).ToList();
+                    urkunden = urkunden
+                        .OrderByDescending(u => u.AnzahlRunden)
+                        .ThenBy(u => u.SchnellsteRunde)
+                        .ThenByDescending(u => u.GelaufeneMeter)
+                        .ToList();
                 }
                 else if (auswertungsart == "Zeit")
                 {
-                    urkunden = urkunden.OrderBy(u => u.SchnellsteRunde).ToList();
+                    urkunden = urkunden
+                        .OrderBy(u => u.SchnellsteRunde)
+                        .ThenByDescending(u => u.AnzahlRunden)
+                        .ThenByDescending(u => u.GelaufeneMeter)
+                        .ToList();
                 }
                 else if (auswertungsart == "Distanz")
                 {
-                    urkunden = urkunden.OrderByDescending(u => u.GelaufeneMeter).ToList();
+                    urkunden = urkunden
+                        .OrderByDescending(u => u.GelaufeneMeter)
+                        .ThenByDescending(u => u.AnzahlRunden)
+                        .ThenBy(u => u.SchnellsteRunde)
+                        .ToList();
                 }
 
                 // Platzierung nach der Sortierung aktualisieren
                 for (int i = 0; i < urkunden.Count; i++)
                 {
-                    urkunden[i].Platzierung = (i + 1).ToString();
+                    if (i > 0 && urkunden[i].AnzahlRunden == urkunden[i - 1].AnzahlRunden &&
+                        urkunden[i].SchnellsteRunde == urkunden[i - 1].SchnellsteRunde &&
+                        urkunden[i].GelaufeneMeter == urkunden[i - 1].GelaufeneMeter)
+                    {
+                        urkunden[i].Platzierung = urkunden[i - 1].Platzierung;
+                    }
+                    else
+                    {
+                        urkunden[i].Platzierung = (i + 1).ToString();
+                    }
                 }
+
 
                 if (laufName != null && input.Result) _pmodel.Navigate(new PDFEditor(urkunden));
             };
+
 
 
 

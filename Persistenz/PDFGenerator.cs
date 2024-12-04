@@ -310,6 +310,7 @@ namespace RunTrack
             int lineWidth = 200;
             Color primaryColor = new DeviceRgb(0, 102, 204); // Ein eleganter Blauton
             Color defaultColor = new DeviceRgb(0, 87, 70); // Standardfarbe für Platzierungen ab dem 3. Platz
+            Color fontColor = new DeviceRgb(42, 53, 106); // Standardfarbe für Platzierungen ab dem 3. Platz
 
             foreach (Urkunde obj in liste)
             {
@@ -334,7 +335,8 @@ namespace RunTrack
                     .SetTextAlignment(TextAlignment.CENTER)
                     .SetBold()
                     .SetFontSize(format.SchriftGroesse * 3)
-                    .SetFontColor(primaryColor));
+                    .SetFontColor(primaryColor)
+                    .SetMarginTop(20));
 
                 // Veranstaltung
                 Dokument.Add(new Paragraph("Verliehen bei dem")
@@ -343,7 +345,8 @@ namespace RunTrack
                 Dokument.Add(new Paragraph(obj.LaufName)
                     .SetTextAlignment(TextAlignment.CENTER)
                     .SetBold()
-                    .SetFontSize(format.SchriftGroesse * 1.25f));
+                    .SetFontSize(format.SchriftGroesse * 1.25f)
+                    .SetFontColor(fontColor));
 
                 // Trennlinie
                 Dokument.Add(new LineSeparator(new SolidLine())
@@ -360,7 +363,8 @@ namespace RunTrack
                 Dokument.Add(new Paragraph(obj.Name)
                     .SetTextAlignment(TextAlignment.CENTER)
                     .SetBold()
-                    .SetFontSize(format.SchriftGroesse * 1.25f));
+                    .SetFontSize(format.SchriftGroesse * 1.25f)
+                    .SetFontColor(fontColor));
 
                 Dokument.Add(new Paragraph("mit dem")
                     .SetTextAlignment(TextAlignment.CENTER)
@@ -385,25 +389,23 @@ namespace RunTrack
                         .SetFontColor(ColorConstants.ORANGE));
                 }
 
-                // Schnellste Runde
-                Dokument.Add(new Paragraph($"Schnellste Runde: {obj.SchnellsteRunde:mm\\:ss}")
-                    .SetTextAlignment(TextAlignment.CENTER)
-                    .SetFontSize(format.SchriftGroesse));
+                // Tabelle für zusätzliche Informationen
+                Table infoTable = new Table(UnitValue.CreatePercentArray(new float[] { 1, 3 })).UseAllAvailableWidth();
+                infoTable.SetMarginTop(140);
 
-                // Gelaufene Meter
-                Dokument.Add(new Paragraph($"Gelaufene Meter: {obj.GelaufeneMeter}")
-                    .SetTextAlignment(TextAlignment.CENTER)
-                    .SetFontSize(format.SchriftGroesse));
+                infoTable.AddCell(new Cell().Add(new Paragraph("Rundenart:").SetBold()).SetBorder(Border.NO_BORDER));
+                infoTable.AddCell(new Cell().Add(new Paragraph(obj.Rundenart)).SetBorder(Border.NO_BORDER));
 
-                // Anzahl der Runden
-                Dokument.Add(new Paragraph($"Anzahl Runden: {obj.AnzahlRunden}")
-                    .SetTextAlignment(TextAlignment.CENTER)
-                    .SetFontSize(format.SchriftGroesse));
+                infoTable.AddCell(new Cell().Add(new Paragraph("Schnellste Runde:").SetBold()).SetBorder(Border.NO_BORDER));
+                infoTable.AddCell(new Cell().Add(new Paragraph(obj.SchnellsteRunde.ToString(@"mm\:ss") + " min")).SetBorder(Border.NO_BORDER));
 
-                // Rundenart
-                Dokument.Add(new Paragraph($"Rundenart: {obj.Rundenart}")
-                    .SetTextAlignment(TextAlignment.CENTER)
-                    .SetFontSize(format.SchriftGroesse));
+                infoTable.AddCell(new Cell().Add(new Paragraph("Gelaufene Meter:").SetBold()).SetBorder(Border.NO_BORDER));
+                infoTable.AddCell(new Cell().Add(new Paragraph(obj.GelaufeneMeter.ToString() + " m")).SetBorder(Border.NO_BORDER));
+
+                infoTable.AddCell(new Cell().Add(new Paragraph("Anzahl Runden:").SetBold()).SetBorder(Border.NO_BORDER));
+                infoTable.AddCell(new Cell().Add(new Paragraph(obj.AnzahlRunden.ToString() + " Runde/n")).SetBorder(Border.NO_BORDER));
+
+                Dokument.Add(infoTable);
 
                 // Signaturbereich ans untere Ende des Dokuments verschieben
                 Table table = new Table(UnitValue.CreatePercentArray(new float[] { 2, 1.25f, 2 })).UseAllAvailableWidth();
@@ -428,7 +430,7 @@ namespace RunTrack
                 table.SetMarginTop(50);
 
                 // Den Signaturbereich ans Ende verschieben
-                Dokument.Add(new Paragraph().SetHeight(370)); // Platzhalter, um Abstand zu schaffen
+                Dokument.Add(new Paragraph().SetHeight(220)); // Platzhalter, um Abstand zu schaffen
                 Dokument.Add(table);
 
                 // Seitenumbruch für nächste Urkunde
@@ -438,6 +440,7 @@ namespace RunTrack
             Dokument.Close();
             return datei;
         }
+
 
 
 
