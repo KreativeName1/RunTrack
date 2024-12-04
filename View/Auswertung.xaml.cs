@@ -71,20 +71,10 @@ namespace RunTrack
             btnUrkunde.Click += (s, e) =>
             {
                 List<object> liste = _amodel.Liste.ToList();
-                //int count = Math.Min(liste.Count, 3);
                 liste = liste.GetRange(0, liste.Count);
 
-                string auswertungsart = "";
-                if (_amodel.IsAnzahl) auswertungsart = "Rundenanzahl";
-                else if (_amodel.IsZeit) auswertungsart = "Zeit";
-                else if (_amodel.IsDistanz) auswertungsart = "Distanz";
-                else auswertungsart = "Rundenanzahl";
-
-                string worin = "";
-                if (_amodel.IsInsgesamt) worin = "Insgesamt";
-                else if (_amodel.IsSchule) worin = "Schule " + _amodel.SelectedSchule;
-                else if (_amodel.IsKlasse) worin = "Klasse " + _amodel.SelectedKlasse;
-                else if (_amodel.IsJahrgang) worin = "Jahrgang " + _amodel.Jahrgang;
+                string auswertungsart = _amodel.IsAnzahl ? "Rundenanzahl" : (_amodel.IsZeit ? "Zeit" : (_amodel.IsDistanz ? "Distanz" : "Rundenanzahl"));
+                string worin = _amodel.IsInsgesamt ? "Insgesamt" : (_amodel.IsSchule ? $"Schule {_amodel.SelectedSchule}" : (_amodel.IsKlasse ? $"Klasse {_amodel.SelectedKlasse}" : $"Jahrgang {_amodel.Jahrgang}"));
 
                 InputPopup input = new("Urkunde", "Bitte geben Sie den Namen des Laufes ein");
                 input.ShowDialog();
@@ -94,18 +84,69 @@ namespace RunTrack
 
                 foreach (object obj in liste)
                 {
-                    string bewertung = obj.GetType().GetProperty("Bewertung")?.GetValue(obj, null).ToString();
-                    string geschlecht = "";
-                    if (_amodel.IsMaennlich) geschlecht = "Männlich";
-                    else if (_amodel.IsWeiblich) geschlecht = "Weiblich";
-                    else geschlecht = "Gesamt";
+                    int? id = obj.GetType().GetProperty("SchuelerId")?.GetValue(obj, null) as int?;
+                    if (id == null) continue;
 
-                    urkunden.Add(new Urkunde(laufName, auswertungsart, worin, bewertung, (liste.IndexOf(obj) + 1).ToString(), obj.GetType().GetProperty("Name")?.GetValue(obj, null).ToString(), geschlecht));
+                    using (var db = new MergedDBContext(_pfade))
+                    {
+                        Schueler? schueler = db.Schueler.Include(s => s.Runden).Include(s => s.Klasse).FirstOrDefault(s => s.Id == id);
+                        if (schueler == null) continue;
 
+                        // Berechnung der schnellsten Runde, Rundenanzahl und Meter
+                        List<TimeSpan> rundenZeiten = new();
+                        for (int i = 1; i < schueler.Runden.Count; i++)
+                        {
+                            TimeSpan rundenzeit = schueler.Runden[i].Zeitstempel - schueler.Runden[i - 1].Zeitstempel;
+                            rundenZeiten.Add(rundenzeit);
+                        }
+
+                        TimeSpan schnellsteRunde = rundenZeiten.Count > 0 ? rundenZeiten.Min() : TimeSpan.Zero;
+                        int anzahlRunden = rundenZeiten.Count;
+                        int gelaufeneMeter = anzahlRunden * schueler.Klasse.RundenArt.LaengeInMeter;
+                        string rundenart = schueler.Klasse.RundenArt.Name; // Rundenart holen
+
+                        urkunden.Add(new Urkunde(
+                            laufName,
+                            auswertungsart,
+                            worin,
+                            obj.GetType().GetProperty("Bewertung")?.GetValue(obj, null).ToString(),
+                            (liste.IndexOf(obj) + 1).ToString(),
+                            obj.GetType().GetProperty("Name")?.GetValue(obj, null).ToString(),
+                            _amodel.IsMaennlich ? "Männlich" : (_amodel.IsWeiblich ? "Weiblich" : "Gesamt"),
+                            schnellsteRunde,
+                            anzahlRunden,
+                            gelaufeneMeter,
+                            rundenart // Rundenart übergeben
+                        ));
+                    }
+                }
+
+                // Sortieren der Urkunden basierend auf der Auswertungsart
+                if (auswertungsart == "Rundenanzahl")
+                {
+                    urkunden = urkunden.OrderByDescending(u => u.AnzahlRunden).ToList();
+                }
+                else if (auswertungsart == "Zeit")
+                {
+                    urkunden = urkunden.OrderBy(u => u.SchnellsteRunde).ToList();
+                }
+                else if (auswertungsart == "Distanz")
+                {
+                    urkunden = urkunden.OrderByDescending(u => u.GelaufeneMeter).ToList();
+                }
+
+                // Platzierung nach der Sortierung aktualisieren
+                for (int i = 0; i < urkunden.Count; i++)
+                {
+                    urkunden[i].Platzierung = (i + 1).ToString();
                 }
 
                 if (laufName != null && input.Result) _pmodel.Navigate(new PDFEditor(urkunden));
             };
+
+
+
+
 
             btnCSV.Click += (s, e) =>
             {

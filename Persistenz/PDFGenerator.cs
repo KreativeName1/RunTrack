@@ -309,11 +309,11 @@ namespace RunTrack
 
             int lineWidth = 200;
             Color primaryColor = new DeviceRgb(0, 102, 204); // Ein eleganter Blauton
+            Color defaultColor = new DeviceRgb(0, 87, 70); // Standardfarbe für Platzierungen ab dem 3. Platz
 
             foreach (Urkunde obj in liste)
             {
                 // Hintergrund mit dezentem Wasserzeichen
-                // Lade das Bildressourcen-Wasserzeichen
                 var uri = new Uri("pack://application:,,,/Images/watermark.png");
                 var resourceStream = Application.GetResourceStream(uri).Stream;
 
@@ -367,19 +367,43 @@ namespace RunTrack
                     .SetFontSize(format.SchriftGroesse * 1.1f));
 
                 // Platzierung
-                Dokument.Add(new Paragraph($"{obj.Platzierung}. Platz")
-                    .SetTextAlignment(TextAlignment.CENTER)
-                    .SetBold()
-                    .SetFontSize(format.SchriftGroesse * 1.5f)
-                    .SetFontColor(ColorConstants.ORANGE));
+                int platzierung;
+                if (int.TryParse(obj.Platzierung, out platzierung) && platzierung >= 4)
+                {
+                    Dokument.Add(new Paragraph($"{obj.Platzierung}. Platz")
+                        .SetTextAlignment(TextAlignment.CENTER)
+                        .SetBold()
+                        .SetFontSize(format.SchriftGroesse * 1.5f)
+                        .SetFontColor(defaultColor));
+                }
+                else
+                {
+                    Dokument.Add(new Paragraph($"{obj.Platzierung}. Platz")
+                        .SetTextAlignment(TextAlignment.CENTER)
+                        .SetBold()
+                        .SetFontSize(format.SchriftGroesse * 1.5f)
+                        .SetFontColor(ColorConstants.ORANGE));
+                }
 
-                    // Wenn nur spezifische Werte angezeigt werden sollen
-                        Dokument.Add(new Paragraph($"{obj.Wert}")
-                            .SetTextAlignment(TextAlignment.CENTER)
-                            .SetBold()
-                            .SetFontSize(format.SchriftGroesse * 1.5f)
-                            .SetFontColor(ColorConstants.ORANGE));
-                
+                // Schnellste Runde
+                Dokument.Add(new Paragraph($"Schnellste Runde: {obj.SchnellsteRunde:mm\\:ss}")
+                    .SetTextAlignment(TextAlignment.CENTER)
+                    .SetFontSize(format.SchriftGroesse));
+
+                // Gelaufene Meter
+                Dokument.Add(new Paragraph($"Gelaufene Meter: {obj.GelaufeneMeter}")
+                    .SetTextAlignment(TextAlignment.CENTER)
+                    .SetFontSize(format.SchriftGroesse));
+
+                // Anzahl der Runden
+                Dokument.Add(new Paragraph($"Anzahl Runden: {obj.AnzahlRunden}")
+                    .SetTextAlignment(TextAlignment.CENTER)
+                    .SetFontSize(format.SchriftGroesse));
+
+                // Rundenart
+                Dokument.Add(new Paragraph($"Rundenart: {obj.Rundenart}")
+                    .SetTextAlignment(TextAlignment.CENTER)
+                    .SetFontSize(format.SchriftGroesse));
 
                 // Signaturbereich ans untere Ende des Dokuments verschieben
                 Table table = new Table(UnitValue.CreatePercentArray(new float[] { 2, 1.25f, 2 })).UseAllAvailableWidth();
@@ -414,6 +438,7 @@ namespace RunTrack
             Dokument.Close();
             return datei;
         }
+
 
 
 
