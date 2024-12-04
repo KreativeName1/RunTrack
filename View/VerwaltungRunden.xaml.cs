@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Xceed.Wpf.Toolkit;
@@ -83,6 +84,15 @@ namespace RunTrack
             {
                 BezeichnungTextBox.BorderBrush = new SolidColorBrush(Colors.Red);
                 new Popup().Display("Fehler", "Das Feld 'Bezeichnung' darf nicht leer sein.", PopupType.Error, PopupButtons.Ok);
+                return;
+            }
+
+            // nur Buchstaben, Zahlen und Leerzeichen erlaubt (Zahlen nicht am Anfang), erlaubt ä,ö,ü,ß,Ä,Ö,Ü
+            Regex regex = new(@"^[a-zA-ZäöüÄÖÜß][a-zA-ZäöüÄÖÜß0-9 ]*$");
+            if (!regex.IsMatch(inputName))
+            {
+                BezeichnungTextBox.BorderBrush = new SolidColorBrush(Colors.Red);
+                new Popup().Display("Fehler", "Das Feld 'Bezeichnung' darf nur Buchstaben, Zahlen und Leerzeichen enthalten. Zahlen sind nicht am Anfang erlaubt.", PopupType.Error, PopupButtons.Ok);
                 return;
             }
 
