@@ -9,8 +9,6 @@
       Title="Import3">
 
     <Grid>
-        <!-- This page shows all the data to show the user what he has uploaded -->
-        <!-- Schüler,klassen, schulenname-->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -18,8 +16,11 @@
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock FontSize="32" x:Name="tbTitel" FontWeight="Bold" Margin="10" HorizontalAlignment="Center" Text="Erfolg!"/>
             <TextBlock x:Name="tbMeldung" Margin="0,5,0,15" FontSize="16" Text="Meldung"/>
+            <Button x:Name="btnDateienAuswaehlen" Content="Dateien auswählen" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Cursor="Hand" FontSize="12" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35" Click="BtnDateienAuswaehlen_Click"/>
+            <ListBox x:Name="lbDateien" Margin="5" Width="300" Height="100"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <fc:ButtonPlus x:Name="btnSchliessen"  Content="Schließen" Margin="5" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" Cursor="Hand" FontSize="12"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
+                <fc:ButtonPlus x:Name="btnWeitereLaden"  Content="Weitere Laden" Margin="5" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" Cursor="Hand" FontSize="12"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35" />
             </StackPanel>
         </StackPanel>
     </Grid>

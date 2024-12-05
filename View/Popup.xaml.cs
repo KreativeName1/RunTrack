@@ -20,6 +20,16 @@ namespace RunTrack
 
         public bool? Display(string title, string message, PopupType type, PopupButtons buttons)
         {
+            if (!Thread.CurrentThread.GetApartmentState().Equals(ApartmentState.STA))
+            {
+                bool? result = null;
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    result = Display(title, message, type, buttons);
+                });
+                return result;
+            }
+
             _type = type;
             _buttons = buttons;
 
@@ -30,7 +40,6 @@ namespace RunTrack
 
             SetupIcon();
             SetupButtons();
-
 
             this.Topmost = true;
             this.Activate();
@@ -61,26 +70,23 @@ namespace RunTrack
             switch (_type)
             {
                 case PopupType.Success:
-
                     imgIcon.Source = new BitmapImage(new Uri(PopupImage.Success.ToString()));
                     break;
                 case PopupType.Info:
                     imgIcon.Source = new BitmapImage(new Uri(PopupImage.Info.ToString()));
                     break;
-
                 case PopupType.Warning:
                     imgIcon.Source = new BitmapImage(new Uri(PopupImage.Warning.ToString()));
                     break;
-
                 case PopupType.Error:
                     imgIcon.Source = new BitmapImage(new Uri(PopupImage.Error.ToString()));
                     break;
-
                 case PopupType.Question:
                     imgIcon.Source = new BitmapImage(new Uri(PopupImage.Question.ToString()));
                     break;
             }
         }
+
         private void SetupButtons()
         {
             switch (_buttons)

@@ -20,10 +20,20 @@ namespace RunTrack
 
             _imodel.RundenArten = new(new LaufDBContext().RundenArten.ToList());
 
-            btnBack.Click += (s, e) => _model.Navigate(_model.History.FindLast(x => x.GetType() == typeof(Import1)));
+            btnBack.Click += (s, e) =>
+            {
+                var lastPage = _model.History.FindLast(x => x.GetType() == typeof(Import1));
+                if (lastPage != null)
+                {
+                    _model.Navigate(lastPage);
+                }
+            };
             btnWeiter.Click += (s, e) =>
             {
-                _model.Navigate(new Import3());
+                if (_imodel.Pfad != null)
+                {
+                    _model.Navigate(new Import3());
+                }
             };
             Load();
         }

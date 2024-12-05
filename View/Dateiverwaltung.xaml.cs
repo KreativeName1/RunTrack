@@ -29,7 +29,7 @@ namespace RunTrack
 
         }
 
-        private void UploadFiles_Click(object sender, RoutedEventArgs e)
+        private async void UploadFiles_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new()
             {
@@ -42,29 +42,67 @@ namespace RunTrack
                 _tempSelectedFiles.Clear();
                 _tempSelectedFiles.AddRange(openFileDialog.FileNames);
 
-                // Überprüfen, ob die Gesamtanzahl der Dateien die Grenze von 10 überschreitet
                 if (_tempSelectedFiles.Count > 10)
                 {
                     new Popup().Display("Fehler", "Es können maximal 10 Dateien gleichzeitig hochgeladen werden.", PopupType.Warning, PopupButtons.Ok);
                     return;
                 }
 
-                if (_tempSelectedFiles.Count > 1)
+                foreach (var file in _tempSelectedFiles)
                 {
-                    // Mehrere Dateien ausgewählt, Benutzer zur Auswahl einer Datei auffordern
-                    string selectedFile = PromptUserToSelectFile(_tempSelectedFiles.ToArray());
-                    if (!string.IsNullOrEmpty(selectedFile))
+                    bool continueImport = await Task.Run(() => checkFile(file));
+                    if (!continueImport)
                     {
-                        checkFile(selectedFile);
+                        break;
                     }
-                }
-                else
-                {
-                    // Nur eine Datei ausgewählt
-                    checkFile(_tempSelectedFiles[0]);
                 }
             }
         }
+
+        private bool checkFile(string fileName)
+        {
+            string extension = Path.GetExtension(fileName).ToLower();
+
+            if (extension != ".asv" && extension != ".db" && extension != ".csv")
+            {
+                new Popup().Display("Fehler", $"Die Datei {fileName} hat eine ungültige Erweiterung und kann nicht hochgeladen werden.", PopupType.Error, PopupButtons.Ok);
+                return false;
+            }
+
+            string destPath = Path.Combine("Dateien", Path.GetFileName(fileName));
+
+            if (File.Exists(destPath))
+            {
+                string extra = Path.GetFileName(fileName) == "EigeneDatenbank.db" ? "(Die Datenbank des Programms wird überschrieben und alle bisherigen Daten gehen verloren!)" : string.Empty;
+
+                bool? result = new Popup().Display("Datei überschreiben", $"Die Datei '{Path.GetFileName(fileName)}' existiert bereits. Willst du sie überschreiben? {extra}", PopupType.Question, PopupButtons.YesNo);
+
+                if (result == false)
+                {
+                    return false;
+                }
+            }
+
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                _dvmodel.LstFiles.Add(new FileItem
+                {
+                    FileName = Path.GetFileName(fileName),
+                    UploadDate = DateTime.Now
+                });
+            });
+
+            Directory.CreateDirectory("Dateien");
+            File.Copy(fileName, destPath, true);
+
+            if (extension == ".asv" || extension == ".csv")
+            {
+                _pmodel.Navigate(new Import1(destPath));
+            }
+
+            return true;
+        }
+
 
         private string PromptUserToSelectFile(string[] fileNames)
         {
@@ -93,68 +131,7 @@ namespace RunTrack
             return string.Empty;
         }
 
-
-
-        private void checkFile(string fileName)
-        {
-            string extension = Path.GetExtension(fileName).ToLower();
-
-            if (extension != ".asv" && extension != ".db" && extension != ".csv")
-            {
-                new Popup().Display("Fehler", $"Die Datei {fileName} hat eine ungültige Erweiterung und kann nicht hochgeladen werden.", PopupType.Error, PopupButtons.Ok);
-                return;
-            }
-
-            string destPath = Path.Combine("Dateien", Path.GetFileName(fileName));
-
-            // Falls Datei bereits existiert
-            if (File.Exists(destPath))
-            {
-                string extra;
-                if (Path.GetFileName(fileName) == "EigeneDatenbank.db") extra = "(Die Datenbank des Programms wird überschrieben und alle bisherigen Daten gehen verloren!)";
-                else extra = string.Empty;
-
-                bool? result = new Popup().Display("Datei überschreiben", $"Die Datei '{Path.GetFileName(fileName)}' existiert bereits. Willst du sie überschreiben? {extra}", PopupType.Question, PopupButtons.YesNo);
-
-                if (result == false)
-                {
-                    if (_tempSelectedFiles.Count > 1)
-                    {
-                        // Benutzer zur Auswahl einer Datei auffordern
-                        string selectedFile = PromptUserToSelectFile(_tempSelectedFiles.ToArray());
-                        if (!string.IsNullOrEmpty(selectedFile))
-                        {
-                            checkFile(selectedFile);
-                        }
-                        return;
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-            }
-
-            // Datei in die Liste hinzufügen
-            _dvmodel.LstFiles.Add(new FileItem
-            {
-                FileName = Path.GetFileName(fileName),
-                UploadDate = DateTime.Now
-            });
-
-            // Datei in den Dateien-Ordner kopieren
-            Directory.CreateDirectory("Dateien");
-            File.Copy(fileName, destPath, true);
-
-            if (extension == ".asv" || extension == ".csv")
-            {
-                _pmodel.Navigate(new Import1(Path.GetFullPath(destPath)));
-
-                _dvmodel.LstFiles = new ObservableCollection<FileItem>(FileItem.AlleLesen());
-            }
-        }
-
-
+       
         private void DeleteSelectedFiles_Click(object sender, RoutedEventArgs e)
         {
             string extra = string.Empty;
