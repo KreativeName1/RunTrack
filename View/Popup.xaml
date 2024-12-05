@@ -7,7 +7,8 @@
         xmlns:local="clr-namespace:RunTrack"
         mc:Ignorable="d"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
-        Title="PopupWindow" Height="210" Width="400" WindowStyle="None">
+		Loaded="Window_Loaded"
+        Title="PopupWindow" Height="210" Width="450" WindowStyle="None">
     <Window.Resources>
         <Storyboard x:Key="FadeInStoryboard">
             <DoubleAnimation

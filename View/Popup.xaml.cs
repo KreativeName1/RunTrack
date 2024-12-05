@@ -27,7 +27,8 @@ namespace RunTrack
             Title = title;
             tbTitel.Content = title;
             tbMessage.Text = message;
-
+            // set height of message box depending lines of text
+            
             SetupIcon();
             SetupButtons();
 
@@ -40,6 +41,8 @@ namespace RunTrack
 
             return Result;
         }
+
+
 
         private void StartAnimations()
         {
@@ -166,6 +169,15 @@ namespace RunTrack
                 Background = new SolidColorBrush(Color.FromArgb(255, 108, 124, 152)),
                 Margin = new Thickness(10, 0, 10, 0)
             };
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            double height = tbMessage.ActualHeight;
+            if (height > 100)
+            {
+                this.Height += height - 50;
+            }
         }
     }
 }
