@@ -3,15 +3,18 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:RunTrack.View"
-      mc:Ignorable="d" 
+      xmlns:local="clr-namespace:RunTrack.View" xmlns:fc="http://devpelux.github.io/fullcontrols"
+	  mc:Ignorable="d" 
       d:Height="750" d:Width="1000"
       Title="Unique Key">
 
     <Grid>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Foreground="#8D1D2C" Margin="20" FontSize="20" FontWeight="SemiBold">Programm ID:</TextBlock>
-            <TextBlock Foreground="#8D1D2C" Margin="20" FontSize="20" x:Name="tbKey" >N/A</TextBlock>
-        </StackPanel>
-    </Grid>
+		<StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Foreground="#8D1D2C" Margin="20" FontSize="20" FontWeight="SemiBold">Programm ID:</TextBlock>
+                <TextBlock Foreground="#8D1D2C" Margin="20" FontSize="20" x:Name="tbKey" >N/A</TextBlock>
+            </StackPanel>
+			<fc:ButtonPlus x:Name="btnSchliessen" Click="btnSchliessen_Click" Cursor="Hand" Content="Schließen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" Grid.Row="2" Grid.Column="1" />
+		</StackPanel>
+	</Grid>
 </Page>

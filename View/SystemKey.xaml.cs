@@ -25,5 +25,12 @@ namespace RunTrack
             InitializeComponent();
             tbKey.Text = UniqueKey.GetKey();
         }
+
+        private void btnSchliessen_Click(object sender, RoutedEventArgs e)
+        {
+            MainModel model = FindResource("pmodel") as MainModel;
+
+            model?.Navigate(model.History[^1], false);
+        }
     }
 }
