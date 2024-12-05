@@ -23,6 +23,8 @@ namespace RunTrack
             passwordTimer = new DispatcherTimer();
             passwordTimer.Interval = TimeSpan.FromMilliseconds(500); // 500 ms of inactivity before validation
             passwordTimer.Tick += txtPasswort_PasswordTimerTick;
+
+            btnLogin.IsTabStop = false;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

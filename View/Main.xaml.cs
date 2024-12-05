@@ -28,7 +28,10 @@ namespace RunTrack
 
             this.SizeChanged += MetroWindow_SizeChanged;
 
-
+            BTN_Minimize.IsTabStop = false;
+            BTN_Maximize.IsTabStop = false;
+            BTN_Close.IsTabStop = false;
+            ContentFrame.IsTabStop = false;
         }
 
         private void ChangeState()
