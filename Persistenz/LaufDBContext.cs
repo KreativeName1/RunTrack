@@ -1,15 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.IO;
-using TracerFile;
-using TraceLevel = TracerFile.TraceLevel;
 
 namespace RunTrack
 {
     public class LaufDBContext : DbContext
     {
         private static string _dbPath = "./Dateien/EigeneDatenbank.db";
-        private Tracer Tracer = new Tracer("LOG_LaufDBContext.txt");
         public LaufDBContext()
               : base(GetDbContextOptions())
         {
@@ -22,17 +19,13 @@ namespace RunTrack
                 SeedTestData();
                 SeedBlattgroessen();
             }
-
-            Tracer.Trace("LaufDBContext created", TraceLevel.Info);
+            Trace.WriteLine(Path.GetFullPath(_dbPath));
         }
 
         public LaufDBContext(string _path)
-              : base(GetDbContextOptions())
+              : base(GetDbContextOptions(_path))
         {
-            _dbPath = _path;
             Database.EnsureCreated();
-
-            Tracer.Trace("LaufDBContext created", TraceLevel.Info);
         }
         public void SeedBlattgroessen()
         {
@@ -156,10 +149,14 @@ namespace RunTrack
             return nachname[rnd.Next(nachname.Length)];
         }
 
-        private static DbContextOptions GetDbContextOptions()
+        private static DbContextOptions GetDbContextOptions(string? path = null)
         {
             var optionsBuilder = new DbContextOptionsBuilder<LaufDBContext>();
-            optionsBuilder.UseSqlite($"Data Source={_dbPath};Pooling=False");
+            optionsBuilder.UseSqlite($"Data Source=Dateien/EigeneDatenbank.db");
+            if (path != null)
+            {
+                optionsBuilder.UseSqlite($"Data Source={path}");
+            }
             optionsBuilder.EnableSensitiveDataLogging();
             return optionsBuilder.Options;
         }
@@ -202,18 +199,6 @@ namespace RunTrack
                   .WithMany()
                   .HasForeignKey(f => f.BlattGroesseId)
                   .OnDelete(DeleteBehavior.SetNull);
-        }
-
-        public override void Dispose()
-        {
-            Tracer.Trace("LaufDBContext disposed", TraceLevel.Info);
-            base.Dispose();
-        }
-
-        public override ValueTask DisposeAsync()
-        {
-            Tracer.Trace("LaufDBContext disposed", TraceLevel.Info);
-            return base.DisposeAsync();
         }
 
         public DbSet<Klasse> Klassen { get; set; }

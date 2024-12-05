@@ -49,5 +49,11 @@ namespace RunTrack
 
             button.IsEnabled = false;
         }
+
+        // NUR FÜR DEBUGGING
+        //private void btnTest_Click(object sender, System.Windows.RoutedEventArgs e)
+        //{
+        //    _dumodel.ReadOnly = !_dumodel.ReadOnly;
+        //}
     }
 }

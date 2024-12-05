@@ -10,6 +10,7 @@
 	<Page.Resources>
 		<this:ObjectToBoolConverter x:Key="ObjectToBoolConverter"/>
 		<local:LaeuferseiteModel x:Key="thismodel"/>
+		<this:InverseBoolToVisibilityConverter x:Key="ibvcon"/>
 		<this:BoolInverterConverter x:Key="BoolInverterConverter"/>
 		<this:BoolToVisibilityConverter x:Key="bvcon"/>
 		<x:Array x:Key="GenderOptions" Type="{x:Type local:Geschlecht}">
@@ -31,7 +32,7 @@
 		<!--Schüler-->
 		<GroupBox x:Name="LaeuferGrid" Grid.RowSpan="2">
 			<Grid>
-                <DataGrid x:Name="lstLaeufer" ItemsSource="{Binding CollectionView}" SelectedItem="{Binding SelLaeufer}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Extended" IsReadOnly="False">
+				<DataGrid x:Name="lstLaeufer" ItemsSource="{Binding CollectionView}"  IsReadOnly="{Binding ReadOnly}" SelectedItem="{Binding SelLaeufer}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Extended">
 					<DataGrid.Resources>
 						<Style TargetType="DataGridColumnHeader">
 							<Setter Property="FontWeight" Value="Bold"/>
@@ -72,8 +73,9 @@
 							<DataGridTemplateColumn.CellTemplate>
 								<DataTemplate>
 									<ComboBox DropDownOpened="ComboBox_DropDown" DropDownClosed="ComboBox_DropDown" SelectedItem="{Binding Geschlecht, Mode=TwoWay}" SelectionChanged="ComboBox_SelectionChanged"
+											     IsEnabled="{Binding DataContext.ReadOnly, RelativeSource={RelativeSource AncestorType=DataGrid}, Converter={StaticResource BoolInverterConverter}}"
                  ItemsSource="{Binding Source={StaticResource GenderOptions}}"
-                 IsEnabled="True"/>
+                />
 								</DataTemplate>
 							</DataGridTemplateColumn.CellTemplate>
 						</DataGridTemplateColumn>
@@ -100,6 +102,7 @@
 							<DataGridTemplateColumn.CellTemplate>
 								<DataTemplate>
 									<ComboBox x:Name="cbRundenArt" ItemsSource="{Binding DataContext.LstRundenart, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+											     IsEnabled="{Binding DataContext.ReadOnly, RelativeSource={RelativeSource AncestorType=DataGrid}, Converter={StaticResource BoolInverterConverter}}"
 								  SelectionChanged="cbRundenArt_SelectionChanged" SelectedItem="{Binding RundenArt, Mode=TwoWay}"/>
 								</DataTemplate>
 							</DataGridTemplateColumn.CellTemplate>
@@ -117,7 +120,7 @@
 				<ColumnDefinition Width="Auto"/>
 				<ColumnDefinition Width="*"/>
 			</Grid.ColumnDefinitions>
-			<StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+			<StackPanel Grid.Column="0"  Visibility="{Binding ReadOnly, Converter={StaticResource ibvcon}}" Orientation="Horizontal" HorizontalAlignment="Left">
 				<fc:ButtonPlus x:Name="btnSpeichern" IsEnabled="{Binding HasChanges}" Margin="10,0,0,0"  Cursor="Hand" Content="Speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30"/>
 				<fc:ButtonPlus x:Name="btnNeu" Margin="10,0,0,0"  Cursor="Hand" Content="Neuer Eintrag" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
                 <fc:ButtonPlus x:Name="btnDel" IsEnabled="{Binding SelLaeufer, Converter={StaticResource ObjectToBoolConverter}}" Margin="10,0,10,0"  Cursor="Hand" Content="Eintrag löschen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30"/>

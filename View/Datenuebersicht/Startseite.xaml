@@ -12,6 +12,7 @@
         <this:ObjectToBoolConverter x:Key="ObjectToBoolConverter"/>
 		<this:StartseiteModel x:Key="thismodel"/>
 		<this:BoolToVisibilityConverter x:Key="bvcon"/>
+		<this:InverseBoolToVisibilityConverter x:Key="ibvcon"/>
 	</Page.Resources>
     <Grid DataContext="{StaticResource thismodel}">
         <Grid.ColumnDefinitions>

@@ -12,6 +12,8 @@
     <Page.Resources>
 		<this:ObjectToBoolConverter x:Key="ObjectToBoolConverter"/>
 		<this:BoolToVisibilityConverter x:Key="bvcon"/>
+		<this:InverseBoolToVisibilityConverter x:Key="ibvcon"/>
+		<this:BoolInverterConverter x:Key="BoolInverterConverter"/>
 		<local:SchuelerseiteModel x:Key="thismodel"/>
         <x:Array x:Key="GenderOptions" Type="{x:Type local:Geschlecht}">
             <x:Static Member="local:Geschlecht.Maennlich"/>
@@ -32,7 +34,7 @@
         <!--Schüler-->
         <GroupBox x:Name="SchuelerGrid" Header="Schüler">
 			<Grid>
-                <DataGrid x:Name="lstSchueler" ItemsSource="{Binding CollectionView}" SelectedItem="{Binding SelSchueler}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="False">
+				<DataGrid x:Name="lstSchueler"  IsReadOnly="{Binding ReadOnly}" ItemsSource="{Binding CollectionView}" SelectedItem="{Binding SelSchueler}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single">
 					<DataGrid.Resources>
 						<Style TargetType="DataGridColumnHeader">
 							<Setter Property="FontWeight" Value="Bold"/>
@@ -73,7 +75,7 @@
                                 <DataTemplate>
                                     <ComboBox SelectedItem="{Binding Geschlecht, Mode=TwoWay}" SelectionChanged="ComboBox_SelectionChanged" DropDownOpened="ComboBox_DropDown" DropDownClosed="ComboBox_DropDown"
                                         ItemsSource="{Binding Source={StaticResource GenderOptions}}"
-                                        IsEnabled="True"/>
+											     IsEnabled="{Binding DataContext.ReadOnly, RelativeSource={RelativeSource AncestorType=DataGrid}, Converter={StaticResource BoolInverterConverter}}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -99,6 +101,7 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <ComboBox x:Name="cbKlasse" DropDownOpened="cbKlasse_DropDown" DropDownClosed="cbKlasse_DropDown" ItemsSource="{Binding DataContext.LstKlasse, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+											     IsEnabled="{Binding DataContext.ReadOnly, RelativeSource={RelativeSource AncestorType=DataGrid}, Converter={StaticResource BoolInverterConverter}}"
 											  SelectionChanged="cbKlasse_SelectionChanged"
                                                 SelectedItem="{Binding Klasse, Mode=TwoWay}"/>
                                 </DataTemplate>
@@ -124,7 +127,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+			<StackPanel Grid.Column="0"  Visibility="{Binding ReadOnly, Converter={StaticResource ibvcon}}" Orientation="Horizontal" HorizontalAlignment="Left">
 				<fc:ButtonPlus x:Name="btnSpeichern" Margin="10,0,0,0" IsEnabled="{Binding HasChanges}"  Cursor="Hand" Content="Speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30"/>
                 <fc:ButtonPlus x:Name="btnNeu" Margin="10,0,0,0"  Cursor="Hand" Content="Neuer Eintrag" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
                 <fc:ButtonPlus x:Name="btnDel" IsEnabled="{Binding SelSchueler, Converter={StaticResource ObjectToBoolConverter}}" Margin="10,0,10,0"  Cursor="Hand" Content="Eintrag löschen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30"/>

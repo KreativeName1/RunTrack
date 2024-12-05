@@ -66,8 +66,13 @@
                             </DataGridTemplateColumn.CellStyle>
                             <DataGridTemplateColumn.CellTemplate>
 								<DataTemplate>
-									<ComboBox x:Name="cbSchule" ItemsSource="{Binding DataContext.LstSchule, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-											  SelectionChanged="cbSchule_SelectionChanged" DropDownOpened="cbKlasse_DropDownOpened" DropDownClosed="cbKlasse_DropDownClosed" SelectedItem="{Binding Schule, Mode=TwoWay}"/>
+									<ComboBox x:Name="cbSchule" 
+          ItemsSource="{Binding DataContext.LstSchule, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+          IsEnabled="{Binding DataContext.ReadOnly, RelativeSource={RelativeSource AncestorType=DataGrid}, Converter={StaticResource BoolInverterConverter}}"
+          SelectionChanged="cbSchule_SelectionChanged" 
+          DropDownOpened="cbKlasse_DropDownOpened" 
+          DropDownClosed="cbKlasse_DropDownClosed" 
+          SelectedItem="{Binding Schule, Mode=TwoWay}"/>
 								</DataTemplate>
 							</DataGridTemplateColumn.CellTemplate>
 						</DataGridTemplateColumn>
@@ -80,8 +85,13 @@
                             </DataGridTemplateColumn.CellStyle>
                             <DataGridTemplateColumn.CellTemplate>
 								<DataTemplate>
-									<ComboBox x:Name="cbRundenArt"   ItemsSource="{Binding DataContext.LstRundenart, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-											  SelectionChanged="cbRundenArt_SelectionChanged"  DropDownOpened="cbKlasse_DropDownOpened1" DropDownClosed="cbKlasse_DropDownClosed1" SelectedItem="{Binding RundenArt, Mode=TwoWay}"/>
+									<ComboBox x:Name="cbRundenArt" 
+          ItemsSource="{Binding DataContext.LstRundenart, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+          IsEnabled="{Binding DataContext.ReadOnly, RelativeSource={RelativeSource AncestorType=DataGrid}, Converter={StaticResource BoolInverterConverter}}"
+          SelectionChanged="cbRundenArt_SelectionChanged"  
+          DropDownOpened="cbKlasse_DropDownOpened1" 
+          DropDownClosed="cbKlasse_DropDownClosed1" 
+          SelectedItem="{Binding RundenArt, Mode=TwoWay}"/>
 								</DataTemplate>
 							</DataGridTemplateColumn.CellTemplate>
 						</DataGridTemplateColumn>

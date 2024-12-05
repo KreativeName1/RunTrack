@@ -15,6 +15,7 @@
 		<this:ObjectToBoolConverter x:Key="ObjectToBoolConverter"/>
         <this:RundenArtConverter x:Key="RundenArtConverter"/>
 		<this:BoolToVisibilityConverter x:Key="bvcon"/>
+		<this:InverseBoolToVisibilityConverter x:Key="ibvcon"/>
 		<Style x:Key="DateOnlyPickerStyle" TargetType="{x:Type xctk:DateTimePicker}">
             <Setter Property="Format" Value="Custom"/>
             <Setter Property="FormatString" Value="dd.MM.yyyy hh:mm:ss"/>
@@ -125,7 +126,14 @@
                                 </Style>
                             </DataGridTextColumn.CellStyle>
                         </DataGridTextColumn>
-                    </DataGrid.Columns>
+						<DataGridTextColumn Width="15*" Header="Programm" Binding="{Binding ProgrammKey}">
+							<DataGridTextColumn.CellStyle>
+								<Style TargetType="DataGridCell">
+									<Setter Property="Cursor" Value="No"/>
+								</Style>
+							</DataGridTextColumn.CellStyle>
+						</DataGridTextColumn>
+					</DataGrid.Columns>
                 </DataGrid>
 				<Border Visibility="{Binding IsLoading, Converter={StaticResource bvcon}}" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="10">
 					<fa:ImageAwesome Icon="Refresh" Spin="True" Height="48" Width="48" />
@@ -138,7 +146,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+			<StackPanel Grid.Column="0"  Visibility="{Binding ReadOnly, Converter={StaticResource ibvcon}}" Orientation="Horizontal" HorizontalAlignment="Left">
                 <fc:ButtonPlus x:Name="btnSpeichern" IsEnabled="{Binding HasChanges}" Margin="10,0,0,0"  Cursor="Hand" Content="Speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30"/>
                 <fc:ButtonPlus x:Name="btnDel" IsEnabled="{Binding SelRunde, Converter={StaticResource ObjectToBoolConverter}}" Margin="10,0,10,0"  Cursor="Hand" Content="Eintrag löschen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30"/>
             </StackPanel>

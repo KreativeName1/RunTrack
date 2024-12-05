@@ -35,7 +35,9 @@
 				<fc:ButtonPlus x:Name="btnSchueler" Cursor="Hand" Content="Schüler" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" />
 				<fc:ButtonPlus x:Name="btnRunden" Cursor="Hand" Content="Runden" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" />
 				<fc:ButtonPlus x:Name="btnLaeufer" Cursor="Hand" Content="Weitere Läufer" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" />
-			</StackPanel>
+					<!-- NUR FÜR DEBUGGING 
+				<fc:ButtonPlus x:Name="btnTest" Click="btnTest_Click" Cursor="Hand" Content="ReadOnly" Background="#6C7C98" Foreground="White" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" VerticalAlignment="Top" Width="150" Height="30" Margin="5" />-->
+					</StackPanel>
 			<StackPanel Orientation="Vertical" VerticalAlignment="Bottom" Margin="0,0,0,20" Grid.Column="0" Grid.Row="1" Grid.RowSpan="2">
 				<fc:ButtonPlus x:Name="btnSchliessen" Cursor="Hand" Content="Schließen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center"/>
 			</StackPanel>

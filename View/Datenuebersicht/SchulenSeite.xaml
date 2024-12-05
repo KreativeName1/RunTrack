@@ -10,6 +10,7 @@
     <Page.Resources>
         <this:ObjectToBoolConverter x:Key="ObjectToBoolConverter"/>
 		<local:SchulenseiteModel x:Key="thismodel"/>
+		<this:InverseBoolToVisibilityConverter x:Key="ibvcon"/>
 		<this:BoolToVisibilityConverter x:Key="bvcon"/>
 	</Page.Resources>
 	<Grid DataContext="{StaticResource thismodel}">
@@ -24,7 +25,7 @@
         <!--Schulen-->
         <GroupBox x:Name="SchuleGrid" Header="Schulen">
             <Grid>
-                <DataGrid x:Name="lstSchule" ItemsSource="{Binding CollectionView}" SelectedItem="{Binding SelSchule}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single">
+				<DataGrid x:Name="lstSchule" ItemsSource="{Binding CollectionView}"  IsReadOnly="{Binding ReadOnly}" SelectedItem="{Binding SelSchule}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single">
 					<DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="FontWeight" Value="Bold"/>
@@ -60,7 +61,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+			<StackPanel Grid.Column="0"  Visibility="{Binding ReadOnly, Converter={StaticResource ibvcon}}" Orientation="Horizontal" HorizontalAlignment="Left">
 				<fc:ButtonPlus x:Name="btnSpeichern" IsEnabled="{Binding HasChanges}" Margin="10,0,0,0"  Cursor="Hand" Content="Speichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
                 <fc:ButtonPlus x:Name="btnNeu" Margin="10,0,0,0" Cursor="Hand" Content="Neuer Eintrag" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" />
                 <fc:ButtonPlus x:Name="btnDel" Margin="10,0,10,0" IsEnabled="{Binding SelSchule, Converter={StaticResource ObjectToBoolConverter}}" Cursor="Hand" Content="Eintrag löschen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30"/>

@@ -20,6 +20,20 @@ namespace RunTrack
 
         private ObservableCollection<Laeufer> _selLaeufers { get; set; }
 
+        private bool _readOnly { get; set; }
+
+        public bool ReadOnly
+        {
+            get { return ((DatenuebersichtModel)App.Current.Resources["dumodel"]).ReadOnly ? true : false; }
+            set
+            {
+                ((DatenuebersichtModel)App.Current.Resources["dumodel"]).ReadOnly = value;
+                OnPropertyChanged("ReadOnly");
+            }
+        }
+
+        public string? ConnectionString => ((DatenuebersichtModel)App.Current.Resources["dumodel"]).ConnectionString;
+
         public ObservableCollection<Laeufer> SelLaeufers
         {
             get { return _selLaeufers; }
@@ -203,7 +217,8 @@ namespace RunTrack
             IsLoading = true;
             Task.Run(() =>
             {
-                _db = new();
+                if (ReadOnly) _db = new(ConnectionString);
+                else _db = new();
                 LstLaeufer = new(_db.Laeufer.Where(x => x.RundenArt != null));
                 LstRundenart = new(_db.RundenArten);
 
@@ -213,9 +228,6 @@ namespace RunTrack
                     CollectionView.Filter = FilterItems;
                     IsLoading = false;
                 });
-
-
-
             });
         }
     }

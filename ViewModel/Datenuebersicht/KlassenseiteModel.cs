@@ -213,8 +213,8 @@ namespace RunTrack
             IsLoading = true;
             Task.Run(() =>
             {
-                if (ConnectionString == null) _db = new();
-                else _db = new(ConnectionString);
+                if (ReadOnly) _db = new(ConnectionString);
+                else _db = new();
                 LstSchule = new(_db.Schulen.ToList());
                 LstKlasse = new(_db.Klassen.Include(k => k.Schueler).Include(s => s.Schule).ToList());
                 LstRundenart = new(_db.RundenArten.ToList());
