@@ -43,7 +43,7 @@
             </Grid.RowDefinitions>
         </Grid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-            <TextBlock Foreground="#8D1D2C" Margin="15" >Programm ID: </TextBlock>
+            <TextBlock Foreground="#8D1D2C" Margin="15" FontWeight="SemiBold">Programm ID: </TextBlock>
             <TextBlock Foreground="#8D1D2C" Margin="15" x:Name="tbKey" >dosopoefkoseffp</TextBlock>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Margin="0,0,10,10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
