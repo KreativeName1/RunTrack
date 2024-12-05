@@ -98,7 +98,7 @@
                                     <Setter Property="HorizontalAlignment" Value="Center"/>
                                     <Setter Property="ToolTip">
                                         <Setter.Value>
-                                            <ToolTip ToolTipService.InitialShowDelay="100">
+                                            <ToolTip>
                                                 <StackPanel>
                                                     <TextBlock Text="{Binding Zeitstempel, StringFormat='Datum:  {0:dd.MM.yyyy}'}" FontWeight="Bold"/>
                                                     <TextBlock Text="{Binding Zeitstempel, StringFormat='Uhrzeit: {0:HH:mm:ss.ff}'}" FontWeight="Bold"/>

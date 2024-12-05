@@ -60,49 +60,49 @@
 
 
 
-									<Label x:Name="warningVorname" ToolTipService.InitialShowDelay="100" Content="⚠️" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Foreground="Red" Cursor="Help" Visibility="Collapsed" Margin="0,-4,0,0">
+									<Label x:Name="warningVorname" Content="⚠️" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Foreground="Red" Cursor="Help" Visibility="Collapsed" Margin="0,-4,0,0">
 										<Label.ToolTip>
-                                            <ToolTip ToolTipService.InitialShowDelay="100">
+                                            <ToolTip>
 												Bitte geben Sie Ihren Vornamen ein.
 											</ToolTip>
 										</Label.ToolTip>
 									</Label>
 
-									<Label x:Name="warningNachname" ToolTipService.InitialShowDelay="100" Content="⚠️" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Foreground="Red" Cursor="Help" Visibility="Collapsed" Margin="0,36,0,0">
+									<Label x:Name="warningNachname" Content="⚠️" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Foreground="Red" Cursor="Help" Visibility="Collapsed" Margin="0,36,0,0">
 									<Label.ToolTip>
-                                        <ToolTip ToolTipService.InitialShowDelay="100">
+                                        <ToolTip>
 											Bitte geben Sie Ihren Nachnamen ein.
 										</ToolTip>
 									</Label.ToolTip>
 								</Label>
 
-									<Label x:Name="warningPasswordOld" ToolTipService.InitialShowDelay="100" Content="⚠️" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Foreground="Red" Cursor="Help" Visibility="Collapsed" Margin="0,76,0,0">
+									<Label x:Name="warningPasswordOld" Content="⚠️" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Foreground="Red" Cursor="Help" Visibility="Collapsed" Margin="0,76,0,0">
 									<Label.ToolTip>
-                                        <ToolTip ToolTipService.InitialShowDelay="100">
+                                        <ToolTip>
 											Das alte Passwort stimmt nicht!
 										</ToolTip>
 									</Label.ToolTip>
 								</Label>
 
-									<Label x:Name="warningPasswordWDH" ToolTipService.InitialShowDelay="100" Content="⚠" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Foreground="Red" Cursor="Help" Visibility="Collapsed" Margin="0,129,0,0">
+									<Label x:Name="warningPasswordWDH" Content="⚠" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Foreground="Red" Cursor="Help" Visibility="Collapsed" Margin="0,129,0,0">
 									<Label.ToolTip>
-                                        <ToolTip ToolTipService.InitialShowDelay="100">
+                                        <ToolTip>
 											Die neuen Passwörter stimmt nicht überein!
 										</ToolTip>
 									</Label.ToolTip>
 								</Label>
 
-									<Label x:Name="warningPasswordNeuAlt" ToolTipService.InitialShowDelay="100" Content="⚠" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Foreground="Red" Cursor="Help" Visibility="Collapsed" Margin="0,92,0,0">
+									<Label x:Name="warningPasswordNeuAlt" Content="⚠" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Foreground="Red" Cursor="Help" Visibility="Collapsed" Margin="0,92,0,0">
 									<Label.ToolTip>
-                                        <ToolTip ToolTipService.InitialShowDelay="100">
+                                        <ToolTip>
 											Das neue Passwort darf nicht mit dem alten Passwort übereinstimmen!
 										</ToolTip>
 									</Label.ToolTip>
 								</Label>
 
-									<Label x:Name="warningPasswordNeu" ToolTipService.InitialShowDelay="100" Content="⚠" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Foreground="Red" Cursor="Help" Visibility="Collapsed" Margin="0,111,0,0">
+									<Label x:Name="warningPasswordNeu" Content="⚠" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Foreground="Red" Cursor="Help" Visibility="Collapsed" Margin="0,111,0,0">
 									<Label.ToolTip>
-                                        <ToolTip ToolTipService.InitialShowDelay="100">
+                                        <ToolTip>
 											Das neue Passwort erfüllt nicht die Anforderungen
 										</ToolTip>
 									</Label.ToolTip>

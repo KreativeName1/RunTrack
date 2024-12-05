@@ -20,6 +20,18 @@
             <local:DateiVerwaltungModel x:Key="dvmodel"/>
             <local:PDFEditorModel x:Key="pemodel"/>
             <local:ImportModel x:Key="imodel"/>
+
+            <Style TargetType="ToolTip">
+                <Setter Property="ToolTipService.InitialShowDelay" Value="100"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Background" Value="#fffde6"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Margin" Value="15,0,15,0"/>
+                <Setter Property="BorderBrush" Value="#8F8F8C"/>
+                <Setter Property="Padding" Value="5"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -24,7 +24,7 @@
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands ShowSeparators="False">
             <!-- Close Button -->
-            <Button x:Name="BTN_Close" ToolTipService.InitialShowDelay="100" Click="BTN_Close_Click" MouseEnter="BTN_Close_MouseEnter" MouseLeave="BTN_Close_MouseLeave"
+            <Button x:Name="BTN_Close" Click="BTN_Close_Click" MouseEnter="BTN_Close_MouseEnter" MouseLeave="BTN_Close_MouseLeave"
              Background="#009664" BorderThickness="0" Padding="0" Margin="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                 <Button.Style>
                     <Style TargetType="Button">

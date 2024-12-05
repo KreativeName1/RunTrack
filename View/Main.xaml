@@ -28,7 +28,7 @@
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands ShowSeparators="False">
             <!--Programm spezifischer Schlüssel-->
-            <Button x:Name="BTN_Key" Click="BTN_Key_Click" ToolTipService.InitialShowDelay="100"
+            <Button x:Name="BTN_Key" Click="BTN_Key_Click"
         Background="Transparent" BorderThickness="0" Padding="0" Margin="0" 
         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
         MouseEnter="BTN_Key_MouseEnter" MouseLeave="BTN_Key_MouseLeave" MouseDown="BTN_Key_MouseDown">

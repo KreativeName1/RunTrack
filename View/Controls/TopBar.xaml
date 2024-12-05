@@ -17,12 +17,12 @@
         <Label Visibility="{Binding Benutzer.IsAdmin, Converter={StaticResource bvcon}}" Content="Admin" HorizontalAlignment="Center" Margin="0,2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Grid.ColumnSpan="2"/>
         <Image Source="pack://application:,,,/Images/credits.png" Width="23" Height="23" VerticalAlignment="Top" Cursor="Hand" Margin="0,4,45,0" HorizontalAlignment="Right" MouseDown="Credits_MouseDown">
             <Image.ToolTip>
-                <ToolTip ToolTipService.InitialShowDelay="100">Credits</ToolTip>
+                <ToolTip>Credits</ToolTip>
             </Image.ToolTip>
         </Image>
         <Image Source="pack://application:,,,/Images/logout.png" Width="23" Height="23" VerticalAlignment="Top" Cursor="Hand" Margin="0,4,10,0" HorizontalAlignment="Right" MouseDown="Image_MouseDown">
             <Image.ToolTip>
-                <ToolTip ToolTipService.InitialShowDelay="100">Logout</ToolTip>
+                <ToolTip>Logout</ToolTip>
             </Image.ToolTip>
         </Image>
     </Grid>

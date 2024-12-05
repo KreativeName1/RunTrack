@@ -22,7 +22,7 @@
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands ShowSeparators="False">
             <!-- Close Button -->
-            <Button x:Name="BTN_Close" ToolTipService.InitialShowDelay="100" Click="BTN_Close_Click" MouseEnter="BTN_Close_MouseEnter" MouseLeave="BTN_Close_MouseLeave"
+            <Button x:Name="BTN_Close" Click="BTN_Close_Click" MouseEnter="BTN_Close_MouseEnter" MouseLeave="BTN_Close_MouseLeave"
                 Background="#009664" BorderThickness="0" Padding="0" Margin="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                 <Button.Style>
                     <Style TargetType="Button">
@@ -97,7 +97,7 @@
                         <Button Grid.Column="2" Width="20" Height="20" VerticalAlignment="Center"
                                 Visibility="{Binding InfoVisible, Converter={StaticResource con}}" HorizontalAlignment="Right">
                             <Button.ToolTip>
-                                <ToolTip Content="{Binding Tooltip}" ToolTipService.InitialShowDelay="100" FontWeight="SemiBold" FontSize="14" Background="#fffde6" Foreground="Black" BorderThickness="1" Margin="10,0,10,0"  BorderBrush="#8F8F8C" Padding="5"/>
+                                <ToolTip Content="{Binding Tooltip}" FontWeight="SemiBold" FontSize="14" Background="#fffde6" Foreground="Black" BorderThickness="1" Margin="10,0,10,0"  BorderBrush="#8F8F8C" Padding="5"/>
                             </Button.ToolTip>
                             <Button.Content>
                                 <TextBlock Text="i" FontSize="15" FontWeight="Bold" Foreground="Blue" HorizontalAlignment="Center" VerticalAlignment="Center"/>
