@@ -24,7 +24,12 @@ namespace RunTrack
             if (!System.IO.Directory.Exists("Dateien")) System.IO.Directory.CreateDirectory("Dateien");
             _pfade = System.IO.Directory.GetFiles("Dateien", "*.db");
         }
-
+        public static async Task CopyFileAsync(string sourceFile, string destinationFile)
+        {
+            await using FileStream sourceStream = File.Open(sourceFile, FileMode.Open);
+            await using FileStream destinationStream = File.Create(destinationFile);
+            await sourceStream.CopyToAsync(destinationStream);
+        }
         public void init()
         {
             if (_isInitialized) return;
@@ -33,25 +38,17 @@ namespace RunTrack
             btnImport.Click += (s, e) => _pmodel.Navigate(new Dateiverwaltung());
             btnExport.Click += (s, e) =>
             {
-                FileStream? fs = null;
                 try
                 {
-                    fs = new FileStream("internal.db", FileMode.Open, FileAccess.Read, FileShare.None);
                     SaveFileDialog saveFileDialog = new() { Filter = "files (*.db)|*.db", FileName = "Auswertung.db" };
                     if (saveFileDialog.ShowDialog() == true)
                     {
-                        //if (System.IO.File.Exists(saveFileDialog.FileName)) System.IO.File.Delete(saveFileDialog.FileName);
-                        File.Copy("internal.db", saveFileDialog.FileName, true);
-                        Trace.WriteLine($"File copied to {saveFileDialog.FileName}");
+                        CopyFileAsync("internal.db", saveFileDialog.FileName);
                     }
                 }
                 catch (IOException ex)
                 {
-                    Trace.WriteLine("Error accessing internal.db: " + ex.Message);
-                }
-                finally
-                {
-                    fs?.Close();
+                    new Popup().Display("Fehler", "Die Datei konnte nicht exportiert werden.", PopupType.Error, PopupButtons.Ok);
                 }
             };
             btnSchliessen.Click += (s, e) => _pmodel.Navigate(new Scanner());
