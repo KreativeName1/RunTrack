@@ -100,8 +100,8 @@ namespace RunTrack
                     {
                         Content = "🗑️",
                         FontSize = 12,
-                        Width = 25,
-                        Height = 25,
+                        Width = 35,
+                        Height = 35,
                         VerticalAlignment = VerticalAlignment.Center,
                         HorizontalAlignment = HorizontalAlignment.Left,
                         Margin = new Thickness(30, 1.5, 5, 2.5),
@@ -128,8 +128,8 @@ namespace RunTrack
                     {
                         Content = "⚙️",
                         FontSize = 12,
-                        Width = 25,
-                        Height = 25,
+                        Width = 35,
+                        Height = 35,
                         VerticalAlignment = VerticalAlignment.Center,
                         HorizontalAlignment = HorizontalAlignment.Left,
                         Margin = new Thickness(0, 1.5, 10, 2.5),
@@ -174,8 +174,8 @@ namespace RunTrack
                 {
                     Content = "➕",
                     FontSize = 12,
-                    Width = 25,
-                    Height = 25,
+                    Width = 35,
+                    Height = 35,
                     VerticalAlignment = VerticalAlignment.Center,
                     HorizontalAlignment = HorizontalAlignment.Center,
                     Margin = new Thickness(0, 20, 0, 0),
