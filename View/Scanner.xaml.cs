@@ -34,6 +34,12 @@ namespace RunTrack
             Window window = Application.Current.MainWindow;
             window.PreviewKeyDown += Window_PreviewKeyDown_1;
 
+            manualData.IsTabStop = true;
+            btnAuswertung.IsTabStop = false;
+            btnDateien.IsTabStop = false;
+            btnEinstellung.IsTabStop = false;
+            btnUebersicht.IsTabStop = false;
+            btnAddManual.IsTabStop = false;
 
         }
 
