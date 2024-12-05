@@ -125,7 +125,7 @@
                     </StackPanel>
 
 
-                    <StackPanel Margin="20,0,20,0"  Orientation="Vertical" x:Name="PanelRight" Grid.Column="2" Grid.Row="2">
+                    <StackPanel Margin="20,20,20,0"  Orientation="Vertical" x:Name="PanelRight" Grid.Column="2" Grid.Row="2">
                         <StackPanel x:Name="SchuelerBewertungPanel" Visibility="Collapsed">
                             <Label Content="Schülerbewertung:" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top" Margin="0,0,0,0"/>
                             <Border BorderBrush="Black" BorderThickness="1" Padding="10">
@@ -135,7 +135,7 @@
                             </Border>
                         </StackPanel>
                         <!--Zellen: Abstände, Breite, Höhe-->
-                        <Label Content="Barcodeabstand:" x:Name="lblBarcodeAbstand" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top"  Margin="0,20,0,0"/>
+                        <Label Content="Barcodeabstand:" x:Name="lblBarcodeAbstand" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top"  Margin="0,0,0,0"/>
                         <Border BorderBrush="Black" x:Name="borBarcodeAbstand" BorderThickness="1">
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -154,7 +154,7 @@
                         </Border>
 
                         <Label Content="Barcodegröße:" x:Name="lblBarcodeGroesse" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="0,41,0,0"/>
-                        <Border BorderBrush="Black" x:Name="borBarcodeGroesse" BorderThickness="1" Margin="0,0,0,20.5">
+                        <Border BorderBrush="Black" x:Name="borBarcodeGroesse" BorderThickness="1" Margin="0,0,0,40.5">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition  Width="80"/>
@@ -173,7 +173,7 @@
 
 
 
-                        <Label Content="Weiteres:" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top" Margin="0,20,0,0"/>
+                        <Label Content="Weiteres:" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top" Margin="0,0,0,0"/>
                         <Border BorderBrush="Black" BorderThickness="1">
                             <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Grid.ColumnDefinitions>

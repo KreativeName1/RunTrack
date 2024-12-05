@@ -172,6 +172,8 @@ namespace RunTrack
         {
             string datei = DokumentErstellen(format);
             if (Dokument == null) return string.Empty;
+
+            // Setze Schriftart und -größe für das gesamte Dokument
             if (format.SchriftTyp == SchriftTyp.Fett) Dokument.SetBold();
             if (format.SchriftTyp == SchriftTyp.Kursiv) Dokument.SetItalic();
             if (format.SchriftTyp == SchriftTyp.FettKursiv) Dokument.SetBold().SetItalic();
@@ -179,69 +181,70 @@ namespace RunTrack
 
             foreach (Schueler schueler in schuelerListe)
             {
-                Dokument.Add(new Paragraph(DateTime.Now.ToString("dd.MM.yyyy")).SetTextAlignment(TextAlignment.LEFT).SetFontSize(format.SchriftGroesse * 0.8f));
-                Dokument.Add(new Paragraph(schueler.Klasse.Schule.Name + " " + schueler.Klasse.Name).SetTextAlignment(TextAlignment.CENTER).SetFontSize(format.SchriftGroesse * 1.2f));
-                Dokument.Add(new Paragraph(schueler.Vorname + " " + schueler.Nachname).SetTextAlignment(TextAlignment.CENTER).SetBold().SetFontSize(format.SchriftGroesse * 1.5f));
+                // Kopfzeile
+                Dokument.Add(new Paragraph(schueler.Klasse.Schule.Name + " " + schueler.Klasse.Name)
+                    .SetTextAlignment(TextAlignment.CENTER)
+                    .SetFontSize(format.SchriftGroesse * 1.2f)
+                    .SetMarginBottom(10));
+                Dokument.Add(new Paragraph(schueler.Vorname + " " + schueler.Nachname)
+                    .SetTextAlignment(TextAlignment.CENTER)
+                    .SetBold()
+                    .SetFontSize(format.SchriftGroesse * 1.5f)
+                    .SetMarginBottom(20));
 
-
+                // Berechnung der Rundenzeiten
                 List<TimeSpan> rundenZeiten = new();
-
                 for (int i = 1; i < schueler.Runden.Count; i++)
                 {
                     TimeSpan rundenzeit = schueler.Runden[i].Zeitstempel - schueler.Runden[i - 1].Zeitstempel;
                     rundenZeiten.Add(rundenzeit);
                 }
 
+                // Schnellste Runde und gelaufene Meter
                 if (rundenZeiten.Count > 0)
                 {
-                    TimeSpan schnellsteRunde = rundenZeiten[0];
-                    int indexSchnellsteRunde = 0;
+                    TimeSpan schnellsteRunde = rundenZeiten.Min();
+                    int indexSchnellsteRunde = rundenZeiten.IndexOf(schnellsteRunde);
 
-                    for (int i = 1; i < rundenZeiten.Count; i++)
-                    {
-
-                        if (rundenZeiten[i] < schnellsteRunde)
-                        {
-                            schnellsteRunde = rundenZeiten[i];
-                            indexSchnellsteRunde = i;
-                        }
-                    }
-
-                    Dokument.Add(new Paragraph("Schnellste Runde: Runde " + (indexSchnellsteRunde + 1) + " mit " + schnellsteRunde.ToString(@"mm\:ss")).SetTextAlignment(TextAlignment.LEFT).SetFontSize(format.SchriftGroesse));
-                    Dokument.Add(new Paragraph("Gelaufene Meter: " + ((rundenZeiten.Count - 1) * schueler.Klasse.RundenArt.LaengeInMeter).ToString()).SetTextAlignment(TextAlignment.LEFT).SetFontSize(format.SchriftGroesse));
-                    Dokument.Add(new Paragraph("Anzahl Runden: " + (rundenZeiten.Count - 1).ToString()).SetTextAlignment(TextAlignment.LEFT).SetFontSize(format.SchriftGroesse));
+                    Dokument.Add(new Paragraph("Schnellste Runde: Runde " + (indexSchnellsteRunde + 1) + " mit " + schnellsteRunde.ToString(@"mm\:ss") + " min")
+                        .SetTextAlignment(TextAlignment.LEFT)
+                        .SetFontSize(format.SchriftGroesse)
+                        .SetMarginBottom(5));
+                    Dokument.Add(new Paragraph("Gelaufene Meter: " + (rundenZeiten.Count * schueler.Klasse.RundenArt.LaengeInMeter).ToString() + " m")
+                        .SetTextAlignment(TextAlignment.LEFT)
+                        .SetFontSize(format.SchriftGroesse)
+                        .SetMarginBottom(5));
+                    Dokument.Add(new Paragraph("Anzahl Runden: " + rundenZeiten.Count.ToString())
+                        .SetTextAlignment(TextAlignment.LEFT)
+                        .SetFontSize(format.SchriftGroesse)
+                        .SetMarginBottom(20));
                 }
                 else
                 {
-                    Dokument.Add(new Paragraph("Keine Rundenzeiten vorhanden").SetTextAlignment(TextAlignment.LEFT).SetFontSize(12));
+                    Dokument.Add(new Paragraph("Keine Rundenzeiten vorhanden")
+                        .SetTextAlignment(TextAlignment.LEFT)
+                        .SetFontSize(12)
+                        .SetMarginBottom(20));
                 }
 
-                Table table = new(2);
+                // Tabelle für Rundenzeiten
+                Color customLightGray = new DeviceRgb(242, 242, 242);
 
-                Cell cell = new();
-                cell.Add(new Paragraph("Runde"));
-                table.AddHeaderCell(cell);
-                Cell cell2 = new();
-                cell2.Add(new Paragraph("Zeit"));
-                table.AddHeaderCell(cell2);
-
+                Table table = new Table(UnitValue.CreatePercentArray(new float[] { 1, 3 })).UseAllAvailableWidth();
+                table.AddHeaderCell(new Cell().Add(new Paragraph("Runde").SetBold()).SetTextAlignment(TextAlignment.CENTER).SetBackgroundColor(customLightGray));
+                table.AddHeaderCell(new Cell().Add(new Paragraph("Zeit").SetBold()).SetTextAlignment(TextAlignment.CENTER).SetBackgroundColor(customLightGray));
 
                 for (int i = 0; i < schueler.Runden.Count; i++)
                 {
-                    cell = new();
-                    cell.Add(new Paragraph($"{i + 1}"));
-                    if (i < schueler.Runden.Count - 1) table.AddCell(cell);
-                    cell = new();
-                    if (i < schueler.Runden.Count - 1)
+                    table.AddCell(new Cell().Add(new Paragraph($"{i + 1}")).SetTextAlignment(TextAlignment.CENTER));
+                    if (i < rundenZeiten.Count)
                     {
-                        cell.Add(new Paragraph(rundenZeiten[i].ToString(@"hh\:mm\:ss")));
+                        table.AddCell(new Cell().Add(new Paragraph(rundenZeiten[i].ToString(@"hh\:mm\:ss"))).SetTextAlignment(TextAlignment.CENTER));
                     }
                     else
                     {
-                        cell.Add(new Paragraph(""));
+                        table.AddCell(new Cell().Add(new Paragraph("")).SetTextAlignment(TextAlignment.CENTER));
                     }
-
-                    if (i < schueler.Runden.Count - 1) table.AddCell(cell);
                 }
 
                 Dokument.Add(table);
@@ -256,50 +259,65 @@ namespace RunTrack
 
 
 
+
+
         public static string AuswertungListe(List<object> liste, Format format, string auswertungArt)
         {
             string datei = DokumentErstellen(format);
             if (Dokument == null) return string.Empty;
 
             PropertyInfo[] propertyInfos = liste[0].GetType().GetProperties();
-            Table table = new(100);
+            Table table = new Table(UnitValue.CreatePercentArray(propertyInfos.Length)).UseAllAvailableWidth();
 
             if (format.Zentriert) table.SetHorizontalAlignment(HorizontalAlignment.CENTER);
             else table.SetHorizontalAlignment(HorizontalAlignment.LEFT);
 
-
+            // Setze Schriftart und -größe für das gesamte Dokument
             if (format.SchriftTyp == SchriftTyp.Fett) Dokument.SetBold();
             if (format.SchriftTyp == SchriftTyp.Kursiv) Dokument.SetItalic();
             if (format.SchriftTyp == SchriftTyp.FettKursiv) Dokument.SetBold().SetItalic();
             Dokument.SetFontSize(format.SchriftGroesse);
 
+            // Header-Zellen
+            Color customLightGray = new DeviceRgb(242, 242, 242);
             foreach (PropertyInfo propertyInfo in propertyInfos)
             {
-                Cell cell = new();
-                if (propertyInfo.Name == "Bewertung") cell.Add(new Paragraph(auswertungArt));
-                else cell.Add(new Paragraph(propertyInfo.Name));
-                cell.SetPaddings(0, 5, 0, 5);
+                Cell cell = new Cell().Add(new Paragraph(propertyInfo.Name == "Bewertung" ? auswertungArt : propertyInfo.Name)
+                    .SetBold()
+                    .SetTextAlignment(TextAlignment.CENTER)
+                    .SetFontSize(format.SchriftGroesse));
+                cell.SetBackgroundColor(customLightGray);
+                cell.SetPadding(5);
                 table.AddHeaderCell(cell);
             }
 
+            // Daten-Zellen
             foreach (object obj in liste)
             {
                 foreach (PropertyInfo propertyInfo in propertyInfos)
                 {
-                    Cell cell = new();
-                    cell.Add(new Paragraph(propertyInfo?.GetValue(obj)?.ToString()).SetFontSize(format.SchriftGroesse));
-                    cell.SetPaddings(0, 5, 0, 5);
+                    Cell cell = new Cell().Add(new Paragraph(propertyInfo?.GetValue(obj)?.ToString())
+                        .SetFontSize(format.SchriftGroesse)
+                        .SetTextAlignment(TextAlignment.CENTER));
+                    cell.SetPadding(5);
+                    cell.SetBorder(new SolidBorder(1));
                     table.AddCell(cell);
                 }
                 table.StartNewRow();
             }
 
-            if (format.KopfAnzeigen) Dokument.Add(new Paragraph(DateTime.Now.ToString("dd.MM.yyy HH:mm:ss")).SetTextAlignment(TextAlignment.LEFT).SetFontSize(format.SchriftGroesse * 0.8f));
+            if (format.KopfAnzeigen)
+            {
+                Dokument.Add(new Paragraph(DateTime.Now.ToString("dd.MM.yyy HH:mm:ss"))
+                    .SetTextAlignment(TextAlignment.LEFT)
+                    .SetFontSize(format.SchriftGroesse * 0.8f));
+            }
             Dokument.Add(table);
 
             Dokument.Close();
             return datei;
         }
+
 
 
         public static string Urkunde(List<Urkunde> liste, Format format)
