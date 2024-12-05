@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 
 namespace RunTrack
@@ -125,8 +127,6 @@ namespace RunTrack
         }
         private void cbKlasse_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_model.SelSchueler == null) return;
-
             if (_isUserInteraction)
             {
                 _model.HasChanges = true;
@@ -166,6 +166,31 @@ namespace RunTrack
                     schueler.Geschlecht = (Geschlecht)cb.SelectedItem;
                 }
             }
+        }
+
+        private void comboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (sender is ComboBox comboBox && comboBox.DataContext is Schueler schueler)
+            {
+                Trace.WriteLine(_model.LstSchueler);
+                ListCollectionView view = new(_model.LstKlasse);
+                view.GroupDescriptions.Add(new PropertyGroupDescription("Schule.Name"));
+                comboBox.ItemsSource = view;
+
+                if (schueler.Klasse != null)
+                {
+                    comboBox.SelectedItem = schueler.Klasse;
+                }
+            }
+        }
+
+        private void cbKlase_DropDownClosed(object sender, EventArgs e)
+        {
+        }
+
+        private void cbKlase_DropDownOpened(object sender, EventArgs e)
+        {
+            _isUserInteraction = true;
         }
     }
 }
