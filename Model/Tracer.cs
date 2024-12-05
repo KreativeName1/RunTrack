@@ -38,9 +38,11 @@ namespace TracerFile
 
         public void Trace(string message, TraceLevel level = TraceLevel.None)
         {
+            // DEBUG
+            return;
             try
             {
-                using (StreamWriter writer = new StreamWriter(FileName, true))
+                using (StreamWriter writer = File.AppendText(FileName))
                 {
                     if (level == TraceLevel.None)
                         writer.WriteLine($"{DateTime.Now} [{LoggerId}] {message}");
