@@ -8,7 +8,7 @@ namespace RunTrack
 
         private bool _hasChanges;
 
-        private bool _readOnly = true;
+        private bool _readOnly = false;
 
         private string? connectionString;
 
