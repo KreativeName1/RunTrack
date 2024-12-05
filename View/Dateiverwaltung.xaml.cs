@@ -15,7 +15,7 @@ namespace RunTrack
     {
         private DateiVerwaltungModel _dvmodel;
         private MainModel _pmodel;
-        private List<string> _tempSelectedFiles = new List<string>();
+        public List<string> _tempSelectedFiles = new List<string>();
 
         public Dateiverwaltung()
         {
@@ -27,6 +27,10 @@ namespace RunTrack
             FilesListBox.DragEnter += (s, e) => _dvmodel.IsDragging = true;
             DragDropOverlay.DragLeave += (s, e) => _dvmodel.IsDragging = false;
 
+        }
+        public void UploadFiles_ClickPublic()
+        {
+            UploadFiles_Click(this, null);
         }
 
         private async void UploadFiles_Click(object sender, RoutedEventArgs e)
@@ -50,10 +54,17 @@ namespace RunTrack
 
                 foreach (var file in _tempSelectedFiles)
                 {
+<<<<<<< HEAD
+                    bool continueImport = checkFile(file);
+                    if (continueImport)
+                    {
+                        _pmodel.Navigate(new Import1(file, this));
+=======
                     bool continueImport = await Task.Run(() => checkFile(file));
                     if (!continueImport)
                     {
                         break;
+>>>>>>> 480ab1fdf1e6a6d2526672c40836a237a955672b
                     }
                 }
             }
@@ -83,6 +94,8 @@ namespace RunTrack
                 }
             }
 
+<<<<<<< HEAD
+=======
             Application.Current.Dispatcher.Invoke(() =>
             {
                 _dvmodel.LstFiles.Add(new FileItem
@@ -100,11 +113,16 @@ namespace RunTrack
                 _pmodel.Navigate(new Import1(destPath));
             }
 
+>>>>>>> 480ab1fdf1e6a6d2526672c40836a237a955672b
             return true;
         }
 
 
+<<<<<<< HEAD
+        public string PromptUserToSelectFile(string[] fileNames)
+=======
         private string PromptUserToSelectFile(string[] fileNames)
+>>>>>>> 480ab1fdf1e6a6d2526672c40836a237a955672b
         {
             var fileItems = fileNames.Select(fileName =>
             {

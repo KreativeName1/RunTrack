@@ -14,12 +14,13 @@ namespace RunTrack
         private ImportModel? _imodel;
         private MainModel? _model;
         private int _width = 120;
+        public Dateiverwaltung _verwaltung;
 
-        public Import1(string pfad)
+        public Import1(string pfad, Dateiverwaltung verwaltung)
         {
             _imodel = FindResource("imodel") as ImportModel ?? new ImportModel();
             _model = FindResource("pmodel") as MainModel ?? new MainModel();
-
+            _verwaltung = verwaltung;
             _imodel.Pfad = pfad;
             InitializeComponent();
 
@@ -104,7 +105,7 @@ namespace RunTrack
                 if (_imodel.Schule.Id == 0) _imodel.Schule = new Schule { Name = _imodel.NeuSchuleName ?? string.Empty };
 
                 // weiter zur klassenerstellung
-                _model.Navigate(new Import2());
+                _model.Navigate(new Import2(this));
             };
 
 

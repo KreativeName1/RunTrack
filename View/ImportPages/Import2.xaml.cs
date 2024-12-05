@@ -10,8 +10,9 @@ namespace RunTrack
     {
         private ImportModel _imodel;
         private MainModel _model;
+        public Import1 _import1;
 
-        public Import2()
+        public Import2(Import1 import1)
         {
             InitializeComponent();
             _imodel = FindResource("imodel") as ImportModel ?? new();
@@ -32,10 +33,15 @@ namespace RunTrack
             {
                 if (_imodel.Pfad != null)
                 {
+<<<<<<< HEAD
+                    _model.Navigate(new Import3(this));
+=======
                     _model.Navigate(new Import3());
+>>>>>>> 480ab1fdf1e6a6d2526672c40836a237a955672b
                 }
             };
             Load();
+            _import1 = import1;
         }
 
         public void Load()
