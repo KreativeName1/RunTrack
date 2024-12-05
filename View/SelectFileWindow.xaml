@@ -79,7 +79,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock x:Name="tbName" MouseDown="tbName_MouseDown" Text="Name ⇅" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" Grid.Column="0" Cursor="Hand"/>
             <TextBlock x:Name="tbPfad" Text="Pfad" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0,0,0" Grid.Column="1" Cursor="Hand"/>
-            <TextBlock x:Name="tbInfo" MouseDown="tbInfo_MouseDown" Text="Info ⇅" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2"/>
+            <TextBlock x:Name="tbInfo" MouseDown="tbInfo_MouseDown" Visibility="{Binding InfoVisible, Converter={StaticResource con}}" Text="Info ⇅" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2"/>
         </Grid>
 
         <!-- Datei-Liste -->
@@ -97,7 +97,7 @@
                         <Button Grid.Column="2" Width="20" Height="20" VerticalAlignment="Center"
                                 Visibility="{Binding InfoVisible, Converter={StaticResource con}}" HorizontalAlignment="Right">
                             <Button.ToolTip>
-                                <ToolTip Content="{Binding Tooltip}" ToolTipService.InitialShowDelay="100" FontWeight="SemiBold" FontSize="14" Background="LightYellow" Foreground="Black" Padding="5"/>
+                                <ToolTip Content="{Binding Tooltip}" ToolTipService.InitialShowDelay="100" FontWeight="SemiBold" FontSize="14" Background="#fffde6" Foreground="Black" BorderThickness="1" Margin="10,0,10,0"  BorderBrush="#8F8F8C" Padding="5"/>
                             </Button.ToolTip>
                             <Button.Content>
                                 <TextBlock Text="i" FontSize="15" FontWeight="Bold" Foreground="Blue" HorizontalAlignment="Center" VerticalAlignment="Center"/>

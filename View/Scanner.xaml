@@ -32,7 +32,7 @@
             <ColumnDefinition Width="305*"/>
         </Grid.ColumnDefinitions>
 
-        <DataGrid x:Name="lastScan" ItemsSource="{Binding LstLetzteRunde}" Margin="30,120,30,0" FontFamily="Consolas" CanUserSortColumns="False" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True" Height="50" VerticalAlignment="Top" Grid.ColumnSpan="3">
+        <DataGrid x:Name="lastScan" BorderThickness="1" BorderBrush="Gray" ItemsSource="{Binding LstLetzteRunde}" Margin="30,120,30,0" FontFamily="Consolas" CanUserSortColumns="False" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True" Height="50" VerticalAlignment="Top" Grid.ColumnSpan="3">
             <DataGrid.Resources>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="FontWeight" Value="Bold"/>
@@ -67,7 +67,7 @@
         </DataGrid>
 
 
-        <DataGrid x:Name="lstlastScan" ItemsSource="{Binding LstRunden}" Margin="30,210,30,30" FontFamily="Consolas" CanUserSortColumns="False" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True" Grid.ColumnSpan="3">
+        <DataGrid x:Name="lstlastScan" ItemsSource="{Binding LstRunden}" GridLinesVisibility="All" BorderThickness="1" BorderBrush="Gray" Margin="30,210,30,30" FontFamily="Consolas" CanUserSortColumns="False" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True" Grid.ColumnSpan="3">
             <DataGrid.Resources>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="FontWeight" Value="Bold"/>

@@ -10,7 +10,7 @@
 
     <Grid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Foreground="#8D1D2C" Margin="20" FontSize="20" >Programm ID:</TextBlock>
+            <TextBlock Foreground="#8D1D2C" Margin="20" FontSize="20" FontWeight="SemiBold">Programm ID:</TextBlock>
             <TextBlock Foreground="#8D1D2C" Margin="20" FontSize="20" x:Name="tbKey" >N/A</TextBlock>
         </StackPanel>
     </Grid>
