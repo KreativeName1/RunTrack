@@ -44,7 +44,7 @@
                 <StackPanel x:Name="OrderPanel" AllowDrop="True" Orientation="Horizontal" Height="30" Margin="17,0,23,0">
                 </StackPanel>
             </Grid>
-            <DataGrid Loaded="CSV_Grid_Loaded" x:Name="CSV_Grid" Grid.Row="2" ItemsSource="{Binding CSVListe}" HorizontalScrollBarVisibility="Disabled" CanUserReorderColumns="False" Margin="10,0,10,0">
+            <DataGrid Loaded="CSV_Grid_Loaded" GridLinesVisibility="Vertical" x:Name="CSV_Grid" Grid.Row="2" ItemsSource="{Binding CSVListe}" HorizontalScrollBarVisibility="Disabled" CanUserReorderColumns="False" Margin="10,0,10,0">
             </DataGrid>
 
             <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,10,10,10" HorizontalAlignment="Right">

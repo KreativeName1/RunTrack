@@ -108,6 +108,7 @@ namespace RunTrack
             };
 
 
+
             // Subscribe to the LayoutUpdated event
             CSV_Grid.LayoutUpdated += CSV_Grid_LayoutUpdated;
             OrderPanel.LayoutUpdated += (s, e) => UpdateRectangleWidth(); // Update rectangle width on OrderPanel layout update

@@ -13,7 +13,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <DataGrid ItemsSource="{Binding KlasseItems}" Margin="10,0,10,0" Grid.Row="1" x:Name="Klassen_Grid" AutoGenerateColumns="False" CanUserAddRows="False">
+        <DataGrid ItemsSource="{Binding KlasseItems}" GridLinesVisibility="Horizontal" Margin="10,0,10,0" Grid.Row="1" x:Name="Klassen_Grid" AutoGenerateColumns="False" CanUserAddRows="False">
             <DataGrid.Resources>
             </DataGrid.Resources>
             <DataGrid.Columns>
