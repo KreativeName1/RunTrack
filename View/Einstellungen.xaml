@@ -43,8 +43,8 @@
             </Grid.RowDefinitions>
         </Grid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-            <TextBlock Foreground="Red" Margin="15" >Programm ID: </TextBlock>
-            <TextBlock Foreground="Red" Margin="15" x:Name="tbKey" >dosopoefkoseffp</TextBlock>
+            <TextBlock Foreground="#8D1D2C" Margin="15" >Programm ID: </TextBlock>
+            <TextBlock Foreground="#8D1D2C" Margin="15" x:Name="tbKey" >dosopoefkoseffp</TextBlock>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Margin="0,0,10,10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <fc:ButtonPlus x:Name="btnSave" Content="Speichern" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Visibility="Hidden" Click="Save_Click" Width="120" Height="30" Margin="5,5,20,5"/>

@@ -28,6 +28,7 @@
     <None Remove="Images\RunTrack_transparent.png" />
     <None Remove="Images\titelbarIcons\close.png" />
     <None Remove="Images\titelbarIcons\close_fullscreen.png" />
+    <None Remove="Images\titelbarIcons\key.png" />
     <None Remove="Images\titelbarIcons\maximize.png" />
     <None Remove="Images\titelbarIcons\minimize.png" />
     <None Remove="Images\titelbarIcons\settings.png" />
@@ -47,6 +48,7 @@
     <PackageReference Include="FullControls" Version="2.2.0" />
     <PackageReference Include="itext" Version="8.0.5" />
     <PackageReference Include="itext.bouncy-castle-adapter" Version="8.0.5" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.10" />
     <PackageReference Include="MahApps.Metro.SimpleChildWindow" Version="2.2.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.20" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.20" />
@@ -109,6 +111,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\titelbarIcons\close_fullscreen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\titelbarIcons\key.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\titelbarIcons\maximize.png">

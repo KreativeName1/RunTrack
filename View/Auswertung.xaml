@@ -121,7 +121,7 @@
             </StackPanel>
         </ScrollViewer>
 
-        <DataGrid Grid.Row="0" BorderThickness="1" BorderBrush="Gray" SelectionMode="Extended" ColumnWidth="*" Grid.Column="1" x:Name="Daten" ItemsSource="{Binding Liste}" SelectedItem="{Binding SelectedItem}" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserDeleteRows="False" Margin="0,10,0,0" Cursor="">
+        <DataGrid Grid.Row="0" BorderThickness="1" BorderBrush="Gray" GridLinesVisibility="All" SelectionMode="Extended" ColumnWidth="*" Grid.Column="1" x:Name="Daten" ItemsSource="{Binding Liste}" SelectedItem="{Binding SelectedItem}" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserDeleteRows="False" Margin="0,10,0,0" Cursor="">
             <DataGrid.Resources>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="FontWeight" Value="Bold"/>

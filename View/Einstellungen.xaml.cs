@@ -32,6 +32,7 @@ namespace RunTrack
         private void LoadContent()
         {
             tbKey.Text = UniqueKey.GetKey();
+
             using (var db = new LaufDBContext())
             {
                 var sortedRundenArten = db.RundenArten.OrderBy(r => r.MaxScanIntervalInSekunden).ToList();
