@@ -32,9 +32,14 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <!--Schüler-->
-        <GroupBox x:Name="SchuelerGrid" Header="Schüler">
-			<Grid>
-				<DataGrid x:Name="lstSchueler"  IsReadOnly="{Binding ReadOnly}" ItemsSource="{Binding CollectionView}" SelectedItem="{Binding SelSchueler}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single">
+        <GroupBox x:Name="SchuelerGrid" Header="Schüler"  BorderBrush="Transparent" Background="Transparent">
+            <GroupBox.HeaderTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" Foreground="Black" FontWeight="Bold" FontSize="14" TextAlignment="Center"/>
+                </DataTemplate>
+            </GroupBox.HeaderTemplate>
+            <Grid>
+				<DataGrid x:Name="lstSchueler" GridLinesVisibility="All" IsReadOnly="{Binding ReadOnly}" ItemsSource="{Binding CollectionView}" SelectedItem="{Binding SelSchueler}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single">
 					<DataGrid.Resources>
 						<Style TargetType="DataGridColumnHeader">
 							<Setter Property="FontWeight" Value="Bold"/>
@@ -74,8 +79,8 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <ComboBox SelectedItem="{Binding Geschlecht, Mode=TwoWay}" SelectionChanged="ComboBox_SelectionChanged" DropDownOpened="ComboBox_DropDown" DropDownClosed="ComboBox_DropDown"
-                                        ItemsSource="{Binding Source={StaticResource GenderOptions}}"
-											     IsEnabled="{Binding DataContext.ReadOnly, RelativeSource={RelativeSource AncestorType=DataGrid}, Converter={StaticResource BoolInverterConverter}}" />
+                                                ItemsSource="{Binding Source={StaticResource GenderOptions}}"
+											    IsEnabled="{Binding DataContext.ReadOnly, RelativeSource={RelativeSource AncestorType=DataGrid}, Converter={StaticResource BoolInverterConverter}}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

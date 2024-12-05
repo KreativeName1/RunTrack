@@ -23,9 +23,14 @@
         </Grid.RowDefinitions>
 
         <!--Schulen-->
-        <GroupBox x:Name="SchuleGrid" Header="Schulen">
+        <GroupBox x:Name="SchuleGrid" Header="Schulen"  BorderBrush="Transparent" Background="Transparent">
+            <GroupBox.HeaderTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" Foreground="Black" FontWeight="Bold" FontSize="14" TextAlignment="Center"/>
+                </DataTemplate>
+            </GroupBox.HeaderTemplate>
             <Grid>
-				<DataGrid x:Name="lstSchule" ItemsSource="{Binding CollectionView}"  IsReadOnly="{Binding ReadOnly}" SelectedItem="{Binding SelSchule}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single">
+                <DataGrid x:Name="lstSchule" GridLinesVisibility="All" BorderThickness="1" BorderBrush="Gray" ItemsSource="{Binding CollectionView}"  IsReadOnly="{Binding ReadOnly}" SelectedItem="{Binding SelSchule}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single">
 					<DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="FontWeight" Value="Bold"/>

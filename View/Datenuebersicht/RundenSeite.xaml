@@ -34,7 +34,12 @@
         </Grid.RowDefinitions>
 
         <!-- Runden -->
-        <GroupBox x:Name="RundenGrid" Header="Runden">
+        <GroupBox x:Name="RundenGrid" Header="Runden" BorderBrush="Transparent" Background="Transparent">
+            <GroupBox.HeaderTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" Foreground="Black" FontWeight="Bold" FontSize="14" TextAlignment="Center"/>
+                </DataTemplate>
+            </GroupBox.HeaderTemplate>
             <Grid>
 				<DataGrid x:Name="lstRunden"
                           ItemsSource="{Binding CollectionView}"
@@ -47,7 +52,9 @@
                           CanUserDeleteRows="False"
                           CanUserResizeRows="False"
                           SelectionMode="Single"
-                          IsReadOnly="True">
+                          IsReadOnly="True"
+                          GridLinesVisibility="All"
+                          BorderThickness="1" BorderBrush="Gray">
 					<DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="FontWeight" Value="Bold"/>

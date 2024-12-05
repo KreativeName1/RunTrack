@@ -15,6 +15,8 @@
 		<this:InverseBoolToVisibilityConverter x:Key="ibvcon"/>
 		<this:BoolInverterConverter x:Key="BoolInverterConverter"/>
         <this:BoolToVisibilityConverter x:Key="bvcon"/>
+        
+        
 	</Page.Resources>
 
 	<Grid DataContext="{StaticResource thismodel}">
@@ -30,10 +32,15 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <!--Klasse-->
-        <GroupBox x:Name="KlasseGrid" Header="Klassen">
+        <GroupBox x:Name="KlasseGrid" Header="Klassen" BorderBrush="Transparent" Background="Transparent">
+            <GroupBox.HeaderTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" Foreground="Black" FontWeight="Bold" FontSize="14" TextAlignment="Center"/>
+                </DataTemplate>
+            </GroupBox.HeaderTemplate>
             <Grid>
 
-				<DataGrid x:Name="lstKlasse" ItemsSource="{Binding CollectionView}" SelectedItem="{Binding SelKlasse}" IsReadOnly="{Binding ReadOnly}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Extended">
+                <DataGrid x:Name="lstKlasse" GridLinesVisibility="All" BorderThickness="1" BorderBrush="Gray" ItemsSource="{Binding CollectionView}" SelectedItem="{Binding SelKlasse}" IsReadOnly="{Binding ReadOnly}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Extended">
 					<DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="FontWeight" Value="Bold"/>

@@ -30,9 +30,14 @@
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 		<!--Schüler-->
-		<GroupBox x:Name="LaeuferGrid" Grid.RowSpan="2">
-			<Grid>
-				<DataGrid x:Name="lstLaeufer" ItemsSource="{Binding CollectionView}"  IsReadOnly="{Binding ReadOnly}" SelectedItem="{Binding SelLaeufer}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Extended">
+        <GroupBox x:Name="LaeuferGrid" Header="Läufer" Grid.RowSpan="2" BorderBrush="Transparent" Background="Transparent">
+            <GroupBox.HeaderTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" Foreground="Black" FontWeight="Bold" FontSize="14" TextAlignment="Center"/>
+                </DataTemplate>
+            </GroupBox.HeaderTemplate>
+            <Grid>
+                <DataGrid x:Name="lstLaeufer" GridLinesVisibility="All" BorderThickness="1" BorderBrush="Gray" ItemsSource="{Binding CollectionView}" IsReadOnly="{Binding ReadOnly}" SelectedItem="{Binding SelLaeufer}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Extended">
 					<DataGrid.Resources>
 						<Style TargetType="DataGridColumnHeader">
 							<Setter Property="FontWeight" Value="Bold"/>
