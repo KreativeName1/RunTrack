@@ -1,64 +1,68 @@
 ﻿namespace RunTrack
 {
 
-	public enum SchriftTyp
-	{
-		Normal,
-		Fett,
-		Kursiv,
-		FettKursiv
-	}
-	public enum Orientierung
-	{
-		Hochformat,
-		Querformat
-	}
+    // Definiert verschiedene Schriftarten
+    public enum SchriftTyp
+    {
+        Normal,
+        Fett,
+        Kursiv,
+        FettKursiv
+    }
+    // Definiert die Orientierung des Blattes
+    public enum Orientierung
+    {
+        Hochformat,
+        Querformat
+    }
 
-	public class Format
-	{
-		public int Id { get; set; }
-		public string Name { get; set; } = string.Empty;
+    // Klasse zur Definition des Formats
+    public class Format
+    {
+        // Eindeutige ID des Formats
+        public int Id { get; set; }
 
-		// Seitenränder
-		public float SeitenRandOben { get; set; } = 20;
-		public float SeitenRandUnten { get; set; } = 20;
-		public float SeitenRandLinks { get; set; } = 20;
-		public float SeitenRandRechts { get; set; } = 20;
+        // Name des Formats
+        public string Name { get; set; } = string.Empty;
 
-		// Zellen
-		public int ZellenAbstandHorizontal { get; set; } = 20;
-		public int ZellenAbstandVertikal { get; set; } = 0;
-		public int ZellenBreite { get; set; } = 150;
-		public int ZellenHoehe { get; set; } = 50;
+        // Seitenränder
+        public float SeitenRandOben { get; set; } = 20;
+        public float SeitenRandUnten { get; set; } = 20;
+        public float SeitenRandLinks { get; set; } = 20;
+        public float SeitenRandRechts { get; set; } = 20;
 
-		// Schrift
-		public float SchriftGroesse { get; set; } = 12;
-		public SchriftTyp SchriftTyp { get; set; } = SchriftTyp.Normal;
+        // Zellenabstände und -größen
+        public int ZellenAbstandHorizontal { get; set; } = 20;
+        public int ZellenAbstandVertikal { get; set; } = 0;
+        public int ZellenBreite { get; set; } = 150;
+        public int ZellenHoehe { get; set; } = 50;
 
+        // Schriftgröße und -typ
+        public float SchriftGroesse { get; set; } = 12;
+        public SchriftTyp SchriftTyp { get; set; } = SchriftTyp.Normal;
 
-		// Blattformat
-		public BlattGroesse? BlattGroesse { get; set; }
+        // Blattgröße
+        public BlattGroesse? BlattGroesse { get; set; }
+        public int BlattGroesseId { get; set; }
 
-		public int BlattGroesseId { get; set; }
+        // Orientierung des Blattes
+        public Orientierung Orientierung { get; set; } = Orientierung.Hochformat;
 
-		public Orientierung Orientierung { get; set; } = Orientierung.Hochformat;
+        // Weitere Einstellungen
+        public bool KopfAnzeigen { get; set; } = true;
+        public bool Zentriert { get; set; } = true;
+        public int SpaltenAnzahl { get; set; } = 3;
+        public double ZeilenAbstand { get; set; } = 1;
 
-		// Weiteres
-		public bool KopfAnzeigen { get; set; } = true;
-		public bool Zentriert { get; set; } = true;
-		public int SpaltenAnzahl { get; set; } = 3;
+        // Konstruktor
+        public Format()
+        {
+        }
 
-		public double ZeilenAbstand { get; set; } = 1;
-
-
-		public Format()
-		{
-
-		}
-
-		public override string ToString()
-		{
-			return Name;
-		}
-	}
+        // Überschreibt die ToString-Methode, um den Namen des Formats zurückzugeben
+        public override string ToString()
+        {
+            return Name;
+        }
+    }
 }

@@ -12,7 +12,7 @@
         WindowStartupLocation="CenterScreen" WindowTitleBrush="#007d64" Background="White" TitleAlignment="Center"
         TitleBarHeight="30" GlowBrush="#2A2D2F" ResizeMode="CanResizeWithGrip" BorderBrush="#2A2D2F" BorderThickness="1"
         Height="750" Width="1000" NonActiveBorderBrush="#4c5155" NonActiveGlowBrush="#a3a6a8" NonActiveWindowTitleBrush="#007d64" ShowIconOnTitleBar="False" SizeChanged="MetroWindow_SizeChanged">
-    
+
     <mah:MetroWindow.Resources>
         <local:BoolToVisibilityConverter x:Key="bvcon"/>
     </mah:MetroWindow.Resources>
@@ -21,8 +21,29 @@
         <mah:WindowCommands ShowSeparators="False">
             <Image Source="pack://application:,,,/Images/iconRunMan.ico"
                    Width="30" Height="30" Margin="5,0,10,0" />
+
+
+            <TextBlock Text="⚠️ Work in Progress ⚠️" Foreground="Red" FontSize="14" FontWeight="SemiBold" FontFamily="Arial" HorizontalAlignment="Center" VerticalAlignment="Stretch" Padding="10,5,10,5" Background="White"/>
+            <Border Width="50" Height="30" Cursor="Help" Background="White" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="5,0,0,0">
+                <Border.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock Text="Fehlende Punkte:" FontWeight="Bold" />
+                            <TextBlock Text="• Import: Mehrfachimport Logik" />
+                            <TextBlock Text="• Import: Korrekte Fehlermeldungen" />
+                            <TextBlock Text="• Import: Beim Schließen des Programms wird trotzdem Datei Importiert" />
+                            <TextBlock Text="• PDF Editor: Ladenalken zum hinleiten hinzufügen"/>
+                            <TextBlock Text="• Auswertung: Layout anpassen"/>
+                            <TextBlock Text="• InputPopup: Layout anpassen"/>
+                            <TextBlock Text="• Mögliche Bugs"/>
+                        </StackPanel>
+                    </ToolTip>
+                </Border.ToolTip>
+                <TextBlock Text="INFO" Foreground="Red" FontSize="14" FontWeight="SemiBold" FontFamily="Arial" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+
             <Label Visibility="{Binding Benutzer.IsAdmin, Converter={StaticResource bvcon}}" Content="Admin" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
-            
+
         </mah:WindowCommands>
     </mah:MetroWindow.LeftWindowCommands>
     <mah:MetroWindow.RightWindowCommands>
@@ -77,14 +98,15 @@
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
 
-    
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="30"/>
-			<RowDefinition Height="*"/>
-		</Grid.RowDefinitions>
-		<local:TopBar Grid.Row="0" x:Name="Leiste" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
-		<Frame x:Name="ContentFrame" Grid.Row="1" Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden"/>
-        
-	</Grid>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <local:TopBar Grid.Row="0" x:Name="Leiste" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
+        <Frame x:Name="ContentFrame" Grid.Row="1" Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden"/>
+
+    </Grid>
 </mah:MetroWindow>
+

@@ -14,7 +14,7 @@
                 <TextBlock Foreground="#8D1D2C" Margin="20" FontSize="20" FontWeight="SemiBold">Programm ID:</TextBlock>
                 <TextBlock Foreground="#8D1D2C" Margin="20" FontSize="20" x:Name="tbKey" >N/A</TextBlock>
             </StackPanel>
-			<fc:ButtonPlus x:Name="btnSchliessen" Click="btnSchliessen_Click" Cursor="Hand" Content="Schließen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" Grid.Row="2" Grid.Column="1" />
 		</StackPanel>
+			<fc:ButtonPlus x:Name="btnSchliessen" Click="btnSchliessen_Click" VerticalAlignment="Bottom" Margin="0,0,0,20" Cursor="Hand" Content="Schließen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Width="120" Height="30" Grid.Row="2" Grid.Column="1" />
 	</Grid>
 </Page>

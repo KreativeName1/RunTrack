@@ -70,6 +70,7 @@ namespace RunTrack
                     if (File.Exists(_imodel.Pfad)) File.Delete(_imodel.Pfad);
                     dvm.LstFiles = new ObservableCollection<FileItem>(FileItem.AlleLesen());
                     _model.Navigate(dv);
+                    return;
                 }
             };
             btnWeiter.Click += (s, e) =>
@@ -105,6 +106,7 @@ namespace RunTrack
 
                 // weiter zur klassenerstellung
                 _model.Navigate(new Import2());
+                return;
             };
 
 

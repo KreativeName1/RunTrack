@@ -10,17 +10,21 @@ namespace RunTrack
     public partial class SchulenSeite : Page
     {
         private SchulenseiteModel _model;
+
         public SchulenSeite()
         {
             InitializeComponent();
+            // Initialisiere das Modell
             _model = FindResource("thismodel") as SchulenseiteModel ?? new();
 
+            // Ereignis beim Entladen der Seite
             this.Unloaded += (s, e) =>
             {
                 _model.Db.Dispose();
                 _model.HasChanges = false;
             };
 
+            // Ereignis beim Klicken auf den "Neu" Button
             btnNeu.Click += (sender, e) =>
             {
                 txtSearch.Text = "";
@@ -29,8 +33,8 @@ namespace RunTrack
                 var neueSchule = new Schule();
 
                 _model.LstSchule.Add(neueSchule);
-                _model.SelSchule = neueSchule; // Setze den neuen Schüler als ausgewählt
-                lstSchule.SelectedItem = neueSchule; // Stelle sicher, dass er im DataGrid ausgewählt ist
+                _model.SelSchule = neueSchule; // Setze die neue Schule als ausgewählt
+                lstSchule.SelectedItem = neueSchule; // Stelle sicher, dass sie im DataGrid ausgewählt ist
                 lstSchule.ScrollIntoView(neueSchule); // Scrolle zum neuen Eintrag
 
                 // Fokus auf das DataGrid setzen
@@ -50,6 +54,7 @@ namespace RunTrack
                 _model.HasChanges = true;
             };
 
+            // Ereignis beim Klicken auf den "Speichern" Button
             btnSpeichern.Click += (sender, e) =>
             {
                 txtSearch.IsEnabled = true;
@@ -64,8 +69,7 @@ namespace RunTrack
                 }
             };
 
-
-
+            // Ereignis beim Klicken auf den "Löschen" Button
             btnDel.Click += (sender, e) =>
             {
                 string message = "";
@@ -86,29 +90,28 @@ namespace RunTrack
                     _model.LstSchule.Remove(_model.SelSchule);
                     _model.HasChanges = true;
                 }
-
-
-                _model.LstSchule.Remove(_model.SelSchule);
-                _model.HasChanges = true;
             };
 
+            // Ereignis beim Beenden der Zellenbearbeitung im DataGrid
             lstSchule.CellEditEnding += (sender, e) =>
             {
                 if (e.EditAction == DataGridEditAction.Commit) _model.HasChanges = true;
             };
-
         }
 
+        // Ereignis beim Klicken auf den "Up" Button
         private void btnUp_Click(object sender, RoutedEventArgs e)
         {
             UebersichtMethoden.SelectSearchedRow(lstSchule, false);
         }
 
+        // Ereignis beim Klicken auf den "Down" Button
         private void btnDown_Click(object sender, RoutedEventArgs e)
         {
             UebersichtMethoden.SelectSearchedRow(lstSchule, true);
         }
 
+        // Ereignis beim Verlassen des Suchfeldes
         private void txtSearch_LostFocus(object sender, RoutedEventArgs e)
         {
             txtSearch.ForegroundBrush = new SolidColorBrush(Colors.Blue);

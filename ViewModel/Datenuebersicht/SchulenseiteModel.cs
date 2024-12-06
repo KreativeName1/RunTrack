@@ -6,8 +6,10 @@ using System.Windows.Data;
 
 namespace RunTrack
 {
+    // Definition der SchulenseiteModel-Klasse, die von BaseModel erbt
     public class SchulenseiteModel : BaseModel
     {
+        // Private Felder für die Datenbank, CollectionView, ObservableCollection und andere Eigenschaften
         private LaufDBContext? _db;
         private ICollectionView? _collectionView { get; set; }
         private ObservableCollection<Schule> _lstSchule { get; set; }
@@ -17,6 +19,7 @@ namespace RunTrack
         private string _searchTerm { get; set; }
         private bool _readOnly { get; set; }
 
+        // Öffentliche Eigenschaft für ReadOnly, die den Wert aus den App-Ressourcen bezieht
         public bool ReadOnly
         {
             get { return ((DatenuebersichtModel)App.Current.Resources["dumodel"]).ReadOnly ? true : false; }
@@ -27,8 +30,10 @@ namespace RunTrack
             }
         }
 
+        // Öffentliche Eigenschaft für ConnectionString, die den Wert aus den App-Ressourcen bezieht
         public string? ConnectionString => ((DatenuebersichtModel)App.Current.Resources["dumodel"]).ConnectionString;
 
+        // Öffentliche Eigenschaft für SearchTerm mit Benachrichtigung bei Änderung
         public string SearchTerm
         {
             get { return _searchTerm; }
@@ -43,6 +48,7 @@ namespace RunTrack
             }
         }
 
+        // Öffentliche Eigenschaft für CollectionView mit Benachrichtigung bei Änderung
         public ICollectionView CollectionView
         {
             get { return _collectionView; }
@@ -53,6 +59,7 @@ namespace RunTrack
             }
         }
 
+        // Öffentliche Eigenschaft für LstSchule mit Benachrichtigung bei Änderung
         public ObservableCollection<Schule> LstSchule
         {
             get { return _lstSchule; }
@@ -63,6 +70,7 @@ namespace RunTrack
             }
         }
 
+        // Öffentliche Eigenschaft für SelSchule mit Benachrichtigung bei Änderung
         public Schule SelSchule
         {
             get { return _selSchule; }
@@ -72,6 +80,8 @@ namespace RunTrack
                 OnPropertyChanged("SelSchule");
             }
         }
+
+        // Öffentliche Eigenschaft für HasChanges mit Benachrichtigung bei Änderung
         public bool HasChanges
         {
             get { return _hasChanges; }
@@ -83,6 +93,7 @@ namespace RunTrack
             }
         }
 
+        // Öffentliche Eigenschaft für Db mit Benachrichtigung bei Änderung
         public LaufDBContext Db
         {
             get { return _db; }
@@ -93,6 +104,7 @@ namespace RunTrack
             }
         }
 
+        // Öffentliche Eigenschaft für IsLoading mit Benachrichtigung bei Änderung
         public bool IsLoading
         {
             get { return _isLoading; }
@@ -103,6 +115,7 @@ namespace RunTrack
             }
         }
 
+        // Filtermethode für die CollectionView
         private bool FilterItems(object item)
         {
             if (item is Schule schule)
@@ -113,18 +126,21 @@ namespace RunTrack
             }
             return false;
         }
+
+        // Konstruktor, der die Daten lädt
         public SchulenseiteModel()
         {
             LoadData();
         }
 
+        // Methode zum Speichern der Änderungen in der Datenbank
         public void SaveChanges()
         {
             var added = LstSchule.ToList().Except(Db.Schulen.AsEnumerable()).ToList();
             var removed = Db.Schulen.AsEnumerable().Except(LstSchule.ToList()).ToList();
             var modified = LstSchule.ToList().Intersect(Db.Schulen.AsEnumerable()).ToList();
 
-            // Perform the necessary actions
+            // Führe die notwendigen Aktionen aus
             foreach (var item in added)
             {
                 Validate(item);
@@ -156,6 +172,7 @@ namespace RunTrack
             LoadData();
         }
 
+        // Methode zur Kapitalisierung der Wörter in einem String
         private string CapitalizeWords(string input)
         {
             if (string.IsNullOrWhiteSpace(input)) return input;
@@ -172,14 +189,14 @@ namespace RunTrack
             return string.Join(' ', words);
         }
 
-
-
+        // Methode zur Validierung einer Schule
         public void Validate(Schule schule)
         {
-            if (string.IsNullOrEmpty(schule.Name)) throw new ValidationException("Name darf nicht leer sein");            
+            if (string.IsNullOrEmpty(schule.Name)) throw new ValidationException("Name darf nicht leer sein");
             if (Db.Schulen.Any(s => s.Name.ToLower().Trim() == schule.Name.ToLower().Trim() && s.Id != schule.Id)) throw new ValidationException("Eine Schule mit diesem Namen existiert bereits");
         }
 
+        // Methode zum Laden der Daten
         public void LoadData()
         {
             IsLoading = true;

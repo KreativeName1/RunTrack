@@ -11,7 +11,7 @@ namespace RunTrack
     {
         private ImportModel _imodel;
         private MainModel _model;
-        public Import3()
+        public Import3(string meldung, bool success)
         {
             InitializeComponent();
             _imodel = FindResource("imodel") as ImportModel ?? new();
@@ -23,34 +23,25 @@ namespace RunTrack
                 if (tbTitel.Text == "Fehler") _model.Navigate(_model.History[^1]);
                 else
                 {
-                    Object page = _model.History.FindLast(x => x.GetType() != typeof(Import1) && x.GetType() != typeof(Import2));
+                    Object page = _model.History.FindLast(x => x.GetType() == typeof(Dateiverwaltung));
                     _model.Navigate(page);
                 }
             };
 
             btnWeitereDatei.Click += btnWeitereDatei_Click;
 
-            try
-            {
-                ImportIntoDB importIntoDB = new(_imodel);
+            if (success) {
                 tbTitel.Text = "Erfolg";
-                tbMeldung.Text = "Import war erfolgreich.";
+                tbMeldung.Text = meldung;
                 tbTitel.Foreground = Brushes.Green;
                 btnSchliessen.Content = "Schließen";
                 btnWeitereDatei.Visibility = Visibility.Visible;
             }
-            catch (ImportException ex)
+            else
             {
                 tbTitel.Foreground = Brushes.Red;
                 tbTitel.Text = "Fehler";
-                tbMeldung.Text = ex.Message;
-                btnSchliessen.Content = "Zurück";
-            }
-            catch (Exception)
-            {
-                tbTitel.Foreground = Brushes.Red;
-                tbTitel.Text = "Fehler";
-                tbMeldung.Text = "Ein unerwarteter Fehler ist aufgetreten.";
+                tbMeldung.Text = meldung;
                 btnSchliessen.Content = "Zurück";
             }
         }

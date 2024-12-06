@@ -2,41 +2,47 @@
 
 namespace RunTrack
 {
+    // Definiert das Auswertungsmodell, das von BaseModel erbt
     public class AuswertungModel : BaseModel
     {
+        // Eigenschaften zur Geschlechtsauswahl
         private bool _isMaennlich { get; set; } = false;
         private bool _isWeiblich { get; set; } = false;
         private bool _isDivers { get; set; } = false;
         private bool _isGesamt { get; set; } = true;
 
+        // Eigenschaften zur Auswahl der Auswertungsart
         private bool _isAnzahl { get; set; } = true;
         private bool _isZeit { get; set; } = false;
         private bool _isDistanz { get; set; } = false;
 
+        // Eigenschaften zur Auswahl der Gruppierung
         private bool _isInsgesamt { get; set; } = true;
         private bool _isSchule { get; set; } = false;
         private bool _isKlasse { get; set; } = false;
         private bool _isJahrgang { get; set; } = false;
         private bool _isLaeufer { get; set; } = false;
 
+        // Liste der auszuwertenden Objekte und das ausgewählte Element
         private ObservableCollection<object> _liste { get; set; } = new ObservableCollection<object>();
         private object? _selectedItem { get; set; } = null;
 
+        // Jahrgang und zugehörige Schulen und Klassen
         private int _jahrgang { get; set; } = 2000;
         private ObservableCollection<Schule> _schulen { get; set; } = new ObservableCollection<Schule>();
         private Schule? _selectedSchule { get; set; } = null;
         private ObservableCollection<Klasse> _klassen { get; set; } = new ObservableCollection<Klasse>();
         private Klasse? _selectedKlasse { get; set; } = null;
 
+        // Eigenschaft, ob die Liste leer ist
         private bool _isLeerListe { get; set; } = false;
 
+        // Öffentliche Eigenschaften mit Benachrichtigung bei Änderung
         public bool IsLeerListe
         {
             get { return _isLeerListe; }
             set { _isLeerListe = value; OnPropertyChanged("IsLeerListe"); }
         }
-
-
 
         public bool IsMaennlich
         {
@@ -59,7 +65,6 @@ namespace RunTrack
             set { _isDivers = value; OnPropertyChanged("IsDivers"); }
         }
 
-
         public bool IsAnzahl
         {
             get { return _isAnzahl; }
@@ -75,7 +80,6 @@ namespace RunTrack
             get { return _isDistanz; }
             set { _isDistanz = value; OnPropertyChanged("IsDistanz"); }
         }
-
 
         public bool IsInsgesamt
         {
@@ -103,13 +107,11 @@ namespace RunTrack
             set { _isLaeufer = value; OnPropertyChanged("IsLaeufer"); }
         }
 
-
         public int Jahrgang
         {
             get { return _jahrgang; }
             set { _jahrgang = value; OnPropertyChanged("Jahrgang"); }
         }
-
 
         public ObservableCollection<Schule> Schulen
         {
@@ -150,8 +152,6 @@ namespace RunTrack
             get { return _selectedItem; }
             set { _selectedItem = value; OnPropertyChanged("SelectedItem"); }
         }
-
-
     }
 
 }

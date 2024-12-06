@@ -7,8 +7,10 @@ using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
 namespace RunTrack
 {
+    // Definiert das ViewModel für die Schülerseite
     public class SchuelerseiteModel : BaseModel
     {
+        // Private Felder für Datenbankkontext, CollectionView und ObservableCollections
         private LaufDBContext? _db;
         private ICollectionView? _collectionView { get; set; }
         private ObservableCollection<Schueler> _lstSchueler { get; set; }
@@ -20,6 +22,7 @@ namespace RunTrack
         private string _searchTerm { get; set; }
         private bool _readOnly { get; set; }
 
+        // Eigenschaft für den schreibgeschützten Modus
         public bool ReadOnly
         {
             get { return ((DatenuebersichtModel)App.Current.Resources["dumodel"]).ReadOnly ? true : false; }
@@ -30,8 +33,10 @@ namespace RunTrack
             }
         }
 
+        // Eigenschaft für die Verbindungszeichenfolge
         public string? ConnectionString => ((DatenuebersichtModel)App.Current.Resources["dumodel"]).ConnectionString;
 
+        // Eigenschaft für den Suchbegriff
         public string SearchTerm
         {
             get { return _searchTerm; }
@@ -46,6 +51,7 @@ namespace RunTrack
             }
         }
 
+        // Eigenschaft für die CollectionView
         public ICollectionView CollectionView
         {
             get { return _collectionView; }
@@ -56,7 +62,7 @@ namespace RunTrack
             }
         }
 
-
+        // Eigenschaft für die Liste der Schüler
         public ObservableCollection<Schueler> LstSchueler
         {
             get { return _lstSchueler; }
@@ -67,6 +73,7 @@ namespace RunTrack
             }
         }
 
+        // Eigenschaft für den ausgewählten Schüler
         public Schueler SelSchueler
         {
             get { return _selSchueler; }
@@ -77,6 +84,7 @@ namespace RunTrack
             }
         }
 
+        // Eigenschaft für die Liste der Klassen
         public ObservableCollection<Klasse> LstKlasse
         {
             get { return _lstKlasse; }
@@ -87,6 +95,7 @@ namespace RunTrack
             }
         }
 
+        // Eigenschaft für die Liste der Schulen
         public ObservableCollection<Schule> LstSchule
         {
             get { return _lstSchule; }
@@ -97,7 +106,7 @@ namespace RunTrack
             }
         }
 
-
+        // Eigenschaft für den Änderungsstatus
         public bool HasChanges
         {
             get { return _hasChanges; }
@@ -109,6 +118,7 @@ namespace RunTrack
             }
         }
 
+        // Eigenschaft für den Ladezustand
         public bool IsLoading
         {
             get { return _isLoading; }
@@ -119,6 +129,7 @@ namespace RunTrack
             }
         }
 
+        // Eigenschaft für den Datenbankkontext
         public LaufDBContext Db
         {
             get { return _db; }
@@ -129,6 +140,7 @@ namespace RunTrack
             }
         }
 
+        // Filtermethode für die CollectionView
         private bool FilterItems(object item)
         {
             if (item is Schueler schueler)
@@ -145,12 +157,13 @@ namespace RunTrack
             return false;
         }
 
-
+        // Konstruktor, der die Daten lädt
         public SchuelerseiteModel()
         {
             LoadData();
         }
 
+        // Methode zum Speichern der Änderungen
         public void SaveChanges()
         {
             var added = LstSchueler.ToList().Except(Db.Schueler.AsEnumerable()).ToList();
@@ -189,6 +202,7 @@ namespace RunTrack
             LoadData();
         }
 
+        // Methode zur Kapitalisierung des ersten Buchstabens eines Strings
         private string CapitalizeFirstLetter(string input)
         {
             if (string.IsNullOrWhiteSpace(input)) return input;
@@ -197,14 +211,16 @@ namespace RunTrack
             return char.ToUpper(input[0]) + input.Substring(1).ToLower();
         }
 
+        // Methode zur Validierung eines Schülers
         public void Validate(Schueler schueler)
         {
             if (schueler == null) { throw new ValidationException("Schüler darf nicht leer sein."); }
-            if(schueler.Id < 0) { throw new ValidationException("Die Id darf nicht unter 0 sein."); }
+            if (schueler.Id < 0) { throw new ValidationException("Die Id darf nicht unter 0 sein."); }
             if (schueler.Klasse == null || schueler.Klasse.Id == 0) { throw new ValidationException("Bitte wählen Sie eine Klasse aus."); }
             if (string.IsNullOrEmpty(schueler.Vorname) || string.IsNullOrEmpty(schueler.Nachname) || schueler.Geburtsjahrgang == 0 || schueler.Geschlecht == null) { throw new ValidationException("Es müssen alle Felder ausgefüllt sein."); }
         }
 
+        // Methode zum Laden der Daten
         public void LoadData()
         {
             IsLoading = true;
@@ -215,7 +231,6 @@ namespace RunTrack
                 LstSchueler = new(_db.Schueler.Include(s => s.Klasse).ThenInclude(k => k.Schule).Include(s => s.Runden).ToList());
                 LstSchule = new(_db.Schulen.ToList());
                 LstKlasse = new(_db.Klassen.ToList());
-
 
                 Application.Current.Dispatcher.Invoke(() =>
                 {

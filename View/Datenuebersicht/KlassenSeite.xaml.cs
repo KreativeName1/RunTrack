@@ -9,39 +9,39 @@ namespace RunTrack.View.Datenuebersicht
     /// </summary>
     public partial class KlassenSeite : Page
     {
-        private KlassenseiteModel _model;
-        private MainModel _mmodel;
-        private bool _isUserInteractionSchule = false;
-        private bool _isUserInteractionRundenart = false;
+        private KlassenseiteModel _model; // Modell für die Klassenseite
+        private MainModel _mmodel; // Hauptmodell
+        private bool _isUserInteractionSchule = false; // Benutzerinteraktion für Schule
+        private bool _isUserInteractionRundenart = false; // Benutzerinteraktion für Rundenart
+
         public KlassenSeite()
         {
             InitializeComponent();
-            _model = FindResource("thismodel") as KlassenseiteModel;
-            _mmodel = FindResource("pmodel") as MainModel;
+            _model = FindResource("thismodel") as KlassenseiteModel; // Modellressource finden
+            _mmodel = FindResource("pmodel") as MainModel; // Hauptmodellressource finden
 
-
+            // Ereignis beim Entladen der Seite
             this.Unloaded += (s, e) =>
             {
-                // _model.Db.Dispose();
-                _model.HasChanges = false;
+                _model.HasChanges = false; // Änderungen zurücksetzen
             };
 
+            // Ereignis beim Klicken auf den "Neu" Button
             btnNeu.Click += (s, e) =>
             {
                 txtSearch.Text = "";
                 txtSearch.IsEnabled = false;
 
-                var neueKlasse = new Klasse();
+                var neueKlasse = new Klasse(); // Neue Klasse erstellen
 
-                _model.LstKlasse.Add(neueKlasse);
-                _model.SelKlasse = neueKlasse; // Setze den neuen Schüler als ausgewählt
-                lstKlasse.SelectedItem = neueKlasse; // Stelle sicher, dass er im DataGrid ausgewählt ist
-                lstKlasse.ScrollIntoView(neueKlasse); // Scrolle zum neuen Eintrag
+                _model.LstKlasse.Add(neueKlasse); // Neue Klasse zur Liste hinzufügen
+                _model.SelKlasse = neueKlasse; // Neue Klasse als ausgewählt setzen
+                lstKlasse.SelectedItem = neueKlasse; // Neue Klasse im DataGrid auswählen
+                lstKlasse.ScrollIntoView(neueKlasse); // Zum neuen Eintrag scrollen
 
-                // Fokus auf das DataGrid setzen
-                lstKlasse.Focus();
+                lstKlasse.Focus(); // Fokus auf das DataGrid setzen
 
-                // Dispatcher verwenden, um die Bearbeitung zu aktivieren, nachdem alle Ereignisse verarbeitet sind
+                // Bearbeitung aktivieren, nachdem alle Ereignisse verarbeitet sind
                 Dispatcher.InvokeAsync(() =>
                 {
                     var firstEditableColumn = lstKlasse.Columns.FirstOrDefault(col => !col.IsReadOnly);
@@ -52,16 +52,17 @@ namespace RunTrack.View.Datenuebersicht
                     }
                 });
 
-                _model.HasChanges = true;
+                _model.HasChanges = true; // Änderungen markieren
             };
 
+            // Ereignis beim Klicken auf den "Speichern" Button
             btnSpeichern.Click += (s, e) =>
             {
                 txtSearch.IsEnabled = true;
 
                 try
                 {
-                    _model.SaveChanges();
+                    _model.SaveChanges(); // Änderungen speichern
                 }
                 catch (Exception ex)
                 {
@@ -69,6 +70,7 @@ namespace RunTrack.View.Datenuebersicht
                 }
             };
 
+            // Ereignis beim Klicken auf den "Löschen" Button
             btnDel.Click += (s, e) =>
             {
                 string message = "";
@@ -86,16 +88,18 @@ namespace RunTrack.View.Datenuebersicht
 
                 if (res == true)
                 {
-                    _model.LstKlasse.Remove(_model.SelKlasse);
-                    _model.HasChanges = true;
+                    _model.LstKlasse.Remove(_model.SelKlasse); // Ausgewählte Klasse entfernen
+                    _model.HasChanges = true; // Änderungen markieren
                 }
             };
 
+            // Ereignis beim Beenden der Zellenbearbeitung im DataGrid
             lstKlasse.CellEditEnding += (s, e) =>
             {
-                if (e.EditAction == DataGridEditAction.Commit) _model.HasChanges = true;
+                if (e.EditAction == DataGridEditAction.Commit) _model.HasChanges = true; // Änderungen markieren
             };
 
+            // Ereignis beim Klicken auf den "Barcodes" Button
             btnBarcodes.Click += (sender, e) =>
             {
                 if (_model.SelKlasse == null)
@@ -108,25 +112,30 @@ namespace RunTrack.View.Datenuebersicht
                 foreach (Klasse klasse in lstKlasse.SelectedItems) liste.Add(klasse);
 
                 PDFEditor pdfEditor = new(liste ?? new());
-                _mmodel.Navigate(pdfEditor);
+                _mmodel.Navigate(pdfEditor); // Navigation zum PDF-Editor
             };
         }
 
+        // Ereignis beim Klicken auf den "Up" Button
         private void btnUp_Click(object sender, RoutedEventArgs e)
         {
             UebersichtMethoden.SelectSearchedRow(lstKlasse, false);
         }
 
+        // Ereignis beim Klicken auf den "Down" Button
         private void btnDown_Click(object sender, RoutedEventArgs e)
         {
             UebersichtMethoden.SelectSearchedRow(lstKlasse, true);
         }
 
+        // Ereignis beim Verlassen des Suchfeldes
         private void txtSearch_LostFocus(object sender, RoutedEventArgs e)
         {
             txtSearch.ForegroundBrush = new SolidColorBrush(Colors.Blue);
             txtSearch.Foreground = new SolidColorBrush(Colors.Blue);
         }
+
+        // Ereignis beim Ändern der Auswahl in der Schule-ComboBox
         private void cbSchule_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (_isUserInteractionSchule)
@@ -144,6 +153,7 @@ namespace RunTrack.View.Datenuebersicht
             }
         }
 
+        // Ereignis beim Ändern der Auswahl in der RundenArt-ComboBox
         private void cbRundenArt_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (_model.SelKlasse == null) return;
@@ -163,21 +173,25 @@ namespace RunTrack.View.Datenuebersicht
             }
         }
 
+        // Ereignis beim Öffnen der Schule-ComboBox
         private void cbKlasse_DropDownOpened(object sender, EventArgs e)
         {
             _isUserInteractionSchule = true;
         }
 
+        // Ereignis beim Schließen der Schule-ComboBox
         private void cbKlasse_DropDownClosed(object sender, EventArgs e)
         {
             _isUserInteractionSchule = false;
         }
 
+        // Ereignis beim Öffnen der RundenArt-ComboBox
         private void cbKlasse_DropDownOpened1(object sender, EventArgs e)
         {
             _isUserInteractionRundenart = true;
         }
 
+        // Ereignis beim Schließen der RundenArt-ComboBox
         private void cbKlasse_DropDownClosed1(object sender, EventArgs e)
         {
             _isUserInteractionRundenart = false;
