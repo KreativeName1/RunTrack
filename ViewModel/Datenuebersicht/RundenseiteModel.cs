@@ -6,8 +6,10 @@ using System.Windows.Data;
 
 namespace RunTrack
 {
+    // Definiert das ViewModel für die Rundenseite
     public class RundenseiteModel : BaseModel
     {
+        // Private Felder für die Datenbank, CollectionView, ObservableCollection und andere Eigenschaften
         private LaufDBContext? _db;
         private ICollectionView? _collectionView { get; set; }
         private ObservableCollection<Runde> _lstRunde { get; set; }
@@ -17,6 +19,7 @@ namespace RunTrack
         private string _searchTerm { get; set; }
         private bool _readOnly { get; set; }
 
+        // Öffentliche Eigenschaft für den schreibgeschützten Modus
         public bool ReadOnly
         {
             get { return ((DatenuebersichtModel)App.Current.Resources["dumodel"]).ReadOnly ? true : false; }
@@ -27,7 +30,10 @@ namespace RunTrack
             }
         }
 
+        // Öffentliche Eigenschaft für die Verbindungszeichenfolge
         public string? ConnectionString => ((DatenuebersichtModel)App.Current.Resources["dumodel"]).ConnectionString;
+
+        // Öffentliche Eigenschaft für den Suchbegriff
         public string SearchTerm
         {
             get { return _searchTerm; }
@@ -42,6 +48,7 @@ namespace RunTrack
             }
         }
 
+        // Öffentliche Eigenschaft für die CollectionView
         public ICollectionView CollectionView
         {
             get { return _collectionView; }
@@ -52,6 +59,7 @@ namespace RunTrack
             }
         }
 
+        // Öffentliche Eigenschaft für die ausgewählte Runde
         public Runde SelRunde
         {
             get { return _selRunde; }
@@ -62,6 +70,7 @@ namespace RunTrack
             }
         }
 
+        // Öffentliche Eigenschaft für die Liste der Runden
         public ObservableCollection<Runde> LstRunde
         {
             get { return _lstRunde; }
@@ -72,7 +81,7 @@ namespace RunTrack
             }
         }
 
-
+        // Öffentliche Eigenschaft für Änderungen
         public bool HasChanges
         {
             get { return _hasChanges; }
@@ -84,6 +93,7 @@ namespace RunTrack
             }
         }
 
+        // Öffentliche Eigenschaft für den Ladezustand
         public bool IsLoading
         {
             get { return _isLoading; }
@@ -94,6 +104,7 @@ namespace RunTrack
             }
         }
 
+        // Öffentliche Eigenschaft für die Datenbank
         public LaufDBContext Db
         {
             get { return _db; }
@@ -104,6 +115,7 @@ namespace RunTrack
             }
         }
 
+        // Filtermethode für die CollectionView
         private bool FilterItems(object item)
         {
             if (item is Runde runde)
@@ -125,12 +137,13 @@ namespace RunTrack
             return false;
         }
 
+        // Konstruktor, der die Daten lädt
         public RundenseiteModel()
         {
             LoadData();
         }
 
-
+        // Methode zum Speichern der Änderungen
         public void SaveChanges()
         {
             var currentRunden = Db.Runden.Include(x => x.Laeufer).ToList();
@@ -140,9 +153,9 @@ namespace RunTrack
             Db.SaveChanges();
             HasChanges = false;
             LoadData();
-
         }
 
+        // Methode zum Laden der Daten
         public void LoadData()
         {
             IsLoading = true;
@@ -158,8 +171,6 @@ namespace RunTrack
                     CollectionView.Filter = FilterItems;
                     IsLoading = false;
                 });
-
-
             });
         }
     }

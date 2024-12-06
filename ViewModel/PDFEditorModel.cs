@@ -2,8 +2,10 @@
 
 namespace RunTrack
 {
+    // Modellklasse für den PDF-Editor, die von BaseModel erbt
     public class PDFEditorModel : BaseModel
     {
+        // Private Felder für verschiedene Eigenschaften
         private Format? _format;
         private List<Klasse>? _klassen;
         private ObservableCollection<Schueler>? _schueler;
@@ -17,6 +19,7 @@ namespace RunTrack
         private string? _auswertungsArt;
         private Uri? _quelle;
 
+        // Öffentliche Eigenschaften mit Getter und Setter, die OnPropertyChanged aufrufen
         public Format? Format
         {
             get => _format;
@@ -79,14 +82,16 @@ namespace RunTrack
             set { _laeufer = value; OnPropertyChanged("Laeufer"); }
         }
 
-
+        // Methode zum Laden der Daten aus der Datenbank
         public void LoadData()
         {
+            // Setzt die Listen auf null
             Liste = null;
             Klassen = null;
             Schueler = null;
             Urkunden = null;
             Laeufer = null;
+            // Öffnet eine Datenbankverbindung und lädt die Daten
             using (var db = new LaufDBContext())
             {
                 Formate = new(db.Formate.ToList());
@@ -94,9 +99,13 @@ namespace RunTrack
                 Format = new() { BlattGroesse = db.BlattGroessen.First(x => x.Name == "A4") };
             }
         }
+
+        // Methode zur Aktualisierung des PDF-Dokuments
         public void AktualisierePDF()
         {
+            // Setzt die Quelle auf eine leere Seite
             Quelle = new Uri("about:blank");
+            // Generiert das PDF basierend auf den verfügbaren Daten
             if (Klassen != null) Quelle = new Uri(PDFGenerator.BarcodesPDF(Klassen, Format ?? new()));
             else if (Liste != null) Quelle = new Uri(PDFGenerator.AuswertungListe(Liste.ToList(), Format ?? new(), AuswertungsArt ?? string.Empty));
             else if (Urkunden != null) Quelle = new Uri(PDFGenerator.Urkunde(Urkunden.ToList(), Format ?? new()));
