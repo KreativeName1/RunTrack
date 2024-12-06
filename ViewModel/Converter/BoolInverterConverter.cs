@@ -2,6 +2,7 @@
 
 namespace RunTrack
 {
+    // Diese Klasse konvertiert einen booleschen Wert in seinen invertierten Wert
     [ValueConversion(typeof(bool), typeof(bool))]
     public class BoolInverterConverter : IValueConverter
     {
