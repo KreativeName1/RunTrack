@@ -6,8 +6,10 @@ using System.Windows.Data;
 
 namespace RunTrack
 {
+    // Definiert das ViewModel für die Läuferseite
     public class LaeuferseiteModel : BaseModel
     {
+        // Private Felder für Datenbankkontext, CollectionView und verschiedene ObservableCollections
         private LaufDBContext? _db;
         private ICollectionView? _collectionView { get; set; }
         private ObservableCollection<Laeufer> _lstLaeufer { get; set; }
@@ -17,11 +19,10 @@ namespace RunTrack
         private bool _hasChanges { get; set; }
         private bool _isLoading { get; set; }
         private string _searchTerm { get; set; }
-
         private ObservableCollection<Laeufer> _selLaeufers { get; set; }
-
         private bool _readOnly { get; set; }
 
+        // Eigenschaft für den schreibgeschützten Modus
         public bool ReadOnly
         {
             get { return ((DatenuebersichtModel)App.Current.Resources["dumodel"]).ReadOnly ? true : false; }
@@ -32,8 +33,10 @@ namespace RunTrack
             }
         }
 
+        // Eigenschaft für die Verbindungszeichenfolge
         public string? ConnectionString => ((DatenuebersichtModel)App.Current.Resources["dumodel"]).ConnectionString;
 
+        // Eigenschaft für die ausgewählten Läufer
         public ObservableCollection<Laeufer> SelLaeufers
         {
             get { return _selLaeufers; }
@@ -44,6 +47,7 @@ namespace RunTrack
             }
         }
 
+        // Eigenschaft für den Suchbegriff
         public string SearchTerm
         {
             get { return _searchTerm; }
@@ -58,6 +62,7 @@ namespace RunTrack
             }
         }
 
+        // Eigenschaft für die CollectionView
         public ICollectionView CollectionView
         {
             get { return _collectionView; }
@@ -68,6 +73,7 @@ namespace RunTrack
             }
         }
 
+        // Eigenschaft für die Liste der Läufer
         public ObservableCollection<Laeufer> LstLaeufer
         {
             get { return _lstLaeufer; }
@@ -78,6 +84,7 @@ namespace RunTrack
             }
         }
 
+        // Eigenschaft für den ausgewählten Läufer
         public Laeufer SelLaeufer
         {
             get { return _selLaeufer; }
@@ -88,6 +95,7 @@ namespace RunTrack
             }
         }
 
+        // Eigenschaft für den Datenbankkontext
         public LaufDBContext Db
         {
             get { return _db; }
@@ -98,6 +106,7 @@ namespace RunTrack
             }
         }
 
+        // Eigenschaft für die Liste der Rundenarten
         public ObservableCollection<RundenArt> LstRundenart
         {
             get { return _lstRundenart; }
@@ -108,6 +117,7 @@ namespace RunTrack
             }
         }
 
+        // Eigenschaft für die ausgewählte Rundenart
         public RundenArt SelRundenArt
         {
             get { return _selRundenArt; }
@@ -118,6 +128,7 @@ namespace RunTrack
             }
         }
 
+        // Eigenschaft für den Änderungsstatus
         public bool HasChanges
         {
             get { return _hasChanges; }
@@ -128,6 +139,8 @@ namespace RunTrack
                 ((DatenuebersichtModel)App.Current.Resources["dumodel"]).HasChanges = value;
             }
         }
+
+        // Eigenschaft für den Ladezustand
         public bool IsLoading
         {
             get { return _isLoading; }
@@ -137,6 +150,8 @@ namespace RunTrack
                 OnPropertyChanged("IsLoading");
             }
         }
+
+        // Methode zum Speichern der Änderungen
         public void SaveChanges()
         {
             var added = LstLaeufer.ToList().Except(Db.Laeufer.AsEnumerable()).ToList();
@@ -177,6 +192,7 @@ namespace RunTrack
             LoadData();
         }
 
+        // Methode zur Kapitalisierung des ersten Buchstabens eines Strings
         private string CapitalizeFirstLetter(string input)
         {
             if (string.IsNullOrWhiteSpace(input)) return input;
@@ -185,6 +201,7 @@ namespace RunTrack
             return char.ToUpper(input[0]) + input.Substring(1).ToLower();
         }
 
+        // Filtermethode für die CollectionView
         private bool FilterItems(object item)
         {
             if (item is Laeufer laeufer)
@@ -199,11 +216,14 @@ namespace RunTrack
             }
             return false;
         }
+
+        // Konstruktor, der die Daten lädt
         public LaeuferseiteModel()
         {
             LoadData();
         }
 
+        // Methode zur Validierung eines Läufers
         public void Validate(Laeufer laeufer)
         {
             if (laeufer == null) { throw new ValidationException("Läufer darf nicht leer sein."); }
@@ -212,6 +232,7 @@ namespace RunTrack
             if (string.IsNullOrWhiteSpace(laeufer.Vorname) || string.IsNullOrWhiteSpace(laeufer.Nachname) || laeufer.Geburtsjahrgang == 0) throw new ValidationException("Alle Felder müssen ausgefüllt werden");
         }
 
+        // Methode zum Laden der Daten
         public void LoadData()
         {
             IsLoading = true;

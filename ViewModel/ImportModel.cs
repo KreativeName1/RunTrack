@@ -3,19 +3,23 @@ using System.ComponentModel;
 
 namespace RunTrack
 {
+    // ImportModel-Klasse, die von BaseModel erbt und verschiedene Eigenschaften und Sammlungen für die Importfunktionalität bereitstellt
     public class ImportModel : BaseModel
     {
+        // Private Felder für die ausgewählte RundenArt, Klasse, Schule und den neuen Schulnamen
         private RundenArt? _selectedRundenArt;
         private KlasseItem? _klasse;
         private Schule? _schule;
         private string? _neuSchuleName;
 
+        // Private ObservableCollection-Felder für CSV-Liste, RundenArten, KlasseItems, SchuleListe und Reihenfolge
         private ObservableCollection<object> _CSVListe = new();
         private ObservableCollection<RundenArt> _rundenArten = new();
         private ObservableCollection<KlasseItem> _klasseItems = new();
         private ObservableCollection<Schule> _schuleListe = new();
         private ObservableCollection<string> _reihenfolge = new();
 
+        // Eigenschaft, die überprüft, ob eine neue Schule erstellt wird
         public bool IsNeueSchule
         {
             get
@@ -24,6 +28,7 @@ namespace RunTrack
             }
         }
 
+        // Private Eigenschaft für den Pfad
         private string? _pfad;
         public string? Pfad
         {
@@ -34,11 +39,13 @@ namespace RunTrack
                 OnPropertyChanged("Pfad");
             }
         }
+
+        // Methode zum Schließen des Fensters (derzeit leer)
         public void CloseWindow()
         {
         }
 
-
+        // Eigenschaft für die KlasseItems-Sammlung
         public ObservableCollection<KlasseItem> KlasseItems
         {
             get { return _klasseItems; }
@@ -49,6 +56,7 @@ namespace RunTrack
             }
         }
 
+        // Eigenschaft für den neuen Schulnamen
         public string? NeuSchuleName
         {
             get { return _neuSchuleName; }
@@ -59,6 +67,7 @@ namespace RunTrack
             }
         }
 
+        // Eigenschaft für die RundenArten-Sammlung
         public ObservableCollection<RundenArt> RundenArten
         {
             get { return _rundenArten; }
@@ -69,7 +78,7 @@ namespace RunTrack
             }
         }
 
-
+        // Eigenschaft für die ausgewählte RundenArt
         public RundenArt? SelectedRundenArt
         {
             get { return _selectedRundenArt; }
@@ -80,6 +89,7 @@ namespace RunTrack
             }
         }
 
+        // Eigenschaft für die Klasse
         public KlasseItem? Klasse
         {
             get { return _klasse; }
@@ -90,6 +100,7 @@ namespace RunTrack
             }
         }
 
+        // Eigenschaft für die Schule
         public Schule? Schule
         {
             get { return _schule; }
@@ -101,6 +112,7 @@ namespace RunTrack
             }
         }
 
+        // Eigenschaft für die CSV-Liste
         public ObservableCollection<object> CSVListe
         {
             get { return _CSVListe; }
@@ -111,6 +123,7 @@ namespace RunTrack
             }
         }
 
+        // Eigenschaft für die SchuleListe-Sammlung
         public ObservableCollection<Schule> SchuleListe
         {
             get { return _schuleListe; }
@@ -121,6 +134,7 @@ namespace RunTrack
             }
         }
 
+        // Eigenschaft für die Reihenfolge-Sammlung
         public ObservableCollection<string> Reihenfolge
         {
             get { return _reihenfolge; }
@@ -131,10 +145,14 @@ namespace RunTrack
             }
         }
     }
+    // Klasse für KlasseItem, die INotifyPropertyChanged implementiert
     public class KlasseItem : INotifyPropertyChanged
     {
+        // Eigenschaft für die Bezeichnung der Klasse
         public string? Bezeichnung { get; set; }
+        // Private Eigenschaft für die RundenArt
         private RundenArt? _rundenArt { get; set; }
+        // Eigenschaft für die RundenArt
         public RundenArt? RundenArt
         {
             get { return _rundenArt; }
@@ -145,13 +163,13 @@ namespace RunTrack
             }
         }
 
+        // Event für PropertyChanged
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        // Methode zum Auslösen des PropertyChanged-Ereignisses
         public void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-
     }
 }

@@ -9,12 +9,11 @@
 
             using (LaufDBContext db = new(path))
             {
-
+                // Überprüfen, ob die Schule im ImportModel vorhanden ist
                 if (_imodel.Schule == null) throw new ImportException("Schule nicht gefunden");
 
                 if (_imodel.Schule.Id == 0 || db.Schulen.Find(_imodel.Schule.Id) == null)
                 {
-                    _imodel.Schule.Id = 0;
                     string nameCapitalised = CapitalizeWords(_imodel.NeuSchuleName);
                     Schule schule = new() { Name = nameCapitalised ?? string.Empty };
                     db.Schulen.Add(schule);
@@ -22,7 +21,7 @@
                 }
                 else
                 {
-                    _imodel.Schule = db.Schulen.Find(_imodel.Schule.Id);
+                    _imodel.Schule = db.Schulen.Find(_imodel.Schule.Id) ?? throw new ImportException("Schule nicht gefunden");
                 }
 
                 // Klassen erstellen
@@ -74,15 +73,18 @@
                 }
                 catch (Exception)
                 {
-                    db.Dispose();
-                    throw;
+                    foreach (Klasse klasse in db.Klassen.Where(k => k.Schule.Id == _imodel.Schule.Id))
+                    {
+                        db.Klassen.Remove(klasse);
+                    }
+                    db.Schulen.Remove(_imodel.Schule);
 
                 }
                 db.SaveChanges();
             }
         }
 
-
+        // Methode zum Kapitalisieren von Wörtern in einem String
         private string CapitalizeWords(string input)
         {
             if (string.IsNullOrWhiteSpace(input)) return input;

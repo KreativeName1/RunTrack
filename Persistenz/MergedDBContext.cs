@@ -5,17 +5,23 @@ using TraceLevel = TracerFile.TraceLevel;
 
 namespace RunTrack
 {
+    // Definiert die MergedDBContext-Klasse, die von DbContext erbt
     public class MergedDBContext : DbContext
     {
+        // Definiert den Pfad zur internen Datenbank
         private static string _internalDBPath = "internal.db";
+        // Initialisiert einen Tracer für das Logging
         private Tracer Tracer = new("LOG_MergedDBContext.txt");
+
+        // Konstruktor, der eine Liste von Datenbanken als Parameter nimmt
         public MergedDBContext(string[] databases)
         : base(GetDbContextOptions())
         {
+            // Löscht und erstellt die Datenbank neu
             Database.EnsureDeleted();
             Database.EnsureCreated();
 
-            // Erst die Daten aus der internen Datenbank laden
+            // Lädt die Daten aus der internen Datenbank
             using (LaufDBContext thisDB = new())
             {
                 RundenArten?.AddRange(thisDB.RundenArten.ToList());
@@ -26,7 +32,7 @@ namespace RunTrack
                 SaveChanges();
             }
 
-            // Alle externen Datenbanken durchgehen und die Runden hinzufügen
+            // Fügt die Runden aus den externen Datenbanken hinzu
             foreach (string db_path in databases)
             {
                 using (LaufDBContext db = new(db_path))
@@ -36,16 +42,17 @@ namespace RunTrack
                         runde.Id = 0;
                         Runden?.Add(runde);
                     }
-                    
                 }
                 SaveChanges();
             }
 
-
+            // Initialisiert das maximale Scan-Intervall
             int MaxScanIntervalInSekunden = 0;
 
+            // Erstellt ein Dictionary für die Runden und deren Intervalle
             Dictionary<List<Runde>, TimeSpan> RundenListe = new();
 
+            // Durchläuft alle Läufer und fügt deren Runden zum Dictionary hinzu
             foreach (Laeufer l in Laeufer)
             {
                 if (l is Schueler schueler) MaxScanIntervalInSekunden = schueler.Klasse.RundenArt.MaxScanIntervalInSekunden;
@@ -59,13 +66,15 @@ namespace RunTrack
                 }
             }
 
+            // Entfernt alle Runden und fügt die bereinigten Runden hinzu
             Runden.RemoveRange(Runden);
             Runden.AddRange(EntferneZuNaheRunden(RundenListe));
 
-
+            // Loggt die Erstellung des MergedDBContext
             Tracer.Trace($"MergedDBContext created", TraceLevel.Info);
         }
 
+        // Methode zum Entfernen von zu nahen Runden
         public static List<Runde>? EntferneZuNaheRunden(Dictionary<List<Runde>, TimeSpan> dic)
         {
             List<Runde> bereinigteRunden = new();
@@ -76,9 +85,9 @@ namespace RunTrack
             {
                 List<Runde> runden = item.Key;
                 TimeSpan intervall = item.Value;
-                // Sortiere die Runden nach Zeitstempel
+                // Sortiert die Runden nach Zeitstempel
                 runden.Sort((r1, r2) => r1.Zeitstempel.CompareTo(r2.Zeitstempel));
-                // Initialisiere die letzte Runde und den letzten Läufer
+                // Initialisiert die letzte Runde und den letzten Läufer
                 Runde letzteRunde = null;
                 int? letzterLaeuferId = null;
                 foreach (Runde runde in runden)
@@ -87,7 +96,7 @@ namespace RunTrack
                         runde.Zeitstempel - letzteRunde.Zeitstempel >= intervall ||
                         runde.LaeuferId != letzterLaeuferId)
                     {
-                        // Abstand zwischen den Runden ist groß genug, es ist die erste Runde oder der Läufer hat sich gewechselt
+                        // Fügt die Runde hinzu, wenn der Abstand groß genug ist oder der Läufer gewechselt hat
                         bereinigteRunden.Add(runde);
                         letzteRunde = runde;
                         letzterLaeuferId = runde.LaeuferId;
@@ -98,7 +107,7 @@ namespace RunTrack
             return bereinigteRunden;
         }
 
-
+        // Methode zum Erstellen der DbContext-Optionen
         private static DbContextOptions GetDbContextOptions()
         {
             var optionsBuilder = new DbContextOptionsBuilder<MergedDBContext>();
@@ -107,12 +116,13 @@ namespace RunTrack
             return optionsBuilder.Options;
         }
 
+        // Konfiguriert die Modell-Erstellung
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Schule>()
-         .HasMany(s => s.Klassen)
-         .WithOne(k => k.Schule)
-         .HasForeignKey(k => k.SchuleId);
+                .HasMany(s => s.Klassen)
+                .WithOne(k => k.Schule)
+                .HasForeignKey(k => k.SchuleId);
 
             modelBuilder.Entity<Klasse>()
                 .HasMany(k => k.Schueler)
@@ -125,17 +135,21 @@ namespace RunTrack
                 .HasForeignKey(r => r.LaeuferId);
         }
 
+        // Überschreibt die Dispose-Methode und loggt die Entsorgung
         public override void Dispose()
         {
             Tracer.Trace("MergedDBContext disposed", TraceLevel.Info);
             base.Dispose();
         }
 
+        // Überschreibt die DisposeAsync-Methode und loggt die Entsorgung
         public override ValueTask DisposeAsync()
         {
             Tracer.Trace("MergedDBContext disposed", TraceLevel.Info);
             return base.DisposeAsync();
         }
+
+        // Definiert die DbSet-Eigenschaften für die verschiedenen Entitäten
         public DbSet<Klasse> Klassen { get; set; }
         public DbSet<Schule> Schulen { get; set; }
         public DbSet<Laeufer> Laeufer { get; set; }

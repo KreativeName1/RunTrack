@@ -3,13 +3,15 @@ using System.Windows.Controls;
 
 namespace RunTrack
 {
+    // Die MainModel-Klasse erbt von BaseModel und stellt die Hauptlogik für die Anwendung bereit
     public class MainModel : BaseModel
     {
+        // Private Felder für die aktuelle Seite, den Seitentitel und die Verlaufsliste
         private object? _currentPage;
         private string? _pageTitle = "RunTrack";
-
         private List<object> _history = new List<object>();
 
+        // Öffentliche Eigenschaft für die aktuelle Seite mit Benachrichtigung bei Änderung
         public object? CurrentPage
         {
             get { return _currentPage; }
@@ -20,8 +22,10 @@ namespace RunTrack
             }
         }
 
+        // Private Variable für den Benutzer
         private Benutzer? _benutzer;
 
+        // Öffentliche Eigenschaft für den Benutzer mit Standardwert und Benachrichtigung bei Änderung
         public Benutzer? Benutzer
         {
             get
@@ -35,6 +39,7 @@ namespace RunTrack
             }
         }
 
+        // Öffentliche Eigenschaft für den Verlauf mit Benachrichtigung bei Änderung
         public List<object> History
         {
             get { return _history; }
@@ -46,6 +51,7 @@ namespace RunTrack
             }
         }
 
+        // Öffentliche Eigenschaft für den Seitentitel mit Benachrichtigung bei Änderung
         public string? PageTitle
         {
             get { return _pageTitle; }
@@ -56,19 +62,19 @@ namespace RunTrack
             }
         }
 
+        // Methode zum Navigieren zu einer neuen Seite mit optionalem Hinzufügen zur Verlaufsliste und Bedingung
         public void Navigate(object page, bool? addToHistory = true, bool? condition = true)
         {
-            if (condition == false) return;
-            if (page == null) return;
+            if (condition == false) return; // Abbrechen, wenn die Bedingung nicht erfüllt ist
+            if (page == null) return; // Abbrechen, wenn die Seite null ist
             if (CurrentPage != null && addToHistory == true)
             {
-                History.Add(CurrentPage);
+                History.Add(CurrentPage); // Aktuelle Seite zur Verlaufsliste hinzufügen
             }
-            CurrentPage = page;
-            PageTitle = (CurrentPage as Page)?.Title;
+            CurrentPage = page; // Neue Seite setzen
+            PageTitle = (CurrentPage as Page)?.Title; // Seitentitel aktualisieren
 
-            Window window = Application.Current.MainWindow;
+            Window window = Application.Current.MainWindow; // Hauptfenster der Anwendung
         }
-
     }
 }

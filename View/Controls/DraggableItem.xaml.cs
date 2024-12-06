@@ -9,39 +9,43 @@ namespace RunTrack
     /// </summary>
     public partial class DraggableItem : ContentControl
     {
+        // Eigenschaft für den Textinhalt des DraggableItem
         public string TextContent { get; set; } = "Draggable Item";
+
         public DraggableItem()
         {
             InitializeComponent();
             this.DataContext = this;
-            AllowDrop = true;
-            PreviewMouseLeftButtonDown += DraggableItem_PreviewMouseLeftButtonDown;
-            DragEnter += DraggableItem_DragEnter;
-            Drop += DraggableItem_Drop;
+            AllowDrop = true; // Erlaubt das Ablegen von Elementen auf diesem Control
+            PreviewMouseLeftButtonDown += DraggableItem_PreviewMouseLeftButtonDown; // Event-Handler für das Drücken der linken Maustaste
+            DragEnter += DraggableItem_DragEnter; // Event-Handler für das Ziehen eines Elements über dieses Control
+            Drop += DraggableItem_Drop; // Event-Handler für das Ablegen eines Elements auf diesem Control
         }
 
-
+        // Event-Handler für das Drücken der linken Maustaste
         private void DraggableItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                DragDrop.DoDragDrop(this, this, DragDropEffects.Move);
+                DragDrop.DoDragDrop(this, this, DragDropEffects.Move); // Startet den Drag & Drop-Vorgang
             }
         }
 
+        // Event-Handler für das Ziehen eines Elements über dieses Control
         private void DraggableItem_DragEnter(object sender, DragEventArgs e)
         {
-            e.Effects = DragDropEffects.Move;
+            e.Effects = DragDropEffects.Move; // Setzt den Effekt auf "Verschieben"
         }
 
+        // Event-Handler für das Ablegen eines Elements auf diesem Control
         private void DraggableItem_Drop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(typeof(DraggableItem)))
             {
-                var source = (DraggableItem)e.Data.GetData(typeof(DraggableItem));
-                var target = (DraggableItem)sender;
+                var source = (DraggableItem)e.Data.GetData(typeof(DraggableItem)); // Quelle des Drag & Drop-Vorgangs
+                var target = (DraggableItem)sender; // Ziel des Drag & Drop-Vorgangs
 
-                // Swap the positions of the two controls in the parent StackPanel
+                // Tauscht die Positionen der beiden Controls im übergeordneten StackPanel
                 var parent = (StackPanel)source.Parent;
                 int sourceIndex = parent.Children.IndexOf(source);
                 int targetIndex = parent.Children.IndexOf(target);

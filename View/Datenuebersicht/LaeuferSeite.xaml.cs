@@ -18,14 +18,17 @@ namespace RunTrack
         {
             InitializeComponent();
 
+            // Initialisiere das Model und das Hauptmodel
             _model = FindResource("thismodel") as LaeuferseiteModel;
             _mmodel = FindResource("pmodel") as MainModel;
 
+            // Setze HasChanges auf false, wenn die Seite entladen wird
             this.Unloaded += (s, e) =>
             {
                 _model.HasChanges = false;
             };
 
+            // Event-Handler für den "Neu"-Button
             btnNeu.Click += (s, e) =>
             {
                 txtSearch.Text = "";
@@ -35,7 +38,7 @@ namespace RunTrack
                 neuerLaeufer.Geburtsjahrgang = 2000;
 
                 _model.LstLaeufer.Add(neuerLaeufer);
-                _model.SelLaeufer = neuerLaeufer; // Setze den neuen Schüler als ausgewählt
+                _model.SelLaeufer = neuerLaeufer; // Setze den neuen Läufer als ausgewählt
                 lstLaeufer.SelectedItem = neuerLaeufer; // Stelle sicher, dass er im DataGrid ausgewählt ist
                 lstLaeufer.ScrollIntoView(neuerLaeufer); // Scrolle zum neuen Eintrag
 
@@ -56,6 +59,7 @@ namespace RunTrack
                 _model.HasChanges = true;
             };
 
+            // Event-Handler für den "Speichern"-Button
             btnSpeichern.Click += (s, e) =>
             {
                 txtSearch.IsEnabled = true;
@@ -69,6 +73,7 @@ namespace RunTrack
                 }
             };
 
+            // Event-Handler für den "Löschen"-Button
             btnDel.Click += (s, e) =>
             {
                 string message = "";
@@ -89,12 +94,9 @@ namespace RunTrack
                     _model.LstLaeufer.Remove(_model.SelLaeufer);
                     _model.HasChanges = true;
                 }
-
-
-                _model.LstLaeufer.Remove(_model.SelLaeufer);
-                _model.HasChanges = true;
             };
 
+            // Event-Handler für den "Druck"-Button
             btnDruck.Click += (s, e) =>
             {
                 List<Laeufer> list = new();
@@ -108,9 +110,10 @@ namespace RunTrack
                 }
 
                 PDFEditor editor = new(list);
-                _mmodel.Navigate(editor); 
+                _mmodel.Navigate(editor);
             };
 
+            // Event-Handler für das Ende der Zellenbearbeitung im DataGrid
             lstLaeufer.CellEditEnding += (s, e) =>
             {
                 if (e.EditAction == DataGridEditAction.Commit)
@@ -124,23 +127,26 @@ namespace RunTrack
             };
         }
 
+        // Event-Handler für den "Up"-Button
         private void btnUp_Click(object sender, RoutedEventArgs e)
         {
             UebersichtMethoden.SelectSearchedRow(lstLaeufer, false);
         }
 
+        // Event-Handler für den "Down"-Button
         private void btnDown_Click(object sender, RoutedEventArgs e)
         {
             UebersichtMethoden.SelectSearchedRow(lstLaeufer, true);
         }
 
+        // Event-Handler für das Verlassen des Suchfeldes
         private void txtSearch_LostFocus(object sender, RoutedEventArgs e)
         {
             txtSearch.ForegroundBrush = new SolidColorBrush(Colors.Blue);
             txtSearch.Foreground = new SolidColorBrush(Colors.Blue);
         }
 
-
+        // Event-Handler für die Auswahländerung in der ComboBox für RundenArt
         private void cbRundenArt_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (_model.SelLaeufer == null) return;
@@ -155,6 +161,7 @@ namespace RunTrack
             }
         }
 
+        // Event-Handler für die Auswahländerung in der ComboBox für Geschlecht
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (_isUserInteraction)
@@ -171,6 +178,7 @@ namespace RunTrack
             }
         }
 
+        // Event-Handler für das Öffnen des Dropdowns in der ComboBox
         private void ComboBox_DropDown(object sender, EventArgs e)
         {
             _isUserInteraction = !_isUserInteraction;

@@ -8,6 +8,7 @@ using System.Windows.Data;
 
 namespace RunTrack
 {
+    //Konvertiert Werte für die Jahr-Validierung in einer WPF-Anwendung
     class YearValidationConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

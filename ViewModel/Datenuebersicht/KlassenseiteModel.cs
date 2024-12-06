@@ -6,8 +6,10 @@ using System.Windows.Data;
 
 namespace RunTrack
 {
+    // Definiert das ViewModel für die Klassenseite
     public class KlassenseiteModel : BaseModel
     {
+        // Private Felder für den Datenbankkontext und verschiedene ObservableCollections
         private LaufDBContext? _db;
         private ICollectionView? _collectionView { get; set; }
         private ObservableCollection<Klasse> _lstKlasse { get; set; }
@@ -18,10 +20,9 @@ namespace RunTrack
         private bool _isLoading { get; set; }
         private string _searchTerm { get; set; }
 
-        // Nicht ganz Fertig
-
         private bool _readOnly { get; set; }
 
+        // Öffentliche Eigenschaft für den schreibgeschützten Modus
         public bool ReadOnly
         {
             get { return ((DatenuebersichtModel)App.Current.Resources["dumodel"]).ReadOnly ? true : false; }
@@ -32,8 +33,10 @@ namespace RunTrack
             }
         }
 
+        // Öffentliche Eigenschaft für die Verbindungszeichenfolge
         public string? ConnectionString => ((DatenuebersichtModel)App.Current.Resources["dumodel"]).ConnectionString;
 
+        // Öffentliche Eigenschaft für den Suchbegriff
         public string SearchTerm
         {
             get { return _searchTerm; }
@@ -48,6 +51,7 @@ namespace RunTrack
             }
         }
 
+        // Öffentliche Eigenschaft für die CollectionView
         public ICollectionView CollectionView
         {
             get { return _collectionView; }
@@ -58,6 +62,7 @@ namespace RunTrack
             }
         }
 
+        // Öffentliche Eigenschaft für die Liste der Klassen
         public ObservableCollection<Klasse> LstKlasse
         {
             get { return _lstKlasse; }
@@ -68,6 +73,7 @@ namespace RunTrack
             }
         }
 
+        // Öffentliche Eigenschaft für die ausgewählte Klasse
         public Klasse SelKlasse
         {
             get { return _selKlasse; }
@@ -78,6 +84,7 @@ namespace RunTrack
             }
         }
 
+        // Öffentliche Eigenschaft für die Liste der Schulen
         public ObservableCollection<Schule> LstSchule
         {
             get { return _lstSchule; }
@@ -88,6 +95,7 @@ namespace RunTrack
             }
         }
 
+        // Öffentliche Eigenschaft für die Liste der Rundenarten
         public ObservableCollection<RundenArt> LstRundenart
         {
             get { return _lstRundenart; }
@@ -98,7 +106,7 @@ namespace RunTrack
             }
         }
 
-
+        // Öffentliche Eigenschaft für den Änderungsstatus
         public bool HasChanges
         {
             get { return _hasChanges; }
@@ -110,6 +118,7 @@ namespace RunTrack
             }
         }
 
+        // Öffentliche Eigenschaft für den Ladezustand
         public bool IsLoading
         {
             get { return _isLoading; }
@@ -120,6 +129,7 @@ namespace RunTrack
             }
         }
 
+        // Öffentliche Eigenschaft für den Datenbankkontext
         public LaufDBContext Db
         {
             get { return _db; }
@@ -130,6 +140,7 @@ namespace RunTrack
             }
         }
 
+        // Filtermethode für die CollectionView
         private bool FilterItems(object item)
         {
             if (item is Klasse klasse)
@@ -142,11 +153,14 @@ namespace RunTrack
             }
             return false;
         }
+
+        // Konstruktor, der die Daten lädt
         public KlassenseiteModel()
         {
             LoadData();
         }
 
+        // Methode zum Speichern der Änderungen
         public void SaveChanges()
         {
             var added = LstKlasse.ToList().Except(Db.Klassen.AsEnumerable()).ToList();
@@ -184,6 +198,7 @@ namespace RunTrack
             LoadData();
         }
 
+        // Methode zur Kapitalisierung des ersten Buchstabens eines Strings
         private string CapitalizeFirstLetter(string input)
         {
             if (string.IsNullOrWhiteSpace(input)) return input;
@@ -192,6 +207,7 @@ namespace RunTrack
             return char.ToUpper(input[0]) + input.Substring(1).ToLower();
         }
 
+        // Methode zur Validierung einer Klasse
         public void Validate(Klasse klasse)
         {
             if (klasse.Schule == null || klasse.Schule.Id == 0) throw new ValidationException("Schule darf nicht leer sein");
@@ -205,9 +221,9 @@ namespace RunTrack
                 k.SchuleId == klasse.SchuleId);
 
             if (existingKlasse != null && existingKlasse.Id != klasse.Id) throw new ValidationException("Eine Klasse mit diesem Namen existiert bereits in dieser Schule");
-
         }
 
+        // Methode zum Laden der Daten
         public void LoadData()
         {
             IsLoading = true;
@@ -219,14 +235,12 @@ namespace RunTrack
                 LstKlasse = new(_db.Klassen.Include(k => k.Schueler).Include(s => s.Schule).ToList());
                 LstRundenart = new(_db.RundenArten.ToList());
 
-
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     IsLoading = false;
                     CollectionView = CollectionViewSource.GetDefaultView(LstKlasse);
                     CollectionView.Filter = FilterItems;
                 });
-
             });
         }
     }

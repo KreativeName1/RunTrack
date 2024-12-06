@@ -11,21 +11,23 @@ namespace RunTrack
     /// </summary>
     public partial class SchuelerSeite : Page
     {
-        private SchuelerseiteModel _model;
-        private bool _isUserInteraction = false;
-        private bool _isUserInteractionGeschlecht = false;
+        private SchuelerseiteModel _model; // Modell für die Schülerseite
+        private bool _isUserInteraction = false; // Flag für Benutzerinteraktion
+        private bool _isUserInteractionGeschlecht = false; // Flag für Benutzerinteraktion bei Geschlecht
 
         public SchuelerSeite()
         {
             InitializeComponent();
-            _model = FindResource("thismodel") as SchuelerseiteModel;
+            _model = FindResource("thismodel") as SchuelerseiteModel; // Initialisiert das Modell
 
+            // Ereignis beim Entladen der Seite
             this.Unloaded += (s, e) =>
             {
-                _model.Db.Dispose();
-                _model.HasChanges = false;
+                _model.Db.Dispose(); // Schließt die Datenbankverbindung
+                _model.HasChanges = false; // Setzt Änderungen-Flag zurück
             };
 
+            // Ereignis beim Klicken auf den "Neu" Button
             btnNeu.Click += (s, e) =>
             {
                 txtSearch.Text = "";
@@ -34,15 +36,15 @@ namespace RunTrack
                 var neuerSchueler = new Schueler();
                 neuerSchueler.Geburtsjahrgang = 2000;
 
-                _model.LstSchueler.Add(neuerSchueler);
-                _model.SelSchueler = neuerSchueler; // Setze den neuen Schüler als ausgewählt
-                lstSchueler.SelectedItem = neuerSchueler; // Stelle sicher, dass er im DataGrid ausgewählt ist
-                lstSchueler.ScrollIntoView(neuerSchueler); // Scrolle zum neuen Eintrag
+                _model.LstSchueler.Add(neuerSchueler); // Fügt neuen Schüler zur Liste hinzu
+                _model.SelSchueler = neuerSchueler; // Setzt den neuen Schüler als ausgewählt
+                lstSchueler.SelectedItem = neuerSchueler; // Wählt den neuen Schüler im DataGrid aus
+                lstSchueler.ScrollIntoView(neuerSchueler); // Scrollt zum neuen Eintrag
 
-                // Fokus auf das DataGrid setzen
+                // Setzt den Fokus auf das DataGrid
                 lstSchueler.Focus();
 
-                // Dispatcher verwenden, um die Bearbeitung zu aktivieren, nachdem alle Ereignisse verarbeitet sind
+                // Aktiviert die Bearbeitung nach Verarbeitung aller Ereignisse
                 Dispatcher.InvokeAsync(() =>
                 {
                     var firstEditableColumn = lstSchueler.Columns.FirstOrDefault(col => !col.IsReadOnly);
@@ -53,16 +55,17 @@ namespace RunTrack
                     }
                 });
 
-                _model.HasChanges = true;
+                _model.HasChanges = true; // Setzt Änderungen-Flag
             };
 
+            // Ereignis beim Klicken auf den "Speichern" Button
             btnSpeichern.Click += (s, e) =>
             {
                 txtSearch.IsEnabled = true;
 
                 try
                 {
-                    _model.SaveChanges();
+                    _model.SaveChanges(); // Speichert Änderungen
                 }
                 catch (Exception ex)
                 {
@@ -70,6 +73,7 @@ namespace RunTrack
                 }
             };
 
+            // Ereignis beim Klicken auf den "Löschen" Button
             btnDel.Click += (s, e) =>
             {
                 string message = "";
@@ -87,87 +91,96 @@ namespace RunTrack
 
                 if (res == true)
                 {
-                    _model.LstSchueler.Remove(_model.SelSchueler);
-                    _model.HasChanges = true;
+                    _model.LstSchueler.Remove(_model.SelSchueler); // Entfernt den ausgewählten Schüler aus der Liste
+                    _model.HasChanges = true; // Setzt Änderungen-Flag
                 }
             };
 
+            // Ereignis beim Beenden der Zellenbearbeitung im DataGrid
             lstSchueler.CellEditEnding += (s, e) =>
             {
                 if (e.EditAction == DataGridEditAction.Commit)
                 {
                     if (_model.SelSchueler.Geburtsjahrgang < 1900)
                     {
-                        _model.SelSchueler.Geburtsjahrgang = 1900;
+                        _model.SelSchueler.Geburtsjahrgang = 1900; // Setzt das Geburtsjahr auf 1900, wenn es kleiner ist
                     }
-                    _model.HasChanges = true;
+                    _model.HasChanges = true; // Setzt Änderungen-Flag
                 }
             };
         }
 
+        // Ereignis beim Klicken auf den "Up" Button
         private void btnUp_Click(object sender, RoutedEventArgs e)
         {
             UebersichtMethoden.SelectSearchedRow(lstSchueler, false);
         }
 
+        // Ereignis beim Klicken auf den "Down" Button
         private void btnDown_Click(object sender, RoutedEventArgs e)
         {
             UebersichtMethoden.SelectSearchedRow(lstSchueler, true);
         }
 
+        // Ereignis beim Verlassen des Suchfeldes
         private void txtSearch_LostFocus(object sender, RoutedEventArgs e)
         {
             txtSearch.ForegroundBrush = new SolidColorBrush(Colors.Blue);
             txtSearch.Foreground = new SolidColorBrush(Colors.Blue);
         }
 
+        // Ereignis bei Änderung der Schulauswahl
         private void cbSchule_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _model.HasChanges = true;
+            _model.HasChanges = true; // Setzt Änderungen-Flag
         }
+
+        // Ereignis bei Änderung der Klassenauswahl
         private void cbKlasse_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (_isUserInteraction)
             {
-                _model.HasChanges = true;
+                _model.HasChanges = true; // Setzt Änderungen-Flag
                 _isUserInteraction = false;
                 ComboBox cbKlasse = sender as ComboBox;
                 Klasse klasse = cbKlasse.SelectedItem as Klasse;
 
                 if (klasse != null)
                 {
-                    _model.SelSchueler.Klasse = klasse;
-                    _model.SelSchueler.KlasseId = klasse.Id;
+                    _model.SelSchueler.Klasse = klasse; // Setzt die ausgewählte Klasse
+                    _model.SelSchueler.KlasseId = klasse.Id; // Setzt die Klassen-ID
                 }
             }
-
         }
 
+        // Ereignis beim Öffnen des Klassen-Dropdowns
         private void cbKlasse_DropDown(object sender, EventArgs e)
         {
-            _isUserInteraction = !_isUserInteraction;
+            _isUserInteraction = !_isUserInteraction; // Wechselt das Benutzerinteraktions-Flag
         }
 
-
+        // Ereignis beim Öffnen des Geschlecht-Dropdowns
         private void ComboBox_DropDown(object sender, EventArgs e)
         {
-            _isUserInteractionGeschlecht = !_isUserInteractionGeschlecht;
+            _isUserInteractionGeschlecht = !_isUserInteractionGeschlecht; // Wechselt das Benutzerinteraktions-Flag für Geschlecht
         }
 
+        // Ereignis bei Änderung der Geschlechtsauswahl
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (_isUserInteractionGeschlecht)
             {
-                _model.HasChanges = true;
+                _model.HasChanges = true; // Setzt Änderungen-Flag
                 ComboBox cb = sender as ComboBox;
                 Schueler schueler = cb.DataContext as Schueler;
                 if (schueler != null)
                 {
-                    schueler.Geschlecht = (Geschlecht)cb.SelectedItem;
+                    schueler.Geschlecht = (Geschlecht)cb.SelectedItem; // Setzt das ausgewählte Geschlecht
                 }
             }
         }
 
+        // Ereignis beim Laden des ComboBox
         private void comboBox_Loaded(object sender, RoutedEventArgs e)
         {
             if (sender is ComboBox comboBox && comboBox.DataContext is Schueler schueler)
@@ -179,18 +192,20 @@ namespace RunTrack
 
                 if (schueler.Klasse != null)
                 {
-                    comboBox.SelectedItem = schueler.Klasse;
+                    comboBox.SelectedItem = schueler.Klasse; // Setzt die ausgewählte Klasse
                 }
             }
         }
 
+        // Ereignis beim Schließen des Klassen-Dropdowns
         private void cbKlase_DropDownClosed(object sender, EventArgs e)
         {
         }
 
+        // Ereignis beim Öffnen des Klassen-Dropdowns
         private void cbKlase_DropDownOpened(object sender, EventArgs e)
         {
-            _isUserInteraction = true;
+            _isUserInteraction = true; // Setzt das Benutzerinteraktions-Flag
         }
     }
 }
