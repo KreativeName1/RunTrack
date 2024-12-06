@@ -1,7 +1,7 @@
-﻿using FullControls.Controls;
+﻿// Notwendige Namespaces importieren
+using FullControls.Controls;
 using Microsoft.Win32;
 using System.Data.Entity;
-using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,28 +13,38 @@ namespace RunTrack
     /// </summary>
     public partial class Auswertung : Page
     {
+        // Private Felder für Pfade, Rundenarten, Modelle und Initialisierungsstatus
         private string[] _pfade;
         private List<RadioButtonPlus> _rundenArten = new();
         private AuswertungModel _amodel;
         private MainModel _pmodel;
         private bool _isInitialized = false;
+
+        // Konstruktor der Klasse
         public Auswertung()
         {
             InitializeComponent();
+            // Verzeichnis "Dateien" erstellen, falls es nicht existiert
             if (!System.IO.Directory.Exists("Dateien")) System.IO.Directory.CreateDirectory("Dateien");
+            // Alle .db-Dateien im Verzeichnis "Dateien" abrufen
             _pfade = System.IO.Directory.GetFiles("Dateien", "*.db");
         }
+
+        // Asynchrone Methode zum Kopieren einer Datei
         public static async Task CopyFileAsync(string sourceFile, string destinationFile)
         {
             await using FileStream sourceStream = File.Open(sourceFile, FileMode.Open);
             await using FileStream destinationStream = File.Create(destinationFile);
             await sourceStream.CopyToAsync(destinationStream);
         }
+
+        // Initialisierungsmethode
         public void init()
         {
             if (_isInitialized) return;
             _isInitialized = true;
 
+            // Event-Handler für verschiedene Buttons hinzufügen
             btnImport.Click += (s, e) => _pmodel.Navigate(new Dateiverwaltung());
             btnExport.Click += (s, e) =>
             {
@@ -81,9 +91,7 @@ namespace RunTrack
                         }
                     }
                     _pmodel.Navigate(new PDFEditor(schuelerList));
-
                 }
-
             };
             btnUrkunde.Click += (s, e) =>
             {
@@ -179,14 +187,8 @@ namespace RunTrack
                     }
                 }
 
-
                 if (laufName != null && input.Result) _pmodel.Navigate(new PDFEditor(urkunden));
             };
-
-
-
-
-
 
             btnCSV.Click += (s, e) =>
             {
@@ -210,6 +212,7 @@ namespace RunTrack
             };
         }
 
+        // Methode zum Laden der Daten
         public void LoadData()
         {
             using (var db = new MergedDBContext(_pfade))
@@ -241,12 +244,12 @@ namespace RunTrack
             }
         }
 
+        // Event-Handler für Änderungen
         private void change(object sender, RoutedEventArgs e)
         {
             if (RundenGroesse == null) return;
             using (var db = new MergedDBContext(_pfade))
             {
-
                 if (_amodel.IsInsgesamt)
                 {
                     _amodel.Liste = new();
@@ -320,7 +323,6 @@ namespace RunTrack
                         if (_amodel.IsMaennlich && laeufer.Geschlecht != Geschlecht.Maennlich) continue;
                         if (_amodel.IsWeiblich && laeufer.Geschlecht != Geschlecht.Weiblich) continue;
                         _amodel.Liste.Add(new { SchuelerId = laeufer.Id, Name = laeufer.Vorname + " " + laeufer.Nachname, Bewertung = bewertung, Geschlecht = geschlecht });
-
                     }
                 }
             }
@@ -329,16 +331,19 @@ namespace RunTrack
             else _amodel.IsLeerListe = false;
         }
 
+        // Event-Handler für Jahrgangsänderung
         private void iudJahrgang_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             change(sender, e);
         }
 
+        // Event-Handler für Auswahländerung
         private void SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             change(sender, e);
         }
 
+        // Methode zur Geschlechtsbestimmung
         private string GetGeschlecht(Laeufer laeufer)
         {
             switch (laeufer.Geschlecht)
@@ -353,6 +358,8 @@ namespace RunTrack
                     return "";
             }
         }
+
+        // Methode zur Überprüfung der Rundenart
         private bool IsRundenArt(Laeufer laeufer)
         {
             string rundenArtName = string.Empty;
@@ -371,6 +378,8 @@ namespace RunTrack
             else if (laeufer is Laeufer lauf) if (!string.IsNullOrWhiteSpace(rundenArtName) && lauf.RundenArt.Name != rundenArtName) return true;
             return false;
         }
+
+        // Methode zur Bewertungsermittlung
         private string GetBewertung(Laeufer laeufer)
         {
             int rundenCount = laeufer.Runden.Count() - 1;

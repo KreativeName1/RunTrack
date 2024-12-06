@@ -11,19 +11,19 @@ namespace RunTrack
         private PDFEditorModel? _pemodel;
         private MainModel? _model;
 
-
-        // Barcodes für Läufer in einer Klasse
+        // Konstruktor für Barcodes für Läufer in einer Klasse
         public PDFEditor(List<Klasse> klassen) : base()
         {
             Initialize();
             _pemodel.Klassen = klassen;
         }
 
-        // Urkunden
+        // Konstruktor für Urkunden
         public PDFEditor(List<Urkunde> urkunden) : base()
         {
             Initialize();
             _pemodel.Urkunden = new ObservableCollection<Urkunde>(urkunden);
+            // Sichtbarkeit von UI-Elementen anpassen
             lblSpalten.Visibility = Visibility.Collapsed;
             txtSpalten.Visibility = Visibility.Collapsed;
             lblBarcodeGroesse.Visibility = Visibility.Collapsed;
@@ -36,25 +36,23 @@ namespace RunTrack
             spZentriert.Visibility = Visibility.Collapsed;
         }
 
-
-        // Schülerwertung
+        // Konstruktor für Schülerwertung
         public PDFEditor(List<Schueler> schueler) : base()
         {
             Initialize();
             _pemodel.Schueler = new ObservableCollection<Schueler>(schueler);
+            // Entferne alle Kinder-Elemente außer dem ersten aus PanelRight
             for (int i = PanelRight.Children.Count - 1; i > 0; i--) PanelRight.Children.RemoveAt(i);
             SchuelerBewertungPanel.Visibility = Visibility.Visible;
         }
 
-
-        // Auswertung
+        // Konstruktor für Auswertung
         public PDFEditor(List<object> liste, string wertungArt) : base()
         {
             Initialize();
-
             _pemodel.AuswertungsArt = wertungArt;
             _pemodel.Liste = new(liste);
-
+            // Sichtbarkeit von UI-Elementen anpassen
             lblSpalten.Visibility = Visibility.Collapsed;
             txtSpalten.Visibility = Visibility.Collapsed;
             lblBarcodeGroesse.Visibility = Visibility.Collapsed;
@@ -63,14 +61,14 @@ namespace RunTrack
             borBarcodeAbstand.Visibility = Visibility.Collapsed;
         }
 
-
-        // Barcodes für Läufer
+        // Konstruktor für Barcodes für Läufer
         public PDFEditor(List<Laeufer> liste)
         {
             Initialize();
             _pemodel.Laeufer = new ObservableCollection<Laeufer>(liste);
         }
 
+        // Initialisierungsmethode
         private void Initialize()
         {
             InitializeComponent();
@@ -78,10 +76,12 @@ namespace RunTrack
             _model = FindResource("pmodel") as MainModel ?? new MainModel();
             _pemodel.LoadData();
 
+            // Event-Handler für den Abbrechen-Button
             btnCancel.Click += (s, e) =>
             {
                 _pemodel.Quelle = new Uri("about:blank");
-                Task.Run(() => {
+                Task.Run(() =>
+                {
                     try
                     {
                         string[] filesToDelete = Directory.GetFiles("./Temp", "*.pdf");
@@ -95,8 +95,11 @@ namespace RunTrack
 
                 _model?.Navigate(_model.History[^1], false);
             };
+
+            // Event-Handler für den Speichern-Button
             btnSpeichern.Click += (s, e) => Speichern();
 
+            // Event-Handler für das Laden der Seite
             Loaded += (s, e) => _pemodel.AktualisierePDF();
             btnNeuladen.Click += (s, e) => _pemodel.AktualisierePDF();
             cbNeueSeite.Unchecked += (s, e) => _pemodel.AktualisierePDF();
@@ -106,7 +109,7 @@ namespace RunTrack
             cbTyp.SelectionChanged += (s, e) => _pemodel.AktualisierePDF();
             cbFormate.SelectionChanged += (s, e) => _pemodel.AktualisierePDF();
 
-            // Speichere die aktuellen Werte
+            // Speichere die aktuellen Werte der Textfelder und Checkboxen
             string currentOben = txtOben.Text;
             string currentUnten = txtUnten.Text;
             string currentLinks = txtLinks.Text;
@@ -235,6 +238,7 @@ namespace RunTrack
             };
         }
 
+        // Methode zum Speichern der Daten
         private void Speichern()
         {
             using (var db = new LaufDBContext())
@@ -259,11 +263,13 @@ namespace RunTrack
             }
         }
 
+        // Event-Handler für den Speichern-Button
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             SavePdf();
         }
 
+        // Methode zum Speichern der PDF
         private async void SavePdf()
         {
             // Stelle sicher, dass WebView2 initialisiert wurde
@@ -297,7 +303,7 @@ namespace RunTrack
             }
         }
 
-        // Diese Methode fragt den Benutzer nach einem Dateipfad, um die PDF zu speichern.
+        // Methode, um den Speicherort für die PDF zu wählen
         private string GetSaveFilePath()
         {
             var saveFileDialog = new Microsoft.Win32.SaveFileDialog
@@ -310,6 +316,8 @@ namespace RunTrack
             bool? result = saveFileDialog.ShowDialog();
             return result == true ? saveFileDialog.FileName : string.Empty;
         }
+
+        // Event-Handler für den Drucken-Button
         private async void btnPrint_Click(object sender, RoutedEventArgs e)
         {
             if (webView.CoreWebView2 != null)
@@ -317,7 +325,6 @@ namespace RunTrack
                 try
                 {
                     webView.CoreWebView2.ShowPrintUI();
-
                 }
                 catch (Exception ex)
                 {
@@ -329,6 +336,5 @@ namespace RunTrack
                 MessageBox.Show("WebView2 ist noch nicht initialisiert.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
     }
 }

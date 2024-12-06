@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Windows;
-
-namespace RunTrack
+﻿namespace RunTrack
 {
     // Definiert eine Klasse namens Schueler, die von Laeufer erbt
     public class Schueler : Laeufer

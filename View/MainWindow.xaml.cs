@@ -7,28 +7,35 @@ using System.Windows.Threading;
 
 namespace RunTrack
 {
+    // Hauptfenster der Anwendung, erbt von Page
     public partial class MainWindow : Page
     {
+        // Eigenschaften und Felder
         public ResizeMode ResizeMode { get; set; }
         private MainModel _pageModel;
         private DispatcherTimer passwordTimer;
 
+        // Konstruktor
         public MainWindow()
         {
             InitializeComponent();
 
+            // Initialisiere das Modell
             _pageModel = FindResource("pmodel") as MainModel ?? new();
 
-
+            // Initialisiere den Timer für die Passwortvalidierung
             passwordTimer = new DispatcherTimer();
-            passwordTimer.Interval = TimeSpan.FromMilliseconds(500); // 500 ms of inactivity before validation
+            passwordTimer.Interval = TimeSpan.FromMilliseconds(500); // 500 ms Inaktivität vor der Validierung
             passwordTimer.Tick += txtPasswort_PasswordTimerTick;
 
+            // Deaktiviere Tab-Stop für den Login-Button
             btnLogin.IsTabStop = false;
         }
 
+        // Event-Handler für das Laden des Fensters
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            // Setze Fokus und initialisiere Textboxen
             FirstNameTextBox.Focus();
             FirstNameTextBox.ForegroundBrush = new SolidColorBrush(Colors.Gray);
             LastNameTextBox.ForegroundBrush = new SolidColorBrush(Colors.Gray);
@@ -48,8 +55,10 @@ namespace RunTrack
             }
         }
 
+        // Event-Handler für den Login-Button
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
+            // Setze Benutzerinformationen
             _pageModel.Benutzer = new Benutzer
             {
                 Vorname = FirstNameTextBox.Text,
@@ -100,6 +109,7 @@ namespace RunTrack
             }
         }
 
+        // Methode zur Validierung der Eingaben
         private bool ValidateInputs()
         {
             bool isValid = true;
@@ -123,7 +133,7 @@ namespace RunTrack
             return isValid;
         }
 
-
+        // Methode zur Validierung des Vornamens
         private bool ValidateFirstName()
         {
             bool isValid = true;
@@ -141,7 +151,7 @@ namespace RunTrack
             return isValid;
         }
 
-
+        // Methode zur Validierung des Nachnamens
         private bool ValidateLastName()
         {
             bool isValid = true;
@@ -159,7 +169,7 @@ namespace RunTrack
             return isValid;
         }
 
-
+        // Methode zur Validierung des Passworts
         private bool ValidatePassword()
         {
             bool isValid = true;
@@ -206,18 +216,21 @@ namespace RunTrack
             return isValid;
         }
 
+        // Methode zum Setzen des Stils für ungültige Eingaben (Passwort)
         private void SetInvalidInputStyle(PasswordBoxPlus passwordBox)
         {
             passwordBox.UnderlineBrush = new SolidColorBrush(Colors.Red);
             passwordBox.UnderlineThickness = new Thickness(0, 0, 0, 2.5);
         }
 
+        // Methode zum Setzen des Stils für gültige Eingaben (Passwort)
         private void SetValidInputStyle(PasswordBoxPlus passwordBox)
         {
             passwordBox.UnderlineBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0067c0"));
             passwordBox.UnderlineThickness = new Thickness(0, 0, 0, 2);
         }
 
+        // Methode zum Setzen des Stils für ungültige Eingaben (TextBox)
         private void SetInvalidInputStyle(TextBoxPlus textBox)
         {
             textBox.UnderlineBrush = new SolidColorBrush(Colors.Red);
@@ -234,6 +247,7 @@ namespace RunTrack
             }
         }
 
+        // Methode zum Setzen des Stils für gültige Eingaben (TextBox)
         private void SetValidInputStyle(TextBoxPlus textBox)
         {
             textBox.UnderlineBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0067c0"));
@@ -250,7 +264,7 @@ namespace RunTrack
             }
         }
 
-
+        // Event-Handler für den Fokus auf die Vorname-Textbox
         private void FirstNameTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBoxPlus textBox = (TextBoxPlus)sender;
@@ -261,6 +275,7 @@ namespace RunTrack
             SetValidInputStyle(textBox);
         }
 
+        // Event-Handler für das Verlassen des Fokus auf die Vorname-Textbox
         private void FirstNameTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             TextBoxPlus textBox = (TextBoxPlus)sender;
@@ -272,6 +287,7 @@ namespace RunTrack
             ValidateFirstName();
         }
 
+        // Event-Handler für den Fokus auf die Nachname-Textbox
         private void LastNameTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBoxPlus textBox = (TextBoxPlus)sender;
@@ -283,6 +299,7 @@ namespace RunTrack
             SetValidInputStyle(textBox);
         }
 
+        // Event-Handler für das Verlassen des Fokus auf die Nachname-Textbox
         private void LastNameTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             TextBoxPlus textBox = (TextBoxPlus)sender;
@@ -295,6 +312,7 @@ namespace RunTrack
             ValidateLastName();
         }
 
+        // Event-Handler für das Drücken einer Taste in einer Textbox
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -314,12 +332,13 @@ namespace RunTrack
             }
         }
 
+        // Event-Handler für das Ändern des Textes in der Nachname-Textbox
         private void LastNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBoxPlus textBox = (TextBoxPlus)sender;
             textBox.ForegroundBrush = new SolidColorBrush(Colors.Blue);
 
-            // Clear the password box and update the border visibility
+            // Passwortfeld leeren und Sichtbarkeit aktualisieren
             if (AdminPasswordBox != null)
             {
                 AdminPasswordBox.Password = string.Empty;
@@ -329,12 +348,13 @@ namespace RunTrack
             UpdateBorderPasswordVisibility();
         }
 
+        // Event-Handler für das Ändern des Textes in der Vorname-Textbox
         private void FirstNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBoxPlus textBox = (TextBoxPlus)sender;
             textBox.ForegroundBrush = new SolidColorBrush(Colors.Blue);
 
-            // Clear the password box and update the border visibility
+            // Passwortfeld leeren und Sichtbarkeit aktualisieren
             if (AdminPasswordBox != null)
             {
                 AdminPasswordBox.Password = string.Empty;
@@ -344,6 +364,7 @@ namespace RunTrack
             UpdateBorderPasswordVisibility();
         }
 
+        // Methode zur Aktualisierung der Sichtbarkeit des Passwortfelds
         private void UpdateBorderPasswordVisibility()
         {
             if (FirstNameTextBox != null && LastNameTextBox != null && borderPassword != null)
@@ -373,6 +394,7 @@ namespace RunTrack
             }
         }
 
+        // Methode zur Aktualisierung der Sichtbarkeit des Passwortfelds
         private void UpdatePasswordFieldVisibility()
         {
             if (FirstNameTextBox != null && LastNameTextBox != null && borderPassword != null)
@@ -395,18 +417,21 @@ namespace RunTrack
             }
         }
 
+        // Event-Handler für den Fokus auf das Passwortfeld
         private void txtPasswort_GotFocus(object sender, RoutedEventArgs e)
         {
             PasswordBoxPlus passwordBox = (PasswordBoxPlus)sender;
             SetValidInputStyle(passwordBox);
         }
 
+        // Event-Handler für das Verlassen des Fokus auf das Passwortfeld
         private void txtPasswort_LostFocus(object sender, RoutedEventArgs e)
         {
             PasswordBoxPlus passwordBox = (PasswordBoxPlus)sender;
             SetValidInputStyle(passwordBox);
         }
 
+        // Event-Handler für das Ändern des Passworts
         private void txtPasswort_PasswordChanged(object sender, RoutedEventArgs e)
         {
             PasswordBoxPlus passwordBox = (PasswordBoxPlus)sender;
@@ -418,7 +443,7 @@ namespace RunTrack
             }
             else
             {
-                // Only collapse if FirstName and LastName are not empty and valid
+                // Nur ausblenden, wenn Vorname und Nachname nicht leer und gültig sind
                 if (ValidateFirstName() && ValidateLastName())
                 {
                     borderPassword.Visibility = Visibility.Visible;
@@ -429,49 +454,50 @@ namespace RunTrack
                 }
             }
 
-            // Reset the timer
+            // Timer zurücksetzen
             if (passwordTimer.IsEnabled)
             {
                 passwordTimer.Stop();
             }
 
-            // Start the timer again
+            // Timer erneut starten
             passwordTimer.Start();
         }
 
-        // ValidatePassword() takes between 223 and 589 milliseconds to execute. 
-        // This is primarily because BCrypt.Net.BCrypt.Verify, which is used for password verification, is a time-consuming operation.
+        // Event-Handler für den Timer-Tick zur Passwortvalidierung
         private async void txtPasswort_PasswordTimerTick(object? sender, EventArgs e)
         {
-            // Stop the timer to avoid multiple triggers
+            // Timer stoppen, um Mehrfachauslösungen zu vermeiden
             passwordTimer.Stop();
 
             await Task.Run(() =>
             {
-                // ValidatePassword needs to be invoked on the UI thread because it accesses UI components.
+                // Passwortvalidierung muss im UI-Thread erfolgen, da auf UI-Komponenten zugegriffen wird
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    ValidatePassword();  // Run password validation on the UI thread
+                    ValidatePassword();  // Passwortvalidierung im UI-Thread ausführen
                 });
             });
         }
 
+        // Event-Handler für das Betreten des Mauszeigers auf das Passwortfeld
         private void AdminPasswordBox_MouseEnter(object sender, MouseEventArgs e)
         {
             PasswordBoxPlus passwordBox = (PasswordBoxPlus)sender;
 
-            // Check if the warningPassword label is visible
+            // Überprüfen, ob das Warnlabel sichtbar ist
             if (warningPassword.Visibility == Visibility.Visible)
             {
                 SetInvalidInputStyle(passwordBox);
             }
         }
 
+        // Event-Handler für das Verlassen des Mauszeigers auf das Passwortfeld
         private void AdminPasswordBox_MouseLeave(object sender, MouseEventArgs e)
         {
             PasswordBoxPlus passwordBox = (PasswordBoxPlus)sender;
 
-            // If the password is valid, set the valid input style
+            // Wenn das Passwort gültig ist, setze den gültigen Eingabestil
             if (ValidatePassword())
             {
                 SetValidInputStyle(passwordBox);
@@ -482,11 +508,13 @@ namespace RunTrack
             }
         }
 
+        // Event-Handler für das Klicken auf das Bild (Schließen der Anwendung)
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Application.Current.Shutdown();
         }
 
+        // Event-Handler für das Klicken auf das Bild (Navigieren zu Credits)
         private void Image_MouseDown_1(object sender, MouseButtonEventArgs e)
         {
             _pageModel.Navigate(new Credits());

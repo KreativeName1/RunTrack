@@ -11,21 +11,25 @@ namespace RunTrack
     /// </summary>
     public partial class SelectFileWindow : MetroWindow
     {
+        // Ausgewählte Datei
         public string SelectedFile { get; private set; }
+        // Liste der Dateielemente
         private List<FileListItem> _fileItems;
+        // Sortierrichtung für den Namen
         private bool _sortAscendingName = true;
-        //private bool _sortAscendingPfad = true;
+        // Sortierrichtung für die Info
         private bool _sortAscendingInfo = true;
 
+        // Konstruktor, der die Dateielemente initialisiert und sortiert
         public SelectFileWindow(List<FileListItem> fileItems)
         {
             InitializeComponent();
-            //FileListBox.ItemsSource = fileItems;
-            _fileItems = fileItems.OrderBy(f => f.Name).ToList();
+            _fileItems = fileItems;
+            fileItems = fileItems.OrderBy(f => f.Name).ToList();
             UpdateListBox();
         }
 
-
+        // Event-Handler für den OK-Button
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
             if (FileListBox.SelectedItem is FileListItem selectedItem)
@@ -39,26 +43,31 @@ namespace RunTrack
             }
         }
 
-
+        // Event-Handler für den Abbrechen-Button
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
         }
 
+        // Event-Handler für den Schließen-Button
         private void BTN_Close_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
+        // Event-Handler für MouseEnter auf dem Schließen-Button
         private void BTN_Close_MouseEnter(object sender, MouseEventArgs e)
         {
             BTN_Close.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B42041"));
         }
+
+        // Event-Handler für MouseLeave auf dem Schließen-Button
         private void BTN_Close_MouseLeave(object sender, MouseEventArgs e)
         {
             BTN_Close.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#009664"));
         }
 
+        // Event-Handler für MouseDown auf der Info-Spalte
         private void tbInfo_MouseDown(object sender, MouseButtonEventArgs e)
         {
             _fileItems = _sortAscendingInfo
@@ -68,12 +77,13 @@ namespace RunTrack
             UpdateListBox();
         }
 
+        // Aktualisiert die ListBox mit den Dateielementen
         private void UpdateListBox()
         {
-            FileListBox.ItemsSource = null;
             FileListBox.ItemsSource = _fileItems;
         }
 
+        // Event-Handler für MouseDown auf der Name-Spalte
         private void tbName_MouseDown(object sender, MouseButtonEventArgs e)
         {
             _fileItems = _sortAscendingName
@@ -83,6 +93,7 @@ namespace RunTrack
             UpdateListBox();
         }
 
+        // Event-Handler für MouseDown auf der Pfad-Spalte (auskommentiert)
         //private void tbPfad_MouseDown(object sender, MouseButtonEventArgs e)
         //{
         //    _fileItems = _sortAscendingPfad

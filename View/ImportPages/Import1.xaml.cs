@@ -11,18 +11,21 @@ namespace RunTrack
     /// </summary>
     public partial class Import1 : Page
     {
-        private ImportModel? _imodel;
-        private MainModel? _model;
-        private int _width = 120;
+        private ImportModel? _imodel; // ImportModel-Instanz
+        private MainModel? _model; // MainModel-Instanz
+        private int _width = 120; // Standardbreite für DraggableItems
 
+        // Konstruktor, der den Pfad als Parameter erhält
         public Import1(string pfad)
         {
+            // Ressourcen finden oder neue Instanzen erstellen
             _imodel = FindResource("imodel") as ImportModel ?? new ImportModel();
             _model = FindResource("pmodel") as MainModel ?? new MainModel();
 
-            _imodel.Pfad = pfad;
-            InitializeComponent();
+            _imodel.Pfad = pfad; // Pfad setzen
+            InitializeComponent(); // Komponenten initialisieren
 
+            // DraggableItems erstellen und zum OrderPanel hinzufügen
             string[] strings = { "Vorname", "Nachname", "Geschlecht", "Geburtsjahrgang", "Klasse" };
             foreach (string s in strings)
             {
@@ -30,6 +33,7 @@ namespace RunTrack
                 OrderPanel.Children.Add(item);
             }
 
+            // Datenbankverbindung herstellen und Schulen laden
             using (var db = new LaufDBContext())
             {
                 ObservableCollection<Schule> schulen = new(db.Schulen.ToList());
@@ -40,6 +44,7 @@ namespace RunTrack
                 _imodel.Schule = schulen.First();
             }
 
+            // CSV-Datei lesen und Fehler behandeln
             try
             {
                 _imodel.CSVListe = new(CSVReader.ReadToList(_imodel.Pfad ?? string.Empty));
@@ -60,11 +65,12 @@ namespace RunTrack
                 throw new Exception("Schliessen");
             }
 
+            // Event-Handler für Abbrechen-Button
             btnCancel.Click += (s, e) =>
             {
                 if (new Popup().Display("Abbrechen", "Möchten Sie den Import wirklich abbrechen?", PopupType.Question, PopupButtons.YesNo) == true)
                 {
-                    //  find last Dateiverwaltung
+                    // Letzte Dateiverwaltung finden und navigieren
                     Dateiverwaltung dv = (Dateiverwaltung)_model.History.FindLast(x => x.GetType() == typeof(Dateiverwaltung));
                     DateiVerwaltungModel dvm = FindResource("dvmodel") as DateiVerwaltungModel;
                     if (File.Exists(_imodel.Pfad)) File.Delete(_imodel.Pfad);
@@ -73,6 +79,8 @@ namespace RunTrack
                     return;
                 }
             };
+
+            // Event-Handler für Weiter-Button
             btnWeiter.Click += (s, e) =>
             {
                 if (_imodel.Schule == null || (_imodel.Schule.Name == "Neue Schule" && string.IsNullOrWhiteSpace(tbSchule.Text)))
@@ -81,7 +89,7 @@ namespace RunTrack
                     return;
                 }
 
-                // prüfe ob die neue Schule schon existiert, falls es eine neue Schule ist
+                // Prüfen, ob die neue Schule bereits existiert
                 if (_imodel.Schule.Name == "Neue Schule")
                 {
                     if (string.Equals(_imodel.NeuSchuleName, "Neue Schule", StringComparison.OrdinalIgnoreCase))
@@ -100,22 +108,21 @@ namespace RunTrack
                     }
                 }
 
+                // Reihenfolge der DraggableItems speichern
                 _imodel.Reihenfolge = new();
                 foreach (DraggableItem item in OrderPanel.Children) _imodel.Reihenfolge.Add(item.TextContent);
                 if (_imodel.Schule.Id == 0) _imodel.Schule = new Schule { Name = _imodel.NeuSchuleName ?? string.Empty };
 
-                // weiter zur klassenerstellung
+                // Weiter zur Klassenerstellung
                 _model.Navigate(new Import2());
                 return;
             };
 
-
-
-            // Subscribe to the LayoutUpdated event
+            // Event-Handler für LayoutUpdated-Event
             CSV_Grid.LayoutUpdated += CSV_Grid_LayoutUpdated;
-            OrderPanel.LayoutUpdated += (s, e) => UpdateRectangleWidth(); // Update rectangle width on OrderPanel layout update
+            OrderPanel.LayoutUpdated += (s, e) => UpdateRectangleWidth(); // Rechteckbreite bei Layout-Update aktualisieren
 
-            // Prevent Enter key in tbSchule
+            // Enter-Taste in tbSchule verhindern
             tbSchule.PreviewKeyDown += (s, e) =>
             {
                 if (e.Key == Key.Enter)
@@ -123,23 +130,24 @@ namespace RunTrack
                     e.Handled = true;
                 }
             };
-
         }
 
-
+        // Event-Handler für das Loaded-Event des CSV_Grid
         private void CSV_Grid_Loaded(object sender, RoutedEventArgs e)
         {
             AdjustColumnWidths();
         }
 
+        // Event-Handler für das LayoutUpdated-Event des CSV_Grid
         private void CSV_Grid_LayoutUpdated(object? sender, EventArgs e)
         {
             AdjustColumnWidths();
         }
 
+        // Methode zur Anpassung der Spaltenbreiten im CSV_Grid
         private void AdjustColumnWidths()
         {
-            double availableWidth = this.ActualWidth - 40; // Adjust as necessary for padding/margins
+            double availableWidth = this.ActualWidth - 40; // Verfügbare Breite anpassen
             int columnCount = CSV_Grid.Columns.Count;
             if (columnCount > 0)
             {
@@ -151,11 +159,10 @@ namespace RunTrack
             }
 
             UpdateOrderPanelWidth();
-            UpdateRectangleWidth(); // Add this line to update the rectangle width based on the total width of items
+            UpdateRectangleWidth(); // Rechteckbreite basierend auf der Gesamtbreite der Items aktualisieren
         }
 
-
-
+        // Methode zur Aktualisierung der Rechteckbreite
         private void UpdateRectangleWidth()
         {
             double totalWidth = 0;
@@ -172,9 +179,7 @@ namespace RunTrack
             rectBackground.Margin = new Thickness(leftPadding, 10, rightPadding, 0); // Setzt die Abstände im Margin
         }
 
-
-
-
+        // Methode zur Aktualisierung der Breite des OrderPanels
         private void UpdateOrderPanelWidth()
         {
             if (CSV_Grid.Columns.Count == OrderPanel.Children.Count)

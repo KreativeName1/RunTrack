@@ -17,8 +17,10 @@ namespace RunTrack
             _imodel = FindResource("imodel") as ImportModel ?? new();
             _model = FindResource("pmodel") as MainModel ?? new();
 
+            // Event-Handler für das Loaded-Ereignis der Seite
             this.Loaded += (s, e) =>
             {
+                // Verstecke das Lade-Overlay
                 LoadOverlay.Visibility = System.Windows.Visibility.Hidden;
                 try
                 {
@@ -33,6 +35,7 @@ namespace RunTrack
                 }
                 catch (Exception ex)
                 {
+                    // Navigiere zu einer Fehlerseite, falls ein Fehler auftritt
                     _model?.Navigate(new Import3(ex.Message, false));
                     return;
                 }
@@ -49,6 +52,7 @@ namespace RunTrack
                 }
                 catch (Exception ex)
                 {
+                    // Navigiere zu einer Fehlerseite, falls ein Fehler auftritt
                     _model?.Navigate(new Import3(ex.Message, false));
                     return;
                 }
@@ -74,16 +78,15 @@ namespace RunTrack
                             }
                         });
                     });
-                  
                 };
 
                 // 5. Wenn Abbrechen geklickt wird, lösche Temp/Temp.db
                 btnCancel.Click += (s, e) =>
-                    {
-                        File.Delete("Temp/Temp.db");
-                        _model.Navigate(_model.History.FindLast(x => x.GetType() == typeof(Import2)));
-                        return;
-                    };
+                {
+                    File.Delete("Temp/Temp.db");
+                    _model.Navigate(_model.History.FindLast(x => x.GetType() == typeof(Import2)));
+                    return;
+                };
             };
         }
     }

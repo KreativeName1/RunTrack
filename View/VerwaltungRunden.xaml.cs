@@ -6,20 +6,24 @@ using Xceed.Wpf.Toolkit;
 
 namespace RunTrack
 {
+    // Definiert den Dialogmodus (Neu oder Bearbeiten)
     public enum DialogMode { Neu, Bearbeiten };
 
+    // Teilklasse der VerwaltungRunden-Seite
     public partial class VerwaltungRunden : Page
     {
+        // Private Felder für den Dialogmodus, die RundenArt und das Hauptmodell
         private DialogMode mode;
         private RundenArt? rundenArt;
-
         private MainModel? _pmodel;
 
+        // Private Felder für die ursprünglichen Werte und den Speichern-Status
         private string? originalBezeichnung;
         private int? originalLength;
         private int? originalDauer;
         private bool isSaveClicked = false;
 
+        // Konstruktor, der den Dialogmodus und die RundenArt initialisiert
         public VerwaltungRunden(DialogMode mode, RundenArt? rundenArt = null)
         {
             InitializeComponent();
@@ -31,6 +35,7 @@ namespace RunTrack
             SetDialogMode();
         }
 
+        // Setzt den Dialogmodus und initialisiert die Felder entsprechend
         private void SetDialogMode()
         {
             if (mode == DialogMode.Neu)
@@ -41,31 +46,36 @@ namespace RunTrack
             {
                 this.Title = "Bearbeiten";
 
-                // Set the text of the BezeichnungTextBox to the name of the RundenArt passed in
+                // Setzt die Textboxen auf die Werte der übergebenen RundenArt
                 this.BezeichnungTextBox.Text = rundenArt.Name;
                 ((IntegerUpDown)this.FindName("txtLength")).Value = rundenArt.LaengeInMeter;
                 ((IntegerUpDown)this.FindName("txtDauer")).Value = rundenArt.MaxScanIntervalInSekunden;
             }
         }
 
+        // Event-Handler für das Laden der Seite
         private void VerwaltungRunden_Loaded(object sender, RoutedEventArgs e)
         {
-            // Speichern der ursprünglichen Werte
+            // Speichert die ursprünglichen Werte der Felder
             originalBezeichnung = ((TextBox)this.FindName("BezeichnungTextBox")).Text;
             originalLength = ((IntegerUpDown)this.FindName("txtLength")).Value ?? 0;
             originalDauer = ((IntegerUpDown)this.FindName("txtDauer")).Value ?? 0;
         }
 
+        // Event-Handler für den Abbrechen-Button
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
+            // Überprüft, ob Daten geändert wurden und zeigt eine Warnung an, falls nicht gespeichert wurde
             if (IsDataChanged())
             {
                 if (new Popup().Display("Sie haben nicht gespeichert!", "Wirklich Beenden?", PopupType.Warning, PopupButtons.YesNo) == false) return;
             }
 
+            // Navigiert zur vorherigen Seite
             _pmodel?.Navigate(_pmodel.History[^1]);
         }
 
+        // Überprüft, ob die Daten geändert wurden
         private bool IsDataChanged()
         {
             var currentBezeichnung = ((TextBox)this.FindName("BezeichnungTextBox")).Text;
@@ -75,9 +85,10 @@ namespace RunTrack
             return currentBezeichnung != originalBezeichnung || currentLength != originalLength || currentDauer != originalDauer;
         }
 
+        // Event-Handler für den Speichern-Button
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            // Überprüfen, ob das Textfeld leer ist
+            // Überprüft, ob das Textfeld leer ist
             string inputName = BezeichnungTextBox.Text.Trim();
 
             if (string.IsNullOrEmpty(inputName))
@@ -87,7 +98,7 @@ namespace RunTrack
                 return;
             }
 
-            // nur Buchstaben, Zahlen und Leerzeichen erlaubt (Zahlen nicht am Anfang), erlaubt ä,ö,ü,ß,Ä,Ö,Ü
+            // Überprüft, ob der Name nur erlaubte Zeichen enthält
             Regex regex = new(@"^[a-zA-ZäöüÄÖÜß][a-zA-ZäöüÄÖÜß0-9 ]*$");
             if (!regex.IsMatch(inputName))
             {
@@ -98,6 +109,7 @@ namespace RunTrack
 
             isSaveClicked = true;
 
+            // Speichert die Daten in der Datenbank
             using (LaufDBContext db = new())
             {
                 string inputNameNormalized = inputName.Replace(" ", "").ToLower();
@@ -140,12 +152,7 @@ namespace RunTrack
             _pmodel?.Navigate(_pmodel.History[^1]);
         }
 
-
-
-
-
-
-
+        // Event-Handler für das Schließen des Fensters
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (!isSaveClicked && IsDataChanged())
@@ -153,6 +160,5 @@ namespace RunTrack
                 if (new Popup().Display("Sie haben nicht gespeichert!", "Wirklich Beenden?", PopupType.Warning, PopupButtons.YesNo) == true) e.Cancel = true;
             }
         }
-
     }
 }

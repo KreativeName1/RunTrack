@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Data;
-using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
 namespace RunTrack
 {

@@ -15,22 +15,29 @@ namespace RunTrack
         public Import2()
         {
             InitializeComponent();
+            // Initialisiere ImportModel und MainModel
             _imodel = FindResource("imodel") as ImportModel ?? new();
             _model = FindResource("pmodel") as MainModel ?? new();
             DataContext = _imodel;
 
+            // Verstecke das Lade-Overlay beim Laden der Seite
             this.Loaded += (s, e) =>
             {
                 LoadOverlay.Visibility = Visibility.Hidden;
             };
 
+            // Lade die RundenArten aus der Datenbank
             _imodel.RundenArten = new(new LaufDBContext().RundenArten.ToList());
 
+            // Event-Handler für den Zurück-Button
             btnBack.Click += (s, e) => _model.Navigate(_model.History.FindLast(x => x.GetType() == typeof(Import1)));
+
+            // Event-Handler für den Weiter-Button
             btnWeiter.Click += (s, e) =>
             {
                 LoadOverlay.Visibility = Visibility.Visible;
 
+                // Starte einen neuen Task, um die Navigation zu verzögern
                 Task.Run(() =>
                 {
                     Thread.Sleep(500);
@@ -44,6 +51,7 @@ namespace RunTrack
             Load();
         }
 
+        // Methode zum Laden der Klassen-Items
         public void Load()
         {
             _imodel.KlasseItems = new();
@@ -67,6 +75,7 @@ namespace RunTrack
             }
         }
 
+        // Event-Handler für die Auswahländerung in der ComboBox
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox? comboBox = sender as ComboBox;
@@ -76,6 +85,7 @@ namespace RunTrack
             klasseItem.RundenArt = (RundenArt)comboBox.SelectedItem;
         }
 
+        // Event-Handler für die Auswahländerung in der SetAllRundenArtenComboBox
         private void SetAllRundenArtenComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (SetAllRundenArtenComboBox.SelectedItem is RundenArt selectedRundenArt)
@@ -89,11 +99,10 @@ namespace RunTrack
                 }
                 else
                 {
-                    // Handle the case where _imodel or KlasseItems is null
-                    // Log an error or initialize KlasseItems if appropriate
+                    // Behandle den Fall, wenn _imodel oder KlasseItems null ist
+                    // Logge einen Fehler oder initialisiere KlasseItems, falls angemessen
                 }
             }
         }
-
     }
 }

@@ -14,27 +14,31 @@ namespace RunTrack
     /// </summary>
     public partial class Einstellungen : Page
     {
-        private MainModel _pmodel;
-        private bool _changesMade;
+        private MainModel _pmodel; // Hauptmodell
+        private bool _changesMade; // Flag für Änderungen
 
         public Einstellungen()
         {
             InitializeComponent();
 
+            // Initialisiert das Hauptmodell
             _pmodel = FindResource("pmodel") as MainModel ?? new MainModel();
 
             DataContext = this;
 
+            // Lädt den Inhalt und aktualisiert die Sichtbarkeit des Speichern-Buttons
             LoadContent();
             UpdateSaveButtonVisibility();
         }
 
         private void LoadContent()
         {
+            // Setzt den Text des Schlüssels
             tbKey.Text = UniqueKey.GetKey();
 
             using (var db = new LaufDBContext())
             {
+                // Sortiert die Rundenarten und fügt sie dem Grid hinzu
                 var sortedRundenArten = db.RundenArten.OrderBy(r => r.MaxScanIntervalInSekunden).ToList();
                 int rowIndex = 0;
 
@@ -43,6 +47,7 @@ namespace RunTrack
                     // Zeilen hinzufügen
                     GridSettings.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
+                    // Erstellt und fügt ein Label hinzu
                     Label label = new()
                     {
                         Content = rundenArt.Name,
@@ -55,6 +60,7 @@ namespace RunTrack
                     Grid.SetColumn(label, 0);
                     GridSettings.Children.Add(label);
 
+                    // Erstellt und fügt ein Spacer-Label hinzu
                     Label labelSpacer = new()
                     {
                         Content = "→",
@@ -67,6 +73,7 @@ namespace RunTrack
                     Grid.SetColumn(labelSpacer, 1);
                     GridSettings.Children.Add(labelSpacer);
 
+                    // Erstellt und fügt ein IntegerUpDown-Steuerelement hinzu
                     IntegerUpDown integerUpDown = new()
                     {
                         Name = rundenArt.Name.Replace(" ", "_"),
@@ -83,6 +90,7 @@ namespace RunTrack
                     Grid.SetColumn(integerUpDown, 2);
                     GridSettings.Children.Add(integerUpDown);
 
+                    // Erstellt und fügt ein Label für Sekunden hinzu
                     Label labelSeconds = new()
                     {
                         Content = "Sekunde/n",
@@ -95,7 +103,7 @@ namespace RunTrack
                     Grid.SetColumn(labelSeconds, 3);
                     GridSettings.Children.Add(labelSeconds);
 
-                    // Löschen
+                    // Erstellt und fügt einen Löschen-Button hinzu
                     Button deleteButton = new()
                     {
                         Content = "🗑️",
@@ -123,7 +131,7 @@ namespace RunTrack
                     Grid.SetColumn(deleteButton, 4);
                     GridSettings.Children.Add(deleteButton);
 
-                    // Einstellungen
+                    // Erstellt und fügt einen Einstellungen-Button hinzu
                     Button optionsButton = new()
                     {
                         Content = "⚙️",
@@ -156,7 +164,7 @@ namespace RunTrack
 
                 GridSettings.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
-                // Add Rectangle
+                // Fügt ein Trennrechteck hinzu
                 Rectangle rect = new()
                 {
                     Height = 1,
@@ -170,6 +178,7 @@ namespace RunTrack
 
                 rowIndex++;
 
+                // Fügt einen Hinzufügen-Button hinzu
                 Button addButton = new()
                 {
                     Content = "➕",
@@ -193,8 +202,8 @@ namespace RunTrack
 
         private void IntegerUpDown_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            _changesMade = true;
-            UpdateSaveButtonVisibility();
+            _changesMade = true; // Setzt das Flag für Änderungen
+            UpdateSaveButtonVisibility(); // Aktualisiert die Sichtbarkeit des Speichern-Buttons
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)

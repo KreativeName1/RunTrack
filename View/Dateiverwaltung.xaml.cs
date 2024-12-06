@@ -26,9 +26,9 @@ namespace RunTrack
 
             FilesListBox.DragEnter += (s, e) => _dvmodel.IsDragging = true;
             DragDropOverlay.DragLeave += (s, e) => _dvmodel.IsDragging = false;
-
         }
 
+        // Methode zum Hochladen von Dateien
         private void UploadFiles_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new()
@@ -42,7 +42,7 @@ namespace RunTrack
                 _tempSelectedFiles.Clear();
                 _tempSelectedFiles.AddRange(openFileDialog.FileNames);
 
-                // Überprüfen, ob die Gesamtanzahl der Dateien die Grenze von 10 überschreitet
+                // Überprüfen, ob mehr als 10 Dateien ausgewählt wurden
                 if (_tempSelectedFiles.Count > 10)
                 {
                     new Popup().Display("Fehler", "Es können maximal 10 Dateien gleichzeitig hochgeladen werden.", PopupType.Warning, PopupButtons.Ok);
@@ -51,12 +51,14 @@ namespace RunTrack
 
                 if (_tempSelectedFiles.Count > 1)
                 {
-                    // Mehrere Dateien ausgewählt, Benutzer zur Auswahl einer Datei auffordern
-                    string selectedFile = PromptUserToSelectFile(_tempSelectedFiles.ToArray());
-                    if (!string.IsNullOrEmpty(selectedFile))
-                    {
-                        checkFile(selectedFile);
-                    }
+                    MessageBox.Show("Nur eine Datei maximal.\nMehrfachauswahl ist in Arbeit", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                    //// Wenn mehrere Dateien ausgewählt wurden, Benutzer zur Auswahl auffordern
+                    //string selectedFile = PromptUserToSelectFile(_tempSelectedFiles.ToArray());
+                    //if (!string.IsNullOrEmpty(selectedFile))
+                    //{
+                    //    checkFile(selectedFile);
+                    //}
                 }
                 else
                 {
@@ -66,6 +68,7 @@ namespace RunTrack
             }
         }
 
+        // Methode zur Auswahl einer Datei aus mehreren
         private string PromptUserToSelectFile(string[] fileNames)
         {
             var fileItems = fileNames.Select(fileName =>
@@ -93,8 +96,7 @@ namespace RunTrack
             return string.Empty;
         }
 
-
-
+        // Überprüft die Datei und führt ggf. die Upload-Operation durch
         private void checkFile(string fileName)
         {
             string extension = Path.GetExtension(fileName).ToLower();
@@ -154,6 +156,7 @@ namespace RunTrack
             }
         }
 
+        // Zeigt verbleibende Dateien zum Importieren an
         public void ShowRemainingFiles()
         {
             var remainingFilesstrings = _tempSelectedFiles;
@@ -164,7 +167,7 @@ namespace RunTrack
                 return;
             }
 
-            var fileItems = remainingFilesstrings.Select(fileItem =>
+            List<FileListItem> fileItems = remainingFilesstrings.Select(fileItem =>
             {
                 string displayPath = Path.GetFullPath(fileItem);
                 return new FileListItem
@@ -175,46 +178,51 @@ namespace RunTrack
                     Tooltip = File.Exists(fileItem) ? $"Die Datei {Path.GetFileName(fileItem)} existiert bereits." : string.Empty
                 };
             }).ToList();
-;
+            ; // Liste für die verbleibenden Dateien für den Import
 
-            var selectFileWindow = new SelectFileWindow(fileItems);
-            if (selectFileWindow.ShowDialog() == true)
+            SelectFileWindow selectFileWindow = new SelectFileWindow(fileItems); // neues Fenster öffnen, um weiter Dateien auswählen zu können
+
+            try
             {
-                if (File.Exists(selectFileWindow.SelectedFile))
-                {
-                    checkFile(selectFileWindow.SelectedFile);
-                }
-                else
-                {
-                    new Popup().Display("Fehler", $"Die ausgewählte Datei existiert nicht mehr.", PopupType.Error, PopupButtons.Ok);
-                }
+
+                selectFileWindow.ShowDialog(); // Dialog anzeigen
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            if (File.Exists(selectFileWindow.SelectedFile))
+            {
+                checkFile(selectFileWindow.SelectedFile); // Datei überprüfen
+            }
+            else
+            {
+                new Popup().Display("Fehler", $"Die ausgewählte Datei existiert nicht mehr.", PopupType.Error, PopupButtons.Ok); // Fehler ausgeben
+            }
+
         }
 
-
-
-
-
+        // Löscht ausgewählte Dateien
         private void DeleteSelectedFiles_Click(object sender, RoutedEventArgs e)
         {
             string extra = string.Empty;
             bool logout = false;
             List<string> otherFilesToDelete = new List<string>();
 
-            // First, check for the database file and handle it
+            // Überprüfen, ob die Datenbankdatei gelöscht werden soll
             for (int i = 0; i < _dvmodel.LstFiles.Count; i++)
             {
                 if (_dvmodel.LstFiles[i].IsSelected)
                 {
                     string fileName = _dvmodel.LstFiles[i].FileName;
 
-                    // Check if it's the database file
+                    // Wenn es sich um die Datenbank handelt
                     if (Path.GetFileName(fileName) == "EigeneDatenbank.db")
                     {
                         extra = "(Die Datenbank des Programms wird gelöscht und alle bisherigen Daten gehen verloren!)";
                         logout = true;
 
-                        // Ask for confirmation for database file
                         bool? result = new Popup().Display($"Datei löschen",
                             $"Willst du die Datei '{fileName}' wirklich löschen?\n{extra}",
                             PopupType.Question,
@@ -230,7 +238,7 @@ namespace RunTrack
                                     File.Delete(Path.Combine("Dateien", fileName));
                                     _dvmodel.LstFiles.RemoveAt(i);
 
-                                    // Logout and navigate to MainWindow if database was deleted
+                                    // Logout nach Datenbanklöschung
                                     if (logout)
                                     {
                                         _pmodel.Benutzer = null;
@@ -249,13 +257,13 @@ namespace RunTrack
                     }
                     else
                     {
-                        // Add other files to the list to be deleted
+                        // Andere Dateien zur Löschung hinzufügen
                         otherFilesToDelete.Add(fileName);
                     }
                 }
             }
 
-            // If there are other files to delete, show them in a second popup
+            // Löschen anderer Dateien
             if (otherFilesToDelete.Count > 0)
             {
                 string fileList = string.Join(Environment.NewLine, otherFilesToDelete.Select(f => $"• {f}"));
@@ -271,8 +279,7 @@ namespace RunTrack
                         try
                         {
                             File.Delete(Path.Combine("Dateien", file));
-                            // Remove the file from the list after deletion
-                            // After deleting other files, loop through and remove them from the ObservableCollection
+                            // Entfernen der Datei aus der Liste
                             foreach (var fileToDelete in otherFilesToDelete)
                             {
                                 var fileItem = _dvmodel.LstFiles.FirstOrDefault(f => f.FileName == fileToDelete);
@@ -281,7 +288,6 @@ namespace RunTrack
                                     _dvmodel.LstFiles.Remove(fileItem);
                                 }
                             }
-
                         }
                         catch (IOException ex)
                         {
@@ -295,35 +301,38 @@ namespace RunTrack
             }
         }
 
-
+        // Klick auf die "Select All" Checkbox
         private void SelectAllCheckBox_Click(object sender, RoutedEventArgs e)
         {
-            bool newValue = (SelectAllCheckBox.IsChecked == true);
-            foreach (FileItem file in _dvmodel.LstFiles) file.IsSelected = newValue;
+            bool newValue = (SelectAllCheckBox.IsChecked == true);  // Bestimmen, ob alle Dateien ausgewählt oder abgewählt werden sollen
+            foreach (FileItem file in _dvmodel.LstFiles) file.IsSelected = newValue;  // Alle Dateien basierend auf der Auswahl aktualisieren
 
+            // Text der SelectAllTextBlock aktualisieren (Wird zu "Deselect All" oder "Select All" je nach Auswahl)
             SelectAllTextBlock.Text = SelectAllCheckBox.IsChecked == true ? "Deselect All" : "Select All";
         }
 
+        // Klick auf den "Close" Button (Fenster schließen)
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
             Object? page = _pmodel.History.FindLast(x => !new[] { typeof(ImportUbersicht), typeof(Import1), typeof(Import2), typeof(Import3), GetType() }.Contains(x.GetType()));
-            if (page != null) _pmodel.Navigate(page);
+            if (page != null) _pmodel.Navigate(page);  // Navigiere zur vorherigen Seite, wenn sie existiert
         }
 
+        // Klick auf den "Download" Button
         private void DownloadFiles_Click(object sender, RoutedEventArgs e)
         {
             foreach (FileItem file in _dvmodel.LstFiles)
             {
-                if (file.IsSelected)
+                if (file.IsSelected)  // Wenn die Datei ausgewählt wurde
                 {
-                    string sourcePath = Path.Combine("Dateien", file.FileName ?? string.Empty);
-                    SaveFileDialog saveFileDialog = new()
+                    string sourcePath = Path.Combine("Dateien", file.FileName ?? string.Empty);  // Pfad zur Datei
+                    SaveFileDialog saveFileDialog = new()  // Dialog zum Speichern der Datei
                     {
                         FileName = file.FileName,
-                        Filter = "files (*.asv;*.db;*.csv)|*.asv;*.db;*.csv"
+                        Filter = "files (*.asv;*.db;*.csv)|*.asv;*.db;*.csv"  // Filter für Dateiformate
                     };
 
-                    if (saveFileDialog.ShowDialog() == true)
+                    if (saveFileDialog.ShowDialog() == true)  // Zeige Dialog und speichere die Datei
                     {
                         File.Copy(sourcePath, saveFileDialog.FileName ?? string.Empty, true);
                     }
@@ -331,61 +340,66 @@ namespace RunTrack
             }
         }
 
+        // Variablen für Sortierreihenfolge
         private bool sortByFileNameAscending = true;
         private bool sortByUploadDateAscending = true;
 
+        // Klick auf den "FileName" Label (für Sortierung nach Dateiname)
         private void FileNameLabel_MouseDown(object sender, MouseButtonEventArgs e)
         {
             SortFilesByPropertyName("FileName", ref sortByFileNameAscending);
         }
 
+        // Klick auf den "UploadDate" Label (für Sortierung nach Uploaddatum)
         private void UploadDateLabel_MouseDown(object sender, MouseButtonEventArgs e)
         {
             SortFilesByPropertyName("UploadDate", ref sortByUploadDateAscending);
         }
 
+        // Methode zum Sortieren der Dateien nach einem bestimmten Property
         private void SortFilesByPropertyName(string propertyName, ref bool ascending)
         {
             List<FileItem> sortedList;
             if (propertyName == "FileName")
             {
                 sortedList = ascending ? _dvmodel.LstFiles.OrderBy(f => f.FileName).ToList()
-                                                             : _dvmodel.LstFiles.OrderByDescending(f => f.FileName).ToList();
+                                                                     : _dvmodel.LstFiles.OrderByDescending(f => f.FileName).ToList();
                 sortByFileNameAscending = !ascending;
             }
             else if (propertyName == "UploadDate")
             {
                 sortedList = ascending ? _dvmodel.LstFiles.OrderBy(f => f.UploadDate).ToList()
-                                                             : _dvmodel.LstFiles.OrderByDescending(f => f.UploadDate).ToList();
+                                                                     : _dvmodel.LstFiles.OrderByDescending(f => f.UploadDate).ToList();
                 sortByUploadDateAscending = !ascending;
             }
             else return;
 
             _dvmodel.LstFiles.Clear();
-            foreach (var item in sortedList) _dvmodel.LstFiles.Add(item);
+            foreach (var item in sortedList) _dvmodel.LstFiles.Add(item);  // Sortierte Liste zurücksetzen
         }
 
-
+        // MouseEnter und MouseLeave Events für die Labels
         private void Label_MouseEnter(object sender, MouseEventArgs e)
         {
-            if (sender is TextBlock label) label.Foreground = Brushes.Green;
+            if (sender is TextBlock label) label.Foreground = Brushes.Green;  // Textfarbe ändern, wenn die Maus über dem Label ist
         }
 
         private void Label_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (sender is TextBlock label) label.Foreground = Brushes.Black;
+            if (sender is TextBlock label) label.Foreground = Brushes.Black;  // Zurücksetzen der Textfarbe, wenn die Maus das Label verlässt
         }
 
+        // Drag & Drop Event für das Hinzufügen von Dateien
         private void FilesListBox_Drop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                List<string> files = new List<string>((string[])e.Data.GetData(DataFormats.FileDrop));
+                List<string> files = new List<string>((string[])e.Data.GetData(DataFormats.FileDrop));  // Ausgewählte Dateien
                 _dvmodel.IsDragging = false;
                 _tempSelectedFiles.Clear();
                 _tempSelectedFiles.AddRange(files);
 
-                // Überprüfen, ob die Gesamtanzahl der Dateien die Grenze von 10 überschreitet
+                // Überprüfen, ob mehr als 10 Dateien hinzugefügt wurden
                 if (_tempSelectedFiles.Count > 10)
                 {
                     new Popup().Display("Fehler", "Es können maximal 10 Dateien gleichzeitig hochgeladen werden.", PopupType.Warning, PopupButtons.Ok);
@@ -394,74 +408,69 @@ namespace RunTrack
 
                 if (_tempSelectedFiles.Count > 1)
                 {
-                    // Mehrere Dateien ausgewählt, Benutzer zur Auswahl einer Datei auffordern
-                    string selectedFile = PromptUserToSelectFile(_tempSelectedFiles.ToArray());
-                    if (!string.IsNullOrEmpty(selectedFile))
-                    {
-                        checkFile(selectedFile);
-                    }
+                    MessageBox.Show("Nur eine Datei maximal.\nMehrfachauswahl ist in Arbeit", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                    //// Wenn mehrere Dateien, den Benutzer zur Auswahl auffordern
+                    //string selectedFile = PromptUserToSelectFile(_tempSelectedFiles.ToArray());
+                    //if (!string.IsNullOrEmpty(selectedFile))
+                    //{
+                    //    checkFile(selectedFile);
+                    //}
                 }
                 else
                 {
-                    // Nur eine Datei ausgewählt
+                    // Wenn nur eine Datei, diese direkt verarbeiten
                     checkFile(_tempSelectedFiles[0]);
                 }
             }
         }
 
+        // Änderung der Auswahl in der ListBox
         private void FilesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Sichtbarkeit des Buttons aktualisieren, basierend auf der aktuellen Auswahl
-            UpdateExportButtonVisibility();
+            UpdateExportButtonVisibility();  // Sichtbarkeit des Export-Buttons aktualisieren
 
-            // Verarbeite hinzugefügte Elemente
             foreach (var item in e.AddedItems.OfType<FileItem>())
             {
-                item.IsSelected = true; // Checkbox aktivieren
+                item.IsSelected = true;  // Checkbox aktivieren
             }
 
-            // Verarbeite entfernte Elemente
             foreach (var item in e.RemovedItems.OfType<FileItem>())
             {
-                item.IsSelected = false; // Checkbox deaktivieren
+                item.IsSelected = false;  // Checkbox deaktivieren
             }
         }
 
+        // MouseDown Event für das Entfernen von Dateien aus der Auswahl
         private void FilesListBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            // Bestimmen, ob ein FileItem angeklickt wurde
             if (e.OriginalSource is FrameworkElement element &&
                 element.DataContext is FileItem clickedItem &&
                 FilesListBox.SelectedItems.Contains(clickedItem))
             {
-                // Wenn das Element bereits ausgewählt ist, Auswahl entfernen
-                clickedItem.IsSelected = false;
-                FilesListBox.SelectedItems.Remove(clickedItem);
+                clickedItem.IsSelected = false;  // Auswahl entfernen
+                FilesListBox.SelectedItems.Remove(clickedItem);  // Datei aus der Auswahl entfernen
 
-                // Sichtbarkeit des Buttons aktualisieren
-                UpdateExportButtonVisibility();
-
-                // Ereignis als verarbeitet markieren
-                e.Handled = true;
+                UpdateExportButtonVisibility();  // Sichtbarkeit des Export-Buttons aktualisieren
+                e.Handled = true;  // Event als verarbeitet markieren
             }
         }
 
+        // Export-Button Sichtbarkeit basierend auf der Auswahl
         private void UpdateExportButtonVisibility()
         {
-            // Button nur anzeigen, wenn mindestens ein Element ausgewählt ist
             btnExport.Visibility = FilesListBox.SelectedItems.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
         }
 
-
+        // Klick auf den "Open Folder" Button
         private void files_Click(object sender, RoutedEventArgs e)
         {
             string currentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
             string folderPath = Path.Combine(currentDirectory, "Dateien");
 
             if (Directory.Exists(folderPath))
             {
-                Process.Start("explorer.exe", folderPath);
+                Process.Start("explorer.exe", folderPath);  // Ordner im Explorer öffnen
             }
             else
             {
@@ -469,13 +478,13 @@ namespace RunTrack
             }
         }
 
+        // Klick auf den "DB View" Button (Datenbank-Datei öffnen)
         private void btnDBView_Click(object sender, RoutedEventArgs e)
         {
-            //select file
             OpenFileDialog openFileDialog = new()
             {
                 Multiselect = false,
-                Filter = "files (*.db)|*.db"
+                Filter = "files (*.db)|*.db"  // Filter für Datenbankdateien
             };
 
             if (openFileDialog.ShowDialog() == true)
@@ -483,11 +492,10 @@ namespace RunTrack
                 string dbPath = openFileDialog.FileName;
                 if (File.Exists(dbPath))
                 {
-                    _pmodel.Navigate(new Datenuebersicht());
+                    _pmodel.Navigate(new Datenuebersicht());  // Zur Datenübersicht navigieren
                     DatenuebersichtModel model = FindResource("dumodel") as DatenuebersichtModel ?? new();
-                    model.ConnectionString= dbPath;
+                    model.ConnectionString = dbPath;  // Datenbank-Verbindung einstellen
                     model.ReadOnly = true;
-
                 }
                 else
                 {
@@ -496,6 +504,7 @@ namespace RunTrack
             }
         }
 
+        // Klick auf den "Viewer" Button (Datei anzeigen)
         private void btnViewer_Click(object sender, RoutedEventArgs e)
         {
             string selectedFile = _dvmodel.LstFiles.FirstOrDefault(f => f.IsSelected)?.FileName;
@@ -506,10 +515,9 @@ namespace RunTrack
             }
 
             selectedFile = Path.Combine("Dateien", selectedFile);
-
-            _pmodel.Navigate(new Datenuebersicht());
+            _pmodel.Navigate(new Datenuebersicht());  // Zur Datenübersicht navigieren
             DatenuebersichtModel model = FindResource("dumodel") as DatenuebersichtModel ?? new();
-            model.ConnectionString = selectedFile;
+            model.ConnectionString = selectedFile;  // Pfad der ausgewählten Datei setzen
             model.ReadOnly = true;
         }
     }

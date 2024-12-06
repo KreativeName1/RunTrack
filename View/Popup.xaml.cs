@@ -9,41 +9,37 @@ namespace RunTrack
     /// <summary>
     /// Interaktionslogik für PopupWindow.xaml
     /// </summary>
-    ///
-    
-
     public partial class Popup : Window
     {
-        private PopupType? _type;
-        private PopupButtons? _buttons;
-        public bool? Result = null;
+        private PopupType? _type; // Speichert den Typ des Popups
+        private PopupButtons? _buttons; // Speichert die Art der Schaltflächen im Popup
+        public bool? Result = null; // Speichert das Ergebnis der Benutzerinteraktion
 
+        // Zeigt das Popup-Fenster an
         public bool? Display(string title, string message, PopupType type, PopupButtons buttons)
         {
             _type = type;
             _buttons = buttons;
 
-            InitializeComponent();
-            Title = title;
-            tbTitel.Content = title;
-            tbMessage.Text = message;
-            // set height of message box depending lines of text
-            
-            SetupIcon();
-            SetupButtons();
+            InitializeComponent(); // Initialisiert die Komponenten des Fensters
+            Title = title; // Setzt den Titel des Fensters
+            tbTitel.Content = title; // Setzt den Titeltext
+            tbMessage.Text = message; // Setzt die Nachricht
+                                      // Setzt die Höhe des Nachrichtenfeldes abhängig von der Anzahl der Textzeilen
 
+            SetupIcon(); // Richtet das Symbol ein
+            SetupButtons(); // Richtet die Schaltflächen ein
 
-            this.Topmost = true;
-            this.Activate();
-            StartAnimations();
+            this.Topmost = true; // Setzt das Fenster in den Vordergrund
+            this.Activate(); // Aktiviert das Fenster
+            StartAnimations(); // Startet die Animationen
 
-            this.ShowDialog();
+            this.ShowDialog(); // Zeigt das Fenster als modales Dialogfenster an
 
-            return Result;
+            return Result; // Gibt das Ergebnis zurück
         }
 
-
-
+        // Startet die Animationen des Fensters
         private void StartAnimations()
         {
             var fadeInStoryboard = (Storyboard)this.Resources["FadeInStoryboard"];
@@ -59,31 +55,30 @@ namespace RunTrack
             backgroundColorStoryboard.Begin(this);
         }
 
+        // Richtet das Symbol des Popups basierend auf dem Typ ein
         private void SetupIcon()
         {
             switch (_type)
             {
                 case PopupType.Success:
-
                     imgIcon.Source = new BitmapImage(new Uri(PopupImage.Success.ToString()));
                     break;
                 case PopupType.Info:
                     imgIcon.Source = new BitmapImage(new Uri(PopupImage.Info.ToString()));
                     break;
-
                 case PopupType.Warning:
                     imgIcon.Source = new BitmapImage(new Uri(PopupImage.Warning.ToString()));
                     break;
-
                 case PopupType.Error:
                     imgIcon.Source = new BitmapImage(new Uri(PopupImage.Error.ToString()));
                     break;
-
                 case PopupType.Question:
                     imgIcon.Source = new BitmapImage(new Uri(PopupImage.Question.ToString()));
                     break;
             }
         }
+
+        // Richtet die Schaltflächen des Popups basierend auf dem Typ ein
         private void SetupButtons()
         {
             switch (_buttons)
@@ -155,6 +150,7 @@ namespace RunTrack
             }
         }
 
+        // Erstellt eine Schaltfläche mit den angegebenen Eigenschaften
         private ButtonPlus CreateButton(string name, string content)
         {
             return new ButtonPlus
@@ -171,6 +167,7 @@ namespace RunTrack
             };
         }
 
+        // Ereignishandler für das Laden des Fensters
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             double height = tbMessage.ActualHeight;

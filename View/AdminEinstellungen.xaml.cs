@@ -11,21 +11,25 @@ namespace RunTrack
     /// </summary>
     public partial class AdminEinstellungen : Page
     {
+        // Definiert den Dialogmodus (Neu oder Bearbeiten)
         private DialogMode mode = DialogMode.Neu;
+        // Speichert den Vornamen und Nachnamen des Benutzers
         private string firstName = string.Empty;
         private string lastName = string.Empty;
 
+        // Referenz auf das Hauptmodell
         private MainModel? _mmodel;
 
+        // Konstruktor für die AdminEinstellungen-Seite
         public AdminEinstellungen(DialogMode mode, string firstName = "", string lastName = "")
         {
             InitializeComponent();
+            // Initialisiert das Hauptmodell
             _mmodel = FindResource("pmodel") as MainModel ?? new();
             this.mode = mode;
 
             this.firstName = firstName;
             this.lastName = lastName;
-
 
             // Button, um das Passwort zu ändern
             this.btnAendern.Click += (sender, e) =>
@@ -39,8 +43,7 @@ namespace RunTrack
             // Button, um den Dialog zu schließen
             this.btnAbbrechen.Click += (sender, e) => _mmodel?.Navigate(_mmodel.History[^1]);
 
-
-
+            // Konfiguriert die UI basierend auf dem Dialogmodus
             if (mode == DialogMode.Neu)
             {
                 tbTitel.Text = "Admin anlegen";
@@ -74,15 +77,12 @@ namespace RunTrack
             }
         }
 
-
-
         // Wird vom Button "Passwort ändern" aufgerufen
         private bool ChangePassword(string oldPassword, string newPassword)
         {
             if (!ValidateInputsBearbeiten()) return false;
 
             bool result = false;
-
 
             using (var db = new LaufDBContext())
             {
@@ -98,7 +98,6 @@ namespace RunTrack
             return result;
         }
 
-
         // Überprüfen, ob das neue Passwort den Sicherheitsanforderungen entspricht
         private bool ValidateNewPassword(string newPassword)
         {
@@ -107,11 +106,12 @@ namespace RunTrack
 #endif
             return !string.IsNullOrEmpty(newPassword) &&
                    newPassword.Length >= 8 &&
-            newPassword.Any(char.IsUpper) &&
-            newPassword.Any(char.IsLower) &&
-            newPassword.Any(char.IsDigit) && newPassword.Any(char.IsSymbol);
+                   newPassword.Any(char.IsUpper) &&
+                   newPassword.Any(char.IsLower) &&
+                   newPassword.Any(char.IsDigit) && newPassword.Any(char.IsSymbol);
         }
 
+        // Überprüfen, ob das alte Passwort korrekt ist
         private bool ValidateOldPassword(string oldPassword)
         {
             using (var db = new LaufDBContext())
@@ -122,7 +122,7 @@ namespace RunTrack
             }
         }
 
-        // Überprüfen, ob die Eingaben korrekt sind
+        // Überprüfen, ob die Eingaben korrekt sind (für das Anlegen eines neuen Admins)
         private bool ValidateInputsAnlegen()
         {
             bool isValid = true;
@@ -156,6 +156,7 @@ namespace RunTrack
             return isValid;
         }
 
+        // Überprüfen, ob die Eingaben korrekt sind (für das Bearbeiten eines Admins)
         private bool ValidateInputsBearbeiten()
         {
             bool isValid = true;
@@ -246,13 +247,14 @@ namespace RunTrack
             _mmodel?.Navigate(_mmodel.History[^1]);
         }
 
-
+        // Wird aufgerufen, wenn das Fenster geladen wird
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             txtVorname.ForegroundBrush = new SolidColorBrush(Colors.Gray);
             txtNachname.ForegroundBrush = new SolidColorBrush(Colors.Gray);
         }
 
+        // Wird aufgerufen, wenn der "Credits"-Button geklickt wird
         private void btnCredits_Click(object sender, RoutedEventArgs e)
         {
             _mmodel?.Navigate(new Credits());

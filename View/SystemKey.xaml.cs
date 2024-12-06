@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace RunTrack
 {
@@ -20,16 +8,20 @@ namespace RunTrack
     /// </summary>
     public partial class SystemKey : Page
     {
+        // Konstruktor der Klasse SystemKey
         public SystemKey()
         {
-            InitializeComponent();
-            tbKey.Text = UniqueKey.GetKey();
+            InitializeComponent(); // Initialisiert die Komponenten der Seite
+            tbKey.Text = UniqueKey.GetKey(); // Setzt den Text des TextBlocks tbKey auf einen eindeutigen Schlüssel
         }
 
+        // Event-Handler für den Klick auf den Button "Schließen"
         private void btnSchliessen_Click(object sender, RoutedEventArgs e)
         {
+            // Holt das MainModel aus den Ressourcen
             MainModel model = FindResource("pmodel") as MainModel;
 
+            // Navigiert zur letzten Seite in der Verlaufsliste, falls das Modell nicht null ist
             model?.Navigate(model.History[^1], false);
         }
     }

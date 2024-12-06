@@ -1,19 +1,8 @@
 ﻿using FullControls.Controls;
 using MahApps.Metro.Controls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace RunTrack
 {
@@ -21,6 +10,7 @@ namespace RunTrack
     /// Interaktionslogik für PopupWindow.xaml
     /// </summary>
     ///
+    // Definiert die verschiedenen Typen von Popups
     public enum PopupType
     {
         Error,
@@ -29,6 +19,7 @@ namespace RunTrack
         Question,
         Success,
     }
+    // Definiert die verschiedenen Arten von Schaltflächen, die in einem Popup angezeigt werden können
     public enum PopupButtons
     {
         Ok,
@@ -37,12 +28,14 @@ namespace RunTrack
         YesNoCancel,
     }
 
+    // Klasse zur Verwaltung der Popup-Bilder
     public class PopupImage
     {
         private PopupImage(string value) { Value = value; }
 
         public string Value { get; private set; }
 
+        // Statische Eigenschaften für verschiedene Popup-Bilder
         public static PopupImage Info { get { return new PopupImage("pack://application:,,,/Images/popupIcons/info.png"); } }
         public static PopupImage Error { get { return new PopupImage("pack://application:,,,/Images/popupIcons/error.png"); } }
         public static PopupImage Warning { get { return new PopupImage("pack://application:,,,/Images/popupIcons/warning.png"); } }
@@ -55,12 +48,14 @@ namespace RunTrack
         }
     }
 
+    // Hauptklasse für das Popup-Fenster
     public partial class UrkundePopup : MetroWindow
     {
         private PopupType? _type;
         private PopupButtons? _buttons;
         public bool? Result = null;
 
+        // Methode zum Anzeigen des Popups
         public bool? Display(string title, string message, PopupType type, PopupButtons buttons)
         {
             _type = type;
@@ -73,7 +68,6 @@ namespace RunTrack
 
             SetupButtons();
 
-
             this.Topmost = true;
             this.Activate();
 
@@ -82,7 +76,7 @@ namespace RunTrack
             return Result;
         }
 
-        
+        // Methode zum Einrichten der Schaltflächen basierend auf dem Popup-Typ
         private void SetupButtons()
         {
             switch (_buttons)
@@ -154,6 +148,7 @@ namespace RunTrack
             }
         }
 
+        // Methode zum Erstellen einer Schaltfläche
         private ButtonPlus CreateButton(string name, string content)
         {
             return new ButtonPlus
@@ -170,11 +165,13 @@ namespace RunTrack
             };
         }
 
+        // Ereignishandler für das Schließen des Popups
         private void BTN_Close_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
+        // Ereignishandler für das Ändern der Hintergrundfarbe der Schließen-Schaltfläche beim Hovern
         private void BTN_Close_MouseEnter(object sender, MouseEventArgs e)
         {
             BTN_Close.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B42041"));
