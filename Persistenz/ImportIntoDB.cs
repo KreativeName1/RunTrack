@@ -3,16 +3,19 @@
     internal class ImportIntoDB
     {
         private ImportModel _imodel;
+
+        // Konstruktor, der das ImportModel initialisiert und den Importprozess startet
         public ImportIntoDB(ImportModel imodel)
         {
             _imodel = imodel ?? throw new ImportException("Fehler beim Importieren");
 
             using (LaufDBContext db = new())
             {
-
+                // Überprüfen, ob die Schule im ImportModel vorhanden ist
                 if (_imodel.Schule == null) throw new ImportException("Schule nicht gefunden");
                 if (_imodel.Schule.Id == 0)
                 {
+                    // Neue Schule erstellen, wenn die Schule noch keine ID hat
                     string nameCapitalised = CapitalizeWords(_imodel.NeuSchuleName);
                     Schule schule = new() { Name = nameCapitalised ?? string.Empty };
                     db.Schulen.Add(schule);
@@ -20,6 +23,7 @@
                 }
                 else
                 {
+                    // Bestehende Schule aus der Datenbank laden
                     _imodel.Schule = db.Schulen.Find(_imodel.Schule.Id) ?? throw new ImportException("Schule nicht gefunden");
                 }
 
@@ -72,6 +76,7 @@
                 }
                 catch (Exception)
                 {
+                    // Bei Fehlern alle erstellten Klassen und die Schule wieder entfernen
                     foreach (Klasse klasse in db.Klassen.Where(k => k.Schule.Id == _imodel.Schule.Id))
                     {
                         db.Klassen.Remove(klasse);
@@ -85,7 +90,7 @@
             }
         }
 
-
+        // Methode zum Kapitalisieren von Wörtern in einem String
         private string CapitalizeWords(string input)
         {
             if (string.IsNullOrWhiteSpace(input)) return input;

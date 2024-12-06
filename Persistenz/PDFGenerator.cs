@@ -458,10 +458,5 @@ namespace RunTrack
             Dokument.Close();
             return datei;
         }
-
-
-
-
-
     }
 }

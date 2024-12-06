@@ -3,6 +3,7 @@ using System.Text;
 
 namespace TracerFile
 {
+    // Definiert die verschiedenen Protokollierungsstufen
     public enum TraceLevel
     {
         None,
@@ -12,10 +13,14 @@ namespace TracerFile
     }
     public class Tracer
     {
+        // Liste der verwendeten Logger-IDs
         public static List<string> UsedLoggerId = new List<string>();
+        // Name der Protokolldatei
         public string FileName { get; set; }
+        // Eindeutige ID des Loggers
         public string LoggerId { get; private set; }
 
+        // Konstruktor, der den Dateinamen und eine eindeutige Logger-ID festlegt
         public Tracer(string fileName)
         {
             FileName = fileName;
@@ -24,6 +29,7 @@ namespace TracerFile
             UsedLoggerId.Add(LoggerId);
         }
 
+        // Generiert eine zufällige ID mit der angegebenen Länge
         public static string GenerateRandomId(int length)
         {
             string Characters = "#+-!?ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -36,6 +42,7 @@ namespace TracerFile
             return result.ToString();
         }
 
+        // Protokolliert eine Nachricht mit der angegebenen Protokollierungsstufe
         public void Trace(string message, TraceLevel level = TraceLevel.None)
         {
             // DEBUG
@@ -52,10 +59,11 @@ namespace TracerFile
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error writing to file {FileName}", ex);
+                throw new Exception($"Fehler beim Schreiben in die Datei {FileName}", ex);
             }
         }
 
+        // Protokolliert eine Nachricht, wenn die Bedingung erfüllt ist
         public void TraceIf(bool condition, string message, TraceLevel level = TraceLevel.None)
         {
             if (condition)

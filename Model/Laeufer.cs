@@ -6,39 +6,44 @@ using System.Threading.Tasks;
 
 namespace RunTrack
 {
-
-    // NICHT FERTIG
-
-    // Anstatt das nur Schüler laufen können, sollte es auch möglich sein, dass Lehrer und andere Personen laufen können.
-    // Dafür gibt es nun die Klasse Laeufer, die die allgemeinen Eigenschaften eines Läufers enthält.
-    // Der Schüler erbt von Laeufer und hat zusätzlich noch die Klasse, in der er ist.
-
-    // Es muss noch das anlegen, scannen und die Auswertung von Runden implementiert werden.
+    // Definiert die Klasse Laeufer
     public class Laeufer
     {
+        // Eindeutige ID des Läufers
         public int Id { get; set; }
+
+        // Vorname des Läufers
         public string Vorname { get; set; }
+
+        // Nachname des Läufers
         public string Nachname { get; set; }
+
+        // Geschlecht des Läufers (optional)
         public Geschlecht? Geschlecht { get; set; }
+
+        // Geburtsjahrgang des Läufers mit Validierung
         public int Geburtsjahrgang
         {
             get { return _geburtsjahrgang; }
             set
             {
-                // Wenn der Jahrgang unter 1900 ist, setzen wir ihn auf 1900.
+                // Setzt den Geburtsjahrgang auf 1900, wenn der Wert kleiner als 1900 ist
                 if (value < 1900)
                     _geburtsjahrgang = 1900;
                 else
                     _geburtsjahrgang = value;
             }
         }
+        // Private Variable für den Geburtsjahrgang
         private int _geburtsjahrgang;
 
+        // Liste der Runden, die der Läufer absolviert hat
         public List<Runde> Runden { get; set; }
 
-        // Wird nicht für Schüler benutzt, da diese in einer Klasse sind, die bereits eine RundenArt hat.
+        // Art der Runden (optional)
         public RundenArt? RundenArt { get; set; }
-        public int? RundenArtId { get; set; }
 
+        // ID der RundenArt (optional)
+        public int? RundenArtId { get; set; }
     }
 }
