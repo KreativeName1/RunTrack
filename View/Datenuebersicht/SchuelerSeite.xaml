@@ -99,28 +99,27 @@
                         </DataGridTextColumn>
                        
 
-						<DataGridTemplateColumn Header="Klasse" Width="10*">
+						<DataGridTemplateColumn Header="Klasse" Width="12*">
 							<DataGridTemplateColumn.CellTemplate>
 								<DataTemplate>
-									<ComboBox x:Name="cbKlase" 
-											  
+									<ComboBox x:Name="cbKlase"											  
 											     SelectedItem="{Binding Klasse, Mode=TwoWay}"
 											  SelectionChanged="cbKlasse_SelectionChanged"
-											  Loaded="comboBox_Loaded"
+											  Loaded="comboBox_Loaded" Cursor="Pen"
 											     IsEnabled="{Binding DataContext.ReadOnly, RelativeSource={RelativeSource AncestorType=DataGrid}, Converter={StaticResource BoolInverterConverter}}"
 											   DropDownClosed="cbKlase_DropDownClosed"  DropDownOpened="cbKlase_DropDownOpened">
 										<ComboBox.GroupStyle>
 											<GroupStyle>
 												<GroupStyle.HeaderTemplate>
 													<DataTemplate>
-														<TextBlock Text="{Binding Name}"/>
+                                                        <TextBlock Background="#cccab8" Cursor="Hand" TextAlignment="Center" FontWeight="SemiBold" Margin="15,15,15,0" Padding="5,5,5,0" Text="{Binding Name}"/>
 													</DataTemplate>
 												</GroupStyle.HeaderTemplate>
 											</GroupStyle>
 										</ComboBox.GroupStyle>
 										<ComboBox.ItemTemplate>
 											<DataTemplate>
-												<TextBlock Text="{Binding Name}"/>
+                                                <TextBlock Text="{Binding Name}" Margin="7.5,0,7.5,0" Padding="2.5,2.5,2.5,0"/>
 											</DataTemplate>
 										</ComboBox.ItemTemplate>
 									</ComboBox>
