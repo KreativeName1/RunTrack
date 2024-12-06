@@ -173,10 +173,10 @@ namespace RunTrack
         private static DbContextOptions GetDbContextOptions(string? path = null)
         {
             var optionsBuilder = new DbContextOptionsBuilder<LaufDBContext>();
-            optionsBuilder.UseSqlite($"Data Source=Dateien/EigeneDatenbank.db");
+            optionsBuilder.UseSqlite($"Data Source=Dateien/EigeneDatenbank.db;Pooling=False");
             if (path != null)
             {
-                optionsBuilder.UseSqlite($"Data Source={path}");
+                optionsBuilder.UseSqlite($"Data Source={path};Pooling=False");
             }
             optionsBuilder.EnableSensitiveDataLogging();
             return optionsBuilder.Options;
