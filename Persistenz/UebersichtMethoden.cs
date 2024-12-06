@@ -23,7 +23,6 @@ namespace RunTrack
                 dataGrid.SelectedIndex = startRow;
                 dataGrid.ScrollIntoView(dataGrid.Items[startRow]);
                 CurrentSelectedRow = startRow;
-
             }
             else
             {

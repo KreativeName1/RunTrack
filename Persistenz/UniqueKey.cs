@@ -9,8 +9,10 @@ namespace RunTrack
         public static string GetKey()
         {
             string key = string.Empty;
+
             // Zugriff auf den isolierten Speicher des Benutzers und der Assembly
             IsolatedStorageFile store = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
+            
             // Überprüft, ob die Datei "Key.txt" existiert
             if (store.FileExists("Key.txt"))
             {
