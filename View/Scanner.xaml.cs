@@ -61,6 +61,10 @@ namespace RunTrack
                 btnUebersicht.Click += (sender, e) =>
                 {
                     _pmodel?.Navigate(new Datenuebersicht());
+                    DatenuebersichtModel dumodel = FindResource("dumodel") as DatenuebersichtModel ?? new();
+                    dumodel.ReadOnly = false;
+                    dumodel.ConnectionString = null;
+
                 };
 
                 btnEinstellung.Click += (sender, e) =>

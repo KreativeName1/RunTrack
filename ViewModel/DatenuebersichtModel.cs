@@ -10,7 +10,7 @@ namespace RunTrack
 
         private bool _readOnly = false;
 
-        private string? connectionString = "C:\\Users\\sascha\\Desktop\\Auswertung.db";
+        private string? connectionString;
 
         public string? ConnectionString
         {

@@ -468,5 +468,49 @@ namespace RunTrack
                 MessageBox.Show("Der Ordner 'Dateien' existiert nicht.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        private void btnDBView_Click(object sender, RoutedEventArgs e)
+        {
+            //select file
+            OpenFileDialog openFileDialog = new()
+            {
+                Multiselect = false,
+                Filter = "files (*.db)|*.db"
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string dbPath = openFileDialog.FileName;
+                if (File.Exists(dbPath))
+                {
+                    _pmodel.Navigate(new Datenuebersicht());
+                    DatenuebersichtModel model = FindResource("dumodel") as DatenuebersichtModel ?? new();
+                    model.ConnectionString= dbPath;
+                    model.ReadOnly = true;
+
+                }
+                else
+                {
+                    new Popup().Display("Fehler", "Die ausgewählte Datei existiert nicht mehr.", PopupType.Error, PopupButtons.Ok);
+                }
+            }
+        }
+
+        private void btnViewer_Click(object sender, RoutedEventArgs e)
+        {
+            string selectedFile = _dvmodel.LstFiles.FirstOrDefault(f => f.IsSelected)?.FileName;
+            if (selectedFile == null)
+            {
+                new Popup().Display("Fehler", "Bitte wählen Sie eine Datei aus.", PopupType.Error, PopupButtons.Ok);
+                return;
+            }
+
+            selectedFile = Path.Combine("Dateien", selectedFile);
+
+            _pmodel.Navigate(new Datenuebersicht());
+            DatenuebersichtModel model = FindResource("dumodel") as DatenuebersichtModel ?? new();
+            model.ConnectionString = selectedFile;
+            model.ReadOnly = true;
+        }
     }
 }
