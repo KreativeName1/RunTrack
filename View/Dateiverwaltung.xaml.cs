@@ -164,7 +164,7 @@ namespace RunTrack
                 return;
             }
 
-            var fileItems = remainingFilesstrings.Select(fileItem =>
+            List<FileListItem> fileItems = remainingFilesstrings.Select(fileItem =>
             {
                 string displayPath = Path.GetFullPath(fileItem);
                 return new FileListItem
@@ -175,20 +175,29 @@ namespace RunTrack
                     Tooltip = File.Exists(fileItem) ? $"Die Datei {Path.GetFileName(fileItem)} existiert bereits." : string.Empty
                 };
             }).ToList();
-;
+            ; // Liste für die verbleibenden Dateien für den Import
 
-            var selectFileWindow = new SelectFileWindow(fileItems);
-            if (selectFileWindow.ShowDialog() == true)
+            SelectFileWindow selectFileWindow = new SelectFileWindow(fileItems); // neues Fenster öffnen, um weiter Dateien auswählen zu können
+
+            try
             {
-                if (File.Exists(selectFileWindow.SelectedFile))
-                {
-                    checkFile(selectFileWindow.SelectedFile);
-                }
-                else
-                {
-                    new Popup().Display("Fehler", $"Die ausgewählte Datei existiert nicht mehr.", PopupType.Error, PopupButtons.Ok);
-                }
+
+                selectFileWindow.ShowDialog(); // Dialog anzeigen
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            if (File.Exists(selectFileWindow.SelectedFile))
+            {
+                checkFile(selectFileWindow.SelectedFile); // Datei überprüfen
+            }
+            else
+            {
+                new Popup().Display("Fehler", $"Die ausgewählte Datei existiert nicht mehr.", PopupType.Error, PopupButtons.Ok); // Fehler ausgeben
+            }
+
         }
 
 
@@ -485,7 +494,7 @@ namespace RunTrack
                 {
                     _pmodel.Navigate(new Datenuebersicht());
                     DatenuebersichtModel model = FindResource("dumodel") as DatenuebersichtModel ?? new();
-                    model.ConnectionString= dbPath;
+                    model.ConnectionString = dbPath;
                     model.ReadOnly = true;
 
                 }

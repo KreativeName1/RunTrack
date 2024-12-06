@@ -20,8 +20,8 @@ namespace RunTrack
         public SelectFileWindow(List<FileListItem> fileItems)
         {
             InitializeComponent();
-            //FileListBox.ItemsSource = fileItems;
-            _fileItems = fileItems.OrderBy(f => f.Name).ToList();
+            _fileItems = fileItems;
+            fileItems = fileItems.OrderBy(f => f.Name).ToList();
             UpdateListBox();
         }
 
@@ -70,7 +70,6 @@ namespace RunTrack
 
         private void UpdateListBox()
         {
-            FileListBox.ItemsSource = null;
             FileListBox.ItemsSource = _fileItems;
         }
 
