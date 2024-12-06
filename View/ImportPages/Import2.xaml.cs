@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace RunTrack
@@ -18,12 +19,26 @@ namespace RunTrack
             _model = FindResource("pmodel") as MainModel ?? new();
             DataContext = _imodel;
 
+            this.Loaded += (s, e) =>
+            {
+                LoadOverlay.Visibility = Visibility.Hidden;
+            };
+
             _imodel.RundenArten = new(new LaufDBContext().RundenArten.ToList());
 
             btnBack.Click += (s, e) => _model.Navigate(_model.History.FindLast(x => x.GetType() == typeof(Import1)));
             btnWeiter.Click += (s, e) =>
             {
-                _model.Navigate(new ImportUbersicht());
+                LoadOverlay.Visibility = Visibility.Visible;
+
+                Task.Run(() =>
+                {
+                    Thread.Sleep(500);
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        _model.Navigate(new ImportUbersicht());
+                    });
+                });
                 return;
             };
             Load();

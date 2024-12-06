@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:RunTrack" xmlns:fc="http://devpelux.github.io/fullcontrols"
+      xmlns:local="clr-namespace:RunTrack" xmlns:fc="http://devpelux.github.io/fullcontrols" xmlns:fa="http://schemas.fontawesome.io/icons/"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ImportUbersicht">
@@ -18,5 +18,11 @@
             <fc:ButtonPlus x:Name="btnWeiter" Content="Import Bestätigen" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" FontSize="12" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
             <fc:ButtonPlus x:Name="btnCancel" Content="Abbrechen" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Cursor="Hand" FontSize="12" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="35"/>
         </StackPanel>
+
+
+        <Grid Grid.ColumnSpan="1" Grid.RowSpan="2" x:Name="LoadOverlay" Visibility="Hidden" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Rectangle Fill="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Opacity="0.5"/>
+            <fa:ImageAwesome Icon="Refresh" Spin="True" Height="48" Width="48" />
+        </Grid>
     </Grid>
 </Page>

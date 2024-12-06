@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace RunTrack
@@ -18,6 +19,7 @@ namespace RunTrack
 
             this.Loaded += (s, e) =>
             {
+                LoadOverlay.Visibility = System.Windows.Visibility.Hidden;
                 try
                 {
                     // 1. Lösche Temp/Temp.db, falls vorhanden
@@ -54,16 +56,25 @@ namespace RunTrack
                 // 5. Wenn Bestätigen geklickt wird, verschiebe Temp/Temp.db zu EigeneDatenbank.db
                 btnWeiter.Click += (s, e) =>
                 {
-                    try
+                    LoadOverlay.Visibility = Visibility.Visible;
+                    Task.Run(() =>
                     {
-                        ImportIntoDB importIntoDB = new(_imodel, "Dateien/EigeneDatenbank.db");
-                        _model.Navigate(new Import3("Daten erfolgreich importiert", true));
-                        return;
-                    }
-                    catch (Exception ex)
-                    {
-                        _model.Navigate(new Import3(ex.Message, false));
-                    }
+                        Thread.Sleep(500);
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            try
+                            {
+                                ImportIntoDB importIntoDB = new(_imodel, "Dateien/EigeneDatenbank.db");
+                                _model.Navigate(new Import3("Daten erfolgreich importiert", true));
+                                return;
+                            }
+                            catch (Exception ex)
+                            {
+                                _model.Navigate(new Import3(ex.Message, false));
+                            }
+                        });
+                    });
+                  
                 };
 
                 // 5. Wenn Abbrechen geklickt wird, lösche Temp/Temp.db
