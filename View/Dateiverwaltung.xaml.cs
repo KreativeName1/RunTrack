@@ -494,7 +494,7 @@ namespace RunTrack
                 {
                     _pmodel.Navigate(new Datenuebersicht());  // Zur Datenübersicht navigieren
                     DatenuebersichtModel model = FindResource("dumodel") as DatenuebersichtModel ?? new();
-                    model.ConnectionString = dbPath;  // Datenbank-Verbindung einstellen
+                    model.ConnectionString = dbPath;
                     model.ReadOnly = true;
                 }
                 else
