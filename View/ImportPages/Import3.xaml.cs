@@ -57,7 +57,7 @@ namespace RunTrack
 
         private void btnWeitereDatei_Click(object sender, RoutedEventArgs e)
         {
-            _model.Navigate(new Dateiverwaltung());
+            _model.Navigate(_model.History.FindLast(x => x.GetType() == typeof(Dateiverwaltung)));
             Application.Current.Dispatcher.InvokeAsync(() =>
             {
                 var dateiverwaltungPage = _model.CurrentPage as Dateiverwaltung;

@@ -156,26 +156,26 @@ namespace RunTrack
 
         public void ShowRemainingFiles()
         {
-            var remainingFiles = _dvmodel.LstFiles.Where(f => !f.IsSelected).ToList();
-            if (remainingFiles.Count == 0)
+            var remainingFilesstrings = _tempSelectedFiles;
+
+            if (remainingFilesstrings.Count == 0)
             {
                 new Popup().Display("Information", "Es sind keine weiteren Dateien zum Importieren vorhanden.", PopupType.Info, PopupButtons.Ok);
                 return;
             }
 
-            
-            var fileItems = remainingFiles.Select(fileItem =>
+            var fileItems = remainingFilesstrings.Select(fileItem =>
             {
-                string displayPath = Path.GetFullPath(fileItem.FileName);
-                string destPath = Path.Combine("Dateien", fileItem.FileName);
+                string displayPath = Path.GetFullPath(fileItem);
                 return new FileListItem
                 {
-                    Pfad = destPath,
-                    Name = fileItem.FileName,
-                    InfoVisible = File.Exists(destPath),
-                    Tooltip = File.Exists(destPath) ? $"Die Datei {fileItem.FileName} existiert bereits." : string.Empty
+                    Pfad = fileItem,
+                    Name = Path.GetFileName(fileItem),
+                    InfoVisible = File.Exists(fileItem),
+                    Tooltip = File.Exists(fileItem) ? $"Die Datei {Path.GetFileName(fileItem)} existiert bereits." : string.Empty
                 };
             }).ToList();
+;
 
             var selectFileWindow = new SelectFileWindow(fileItems);
             if (selectFileWindow.ShowDialog() == true)
