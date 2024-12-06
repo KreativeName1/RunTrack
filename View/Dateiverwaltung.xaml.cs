@@ -306,7 +306,7 @@ namespace RunTrack
 
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
-            Object? page = _pmodel.History.FindLast(x => !new[] { typeof(Import1), typeof(Import2), typeof(Import3), GetType() }.Contains(x.GetType()));
+            Object? page = _pmodel.History.FindLast(x => !new[] { typeof(ImportUbersicht), typeof(Import1), typeof(Import2), typeof(Import3), GetType() }.Contains(x.GetType()));
             if (page != null) _pmodel.Navigate(page);
         }
 

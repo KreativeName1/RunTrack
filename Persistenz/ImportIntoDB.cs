@@ -3,16 +3,18 @@
     internal class ImportIntoDB
     {
         private ImportModel _imodel;
-        public ImportIntoDB(ImportModel imodel)
+        public ImportIntoDB(ImportModel imodel, string? path = null)
         {
             _imodel = imodel ?? throw new ImportException("Fehler beim Importieren");
 
-            using (LaufDBContext db = new())
+            using (LaufDBContext db = new(path))
             {
 
                 if (_imodel.Schule == null) throw new ImportException("Schule nicht gefunden");
-                if (_imodel.Schule.Id == 0)
+
+                if (_imodel.Schule.Id == 0 || db.Schulen.Find(_imodel.Schule.Id) == null)
                 {
+                    _imodel.Schule.Id = 0;
                     string nameCapitalised = CapitalizeWords(_imodel.NeuSchuleName);
                     Schule schule = new() { Name = nameCapitalised ?? string.Empty };
                     db.Schulen.Add(schule);
@@ -20,7 +22,7 @@
                 }
                 else
                 {
-                    _imodel.Schule = db.Schulen.Find(_imodel.Schule.Id) ?? throw new ImportException("Schule nicht gefunden");
+                    _imodel.Schule = db.Schulen.Find(_imodel.Schule.Id);
                 }
 
                 // Klassen erstellen
@@ -72,14 +74,9 @@
                 }
                 catch (Exception)
                 {
-                    foreach (Klasse klasse in db.Klassen.Where(k => k.Schule.Id == _imodel.Schule.Id))
-                    {
-                        db.Klassen.Remove(klasse);
-                    }
-                    db.Schulen.Remove(_imodel.Schule);
-
-                    db.SaveChanges();
+                    db.Dispose();
                     throw;
+
                 }
                 db.SaveChanges();
             }

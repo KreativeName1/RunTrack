@@ -23,7 +23,8 @@ namespace RunTrack
             btnBack.Click += (s, e) => _model.Navigate(_model.History.FindLast(x => x.GetType() == typeof(Import1)));
             btnWeiter.Click += (s, e) =>
             {
-                _model.Navigate(new Import3());
+                _model.Navigate(new ImportUbersicht());
+                return;
             };
             Load();
         }
