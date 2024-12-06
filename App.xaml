@@ -26,7 +26,7 @@
 
             <!-- Definiert einen Stil für ToolTips -->
             <Style TargetType="ToolTip">
-                <Setter Property="ToolTipService.InitialShowDelay" Value="100"/>
+                <Setter Property="ToolTipService.InitialShowDelay" Value="0"/>
                 <Setter Property="FontWeight" Value="SemiBold"/>
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="Background" Value="#fffde6"/>
