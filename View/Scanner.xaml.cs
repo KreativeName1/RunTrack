@@ -54,31 +54,63 @@ namespace RunTrack
             if (_smodel == null) return;
             if (_pmodel.Benutzer.IsAdmin)
             {
+                LoadOverlay.Visibility = Visibility.Hidden;
                 this.borderAdmin.Visibility = Visibility.Visible;
 
                 lstlastScan.Margin = new Thickness(lstlastScan.Margin.Left, lstlastScan.Margin.Top, lstlastScan.Margin.Right, 100);
 
                 btnUebersicht.Click += (sender, e) =>
                 {
-                    _pmodel?.Navigate(new Datenuebersicht());
-                    DatenuebersichtModel dumodel = FindResource("dumodel") as DatenuebersichtModel ?? new();
-                    dumodel.ReadOnly = false;
-                    dumodel.ConnectionString = null;
-
+                    LoadOverlay.Visibility = Visibility.Visible;
+                    Task.Run(() =>
+                    {
+                        Thread.Sleep(500);
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            _pmodel?.Navigate(new Datenuebersicht());
+                            DatenuebersichtModel dumodel = FindResource("dumodel") as DatenuebersichtModel ?? new();
+                            dumodel.ReadOnly = false;
+                            dumodel.ConnectionString = null;
+                        });
+                    });
                 };
 
                 btnEinstellung.Click += (sender, e) =>
                 {
-                    _pmodel?.Navigate(new Einstellungen());
+                    LoadOverlay.Visibility = Visibility.Visible;
+                    Task.Run(() =>
+                    {
+                        Thread.Sleep(500);
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            _pmodel?.Navigate(new Einstellungen());
+                        });
+                    });
                 };
 
                 btnDateien.Click += (sender, e) =>
                 {
-                    _pmodel?.Navigate(new Dateiverwaltung());
+                    LoadOverlay.Visibility = Visibility.Visible;
+                    Task.Run(() =>
+                    {
+                        Thread.Sleep(500);
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            _pmodel?.Navigate(new Dateiverwaltung());
+                        });
+                    });
                 };
                 btnAuswertung.Click += (sender, e) =>
                 {
-                    _pmodel?.Navigate(new Auswertung());
+                    LoadOverlay.Visibility = Visibility.Visible;
+                    Task.Run(() =>
+                    {
+                        Thread.Sleep(500);
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                        _pmodel?.Navigate(new Auswertung());
+                        });
+                    });
                 };
             }
             else
