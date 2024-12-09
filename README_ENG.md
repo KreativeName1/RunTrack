@@ -8,14 +8,15 @@ the manual evaluation of the running data, which was recorded using barcode scan
 in an Excel file using barcode scanners.
 Our class was divided into several groups, each of which developed their own software.
 In this project, we also learnt how to work with Git and GitHub.
+**The Software is currently only available in german.**
 
 ## ✨ Main functions
 **Participant management:** Easy management of students, classes and schools.
 **Round recording:** Scanning of barcodes and automatic saving of results.
-* Evaluation:** Detailed analyses in the form of diagrams and tables.
+**Evaluation:** Detailed analyses in the form of diagrams and tables.
 **Certificate generation:** Personalised certificates for each participant.
-* **Database:** SQLite database for storing all data, which can also be imported/exported.
-* **PDF tools:** Creation and customisation of PDF files for barcodes, evaluation and certificates
+**Database:** SQLite database for storing all data, which can also be imported/exported.
+**PDF tools:** Creation and customisation of PDF files for barcodes, evaluation and certificates
 
 ## 🚀 Installation
 
@@ -28,8 +29,8 @@ In this project, we also learnt how to work with Git and GitHub.
 - **Programming language:** C#  
 - **Framework:** Windows Presentation Foundation (WPF)  
 - **Database:** SQLite (via Entity Framework Core)  
-- PDF generation:** iText library  
-- PDF display:** WebView2 component  
+- **PDF generation:** iText library  
+- **PDF display:** WebView2 component  
 
 ## Feedback and support
 
