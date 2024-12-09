@@ -36,11 +36,11 @@ namespace RunTrack
             };
 
             // Event-Handler für den Zurück-Button
-            btnBack.Click += (s, e) =>
-            {
-                Result = false;
-                Close();
-            };
+            //btnBack.Click += (s, e) =>
+            //{
+            //    Result = false;
+            //    Close();
+            //};
         }
 
         // Methode, um den eingegebenen Wert zu erhalten und in den angegebenen Typ zu konvertieren

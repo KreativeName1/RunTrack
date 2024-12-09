@@ -51,7 +51,7 @@ namespace RunTrack
 
                 if (_tempSelectedFiles.Count > 1)
                 {
-                    MessageBox.Show("Nur eine Datei maximal.\nMehrfachauswahl ist in Arbeit", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    new Popup().Display("Error", "Es kann derzeit nur eine Datei gleichzeitig ausgewählt werden.\n\nEine Mehrfachauswahl ist momentan nicht möglich.", PopupType.Error, PopupButtons.Ok);
                     return;
                     //// Wenn mehrere Dateien ausgewählt wurden, Benutzer zur Auswahl auffordern
                     //string selectedFile = PromptUserToSelectFile(_tempSelectedFiles.ToArray());
@@ -408,7 +408,7 @@ namespace RunTrack
 
                 if (_tempSelectedFiles.Count > 1)
                 {
-                    MessageBox.Show("Nur eine Datei maximal.\nMehrfachauswahl ist in Arbeit", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    new Popup().Display("Error", "Es kann derzeit nur eine Datei gleichzeitig ausgewählt werden.\n\nEine Mehrfachauswahl ist momentan nicht möglich.", PopupType.Error, PopupButtons.Ok);
                     return;
                     //// Wenn mehrere Dateien, den Benutzer zur Auswahl auffordern
                     //string selectedFile = PromptUserToSelectFile(_tempSelectedFiles.ToArray());
