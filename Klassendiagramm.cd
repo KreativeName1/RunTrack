@@ -1,0 +1,671 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Alphabetical">
+  <Class Name="RunTrack.Benutzer" Collapsed="true">
+    <Position X="6.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAACCAAAAgAAAAAAgAAgAA=</HashCode>
+      <FileName>Model\Benutzer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.BlattGroesse" Collapsed="true">
+    <Position X="8" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAEAAAAAAQAACAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\BlattGroesse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.FileItem" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAEAAAIAAAAACAgACAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Model\FileItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.Format" Collapsed="true">
+    <Position X="6.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAGAIAAAAAEAAAEgAQQAhQCiABAEJAAAAAQAAAAAAA=</HashCode>
+      <FileName>Model\Format.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.GeschlechtHelper" Collapsed="true">
+    <Position X="8" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Geschlecht.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.Klasse" Collapsed="true">
+    <Position X="9.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABCAAAAAAAAAAAEIAAAAAQAAAAAACAAAAABAAAIAAA=</HashCode>
+      <FileName>Model\Klasse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.Laeufer" Collapsed="true">
+    <Position X="3.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gABCAAIAAAAAAAAAAAAAAAAAAAAAACAAAAAAAhBAAAA=</HashCode>
+      <FileName>Model\Laeufer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.Runde" Collapsed="true">
+    <Position X="11.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAAAAAAAAAIAAAACAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Runde.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.RundenArt" Collapsed="true">
+    <Position X="6.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAABAAEAAAAAAQAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Model\RundenArt.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.Schueler" Collapsed="true">
+    <Position X="3.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Model\Schueler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.Schule" Collapsed="true">
+    <Position X="8" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAIAAAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Schule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.Urkunde" Collapsed="true">
+    <Position X="11.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAABAAAgAAQABAAAIAAACIQgAAAAAAQ=</HashCode>
+      <FileName>Model\Urkunde.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.ValidationException" Collapsed="true">
+    <Position X="6.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\ValidationException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.Model.FileListItem" Collapsed="true">
+    <Position X="11.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAgAAAAAAAAAQAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Model\FileListItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TracerFile.Tracer" Collapsed="true">
+    <Position X="9.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAQAAAAAAAAAACAEABAAAAAAAABAAAA=</HashCode>
+      <FileName>Model\Tracer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.DragDropOverlay" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="19.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\Controls\DragDropOverlay.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.DraggableItem" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="21.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAAAAAAAQAAAAAAAQAAAAAEA=</HashCode>
+      <FileName>View\Controls\DraggableItem.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.TopBar" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAEAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\Controls\TopBar.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.LaeuferSeite" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="24.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAEAAAAQAAAAAgAgAAAAABAAAAEAIgAAAAAAAAA=</HashCode>
+      <FileName>View\Datenuebersicht\LaeuferSeite.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.SchuelerSeite" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAECgAAQAACAAgAAAQAAABAAAAEAAgQAAABAAAg=</HashCode>
+      <FileName>View\Datenuebersicht\SchuelerSeite.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.SchulenSeite" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="19.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAEAAAAAAAAAAgAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>View\Datenuebersicht\SchulenSeite.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.Import1" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="24.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAABAIQAAAAAgAAAAAAABAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>View\ImportPages\Import1.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.Import2" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAgAAAAAAgAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\ImportPages\Import2.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.Import3" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\ImportPages\Import3.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.ImportUbersicht" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="19.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\ImportPages\ImportUbersicht.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.AdminEinstellungen" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAFBgECAAAAgAAgAAAAAAACAAgAACAAAAAA=</HashCode>
+      <FileName>View\AdminEinstellungen.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.Auswertung" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="19.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAEAQAAIQQAAAAiEAIAAgAQAAAAIAAAAgQAABAAA=</HashCode>
+      <FileName>View\Auswertung.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.Credits" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="21.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAACAAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\Credits.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.Dateiverwaltung" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAVAACCQAARACIQAAAIBAAAgAAAAkQAhoAAAAIAEA=</HashCode>
+      <FileName>View\Dateiverwaltung.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.Datenuebersicht" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="24.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAQAAAAAAAAAAAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>View\Datenuebersicht.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.DiagrammWert" Collapsed="true">
+    <Position X="17.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAEAAAAAAAABAAAAAA=</HashCode>
+      <FileName>View\Diagramm.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.Diagramm" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAEAIAAAAEAAAAAAAAAAAAIAAIIAAAABAIAEA=</HashCode>
+      <FileName>View\Diagramm.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.Einstellungen" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEACAAAACIACQAAAAAAAAAAEBACAACgECAAAAQAAIgQ=</HashCode>
+      <FileName>View\Einstellungen.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.InputPopup" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="21.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAEAAAAAAQAAAAAAAAAAAAAAAABAEA=</HashCode>
+      <FileName>View\InputPopup.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.Main" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAEAARAAAEAAAAAAAAAAAgAAAAAAAQAAAAAA=</HashCode>
+      <FileName>View\Main.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQACAAEAAABBmAAAQAAAAxAAAAQAAGAEIKCEIAMAgA=</HashCode>
+      <FileName>View\MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.PDFEditor" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="19.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAQAAAgAAAABAAAABABAAgAAAAAAAgAA=</HashCode>
+      <FileName>View\PDFEditor.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.Popup" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="21.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAQAAAAEAQwAAAABQAAAAAAAAAAAIAA=</HashCode>
+      <FileName>View\Popup.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.Scanner" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAQIAAIAAEAAQABCCABEgCgACQAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>View\Scanner.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.SelectFileWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="21.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IBAAAAAAEAAAgAAECAAAAAAEAAAAAgIAAAIAAAEAAEA=</HashCode>
+      <FileName>View\SelectFileWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.SystemKey" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="24.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>View\SystemKey.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.PopupImage" Collapsed="true">
+    <Position X="23" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAEAAAAABAAAgAAAAAEAAAgAEAAAAA=</HashCode>
+      <FileName>View\UrkundePopup.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.UrkundePopup" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAQEAAAAAQQAAAABQAAAAAAAAAAAIEA=</HashCode>
+      <FileName>View\UrkundePopup.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.VerwaltungRunden" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="19.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAQACAABAAAEAAAGAAABAAAgggCAAAAAA=</HashCode>
+      <FileName>View\VerwaltungRunden.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.View.Datenuebersicht.KlassenSeite" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAEAAAAAAAAAAgAgAAACAAAAgAECIAAAIAAAAAg=</HashCode>
+      <FileName>View\Datenuebersicht\KlassenSeite.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.View.Datenuebersicht.RundenSeite" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="24.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAEAAAAAAAAAAgAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>View\Datenuebersicht\RundenSeite.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.View.Datenuebersicht.Startseite" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAEAAAAAAAAAAgAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>View\Datenuebersicht\Startseite.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.View.AdminVerwalten" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAACAAAAAAAAAAgACAIBAACAAAAAAIAAAAAAAQ=</HashCode>
+      <FileName>View\AdminVerwalten.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.BoolInverterConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="37.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\Converter\BoolInverterConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.BoolToVisibilityConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="39.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\Converter\BoolToVisibilityConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.CountToVisibilityConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="41.25" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\Converter\CountToVisibilityConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.InverseBoolToVisibilityConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="43" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\Converter\InverseBoolToVisibilityConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.NullToBoolConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="39.5" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\Converter\NullToBoolConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.ObjectToBoolConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="41.25" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\Converter\ObjectToBoolConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.RundenArtConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="43" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\Converter\RundenArtConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.TimestampConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="37.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\Converter\TimestampConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.WindowHeightConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="39.5" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\Converter\WindowHeightConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.YearValidationConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="41.25" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\Converter\YearValidationConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.KlassenseiteModel" Collapsed="true">
+    <Position X="26.25" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gEAAggAQAQCUEUCAEAAAAAAAgAAAQAFJACAIABAAAAI=</HashCode>
+      <FileName>ViewModel\Datenuebersicht\KlassenseiteModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.LaeuferseiteModel" Collapsed="true">
+    <Position X="30.75" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gEAAggAAAQKUEUAAEAAAAAAAAAACAKEJASAIABAAAAI=</HashCode>
+      <FileName>ViewModel\Datenuebersicht\LaeuferseiteModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.RundenseiteModel" Collapsed="true">
+    <Position X="6" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gEABgggAAACQEEAAEAAACAAAAAAAAAEJACAIABABAAI=</HashCode>
+      <FileName>ViewModel\Datenuebersicht\RundenseiteModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.SchuelerseiteModel" Collapsed="true">
+    <Position X="10.5" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gEAAggAQAACQEUCAEAAAACAAAAAAQAFJECAIABAAEAI=</HashCode>
+      <FileName>ViewModel\Datenuebersicht\SchuelerseiteModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.SchulenseiteModel" Collapsed="true">
+    <Position X="17.25" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gEAAggAQAACQEGAAEAAAAAAAAAAAQAEJACAIAFAAAAI=</HashCode>
+      <FileName>ViewModel\Datenuebersicht\SchulenseiteModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.StartseiteModel" Collapsed="true">
+    <Position X="21.75" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAggAAAACQAAAAEAAAACAAAAAAAAEJECAIABAAEAI=</HashCode>
+      <FileName>ViewModel\Datenuebersicht\StartseiteModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.AdminModel" Collapsed="true">
+    <Position X="28.5" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIABAAAAAAACAAAAAAAAAAAAAAAAAAAABAgAAAAAA=</HashCode>
+      <FileName>ViewModel\AdminModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.AuswertungModel" Collapsed="true">
+    <Position X="33" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAhAAoAcCAAIAECQAgEACQJACQCwMCGBwDAAAAAAEQA=</HashCode>
+      <FileName>ViewModel\AuswertungModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.BaseModel" Collapsed="true">
+    <Position X="20.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\BaseModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="RunTrack.DateiVerwaltungModel" Collapsed="true">
+    <Position X="12.75" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAEAgAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\DateiVerwaltungModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.DatenuebersichtModel" Collapsed="true">
+    <Position X="19.5" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEEgAAAAAAAAAAAAAAAEAACBIAAAAAAI=</HashCode>
+      <FileName>ViewModel\DatenuebersichtModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.ImportModel" Collapsed="true">
+    <Position X="24" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAZAIEAIAAAAAAAgwAAAEAhgBCAgGAAAAAAAAAIAAA=</HashCode>
+      <FileName>ViewModel\ImportModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.KlasseItem" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="37.75" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAQAAgAAAACAAAAAAAAAAABA=</HashCode>
+      <FileName>ViewModel\ImportModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RunTrack.MainModel" Collapsed="true">
+    <Position X="35.25" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAQAgAAAAAAhSACAAAAI=</HashCode>
+      <FileName>ViewModel\MainModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.PDFEditorModel" Collapsed="true">
+    <Position X="8.25" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAEAAAAIAEAbAEAAIAAoAQBAQAgAAGACQEAIgAABAEA=</HashCode>
+      <FileName>ViewModel\PDFEditorModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.ScannerModel" Collapsed="true">
+    <Position X="15" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEwAAAAAAAAAAAAAgBAAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>ViewModel\ScannerModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.CSVReader" Collapsed="true">
+    <Position X="28" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Persistenz\CSVReader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.ImportException" Collapsed="true">
+    <Position X="29.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Persistenz\ImportException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.ImportIntoDB" Collapsed="true">
+    <Position X="31.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Persistenz\ImportIntoDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.LaufDBContext" Collapsed="true">
+    <Position X="28" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAgIAUAAAAAAIgAAAIAAEBAAAABAEAgAgBCAAAA=</HashCode>
+      <FileName>Persistenz\LaufDBContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.MergedDBContext" Collapsed="true">
+    <Position X="29.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAIASAAAIAIIgAAAAAAEBAAABAAAAgAABAAAAA=</HashCode>
+      <FileName>Persistenz\MergedDBContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.PDFGenerator" Collapsed="true">
+    <Position X="31.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAACAAQAAEAAAAAAAAAAAAAAACAAAAICAJAAA=</HashCode>
+      <FileName>Persistenz\PDFGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.UebersichtMethoden" Collapsed="true">
+    <Position X="28" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Persistenz\UebersichtMethoden.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunTrack.UniqueKey" Collapsed="true">
+    <Position X="29.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAQAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Persistenz\UniqueKey.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="RunTrack.SchriftTyp" Collapsed="true">
+    <Position X="9.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAgAAAAAAAAIAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Model\Format.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="RunTrack.Orientierung" Collapsed="true">
+    <Position X="8" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Model\Format.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="RunTrack.Geschlecht" Collapsed="true">
+    <Position X="6.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAABAAAAAI=</HashCode>
+      <FileName>Model\Geschlecht.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TracerFile.TraceLevel" Collapsed="true">
+    <Position X="11.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAABAAAAAAAAAAAAAAAEEAAAA=</HashCode>
+      <FileName>Model\Tracer.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="RunTrack.PopupType" Collapsed="true">
+    <Position X="19.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAABAAAgAAAAAEAAAAAEAAAAA=</HashCode>
+      <FileName>View\UrkundePopup.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="RunTrack.PopupButtons" Collapsed="true">
+    <Position X="17.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAABAAACQAA=</HashCode>
+      <FileName>View\UrkundePopup.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="RunTrack.DialogMode" Collapsed="true">
+    <Position X="16" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\VerwaltungRunden.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
