@@ -35,23 +35,28 @@
             </Grid.ColumnDefinitions>
 
 
-            <CheckBox x:Name="SelectAllCheckBox" Margin="18,0,0,0" Click="SelectAllCheckBox_Click" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <CheckBox x:Name="SelectAllCheckBox" Margin="18,0,0,0" Click="SelectAllCheckBox_Click" KeyDown="SelectAllCheckBox_KeyDown" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             <TextBlock x:Name="SelectAllTextBlock" Width="50" VerticalAlignment="Top" Text="Select All" HorizontalAlignment="Left" Margin="1,-13,0,0" Grid.ColumnSpan="2" TextAlignment="Center" FontSize="10"/>
             <TextBlock Text="Dateiname ⇅" FontWeight="Bold" Margin="38,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1" MouseDown="FileNameLabel_MouseDown" MouseEnter="Label_MouseEnter" MouseLeave="Label_MouseLeave" x:Name="FileNameLabel" Cursor="Hand"/>
             <TextBlock Text="Uploaddatum ⇅" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" MouseDown="UploadDateLabel_MouseDown" MouseEnter="Label_MouseEnter" MouseLeave="Label_MouseLeave" x:Name="UploadDateLabel" Cursor="Hand"/>
         </Grid>
-        <ListBox x:Name="FilesListBox" IsTabStop="False" AllowDrop="True" SelectionChanged="FilesListBox_SelectionChanged" ItemsSource="{Binding LstFiles}" Focusable="False"
+        <ListBox x:Name="FilesListBox" IsTabStop="False" AllowDrop="True" SelectionChanged="FilesListBox_SelectionChanged" ItemsSource="{Binding LstFiles}"
          Grid.Row="3" Margin="10,5,10,15" BorderBrush="Gray" BorderThickness="1" HorizontalContentAlignment="Stretch" SelectionMode="Extended" PreviewMouseDown="FilesListBox_PreviewMouseDown">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="IsTabStop" Value="False"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border Focusable="False" BorderBrush="LightGray" BorderThickness="1" Margin="0,1,0,1" Padding="5">
-                        <Grid Focusable="False">
+                    <Border BorderBrush="LightGray" BorderThickness="1" Margin="0,1,0,1" Padding="5">
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="30"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" VerticalAlignment="Center" Margin="5" IsTabStop="False"/>
+                            <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" IsTabStop="False" VerticalAlignment="Center" Margin="5"/>
                             <TextBlock Text="{Binding FileName}" VerticalAlignment="Center" Margin="30,0,0,0" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap"/>
                             <TextBlock Text="{Binding UploadDate, StringFormat={}{0:dd.MM.yyyy} - {0:HH:mm} Uhr}" VerticalAlignment="Center" Margin="5,0,5,0" Grid.Column="2" HorizontalAlignment="Right"/>
 

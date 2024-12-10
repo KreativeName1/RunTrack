@@ -529,5 +529,14 @@ namespace RunTrack
             model.ConnectionString = selectedFile;  // Pfad der ausgewählten Datei setzen
             model.ReadOnly = true;
         }
+
+        private void SelectAllCheckBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                SelectAllCheckBox.IsChecked = !SelectAllCheckBox.IsChecked;
+                SelectAllCheckBox_Click(sender, new RoutedEventArgs());
+            }
+        }
     }
 }
