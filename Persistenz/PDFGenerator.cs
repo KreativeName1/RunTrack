@@ -234,17 +234,10 @@ namespace RunTrack
                 table.AddHeaderCell(new Cell().Add(new Paragraph("Runde").SetBold()).SetTextAlignment(TextAlignment.CENTER).SetBackgroundColor(customLightGray));
                 table.AddHeaderCell(new Cell().Add(new Paragraph("Zeit").SetBold()).SetTextAlignment(TextAlignment.CENTER).SetBackgroundColor(customLightGray));
 
-                for (int i = 0; i < schueler.Runden.Count; i++)
+                for (int i = 0; i < rundenZeiten.Count; i++)
                 {
                     table.AddCell(new Cell().Add(new Paragraph($"{i + 1}")).SetTextAlignment(TextAlignment.CENTER));
-                    if (i < rundenZeiten.Count)
-                    {
-                        table.AddCell(new Cell().Add(new Paragraph(rundenZeiten[i].ToString(@"hh\:mm\:ss"))).SetTextAlignment(TextAlignment.CENTER));
-                    }
-                    else
-                    {
-                        table.AddCell(new Cell().Add(new Paragraph("")).SetTextAlignment(TextAlignment.CENTER));
-                    }
+                    table.AddCell(new Cell().Add(new Paragraph(rundenZeiten[i].ToString(@"hh\:mm\:ss"))).SetTextAlignment(TextAlignment.CENTER));
                 }
 
                 Dokument.Add(table);
@@ -258,6 +251,8 @@ namespace RunTrack
         }
 
 
+
+        
 
 
 

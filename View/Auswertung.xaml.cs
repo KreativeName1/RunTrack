@@ -29,8 +29,6 @@ namespace RunTrack
             // Alle .db-Dateien im Verzeichnis "Dateien" abrufen
             _pfade = System.IO.Directory.GetFiles("Dateien", "*.db");
 
-            
-
 
         }
 
@@ -69,8 +67,9 @@ namespace RunTrack
             btnSchliessen.Click += (s, e) => _pmodel.Navigate(new Scanner());
             btnDiagramm.Click += (s, e) => new Diagramm(_amodel).ShowDialog();
             btnWertung.Click += (s, e) =>
-            {
+            {                
                 LoadOverlay.Visibility = Visibility.Visible;
+                
                 string auswertungsart = "";
                 if (_amodel.IsAnzahl) auswertungsart = "Rundenanzahl";
                 else if (_amodel.IsZeit) auswertungsart = "Zeit";
@@ -81,6 +80,7 @@ namespace RunTrack
             btnSchuelerWertung.Click += (s, e) =>
             {
                 LoadOverlay.Visibility = Visibility.Visible;
+
                 if (_amodel.SelectedItem != null)
                 {
                     List<Schueler> schuelerList = new();

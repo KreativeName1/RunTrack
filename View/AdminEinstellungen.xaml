@@ -44,11 +44,11 @@
 								</StackPanel>
 							</Grid>
 						</StackPanel>
-						<StackPanel Orientation="Horizontal" Width="275" Height="32" HorizontalAlignment="Center" VerticalAlignment="Top">
-							<Border x:Name="borderPasswordWdh" CornerRadius="5,0,0,5" Background="#FFECECEC" Height="32" Width="276" Visibility="Visible">
+						<StackPanel Orientation="Horizontal" Width="275" Height="34" HorizontalAlignment="Center" VerticalAlignment="Top">
+							<Border x:Name="borderPasswordWdh" CornerRadius="5,0,0,5" Background="#FFECECEC" Height="34" Width="276" Visibility="Visible">
 								<Grid x:Name="gridPasswordWdh">
 									<Label x:Name="lblPasswortWdh" Content="Wiederholen:" HorizontalAlignment="Left" FontSize="13" FontFamily="72" Height="23" VerticalAlignment="Center" FontWeight="Bold" Cursor=""/>
-									<fc:PasswordBoxPlus x:Name="txtPasswordNewWdh" ForegroundOnSelected="Blue" Foreground="Blue" UnderlineBrushOnSelected="#28713E" EnablePeekButton="True" CornerRadius="3,0,0,3" HorizontalAlignment="Left" Margin="125,0,0,0" Width="150" FontSize="13" Padding="5" Height="26" VerticalAlignment="Center" Cursor=""/>
+									<fc:PasswordBoxPlus x:Name="txtPasswordNewWdh" ForegroundOnSelected="Blue" Foreground="Blue" UnderlineBrushOnSelected="#28713E" EnablePeekButton="True" CornerRadius="3,0,0,3" HorizontalAlignment="Left" Margin="125,0,0,0" Width="150" FontSize="13" Padding="5" Height="30" VerticalAlignment="Center" Cursor=""/>
 								</Grid>
 							</Border>
 
