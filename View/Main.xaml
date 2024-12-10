@@ -30,7 +30,6 @@
                         <StackPanel>
                             <TextBlock Text="Fehlende Punkte:" FontWeight="Bold" />
                             <TextBlock Text="• Import: Beim Schließen des Programms wird trotzdem Datei Importiert" />
-                            <TextBlock Text="• PDF Editor: Ladenalken zum hinleiten hinzufügen"/>
                             <TextBlock Text="• Mögliche Bugs"/>
                         </StackPanel>
                     </ToolTip>

@@ -124,14 +124,14 @@
             </Grid>
         </Border>
 
-		<Border x:Name="BoxErrorManual" VerticalAlignment="Top" Margin="100,40,100,0" Visibility="Collapsed" Grid.ColumnSpan="3">
-			<Grid>
-				<Rectangle Height="30" Stroke="#FF5F5F5F" Fill="#DD7907" VerticalAlignment="Center"/>
-				<Label x:Name="ErrorManual" Content="Keine Buchstaben erlaubt!" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0"  VerticalAlignment="Center" Foreground="WhiteSmoke" FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
-			</Grid>
-		</Border>
+        <Border x:Name="BoxErrorManual" VerticalAlignment="Top" Margin="100,40,100,0" Visibility="Collapsed" Grid.ColumnSpan="3">
+            <Grid>
+                <Rectangle Height="30" Stroke="#FF5F5F5F" Fill="#DD7907" VerticalAlignment="Center"/>
+                <Label x:Name="ErrorManual" Content="Keine Buchstaben erlaubt!" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0"  VerticalAlignment="Center" Foreground="WhiteSmoke" FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+            </Grid>
+        </Border>
 
-		<Border x:Name="borderAdmin" Height="67" HorizontalAlignment="Center" Margin="30" VerticalAlignment="Bottom" Visibility="visible" Grid.ColumnSpan="3">
+        <Border x:Name="borderAdmin" Height="67" HorizontalAlignment="Center" Margin="30" VerticalAlignment="Bottom" Visibility="visible" Grid.ColumnSpan="3">
             <StackPanel Orientation="Horizontal">
                 <fc:ButtonPlus x:Name="btnDateien" Content="Dateiverwaltung" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Margin="0,0,10,0" Height="32.5" VerticalAlignment="Bottom" HorizontalAlignment="Left" Cursor="Hand" Width="150"/>
                 <fc:ButtonPlus x:Name="btnEinstellung" Content="Einstellungen" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Margin="0,0,10,0" Height="32.5" VerticalAlignment="Bottom" HorizontalAlignment="Right" Cursor="Hand" Width="150"/>
@@ -139,11 +139,14 @@
                 <fc:ButtonPlus x:Name="btnAuswertung" Content="Auswertung" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Margin="0,0,0,0" Height="32.5" VerticalAlignment="Bottom" HorizontalAlignment="Right" Cursor="Hand" Width="150"/>
             </StackPanel>
         </Border>
+        <StackPanel Grid.Column="2" HorizontalAlignment="Right" Margin="0,87,29,0" Orientation="Horizontal" VerticalAlignment="Top">
+            <Label Content="Scanner nicht vorhanden:" FontSize="13" Width="156"/>
+            <fc:TextBoxPlus x:Name="manualData" Margin="10,0,5,0" MaxLength="5" ForegroundBrushOnSelected="Blue" TextWrapping="Wrap" Text="" Height="28" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyDown="manualData_KeyDown" IsTabStop="False" PreviewMouseDown="manualData_PreviewMouseDown"/>
+            <fc:ButtonPlus x:Name="btnAddManual" Content="+" Height="28" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="72" FontWeight="Bold" FontSize="14" Width="28" Cursor="Hand" Click="ButtonPlus_Click_1"/>
+
+        </StackPanel>
 
         <!--<TextBox x:Name="manualData" Text="{Binding ManuelleEingabe, Mode=TwoWay}"   Grid.Column="2" Margin="0,93,57,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="22" HorizontalAlignment="Right" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />-->
-        <TextBox x:Name="manualData" Grid.Column="2" Margin="0,93,57,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="22" HorizontalAlignment="Right" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyDown="manualData_KeyDown"  IsTabStop="False" PreviewMouseDown="manualData_PreviewMouseDown"/>
-        <Label Grid.Column="2" Content="Scanner nicht vorhanden:" Margin="0,90,158,0" VerticalAlignment="Top" FontSize="13" HorizontalAlignment="Right" Width="156"/>
-        <fc:ButtonPlus x:Name="btnAddManual" Grid.Column="2" Content="+" Margin="0,93,30,0" VerticalAlignment="Top" Height="22" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="72" FontWeight="Bold" FontSize="14" HorizontalAlignment="Right" Width="22" Cursor="Hand" Click="ButtonPlus_Click_1"/>
 
         <Grid Grid.ColumnSpan="3" x:Name="LoadOverlay" Visibility="Hidden" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <Rectangle Fill="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Opacity="0.5"/>
