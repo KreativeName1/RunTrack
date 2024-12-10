@@ -114,11 +114,11 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,10">
                                     <Label Content="Größe" HorizontalAlignment="Center"/>
-                                    <xctk:DoubleUpDown Text="{Binding Format.SchriftGroesse}" x:Name="txtGroesse" Width="50" Height="23" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="blue"/>
+                                    <xctk:DoubleUpDown Text="{Binding Format.SchriftGroesse}" x:Name="txtGroesse" Width="50" Height="26.5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="blue"/>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,10">
                                     <Label Content="Typ" HorizontalAlignment="Center"/>
-                                    <ComboBox SelectedItem="{Binding Format.SchriftTyp}" ItemsSource="{Binding Source={StaticResource EnumSchriftTyp}}" x:Name="cbTyp" HorizontalAlignment="Center" Height="23" VerticalAlignment="Top" Width="90" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="blue"/>
+                                    <ComboBox SelectedItem="{Binding Format.SchriftTyp}" ItemsSource="{Binding Source={StaticResource EnumSchriftTyp}}" x:Name="cbTyp" HorizontalAlignment="Center" Height="26.5" VerticalAlignment="Top" Width="90" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="blue"/>
                                 </StackPanel>
                             </Grid>
                         </Border>
