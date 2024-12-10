@@ -538,5 +538,10 @@ namespace RunTrack
                 SelectAllCheckBox_Click(sender, new RoutedEventArgs());
             }
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            SelectAllCheckBox.Focus();
+        }
     }
 }

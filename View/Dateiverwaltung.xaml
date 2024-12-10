@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:RunTrack" xmlns:fc="http://devpelux.github.io/fullcontrols" d:DataContext="{d:DesignInstance Type=local:DateiVerwaltungModel}"
       mc:Ignorable="d"
       d:Height="750"
-      d:Width="1000"
+      d:Width="1000" Loaded="Page_Loaded"
       HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
         Title="Dateiverwaltung">
     <Page.Resources>
