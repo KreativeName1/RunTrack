@@ -33,6 +33,9 @@ namespace RunTrack
             this.mode = mode;
             this.rundenArt = rundenArt;
             SetDialogMode();
+
+            btnCancel.IsTabStop = false;
+            btnSave.IsTabStop = false;
         }
 
         // Setzt den Dialogmodus und initialisiert die Felder entsprechend
@@ -134,7 +137,7 @@ namespace RunTrack
 
                     db.RundenArten.Add(newRundenArt);
                     db.SaveChanges();
-                    new Popup().Display("Erfolgreich", "Neue RundenArt wurde erfolgreich hinzugefügt.", PopupType.Success, PopupButtons.Ok);
+                    new Popup().Display("Erfolgreich", "Neue Rundenart wurde erfolgreich hinzugefügt.", PopupType.Success, PopupButtons.Ok);
                 }
                 else if (mode == DialogMode.Bearbeiten && rundenArt != null)
                 {
@@ -145,7 +148,7 @@ namespace RunTrack
                     db.RundenArten.Update(rundenArt);
                     db.SaveChanges();
 
-                    new Popup().Display("Erfolgreich", "RundenArt wurde erfolgreich aktualisiert.", PopupType.Success, PopupButtons.Ok);
+                    new Popup().Display("Erfolgreich", "Rundenart wurde erfolgreich aktualisiert.", PopupType.Success, PopupButtons.Ok);
                 }
             }
             ((Einstellungen)_pmodel.History[^1]).RefreshGridSettings();
@@ -159,6 +162,11 @@ namespace RunTrack
             {
                 if (new Popup().Display("Sie haben nicht gespeichert!", "Wirklich Beenden?", PopupType.Warning, PopupButtons.YesNo) == true) e.Cancel = true;
             }
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            BezeichnungTextBox.Focus();
         }
     }
 }

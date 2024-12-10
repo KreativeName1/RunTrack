@@ -26,6 +26,15 @@ namespace RunTrack
 
             FilesListBox.DragEnter += (s, e) => _dvmodel.IsDragging = true;
             DragDropOverlay.DragLeave += (s, e) => _dvmodel.IsDragging = false;
+
+            files.IsTabStop = false;
+            btnViewer.IsTabStop = false;
+            btnExport.IsTabStop = false;
+            btnLoeschen.IsTabStop = false;
+            btnSchliessen.IsTabStop = false;
+            FilesListBox.IsTabStop = false;
+            btnDBView.IsTabStop = false;
+            btnUpload.IsTabStop = false;
         }
 
         // Methode zum Hochladen von Dateien

@@ -54,7 +54,9 @@ namespace RunTrack
                 else if (_amodel.IsAnzahl)
                 {
                     label.Content = "Diagramm nach RundenAnzahl";
-                    bewertungzr = Convert.ToInt32(bewertung);
+                    string[] split = bewertung.Split(' ');
+
+                    bewertungzr = Convert.ToInt32(split[0].Trim());
                 }
                 else if (_amodel.IsZeit)
                 {

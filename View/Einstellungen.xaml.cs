@@ -16,6 +16,7 @@ namespace RunTrack
     {
         private MainModel _pmodel; // Hauptmodell
         private bool _changesMade; // Flag für Änderungen
+        private int RoundLimit = 10; // Limit für die Anzahl der Rundenarten
 
         public Einstellungen()
         {
@@ -29,6 +30,15 @@ namespace RunTrack
             // Lädt den Inhalt und aktualisiert die Sichtbarkeit des Speichern-Buttons
             LoadContent();
             UpdateSaveButtonVisibility();
+
+
+            btnAdmin.IsTabStop = false;
+            btnAdminAdd.IsTabStop = false;
+            btnAdminSum.IsTabStop = false;
+            btnPasswordChange.IsTabStop = false;
+            btnSave.IsTabStop = false;
+            btnRounds.IsTabStop = false;
+            btnClose.IsTabStop = false;
         }
 
         private void LoadContent()
@@ -127,6 +137,8 @@ namespace RunTrack
                     deleteButton.Content = buttonImageDelete;
                     deleteButton.Click += DeleteButton_Click;
 
+                    deleteButton.IsTabStop = false;
+
                     Grid.SetRow(deleteButton, rowIndex);
                     Grid.SetColumn(deleteButton, 4);
                     GridSettings.Children.Add(deleteButton);
@@ -154,6 +166,8 @@ namespace RunTrack
                     };
                     optionsButton.Content = buttonImageOptions;
                     optionsButton.Click += OptionsButton_Click;
+
+                    optionsButton.IsTabStop = false;
 
                     Grid.SetRow(optionsButton, rowIndex);
                     Grid.SetColumn(optionsButton, 5);
@@ -194,6 +208,13 @@ namespace RunTrack
                 };
                 addButton.Click += AddButton_Click;
 
+                if (sortedRundenArten.Count >= RoundLimit)
+                {
+                    addButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#c1c4c1"));
+                }
+
+                addButton.IsTabStop = false;
+                
                 Grid.SetRow(addButton, rowIndex);
                 Grid.SetColumnSpan(addButton, 6);
                 GridSettings.Children.Add(addButton);
@@ -210,7 +231,7 @@ namespace RunTrack
         {
             using (var db = new LaufDBContext())
             {
-                if (db.RundenArten.Count() < 6)
+                if (db.RundenArten.Count() < RoundLimit)
                 {
                     VerwaltungRunden verwaltungRunden = new(DialogMode.Neu);
                     _pmodel.Navigate(verwaltungRunden);
@@ -218,7 +239,7 @@ namespace RunTrack
                 }
                 else
                 {
-                    new Popup().Display("Limit erreicht", "Sie haben das Limit von 6 Rundenarten erreicht!", PopupType.Warning, PopupButtons.Ok);
+                    new Popup().Display("Limit erreicht", $"Sie haben das Limit von {RoundLimit} Rundenarten erreicht!", PopupType.Warning, PopupButtons.Ok);
                 }
             }
         }

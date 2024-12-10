@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RunTrack"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" 
-        xmlns:fc="http://devpelux.github.io/fullcontrols"
-        mc:Ignorable="d"
+        xmlns:fc="http://devpelux.github.io/fullcontrols" xmlns:fa="http://schemas.fontawesome.io/icons/"
+      mc:Ignorable="d"
         d:Width="1000" d:Height="800"
         Loaded="Page_Loaded"
         HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
@@ -29,7 +29,7 @@
             <RowDefinition Height="45.333"/>
         </Grid.RowDefinitions>
 
-        <ScrollViewer Grid.Row="0" Grid.Column="0" Margin="10,0,10,0" VerticalScrollBarVisibility="Auto" Visibility="{Binding RundenArten.Count, Converter={StaticResource countToVisibilityConverter}, ConverterParameter=5}">
+        <fc:GlassScrollViewer Grid.Row="0" Grid.Column="0" Margin="10,0,10,0" VerticalScrollBarVisibility="Auto" Visibility="{Binding RundenArten.Count, Converter={StaticResource countToVisibilityConverter}, ConverterParameter=5}">
             <StackPanel x:Name="stAuswahl">
                 <Label Content="Auswertung" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="2"/>
                 <Border BorderBrush="Black" BorderThickness="1" Padding="10">
@@ -119,7 +119,7 @@
                     </StackPanel>
                 </Border>
             </StackPanel>
-        </ScrollViewer>
+        </fc:GlassScrollViewer>
 
         <DataGrid Grid.Row="0" BorderThickness="1" BorderBrush="Gray" IsReadOnly="True" GridLinesVisibility="All" SelectionMode="Extended" ColumnWidth="*" Grid.Column="1" x:Name="Daten" ItemsSource="{Binding Liste}" SelectedItem="{Binding SelectedItem}" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserDeleteRows="False" Margin="0,10,0,0" Cursor="">
             <DataGrid.Resources>
@@ -169,5 +169,11 @@
         <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Margin="0,0,0,0" Grid.RowSpan="2">
             <fc:ButtonPlus x:Name="btnSchliessen" Content="Schließen" HorizontalAlignment="Center" Margin="0,0,10,0" VerticalAlignment="Center" Width="120" Cursor="Hand" FontSize="12" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="30"/>
         </StackPanel>
+
+        <Grid Grid.ColumnSpan="2" Grid.RowSpan="3" x:Name="LoadOverlay" Visibility="Hidden" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Cursor="">
+            <Rectangle Fill="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Opacity="0.5"/>
+            <fa:ImageAwesome Icon="Refresh" Spin="True" Height="48" Width="48" />
+        </Grid>
     </Grid>
+    
 </Page>

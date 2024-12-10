@@ -28,6 +28,10 @@ namespace RunTrack
             if (!System.IO.Directory.Exists("Dateien")) System.IO.Directory.CreateDirectory("Dateien");
             // Alle .db-Dateien im Verzeichnis "Dateien" abrufen
             _pfade = System.IO.Directory.GetFiles("Dateien", "*.db");
+
+            
+
+
         }
 
         // Asynchrone Methode zum Kopieren einer Datei
@@ -48,6 +52,7 @@ namespace RunTrack
             btnImport.Click += (s, e) => _pmodel.Navigate(new Dateiverwaltung());
             btnExport.Click += (s, e) =>
             {
+                LoadOverlay.Visibility = Visibility.Visible;
                 try
                 {
                     SaveFileDialog saveFileDialog = new() { Filter = "files (*.db)|*.db", FileName = "Auswertung.db" };
@@ -65,6 +70,7 @@ namespace RunTrack
             btnDiagramm.Click += (s, e) => new Diagramm(_amodel).ShowDialog();
             btnWertung.Click += (s, e) =>
             {
+                LoadOverlay.Visibility = Visibility.Visible;
                 string auswertungsart = "";
                 if (_amodel.IsAnzahl) auswertungsart = "Rundenanzahl";
                 else if (_amodel.IsZeit) auswertungsart = "Zeit";
@@ -74,6 +80,7 @@ namespace RunTrack
             };
             btnSchuelerWertung.Click += (s, e) =>
             {
+                LoadOverlay.Visibility = Visibility.Visible;
                 if (_amodel.SelectedItem != null)
                 {
                     List<Schueler> schuelerList = new();
@@ -95,6 +102,8 @@ namespace RunTrack
             };
             btnUrkunde.Click += (s, e) =>
             {
+                LoadOverlay.Visibility = Visibility.Visible;
+
                 List<object> liste = _amodel.Liste.ToList();
                 liste = liste.GetRange(0, liste.Count);
 
@@ -102,6 +111,10 @@ namespace RunTrack
                 string worin = _amodel.IsInsgesamt ? "Insgesamt" : (_amodel.IsSchule ? $"Schule {_amodel.SelectedSchule}" : (_amodel.IsKlasse ? $"Klasse {_amodel.SelectedKlasse}" : $"Jahrgang {_amodel.Jahrgang}"));
 
                 InputPopup input = new("Urkunde", "Bitte geben Sie den Namen des Laufes ein");
+                input.Closed += (sender, args) =>
+                {
+                    LoadOverlay.Visibility = Visibility.Hidden;
+                };
                 input.ShowDialog();
                 string laufName = input.GetInputValue<string>();
 
@@ -408,6 +421,7 @@ namespace RunTrack
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            LoadOverlay.Visibility = Visibility.Hidden;
             _amodel = FindResource("amodel") as AuswertungModel;
             _pmodel = FindResource("pmodel") as MainModel;
             LoadData();
