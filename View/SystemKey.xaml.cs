@@ -23,6 +23,12 @@ namespace RunTrack
 
             // Navigiert zur letzten Seite in der Verlaufsliste, falls das Modell nicht null ist
             model?.Navigate(model.History[^1], false);
+
+            // Holt das Hauptfenster und zeigt die TopBar an
+            if (Application.Current.MainWindow is Main mainWindow)
+            {
+                mainWindow.ShowTopBar();
+            }
         }
     }
 }

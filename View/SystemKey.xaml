@@ -9,7 +9,7 @@
       Title="Unique Key">
 
     <Grid>
-		<StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Foreground="#8D1D2C" Margin="20" FontSize="20" FontWeight="SemiBold">Programm ID:</TextBlock>
                 <TextBlock Foreground="#8D1D2C" Margin="20" FontSize="20" x:Name="tbKey" >N/A</TextBlock>

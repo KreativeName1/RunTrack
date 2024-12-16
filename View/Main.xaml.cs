@@ -81,8 +81,14 @@ namespace RunTrack
         // Ereignishandler für Klicks auf die Schaltfläche BTN_Key
         private void BTN_Key_Click(object sender, RoutedEventArgs e)
         {
+            Leiste.Visibility = Visibility.Collapsed;
             if (_pmodel?.CurrentPage is SystemKey) return; // Wenn die aktuelle Seite SystemKey ist, nichts tun
             _pmodel?.Navigate(new SystemKey()); // Navigiert zur Seite SystemKey
+        }
+
+        public void ShowTopBar()
+        {
+            Leiste.Visibility = Visibility.Visible;
         }
 
         // Ereignishandler für das Betreten des Mauszeigers auf die Schaltfläche BTN_Key
