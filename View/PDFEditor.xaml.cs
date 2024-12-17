@@ -336,5 +336,10 @@ namespace RunTrack
                 MessageBox.Show("WebView2 ist noch nicht initialisiert.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        private void btnFormateLoeschen_Click(object sender, RoutedEventArgs e)
+        {
+            _model?.Navigate(new FormatLoeschenPage(), true);
+        }
     }
 }
