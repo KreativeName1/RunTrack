@@ -16,7 +16,7 @@ namespace RunTrack
         public Main()
         {
             InitializeComponent(); // Initialisiert die Komponenten
-                                   //UniqueKey.DeleteKey(); // Kommentar: Löscht einen eindeutigen Schlüssel
+            //UniqueKey.DeleteKey(); // Kommentar: Löscht einen eindeutigen Schlüssel
             _pmodel = FindResource("pmodel") as MainModel ?? new(); // Findet die Ressource "pmodel" oder erstellt eine neue Instanz
             MainWindow main = new(); // Erstellt eine neue Instanz von MainWindow
             _pmodel.CurrentPage = main; // Setzt die aktuelle Seite im Modell auf das Hauptfenster

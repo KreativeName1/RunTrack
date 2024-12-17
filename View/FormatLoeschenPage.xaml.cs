@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace RunTrack
 {
@@ -20,11 +8,13 @@ namespace RunTrack
     /// </summary>
     public partial class FormatLoeschenPage : Page
     {
+        private MainModel? _model;
         private PDFEditorModel _pemodel;
 
         public FormatLoeschenPage()
         {
             InitializeComponent();
+            _model = FindResource("pmodel") as MainModel ?? new MainModel();
             _pemodel = new PDFEditorModel();
             _pemodel.LoadData();
             DataContext = _pemodel;
@@ -37,14 +27,24 @@ namespace RunTrack
                 var format = _pemodel.Formate?.FirstOrDefault(f => f.Id == formatId);
                 if (format != null)
                 {
-                    using (var db = new LaufDBContext())
+
+                    if (new Popup().Display($"Möchten Sie das Format '{format.Name.ToUpper()}' wirklich löschen?", "Bestätigung", PopupType.Warning, PopupButtons.YesNo) == true)
                     {
-                        db.Formate.Remove(format);
-                        db.SaveChanges();
+                        using (var db = new LaufDBContext())
+                        {
+                            db.Formate.Remove(format);
+                            db.SaveChanges();
+                        }
+                        _pemodel.Formate?.Remove(format);
                     }
-                    _pemodel.Formate?.Remove(format);
                 }
             }
+        }
+
+
+        private void CloseWindow_Click(object sender, RoutedEventArgs e)
+        {
+            _model?.Navigate(_model.History[^1], false);
         }
     }
 }

@@ -30,11 +30,14 @@ namespace RunTrack
 
             // Deaktiviere Tab-Stop für den Login-Button
             btnLogin.IsTabStop = false;
+
+            
         }
 
         // Event-Handler für das Laden des Fensters
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+
             // Setze Fokus und initialisiere Textboxen
             FirstNameTextBox.Focus();
             FirstNameTextBox.ForegroundBrush = new SolidColorBrush(Colors.Gray);
@@ -53,6 +56,9 @@ namespace RunTrack
                     return;
                 }
             }
+
+
+            
         }
 
         // Event-Handler für den Login-Button
@@ -81,7 +87,8 @@ namespace RunTrack
                     if (user == null)
                     {
                         _pageModel.Benutzer.IsAdmin = false; // Oder true, wenn Sie annehmen möchten, dass der Benutzer Administratorrechte hat
-                        _pageModel.Navigate(new Scanner());
+                        var scannerPage = new Scanner();
+                        _pageModel.Navigate(scannerPage);
                     }
                     else
                     {
@@ -91,13 +98,15 @@ namespace RunTrack
                         {
                             // Kein Passwort eingegeben, anmelden als normaler Benutzer
                             _pageModel.Benutzer.IsAdmin = false; // Setzen Sie auf true, falls der Benutzer Administratorrechte haben soll
-                            _pageModel.Navigate(new Scanner());
+                            var scannerPage = new Scanner();
+                            _pageModel.Navigate(scannerPage);
                         }
                         else if (BCrypt.Net.BCrypt.Verify(AdminPasswordBox.Password, user.Passwort))
                         {
                             // Passwort stimmt überein, anmelden als Administrator
                             _pageModel.Benutzer.IsAdmin = true;
-                            _pageModel.Navigate(new Scanner());
+                            var scannerPage = new Scanner();
+                            _pageModel.Navigate(scannerPage);
                         }
                         else
                         {
@@ -108,6 +117,8 @@ namespace RunTrack
                 }
             }
         }
+
+
 
         // Methode zur Validierung der Eingaben
         private bool ValidateInputs()

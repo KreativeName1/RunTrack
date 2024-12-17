@@ -3,25 +3,39 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:RunTrack.View"
+      xmlns:local="clr-namespace:RunTrack.View" xmlns:fc="http://devpelux.github.io/fullcontrols"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="FormatLoeschenPage">
-
     <Grid>
-        <ListView ItemsSource="{Binding Formate}" x:Name="lvFormate">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="200"/>
-                    <GridViewColumn Header="Aktion">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="Löschen" Click="Loeschen_Click" Tag="{Binding Id}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <DataGrid ItemsSource="{Binding Formate}" x:Name="dgFormate" Width="350" Height="350" AutoGenerateColumns="False" GridLinesVisibility="Horizontal" CanUserDeleteRows="False" IsReadOnly="True">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="FontSize" Value="15"/>
+                    <Setter Property="HorizontalContentAlignment" Value="center"/>
+                    <Setter Property="Foreground" Value="#FF3957FF"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="4*"/>
+                <DataGridTemplateColumn Header="Aktion" Width="2.25*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <fc:ButtonPlus Click="Loeschen_Click" Margin="5" Tag="{Binding Id}" Cursor="Hand" ToolTip="Löschen" BackgroundOnMouseOver="#F4F8F4" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#F4F8F4" Foreground="White" Height="30" Width="35">
+                                <fc:ButtonPlus.Content>
+                                    <Image Source="pack://application:,,,/Images/buttonIcons/delete.png" Width="20" Height="20"/>
+                                </fc:ButtonPlus.Content>
+                            </fc:ButtonPlus>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Orientation="Horizontal" Margin="0,0,10,10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <fc:ButtonPlus x:Name="btnClose" Content="Schließen" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Click="CloseWindow_Click" Width="120" Height="30" Margin="5"/>
+        </StackPanel>
     </Grid>
 </Page>

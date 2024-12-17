@@ -67,9 +67,9 @@ namespace RunTrack
             btnSchliessen.Click += (s, e) => _pmodel.Navigate(new Scanner());
             btnDiagramm.Click += (s, e) => new Diagramm(_amodel).ShowDialog();
             btnWertung.Click += (s, e) =>
-            {                
+            {
                 LoadOverlay.Visibility = Visibility.Visible;
-                
+
                 string auswertungsart = "";
                 if (_amodel.IsAnzahl) auswertungsart = "Rundenanzahl";
                 else if (_amodel.IsZeit) auswertungsart = "Zeit";

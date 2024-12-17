@@ -25,7 +25,9 @@
 
         <local:TimestampConverter x:Key="TimestampConverter"/>
     </Page.Resources>
+    
     <Grid DataContext="{StaticResource smodel}" Cursor="">
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="305*"/>
             <ColumnDefinition Width="100*"/>
@@ -152,6 +154,9 @@
             <Rectangle Fill="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Opacity="0.5"/>
             <fa:ImageAwesome Icon="Refresh" Spin="True" Height="48" Width="48" />
         </Grid>
-
+        <!-- Overlay-Grid -->
+        <Grid x:Name="Overlay" Visibility="Visible" Grid.ColumnSpan="3" Background="#80000000" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Rectangle Fill="Gray" Opacity="0.5" />
+        </Grid>
     </Grid>
 </Page>

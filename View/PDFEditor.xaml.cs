@@ -339,7 +339,7 @@ namespace RunTrack
 
         private void btnFormateLoeschen_Click(object sender, RoutedEventArgs e)
         {
-            _model?.Navigate(new FormatLoeschenPage(), true);
+            _model?.Navigate(new FormatLoeschenPage(), false);
         }
     }
 }

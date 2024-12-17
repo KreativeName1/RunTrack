@@ -214,7 +214,7 @@ namespace RunTrack
                 }
 
                 addButton.IsTabStop = false;
-                
+
                 Grid.SetRow(addButton, rowIndex);
                 Grid.SetColumnSpan(addButton, 6);
                 GridSettings.Children.Add(addButton);
