@@ -87,6 +87,7 @@ namespace RunTrack
                     if (user == null)
                     {
                         _pageModel.Benutzer.IsAdmin = false; // Oder true, wenn Sie annehmen möchten, dass der Benutzer Administratorrechte hat
+                        _pageModel.ShowTimeWarningPopup = true;
                         var scannerPage = new Scanner();
                         _pageModel.Navigate(scannerPage);
                     }
@@ -98,6 +99,7 @@ namespace RunTrack
                         {
                             // Kein Passwort eingegeben, anmelden als normaler Benutzer
                             _pageModel.Benutzer.IsAdmin = false; // Setzen Sie auf true, falls der Benutzer Administratorrechte haben soll
+                            _pageModel.ShowTimeWarningPopup = true;
                             var scannerPage = new Scanner();
                             _pageModel.Navigate(scannerPage);
                         }
@@ -105,6 +107,7 @@ namespace RunTrack
                         {
                             // Passwort stimmt überein, anmelden als Administrator
                             _pageModel.Benutzer.IsAdmin = true;
+                            _pageModel.ShowTimeWarningPopup = true;
                             var scannerPage = new Scanner();
                             _pageModel.Navigate(scannerPage);
                         }
@@ -117,6 +120,7 @@ namespace RunTrack
                 }
             }
         }
+
 
 
 

@@ -155,7 +155,7 @@
             <fa:ImageAwesome Icon="Refresh" Spin="True" Height="48" Width="48" />
         </Grid>
         <!-- Overlay-Grid -->
-        <Grid x:Name="Overlay" Visibility="Visible" Grid.ColumnSpan="3" Background="#80000000" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Grid x:Name="Overlay" Visibility="Collapsed" Grid.ColumnSpan="3" Background="#80000000" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <Rectangle Fill="Gray" Opacity="0.5" />
         </Grid>
     </Grid>

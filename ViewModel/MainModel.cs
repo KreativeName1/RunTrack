@@ -10,6 +10,18 @@ namespace RunTrack
         private object? _currentPage;
         private string? _pageTitle = "RunTrack";
         private List<object> _history = new List<object>();
+        private bool _showTimeWarningPopup = false;
+
+        // Öffentliche Eigenschaft, um zu bestimmen, ob das TimeWarningPopup angezeigt werden soll
+        public bool ShowTimeWarningPopup
+        {
+            get => _showTimeWarningPopup;
+            set
+            {
+                _showTimeWarningPopup = value;
+                OnPropertyChanged(nameof(ShowTimeWarningPopup));
+            }
+        }
 
         // Öffentliche Eigenschaft für die aktuelle Seite mit Benachrichtigung bei Änderung
         public object? CurrentPage
@@ -62,6 +74,7 @@ namespace RunTrack
             }
         }
 
+        
         // Methode zum Navigieren zu einer neuen Seite mit optionalem Hinzufügen zur Verlaufsliste und Bedingung
         public void Navigate(object page, bool? addToHistory = true, bool? condition = true)
         {
