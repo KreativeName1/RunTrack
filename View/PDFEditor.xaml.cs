@@ -243,11 +243,16 @@ namespace RunTrack
         {
             using (var db = new LaufDBContext())
             {
-                if (db.Formate.Any(f => f.Name == _pemodel.Format.Name))
+                // Überprüfen, ob die maximale Anzahl von 12 Formaten erreicht ist
+                if (db.Formate.Count() >= 12)
                 {
-                    bool? result = new Popup().Display("Format existiert bereits", "Möchten Sie das Format überschreiben?", PopupType.Warning, PopupButtons.YesNo);
-                    if (result == false) return;
-                    db.Formate.Update(_pemodel.Format);
+                    new Popup().Display("Limit erreicht", "Es können maximal 12 Formate angelegt werden.", PopupType.Warning, PopupButtons.Ok);
+                    return;
+                }
+
+                if (db.Formate.Any(f => f.Name.ToLower().Trim() == _pemodel.Format.Name.ToLower().Trim()))
+                {
+                    new Popup().Display("Format existiert bereits", "Bearbeiten Sie es in der Verwaltung", PopupType.Warning, PopupButtons.YesNo);
                 }
                 else
                 {
@@ -285,21 +290,21 @@ namespace RunTrack
 
                     if (result)
                     {
-                        MessageBox.Show("PDF erfolgreich gespeichert!", "Erfolg", MessageBoxButton.OK, MessageBoxImage.Information);
+                        new Popup().Display("Erfolg", "PDF erfolgreich gespeichert!", PopupType.Info, PopupButtons.Ok);
                     }
                     else
                     {
-                        MessageBox.Show("Fehler beim Speichern der PDF.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                        new Popup().Display("Fehler", "Fehler beim Speichern der PDF.", PopupType.Error, PopupButtons.Ok);
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Fehler beim Speichern der PDF: {ex.Message}", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                    new Popup().Display("Fehler", $"Fehler beim Speichern der PDF: {ex.Message}", PopupType.Error, PopupButtons.Ok);
                 }
             }
             else
             {
-                MessageBox.Show("WebView2 ist noch nicht initialisiert.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                new Popup().Display("Fehler", "WebView2 ist noch nicht initialisiert.", PopupType.Error, PopupButtons.Ok);
             }
         }
 
@@ -328,18 +333,17 @@ namespace RunTrack
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Fehler beim Drucken der PDF: {ex.Message}", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                    new Popup().Display("Fehler", $"Fehler beim Drucken der PDF: {ex.Message}", PopupType.Error, PopupButtons.Ok);
                 }
             }
             else
             {
-                MessageBox.Show("WebView2 ist noch nicht initialisiert.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                new Popup().Display("Fehler", "WebView2 ist noch nicht initialisiert.", PopupType.Error, PopupButtons.Ok);
             }
         }
 
         private void btnFormateLoeschen_Click(object sender, RoutedEventArgs e)
         {
-
             bool? res = new Popup().Display("Warnung", "Wenn sie auf die Seite gehen, verlassen Sie den PDF Editor und müssen diesen neu aufrufen", PopupType.Warning, PopupButtons.OkCancel);
 
             // Überprüfe die Antwort des Benutzers

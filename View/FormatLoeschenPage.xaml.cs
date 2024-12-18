@@ -19,6 +19,7 @@ namespace RunTrack
             _pemodel = new PDFEditorModel();
             _pemodel.LoadData();
             DataContext = _pemodel;
+
         }
 
         private void Loeschen_Click(object sender, RoutedEventArgs e)
@@ -45,7 +46,7 @@ namespace RunTrack
 
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
-            _model?.Navigate(_model.History[^1], false);
+            _model?.Navigate(new Scanner());
         }
 
         private void dgFormate_PreviewMouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
@@ -56,5 +57,20 @@ namespace RunTrack
                 e.Handled = true;
             }
         }
+
+        private void Bearbeiten_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.Tag is int formatId)
+            {
+                var format = _pemodel.Formate?.FirstOrDefault(f => f.Id == formatId);
+                if (format != null)
+                {
+                    _model?.Navigate(new FormatBearbeitenPage(format), true);
+                }
+            }
+        }
+
+
+
     }
 }

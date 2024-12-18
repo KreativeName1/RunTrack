@@ -8,8 +8,8 @@
       d:DesignHeight="750" d:DesignWidth="1000"
       Title="FormatLoeschenPage">
     <Grid>
-        <fc:GlassScrollViewer x:Name="glassScrollViewer" Width="350" Height="450" VerticalScrollBarVisibility="Auto" PanningMode="Both" CanContentScroll="True">
-            <DataGrid ItemsSource="{Binding Formate}" x:Name="dgFormate" AutoGenerateColumns="False" PreviewMouseWheel="dgFormate_PreviewMouseWheel" GridLinesVisibility="Horizontal" CanUserDeleteRows="False" IsReadOnly="True">
+        <fc:GlassScrollViewer x:Name="glassScrollViewer" BorderBrush="Black" BorderThickness="1" Width="350" Height="550" VerticalScrollBarVisibility="Auto" PanningMode="Both" CanContentScroll="True">
+            <DataGrid ItemsSource="{Binding Formate}" x:Name="dgFormate" AutoGenerateColumns="False" PreviewMouseWheel="dgFormate_PreviewMouseWheel" GridLinesVisibility="Horizontal" CanUserDeleteRows="False" IsReadOnly="True" HeadersVisibility="All" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" EnableColumnVirtualization="False">
                 <DataGrid.Resources>
                     <Style TargetType="DataGridColumnHeader">
                         <Setter Property="FontWeight" Value="Bold"/>
@@ -23,11 +23,18 @@
                     <DataGridTemplateColumn Header="Aktion" Width="2.25*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <fc:ButtonPlus Click="Loeschen_Click" Margin="5" Tag="{Binding Id}" Cursor="Hand" ToolTip="Löschen" BackgroundOnMouseOver="#F4F8F4" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#F4F8F4" Foreground="White" Height="30" Width="35">
-                                    <fc:ButtonPlus.Content>
-                                        <Image Source="pack://application:,,,/Images/buttonIcons/delete.png" Width="20" Height="20"/>
-                                    </fc:ButtonPlus.Content>
-                                </fc:ButtonPlus>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <fc:ButtonPlus Click="Loeschen_Click" Margin="5" Tag="{Binding Id}" Cursor="Hand" ToolTip="Löschen" BackgroundOnMouseOver="#F4F8F4" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#F4F8F4" Foreground="White" Height="30" Width="35" HorizontalAlignment="Center">
+                                        <fc:ButtonPlus.Content>
+                                            <Image Source="pack://application:,,,/Images/buttonIcons/delete.png" Width="20" Height="20"/>
+                                        </fc:ButtonPlus.Content>
+                                    </fc:ButtonPlus>
+                                    <fc:ButtonPlus Click="Bearbeiten_Click" Margin="5" Tag="{Binding Id}" Cursor="Hand" ToolTip="Bearbeiten" BackgroundOnMouseOver="#F4F8F4" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#F4F8F4" Foreground="White" Height="30" Width="35" HorizontalAlignment="Center">
+                                        <fc:ButtonPlus.Content>
+                                            <Image Source="pack://application:,,,/Images/buttonIcons/settings.png" Width="20" Height="20"/>
+                                        </fc:ButtonPlus.Content>
+                                    </fc:ButtonPlus>
+                                </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -39,4 +46,7 @@
             <fc:ButtonPlus x:Name="btnClose" Content="Schließen" Cursor="Hand" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" Click="CloseWindow_Click" Width="120" Height="30" Margin="5"/>
         </StackPanel>
     </Grid>
+
+
+
 </Page>
