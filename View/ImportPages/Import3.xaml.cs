@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace RunTrack
@@ -22,8 +23,16 @@ namespace RunTrack
             // Event-Handler für den Schließen-Button
             btnSchliessen.Click += (s, e) =>
             {
+                // Topbar wieder aktivieren
+                if (Application.Current.MainWindow is Main mainWindow)
+                {
+                    mainWindow.SetTopBarEnabled(true);
+                }
+
                 if (tbTitel.Text == "Fehler")
+                {
                     _model.Navigate(_model.History[^1]); // Navigiert zur letzten Seite im Verlauf bei Fehler
+                }
                 else
                 {
                     Object page = _model.History.FindLast(x => x.GetType() == typeof(Dateiverwaltung)); // Findet die letzte Dateiverwaltung-Seite im Verlauf

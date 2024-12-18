@@ -102,5 +102,30 @@ namespace RunTrack
         //    _sortAscendingPfad = !_sortAscendingPfad;
         //    UpdateListBox();
         //}
+
+
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+
+            // Fenster-Nachrichten abfangen
+            var hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
+            var source = System.Windows.Interop.HwndSource.FromHwnd(hwnd);
+            source.AddHook(WndProc);
+        }
+
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            const int WM_NCLBUTTONDOWN = 0xA1; // Nachricht für Mausklick auf Nicht-Client-Bereich
+            const int HTCAPTION = 0x2;         // Titelbereich
+
+            // Bewegung unterbinden
+            if (msg == WM_NCLBUTTONDOWN && wParam.ToInt32() == HTCAPTION)
+            {
+                handled = true; // Blockiere die Nachricht
+            }
+
+            return IntPtr.Zero;
+        }
     }
 }

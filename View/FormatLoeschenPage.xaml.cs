@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using FullControls.Controls;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace RunTrack
@@ -45,6 +46,15 @@ namespace RunTrack
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
             _model?.Navigate(_model.History[^1], false);
+        }
+
+        private void dgFormate_PreviewMouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
+        {
+            if (glassScrollViewer != null)
+            {
+                glassScrollViewer.ScrollToVerticalOffset(glassScrollViewer.VerticalOffset - e.Delta / 3);
+                e.Handled = true;
+            }
         }
     }
 }

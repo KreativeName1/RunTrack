@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -33,7 +34,11 @@ namespace RunTrack
             // Deaktiviert die Tabstopps für bestimmte Steuerelemente
             BTN_Key.IsTabStop = false;
             ContentFrame.IsTabStop = false;
+
+            // Ereignishandler für das Schließen des Fensters hinzufügen
+            this.Closing += Main_Closing;
         }
+
 
         // Methode zum Ändern des Fensterzustands (maximiert/normale Größe)
         private void ChangeState()
@@ -108,5 +113,40 @@ namespace RunTrack
         {
             BTN_Key.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0078d7")); // Ändert die Hintergrundfarbe
         }
+
+        public void SetTopBarEnabled(bool isEnabled)
+        {
+            Leiste.IsEnabled = isEnabled;
+
+            if (isEnabled == false)
+            {
+                BTN_Key.Visibility = Visibility.Collapsed;
+                sepKey.Visibility = Visibility.Collapsed;
+                Leiste.Visibility = Visibility.Collapsed;
+                LeisteDisabled.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                BTN_Key.Visibility = Visibility.Visible;
+                sepKey.Visibility = Visibility.Visible;
+                Leiste.Visibility = Visibility.Visible;
+                LeisteDisabled.Visibility = Visibility.Collapsed;
+            }
+        }
+
+
+        private void Main_Closing(object sender, CancelEventArgs e)
+        {
+            if (LeisteDisabled.Visibility == Visibility.Visible)
+            {
+                // Schließen des Programms verhindern
+                e.Cancel = true;
+
+                // Fehlermeldung anzeigen
+                new Popup().Display("Fehler", "Während des Imports darf das Programm nicht geschlossen werden.\n\nBitte kehren Sie zurück und brechen Sie den Vorgang ab.", PopupType.Error, PopupButtons.Ok);
+            }
+        }
+
+
     }
 }

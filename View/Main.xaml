@@ -44,10 +44,9 @@
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands ShowSeparators="False">
             <!--Programm spezifischer Schlüssel-->
-            <Button x:Name="BTN_Key" Click="BTN_Key_Click"
-        Background="Transparent" BorderThickness="0" Padding="0" Margin="0" 
-        HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-        MouseEnter="BTN_Key_MouseEnter" MouseLeave="BTN_Key_MouseLeave" MouseDown="BTN_Key_MouseDown">
+            <Button x:Name="BTN_Key" Click="BTN_Key_Click" Background="Transparent" BorderThickness="0" Padding="0" Margin="0" 
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                        MouseEnter="BTN_Key_MouseEnter" MouseLeave="BTN_Key_MouseLeave" MouseDown="BTN_Key_MouseDown">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Background" Value="Transparent" />
@@ -65,9 +64,9 @@
                             <Setter.Value>
                                 <ControlTemplate TargetType="Button">
                                     <Border Background="{TemplateBinding Background}" 
-                                BorderBrush="{TemplateBinding BorderBrush}" 
-                                BorderThickness="{TemplateBinding BorderThickness}" 
-                                CornerRadius="0">
+                                            BorderBrush="{TemplateBinding BorderBrush}" 
+                                            BorderThickness="{TemplateBinding BorderThickness}" 
+                                            CornerRadius="0">
                                         <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                                     </Border>
@@ -89,7 +88,7 @@
                 </Button.Content>
             </Button>
 
-            <Rectangle Height="20" Width="2" Margin="10,0,10,0" Stroke="#2A2D2F" Fill="#2A2D2F" VerticalAlignment="Center"/>
+            <Rectangle x:Name="sepKey" Height="20" Width="2" Margin="10,0,10,0" Stroke="#2A2D2F" Fill="#2A2D2F" VerticalAlignment="Center"/>
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
 
@@ -101,6 +100,7 @@
         </Grid.RowDefinitions>
         <Rectangle Height="1.5" Margin="0,0,0,0" Stroke="#2A2D2F" Fill="#2A2D2F" VerticalAlignment="Top"/>
         <local:TopBar Grid.Row="0" x:Name="Leiste" HorizontalAlignment="Stretch" Visibility="Visible" VerticalAlignment="Top" />
+        <local:TopBarDisabled Grid.Row="0" x:Name="LeisteDisabled" HorizontalAlignment="Stretch" Visibility="Collapsed" VerticalAlignment="Top" />
         <Frame x:Name="ContentFrame" Grid.Row="1" Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden"/>
 
     </Grid>

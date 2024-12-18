@@ -25,6 +25,12 @@ namespace RunTrack
             _imodel.Pfad = pfad; // Pfad setzen
             InitializeComponent(); // Komponenten initialisieren
 
+            // Topbar deaktivieren
+            if (Application.Current.MainWindow is Main mainWindow)
+            {
+                mainWindow.SetTopBarEnabled(false);
+            }
+
             // DraggableItems erstellen und zum OrderPanel hinzufügen
             string[] strings = { "Vorname", "Nachname", "Geschlecht", "Geburtsjahrgang", "Klasse" };
             foreach (string s in strings)
@@ -76,6 +82,13 @@ namespace RunTrack
                     if (File.Exists(_imodel.Pfad)) File.Delete(_imodel.Pfad);
                     dvm.LstFiles = new ObservableCollection<FileItem>(FileItem.AlleLesen());
                     _model.Navigate(dv);
+
+                    // Topbar wieder aktivieren
+                    if (Application.Current.MainWindow is Main mainWindow)
+                    {
+                        mainWindow.SetTopBarEnabled(true);
+                    }
+
                     return;
                 }
             };
@@ -115,6 +128,9 @@ namespace RunTrack
 
                 // Weiter zur Klassenerstellung
                 _model.Navigate(new Import2());
+
+                
+
                 return;
             };
 
@@ -131,6 +147,7 @@ namespace RunTrack
                 }
             };
         }
+
 
         // Event-Handler für das Loaded-Event des CSV_Grid
         private void CSV_Grid_Loaded(object sender, RoutedEventArgs e)
