@@ -58,21 +58,7 @@ namespace RunTrack
         // Event-Handler für das Laden des Fensters
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (_pmodel?.ShowTimeWarningPopup == true)
-            {
-                // Zeige das Overlay an
-                Overlay.Visibility = Visibility.Visible;
-
-                // Zeige das TimeWarningPopup-Fenster an
-                var timeWarningPopup = new TimeWarningPopup();
-                timeWarningPopup.ShowDialog();
-
-                // Blende das Overlay aus, nachdem das Popup geschlossen wurde
-                Overlay.Visibility = Visibility.Collapsed;
-
-                // Setze ShowTimeWarningPopup zurück
-                _pmodel.ShowTimeWarningPopup = false;
-            }
+            
 
             if (_smodel == null) return;
             if (_pmodel.Benutzer.IsAdmin)
@@ -141,6 +127,24 @@ namespace RunTrack
             else
             {
                 this.borderAdmin.Visibility = Visibility.Hidden;
+            }
+
+
+
+            if (_pmodel?.ShowTimeWarningPopup == true)
+            {
+                // Zeige das Overlay an
+                Overlay.Visibility = Visibility.Visible;
+
+                // Zeige das TimeWarningPopup-Fenster an
+                var timeWarningPopup = new TimeWarningPopup();
+                timeWarningPopup.ShowDialog();
+
+                // Blende das Overlay aus, nachdem das Popup geschlossen wurde
+                Overlay.Visibility = Visibility.Collapsed;
+
+                // Setze ShowTimeWarningPopup zurück
+                _pmodel.ShowTimeWarningPopup = false;
             }
         }
 

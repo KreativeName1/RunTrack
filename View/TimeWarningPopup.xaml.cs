@@ -13,6 +13,7 @@ namespace RunTrack
     public partial class TimeWarningPopup : MetroWindow
     {
         private DispatcherTimer timer;
+        private DispatcherTimer closeEnableTimer;
 
         // Konstruktor, der das Popup mit Titel und Nachricht initialisiert
         public TimeWarningPopup()
@@ -25,6 +26,15 @@ namespace RunTrack
             timer.Interval = TimeSpan.FromSeconds(1); // Aktualisiere jede Sekunde
             timer.Tick += Timer_Tick;
             timer.Start();
+
+            // Initialisiere den Timer für die Schließverzögerung
+            closeEnableTimer = new DispatcherTimer();
+            closeEnableTimer.Interval = TimeSpan.FromSeconds(2); // 2 Sekunden Verzögerung
+            closeEnableTimer.Tick += CloseEnableTimer_Tick;
+            closeEnableTimer.Start();
+
+            // Deaktiviere den OK-Button initial
+            btnOK.IsEnabled = false;
 
             // Event-Handler für den OK-Button
             btnOK.Click += (s, e) =>
@@ -40,7 +50,13 @@ namespace RunTrack
             tbTime.Text = DateTime.Now.ToString("HH:mm:ss");
         }
 
-       
+        // Event-Handler für den Schließverzögerungs-Timer
+        private void CloseEnableTimer_Tick(object sender, EventArgs e)
+        {
+            btnOK.IsEnabled = true; // Aktiviere den OK-Button nach 2 Sekunden
+            closeEnableTimer.Stop(); // Stoppe den Schließverzögerungs-Timer
+        }
+
         protected override void OnSourceInitialized(EventArgs e)
         {
             base.OnSourceInitialized(e);

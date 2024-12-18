@@ -110,12 +110,26 @@ namespace RunTrack
                 string auswertungsart = _amodel.IsAnzahl ? "Rundenanzahl" : (_amodel.IsZeit ? "Zeit" : (_amodel.IsDistanz ? "Distanz" : "Rundenanzahl"));
                 string worin = _amodel.IsInsgesamt ? "Insgesamt" : (_amodel.IsSchule ? $"Schule {_amodel.SelectedSchule}" : (_amodel.IsKlasse ? $"Klasse {_amodel.SelectedKlasse}" : $"Jahrgang {_amodel.Jahrgang}"));
 
+
+                // Zeige das Overlay an
+                Overlay.Visibility = Visibility.Visible;
+
+                // Zeige das TimeWarningPopup-Fenster an
                 InputPopup input = new("Urkunde", "Bitte geben Sie den Namen des Laufes ein");
+
                 input.Closed += (sender, args) =>
                 {
                     LoadOverlay.Visibility = Visibility.Hidden;
                 };
+
+                // Blende das Overlay aus, nachdem das Popup geschlossen wurde
+                Overlay.Visibility = Visibility.Collapsed;
+
+                // Setze ShowTimeWarningPopup zurück
+                _pmodel.ShowTimeWarningPopup = false;
+
                 input.ShowDialog();
+
                 string laufName = input.GetInputValue<string>();
 
                 List<Urkunde> urkunden = new();
