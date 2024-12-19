@@ -11,6 +11,7 @@ namespace RunTrack
         public PrintPreviewPage(CoreWebView2 coreWebView2)
         {
             InitializeComponent();
+            _model = FindResource("pmodel") as MainModel;
             InitializeWebView(coreWebView2);
             MaximizeWindow();
         }
@@ -99,7 +100,7 @@ namespace RunTrack
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             MinimizeWindow();
-            _model?.Navigate(_model.History[^1], true);
+            _model?.Navigate(_model.History[^1], false);
         }
     }
 }

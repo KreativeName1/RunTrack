@@ -110,7 +110,7 @@ namespace RunTrack
                     }
                 });
 
-                _model?.Navigate(_model.History[^1], false);
+                _model?.Navigate(_model.History.FindLast(p => p.GetType() != typeof(PDFEditor)), false);
             };
 
             // Event-Handler für den Speichern-Button
@@ -371,7 +371,7 @@ namespace RunTrack
                 try
                 {
                     // Navigiere zur PrintPreviewPage und übergebe die CoreWebView2-Instanz
-                    _model?.Navigate(new PrintPreviewPage(webView.CoreWebView2), false);
+                    _model?.Navigate(new PrintPreviewPage(webView.CoreWebView2), true);
                 }
                 catch (Exception ex)
                 {
