@@ -483,7 +483,8 @@ namespace RunTrack
             }
             else
             {
-                MessageBox.Show("Der Ordner 'Dateien' existiert nicht.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                new Popup().Display("Fehler", "Der Ordner 'Dateien' existiert nicht.", PopupType.Error, PopupButtons.Ok);
+                
             }
         }
 

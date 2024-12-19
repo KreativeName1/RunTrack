@@ -91,7 +91,7 @@ namespace RunTrack
                 {
                     admin.Passwort = BCrypt.Net.BCrypt.HashPassword(newPassword);
                     db.SaveChanges();
-                    new Popup().Display("Passwortänderung", "Das Passwort wurde erfolgreich geändert :)", PopupType.Success, PopupButtons.Ok);
+                    new Popup().Display("Passwortänderung", "Das Passwort wurde erfolgreich geändert", PopupType.Success, PopupButtons.Ok);
                     result = true;
                 }
             }

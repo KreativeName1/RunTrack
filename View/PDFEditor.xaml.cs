@@ -252,7 +252,7 @@ namespace RunTrack
 
                 if (db.Formate.Any(f => f.Name.ToLower().Trim() == _pemodel.Format.Name.ToLower().Trim()))
                 {
-                    new Popup().Display("Format existiert bereits", "Bearbeiten Sie es in der Verwaltung", PopupType.Warning, PopupButtons.YesNo);
+                    new Popup().Display("Format existiert bereits", "Das Format existiert bereits, bearbeiten Sie es in der Verwaltung", PopupType.Warning, PopupButtons.Ok);
                 }
                 else
                 {
