@@ -45,6 +45,11 @@
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="IsTabStop" Value="False"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding FileName}" Value="EigeneDatenbank.db">
+                            <Setter Property="Background" Value="#F7FBF5"/>
+                        </DataTrigger>
+                    </Style.Triggers>
                 </Style>
             </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
@@ -59,12 +64,12 @@
                             <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" IsTabStop="False" VerticalAlignment="Center" Margin="5"/>
                             <TextBlock Text="{Binding FileName}" VerticalAlignment="Center" Margin="30,0,0,0" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap"/>
                             <TextBlock Text="{Binding UploadDate, StringFormat={}{0:dd.MM.yyyy} - {0:HH:mm} Uhr}" VerticalAlignment="Center" Margin="5,0,5,0" Grid.Column="2" HorizontalAlignment="Right"/>
-
                         </Grid>
                     </Border>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+
         <TextBlock Text="Drag &amp; Drop für Import möglich" FontWeight="Bold" Margin="10,0,0,0" Grid.Row="3" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Column="1" Foreground="green" Cursor="Hand"/>
 
         <local:DragDropOverlay Drop="FilesListBox_Drop" AllowDrop="True" Grid.Row="3" Visibility="{Binding IsDragging, Converter={StaticResource con}}" x:Name="DragDropOverlay"/>

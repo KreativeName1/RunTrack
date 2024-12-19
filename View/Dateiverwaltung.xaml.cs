@@ -24,6 +24,8 @@ namespace RunTrack
             _pmodel = FindResource("pmodel") as MainModel ?? new();
             _dvmodel.LstFiles = new(FileItem.AlleLesen());
 
+            SortFiles();
+
             FilesListBox.DragEnter += (s, e) => _dvmodel.IsDragging = true;
             DragDropOverlay.DragLeave += (s, e) => _dvmodel.IsDragging = false;
 
@@ -35,6 +37,20 @@ namespace RunTrack
             FilesListBox.IsTabStop = false;
             btnDBView.IsTabStop = false;
             btnUpload.IsTabStop = false;
+        }
+
+        private void SortFiles()
+        {
+            var sortedList = _dvmodel.LstFiles.OrderBy(f => f.FileName).ToList();
+            var eigeneDatenbankItem = sortedList.FirstOrDefault(f => f.FileName == "EigeneDatenbank.db");
+            if (eigeneDatenbankItem != null)
+            {
+                sortedList.Remove(eigeneDatenbankItem);
+                sortedList.Insert(0, eigeneDatenbankItem);
+            }
+
+            _dvmodel.LstFiles.Clear();
+            foreach (var item in sortedList) _dvmodel.LstFiles.Add(item);
         }
 
         // Methode zum Hochladen von Dateien
@@ -372,20 +388,29 @@ namespace RunTrack
             if (propertyName == "FileName")
             {
                 sortedList = ascending ? _dvmodel.LstFiles.OrderBy(f => f.FileName).ToList()
-                                                                     : _dvmodel.LstFiles.OrderByDescending(f => f.FileName).ToList();
+                                       : _dvmodel.LstFiles.OrderByDescending(f => f.FileName).ToList();
                 sortByFileNameAscending = !ascending;
             }
             else if (propertyName == "UploadDate")
             {
                 sortedList = ascending ? _dvmodel.LstFiles.OrderBy(f => f.UploadDate).ToList()
-                                                                     : _dvmodel.LstFiles.OrderByDescending(f => f.UploadDate).ToList();
+                                       : _dvmodel.LstFiles.OrderByDescending(f => f.UploadDate).ToList();
                 sortByUploadDateAscending = !ascending;
             }
             else return;
 
+            // Sicherstellen, dass EigeneDatenbank.db immer an erster Stelle steht
+            var eigeneDatenbankItem = sortedList.FirstOrDefault(f => f.FileName == "EigeneDatenbank.db");
+            if (eigeneDatenbankItem != null)
+            {
+                sortedList.Remove(eigeneDatenbankItem);
+                sortedList.Insert(0, eigeneDatenbankItem);
+            }
+
             _dvmodel.LstFiles.Clear();
-            foreach (var item in sortedList) _dvmodel.LstFiles.Add(item);  // Sortierte Liste zurücksetzen
+            foreach (var item in sortedList) _dvmodel.LstFiles.Add(item);
         }
+
 
         // MouseEnter und MouseLeave Events für die Labels
         private void Label_MouseEnter(object sender, MouseEventArgs e)
