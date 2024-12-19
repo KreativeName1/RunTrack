@@ -205,10 +205,10 @@
                         </Border>
                     </StackPanel>
 
-                    <StackPanel x:Name="stFormate" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" Margin="100,470,100,0" Height="186" VerticalAlignment="Top">
+                    <StackPanel x:Name="stFormate" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" Margin="100,470,100,10" VerticalAlignment="Top">
                         <Label Content="Format speichern" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top" Margin="0,0,0,0"/>
-                        <Border BorderBrush="Black" BorderThickness="1">
-                            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Border BorderBrush="Black" BorderThickness="1" Cursor="">
+                            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,5">
                                 <!-- Option zum Laden und Benennen der Formate -->
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
@@ -231,7 +231,7 @@
                                     <ComboBox SelectedItem="{Binding Format}" ItemsSource="{Binding Formate}" x:Name="cbFormate" HorizontalAlignment="Center" Height="26.5" VerticalAlignment="Top" Width="120" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="blue"/>
                                 </StackPanel>
 
-                                <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,10">
+                                <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0">
                                     <fc:ButtonPlus Content="Speichern" x:Name="btnSpeichern" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" Height="26.5" CornerRadius="5.5" Background="#6C7C98" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Cursor="Hand"/>
                                     <fc:ButtonPlus Content="Verwalten" Margin="10,0,0,0" x:Name="btnFormateVerwalten" ToolTip="Formate verwalten" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" Height="26.5" CornerRadius="5.5" Background="#6C7C98" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Cursor="Hand" Click="btnFormateVerwalten_Click"/>
                                 </StackPanel>

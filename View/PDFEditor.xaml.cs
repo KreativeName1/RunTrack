@@ -323,17 +323,40 @@ namespace RunTrack
         }
 
         // Event-Handler für den Drucken-Button
+        //private async void btnPrint_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Window.GetWindow(this).WindowState = WindowState.Maximized;
+
+        //    if (webView.CoreWebView2 != null)
+        //    {
+        //        try
+        //        {
+        //            webView.CoreWebView2.ShowPrintUI();
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            new Popup().Display("Fehler", $"Fehler beim Drucken der PDF: {ex.Message}", PopupType.Error, PopupButtons.Ok);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        new Popup().Display("Fehler", "WebView2 ist noch nicht initialisiert.", PopupType.Error, PopupButtons.Ok);
+        //    }
+        //}
+
+        // Event-Handler für den Drucken-Button
         private async void btnPrint_Click(object sender, RoutedEventArgs e)
         {
             if (webView.CoreWebView2 != null)
             {
                 try
                 {
-                    webView.CoreWebView2.ShowPrintUI();
+                    // Navigiere zur PrintPreviewPage und übergebe die CoreWebView2-Instanz
+                    _model?.Navigate(new PrintPreviewPage(webView.CoreWebView2), false);
                 }
                 catch (Exception ex)
                 {
-                    new Popup().Display("Fehler", $"Fehler beim Drucken der PDF: {ex.Message}", PopupType.Error, PopupButtons.Ok);
+                    new Popup().Display("Fehler", $"Fehler beim Öffnen der Druckvorschau: {ex.Message}", PopupType.Error, PopupButtons.Ok);
                 }
             }
             else
@@ -341,6 +364,7 @@ namespace RunTrack
                 new Popup().Display("Fehler", "WebView2 ist noch nicht initialisiert.", PopupType.Error, PopupButtons.Ok);
             }
         }
+
 
         private void btnFormateVerwalten_Click(object sender, RoutedEventArgs e)
         {
