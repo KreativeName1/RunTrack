@@ -1,4 +1,4 @@
-﻿<Page x:Class="RunTrack.FormatLoeschenPage"
+﻿<Page x:Class="RunTrack.FormatVerwaltenPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:RunTrack.View" xmlns:fc="http://devpelux.github.io/fullcontrols"
       mc:Ignorable="d" 
       d:DesignHeight="750" d:DesignWidth="1000"
-      Title="FormatLoeschenPage">
+      Title="Formate Verwalten">
     <Grid>
         <fc:GlassScrollViewer x:Name="glassScrollViewer" BorderBrush="Black" BorderThickness="1" Width="350" Height="550" VerticalScrollBarVisibility="Auto" PanningMode="Both" CanContentScroll="True">
             <DataGrid ItemsSource="{Binding Formate}" x:Name="dgFormate" AutoGenerateColumns="False" PreviewMouseWheel="dgFormate_PreviewMouseWheel" GridLinesVisibility="Horizontal" CanUserDeleteRows="False" IsReadOnly="True" HeadersVisibility="All" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" EnableColumnVirtualization="False">

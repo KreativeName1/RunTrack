@@ -342,14 +342,14 @@ namespace RunTrack
             }
         }
 
-        private void btnFormateLoeschen_Click(object sender, RoutedEventArgs e)
+        private void btnFormateVerwalten_Click(object sender, RoutedEventArgs e)
         {
             bool? res = new Popup().Display("Warnung", "Wenn sie auf die Seite gehen, verlassen Sie den PDF Editor und müssen diesen neu aufrufen", PopupType.Warning, PopupButtons.OkCancel);
 
             // Überprüfe die Antwort des Benutzers
             if (res == true)
             {
-                _model?.Navigate(new FormatLoeschenPage(), false);
+                _model?.Navigate(new FormatVerwaltenPage(), false);
             }
         }
     }

@@ -5,14 +5,14 @@ using System.Windows.Controls;
 namespace RunTrack
 {
     /// <summary>
-    /// Interaktionslogik für FormatLoeschenPage.xaml
+    /// Interaktionslogik für FormatVerwaltenPage.xaml
     /// </summary>
-    public partial class FormatLoeschenPage : Page
+    public partial class FormatVerwaltenPage : Page
     {
         private MainModel? _model;
         private PDFEditorModel _pemodel;
 
-        public FormatLoeschenPage()
+        public FormatVerwaltenPage()
         {
             InitializeComponent();
             _model = FindResource("pmodel") as MainModel ?? new MainModel();

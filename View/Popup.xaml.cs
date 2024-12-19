@@ -32,27 +32,10 @@ namespace RunTrack
 
             this.Topmost = true; // Setzt das Fenster in den Vordergrund
             this.Activate(); // Aktiviert das Fenster
-            StartAnimations(); // Startet die Animationen
 
             this.ShowDialog(); // Zeigt das Fenster als modales Dialogfenster an
 
             return Result; // Gibt das Ergebnis zurück
-        }
-
-        // Startet die Animationen des Fensters
-        private void StartAnimations()
-        {
-            var fadeInStoryboard = (Storyboard)this.Resources["FadeInStoryboard"];
-            fadeInStoryboard.Begin(this);
-
-            var zoomInStoryboard = (Storyboard)this.Resources["ZoomInStoryboard"];
-            zoomInStoryboard.Begin(this);
-
-            var slideInStoryboard = (Storyboard)this.Resources["SlideInStoryboard"];
-            slideInStoryboard.Begin(this);
-
-            var backgroundColorStoryboard = (Storyboard)this.Resources["BackgroundColorStoryboard"];
-            backgroundColorStoryboard.Begin(this);
         }
 
         // Richtet das Symbol des Popups basierend auf dem Typ ein
@@ -175,6 +158,30 @@ namespace RunTrack
             {
                 this.Height += height - 50;
             }
+        }
+
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+
+            // Fenster-Nachrichten abfangen
+            var hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
+            var source = System.Windows.Interop.HwndSource.FromHwnd(hwnd);
+            source.AddHook(WndProc);
+        }
+
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            const int WM_NCLBUTTONDOWN = 0xA1; // Nachricht für Mausklick auf Nicht-Client-Bereich
+            const int HTCAPTION = 0x2;         // Titelbereich
+
+            // Bewegung unterbinden
+            if (msg == WM_NCLBUTTONDOWN && wParam.ToInt32() == HTCAPTION)
+            {
+                handled = true; // Blockiere die Nachricht
+            }
+
+            return IntPtr.Zero;
         }
     }
 }

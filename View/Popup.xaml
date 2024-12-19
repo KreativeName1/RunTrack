@@ -9,49 +9,6 @@
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
 		Loaded="Window_Loaded"
         Title="PopupWindow" Height="210" Width="450" WindowStyle="None">
-    <Window.Resources>
-        <Storyboard x:Key="FadeInStoryboard">
-            <DoubleAnimation
-                Storyboard.TargetProperty="Opacity"
-                From="0"
-                To="1"
-                Duration="0:0:0.5"
-                BeginTime="0:0:0" />
-        </Storyboard>
-
-        <Storyboard x:Key="ZoomInStoryboard">
-            <DoubleAnimation
-                Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
-                From="0.8"
-                To="1"
-                Duration="0:0:0.5"
-                BeginTime="0:0:0" />
-            <DoubleAnimation
-                Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
-                From="0.8"
-                To="1"
-                Duration="0:0:0.5"
-                BeginTime="0:0:0" />
-        </Storyboard>
-
-        <Storyboard x:Key="SlideInStoryboard">
-            <DoubleAnimation
-                Storyboard.TargetProperty="(Canvas.Top)"
-                From="100"
-                To="0"
-                Duration="0:0:0.5"
-                BeginTime="0:0:0" />
-        </Storyboard>
-
-        <Storyboard x:Key="BackgroundColorStoryboard">
-            <ColorAnimation
-                Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                From="#FFFFFF"
-                To="#F0F0F0"
-                Duration="0:0:0.5"
-                BeginTime="0:0:0" />
-        </Storyboard>
-    </Window.Resources>
     <Grid Cursor="">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -62,7 +19,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-            <Rectangle Grid.ColumnSpan="2" Grid.RowSpan="3" StrokeThickness="2" Stroke="#FFA421"></Rectangle>
+        <Rectangle Grid.ColumnSpan="2" Grid.RowSpan="3" StrokeThickness="3" Stroke="#fb8633"></Rectangle>
         <Grid Grid.ColumnSpan="2">
 
             <Rectangle Height="28" Margin="0,0,0,0" Stroke="#005746" Fill="#005746" VerticalAlignment="Top"/>
