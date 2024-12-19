@@ -46,7 +46,8 @@ namespace RunTrack
 
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
-            _model?.Navigate(new Scanner());
+            // find last page that is a PDFEditor
+            _model?.Navigate(_model?.History.LastOrDefault(p => p is PDFEditor), false);
         }
 
         private void dgFormate_PreviewMouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)

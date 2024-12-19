@@ -15,7 +15,7 @@ namespace RunTrack
             InitializeComponent();
             if (format == null)
             {
-                MessageBox.Show("Kein gültiges Format zum Bearbeiten ausgewählt.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                new Popup().Display("Fehler", "Kein gültiges Format zum Bearbeiten ausgewählt.", PopupType.Error, PopupButtons.Ok);
                 _model?.Navigate(_model.History[^1], false);
                 return;
             }

@@ -110,7 +110,8 @@ namespace RunTrack
                     }
                 });
 
-                _model?.Navigate(_model.History.FindLast(p => p.GetType() != typeof(PDFEditor)), false);
+                // find last that is not a PDFEditor, FormatVerwaltenPage oder FormatBearbeitenPage
+                _model?.Navigate(_model.History.FindLast(p => p.GetType() != typeof(PDFEditor) && p.GetType() != typeof(FormatVerwaltenPage) && p.GetType() != typeof(FormatBearbeitenPage)), false);
             };
 
             // Event-Handler für den Speichern-Button
@@ -387,13 +388,7 @@ namespace RunTrack
 
         private void btnFormateVerwalten_Click(object sender, RoutedEventArgs e)
         {
-            bool? res = new Popup().Display("Warnung", "Wenn sie auf die Seite gehen, verlassen Sie den PDF Editor und müssen diesen neu aufrufen", PopupType.Warning, PopupButtons.OkCancel);
-
-            // Überprüfe die Antwort des Benutzers
-            if (res == true)
-            {
-                _model?.Navigate(new FormatVerwaltenPage(), false);
-            }
+           _model?.Navigate(new FormatVerwaltenPage(), true);
         }
     }
 }
