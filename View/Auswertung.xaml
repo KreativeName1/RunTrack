@@ -31,7 +31,7 @@
 
         <fc:GlassScrollViewer Grid.Row="0" Grid.Column="0" Margin="10,0,10,0" VerticalScrollBarVisibility="Auto" Visibility="{Binding RundenArten.Count, Converter={StaticResource countToVisibilityConverter}, ConverterParameter=5}">
             <StackPanel x:Name="stAuswahl">
-                <Label Content="Auswertung" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="2"/>
+                <Label Content="Auswertung" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="15" Grid.ColumnSpan="2"/>
                 <Border BorderBrush="Black" BorderThickness="1" Padding="10">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -59,7 +59,7 @@
                                 <ColumnDefinition Width="150"/>
                             </Grid.ColumnDefinitions>
                             <fc:RadioButtonPlus GroupName="Wer" Checked="change" IsChecked="{Binding IsSchule}" x:Name="rbSchule" Grid.Column="0" Content="Schule" VerticalAlignment="Center"/>
-                            <ComboBox SelectionChanged="SelectionChanged" x:Name="cbSchule" ItemsSource="{Binding Schulen}" SelectedItem="{Binding SelectedSchule}" HorizontalAlignment="Right" Grid.Column="1" Width="145" VerticalAlignment="Center"/>
+                            <ComboBox SelectionChanged="SelectionChanged" x:Name="cbSchule" Margin="0,0,5,0" ItemsSource="{Binding Schulen}" SelectedItem="{Binding SelectedSchule}" HorizontalAlignment="Right" Grid.Column="1" Height="26.5" Width="145" VerticalAlignment="Center"/>
                         </Grid>
 
                         <Grid Grid.Row="2" Margin="0,0,0,10">
@@ -68,7 +68,7 @@
                                 <ColumnDefinition Width="150"/>
                             </Grid.ColumnDefinitions>
                             <fc:RadioButtonPlus GroupName="Wer" Checked="change" IsChecked="{Binding IsKlasse}" x:Name="rbKlasse" Grid.Column="0" Content="Klasse" VerticalAlignment="Center"/>
-                            <ComboBox SelectionChanged="SelectionChanged" x:Name="cbKlasse" ItemsSource="{Binding Klassen}" SelectedItem="{Binding SelectedKlasse}" HorizontalAlignment="Right" Grid.Column="1" Width="145" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                            <ComboBox SelectionChanged="SelectionChanged" x:Name="cbKlasse" ItemsSource="{Binding Klassen}" SelectedItem="{Binding SelectedKlasse}" HorizontalAlignment="Right" Grid.Column="1" Height="26.5" Width="145" Margin="0,0,5,0" VerticalAlignment="Center"/>
                         </Grid>
 
                         <Grid Grid.Row="3" Margin="0,0,0,10">
@@ -77,7 +77,7 @@
                                 <ColumnDefinition Width="150"/>
                             </Grid.ColumnDefinitions>
                             <fc:RadioButtonPlus GroupName="Wer" Checked="change" IsChecked="{Binding IsJahrgang}" Grid.Column="0" Content="Jahrgang" VerticalAlignment="Center"/>
-                            <xctk:IntegerUpDown ValueChanged="iudJahrgang_ValueChanged" HorizontalAlignment="Right" Value="{Binding Jahrgang}" Grid.Column="1" Width="145" x:Name="iudJahrgang" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                            <xctk:IntegerUpDown ValueChanged="iudJahrgang_ValueChanged" HorizontalAlignment="Right" Value="{Binding Jahrgang}" Grid.Column="1" Width="145" Height="26.5" x:Name="iudJahrgang" Margin="0,0,5,0" VerticalAlignment="Center"/>
                         </Grid>
 
                         <Grid Grid.Row="4" Margin="0,0,0,10">
@@ -90,7 +90,7 @@
                     </Grid>
                 </Border>
 
-                <Label Content="Bewertung" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="16"/>
+                <Label Content="Bewertung" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="15"/>
 
                 <Border BorderBrush="Black" BorderThickness="1" Padding="10">
                     <StackPanel>
@@ -100,18 +100,18 @@
                     </StackPanel>
                 </Border>
 
-                <Label Content="Geschlecht" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="16"/>
+                <Label Content="Geschlecht" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="16"/>
 
                 <Border BorderBrush="Black" BorderThickness="1" Padding="10">
                     <StackPanel>
                         <fc:RadioButtonPlus GroupName="Geschlecht" Name="Gesamt" IsChecked="{Binding IsGesamt}" Content="Insgesamt" VerticalAlignment="Center" Checked="change"/>
-                        <fc:RadioButtonPlus GroupName="Geschlecht" Margin="0,10,0,5"  Name="Maennlich" IsChecked="{Binding IsMaennlich}" Content="Männlich" VerticalAlignment="Center" Checked="change"/>
+                        <fc:RadioButtonPlus GroupName="Geschlecht" Margin="0,10,0,5" Name="Maennlich" IsChecked="{Binding IsMaennlich}" Content="Männlich" VerticalAlignment="Center" Checked="change"/>
                         <fc:RadioButtonPlus GroupName="Geschlecht" Name="Weiblich" IsChecked="{Binding IsWeiblich}" Content="Weiblich" VerticalAlignment="Center" Checked="change"/>
-                        <fc:RadioButtonPlus GroupName="Geschlecht" Margin="0,5,0,0"  Name="Divers" IsChecked="{Binding IsDivers}" Content="Divers" VerticalAlignment="Center" Checked="change"/>
+                        <fc:RadioButtonPlus GroupName="Geschlecht" Margin="0,5,0,0" Name="Divers" IsChecked="{Binding IsDivers}" Content="Divers" VerticalAlignment="Center" Checked="change"/>
                     </StackPanel>
                 </Border>
 
-                <Label Content="Rundenart" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="16"/>
+                <Label Content="Rundenart" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="15"/>
 
                 <Border BorderBrush="Black" BorderThickness="1" MinHeight="30" Padding="10">
                     <StackPanel x:Name="RundenGroesse">

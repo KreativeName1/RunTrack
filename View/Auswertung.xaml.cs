@@ -1,6 +1,7 @@
 ﻿// Notwendige Namespaces importieren
 using FullControls.Controls;
 using Microsoft.Win32;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.IO;
 using System.Windows;
@@ -20,6 +21,9 @@ namespace RunTrack
         private MainModel _pmodel;
         private bool _isInitialized = false;
 
+        // Temporäre Liste zum Speichern der Daten
+        private List<object> _tempListe = new();
+
         // Konstruktor der Klasse
         public Auswertung()
         {
@@ -28,8 +32,6 @@ namespace RunTrack
             if (!System.IO.Directory.Exists("Dateien")) System.IO.Directory.CreateDirectory("Dateien");
             // Alle .db-Dateien im Verzeichnis "Dateien" abrufen
             _pfade = System.IO.Directory.GetFiles("Dateien", "*.db");
-
-
         }
 
         // Asynchrone Methode zum Kopieren einer Datei
@@ -58,10 +60,12 @@ namespace RunTrack
                     {
                         CopyFileAsync("internal.db", saveFileDialog.FileName);
                     }
+                    LoadOverlay.Visibility = Visibility.Collapsed;
                 }
                 catch (IOException ex)
                 {
                     new Popup().Display("Fehler", "Die Datei konnte nicht exportiert werden.", PopupType.Error, PopupButtons.Ok);
+                    LoadOverlay.Visibility = Visibility.Collapsed;
                 }
             };
             btnSchliessen.Click += (s, e) => _pmodel.Navigate(new Scanner());
@@ -239,9 +243,15 @@ namespace RunTrack
             };
         }
 
-        // Methode zum Laden der Daten
         public void LoadData()
         {
+            if (_tempListe.Count > 0)
+            {
+                _amodel.Liste = new ObservableCollection<object>(_tempListe);
+                _tempListe.Clear();
+                return;
+            }
+
             using (var db = new MergedDBContext(_pfade))
             {
                 _amodel.Schulen = new(db.Schulen.ToList());
@@ -259,7 +269,6 @@ namespace RunTrack
                         {
                             Content = rundenArt.Name,
                             Name = rundenArt.Name.Replace(" ", "_"),
-                            IsChecked = first,
                             Margin = new Thickness(0, 0, 0, 5)
                         };
                         rb.Checked += change;
@@ -269,6 +278,19 @@ namespace RunTrack
                         first = false;
                     }
             }
+        }
+
+
+        // Methode zum Speichern der Daten in der temporären Liste
+        private void SaveData()
+        {
+            _tempListe = _amodel.Liste.ToList();
+        }
+
+        // Event-Handler für das Verlassen der Seite
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+            SaveData();
         }
 
         // Event-Handler für Änderungen
