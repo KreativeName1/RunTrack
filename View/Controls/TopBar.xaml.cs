@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace RunTrack
@@ -22,9 +23,17 @@ namespace RunTrack
         // Event-Handler für das MouseDown-Ereignis des Bildes
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            _pmodel.Benutzer = null; // Setzt den Benutzer auf null
-            _pmodel?.Navigate(new MainWindow()); // Navigiert zur MainWindow-Seite
+            // Zeigt eine MessageBox an, um zu bestätigen, ob der Benutzer sich wirklich abmelden möchte
+            var result = new Popup().Display("Abmeldung bestätigen", "Möchten Sie sich wirklich abmelden?", PopupType.Question, PopupButtons.OkCancel);
+
+            // Wenn der Benutzer "Ja" auswählt, wird die Abmeldung durchgeführt
+            if (result == true)
+            {
+                _pmodel.Benutzer = null; // Setzt den Benutzer auf null
+                _pmodel?.Navigate(new MainWindow()); // Navigiert zur MainWindow-Seite
+            }
         }
+
 
         // Event-Handler für das MouseDown-Ereignis der Credits
         private void Credits_MouseDown(object sender, MouseButtonEventArgs e)

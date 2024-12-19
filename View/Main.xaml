@@ -21,22 +21,6 @@
         <mah:WindowCommands ShowSeparators="False">
             <Image Source="pack://application:,,,/Images/iconRunMan.ico"
                    Width="30" Height="30" Margin="5,0,10,0" />
-
-
-            <TextBlock Text="⚠️ Work in Progress ⚠️" Foreground="Red" FontSize="14" FontWeight="SemiBold" FontFamily="Arial" HorizontalAlignment="Center" VerticalAlignment="Stretch" Padding="10,5,10,5" Background="White"/>
-            <Border Width="50" Height="30" Cursor="Help" Background="White" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="5,0,0,0">
-                <Border.ToolTip>
-                    <ToolTip>
-                        <StackPanel>
-                            <TextBlock Text="Fehlende Punkte:" FontWeight="Bold" />
-                            <TextBlock Text="• Import: Beim Schließen des Programms wird trotzdem Datei Importiert" />
-                            <TextBlock Text="• Mögliche Bugs"/>
-                        </StackPanel>
-                    </ToolTip>
-                </Border.ToolTip>
-                <TextBlock Text="INFO" Foreground="Red" FontSize="14" FontWeight="SemiBold" FontFamily="Arial" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </Border>
-
             <Label Visibility="{Binding Benutzer.IsAdmin, Converter={StaticResource bvcon}}" Content="Admin" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
 
         </mah:WindowCommands>

@@ -10,7 +10,7 @@
       HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
          Title="Anmeldung">
 	<Grid>
-		<Border CornerRadius="10" BorderBrush="Black"  BorderThickness="1" HorizontalAlignment="Center" Background="White"  VerticalAlignment="Center" >
+		<Border CornerRadius="10" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" Background="White"  VerticalAlignment="Center" >
             <StackPanel Orientation="Vertical" Width="400">
                 <TextBlock Text="Login" HorizontalAlignment="Center" FontSize="36" Padding="10" FontWeight="Bold" Margin="0,0,0,30"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

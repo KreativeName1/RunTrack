@@ -58,7 +58,7 @@ namespace RunTrack
         // Event-Handler für das Laden des Fensters
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            
+            Mouse.OverrideCursor = Cursors.Arrow;
 
             if (_smodel == null) return;
             if (_pmodel.Benutzer.IsAdmin)
