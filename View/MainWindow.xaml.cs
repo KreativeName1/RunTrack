@@ -37,7 +37,6 @@ namespace RunTrack
         // Event-Handler für das Laden des Fensters
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
             // Setze Fokus und initialisiere Textboxen
             FirstNameTextBox.Focus();
             FirstNameTextBox.ForegroundBrush = new SolidColorBrush(Colors.Gray);
@@ -74,6 +73,8 @@ namespace RunTrack
             // Überprüfen, ob Vorname und Nachname eingegeben wurden
             if (ValidateInputs())
             {
+                Mouse.OverrideCursor = Cursors.Wait;
+
                 using (var db = new LaufDBContext())
                 {
                     // Suchen Sie den Benutzer in der Datenbank, Vorname und Nachname werden in Kleinbuchstaben verglichen
