@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using Microsoft.Web.WebView2.Core;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
@@ -75,6 +76,22 @@ namespace RunTrack
             _pemodel = FindResource("pemodel") as PDFEditorModel ?? new PDFEditorModel();
             _model = FindResource("pmodel") as MainModel ?? new MainModel();
             _pemodel.LoadData();
+
+            // Konfigurieren der CoreWebView2-Einstellungen
+            webView.CoreWebView2InitializationCompleted += (s, e) =>
+            {
+                if (webView.CoreWebView2 != null)
+                {
+                    webView.CoreWebView2.Settings.HiddenPdfToolbarItems =
+                        CoreWebView2PdfToolbarItems.Save |
+                        CoreWebView2PdfToolbarItems.SaveAs |
+                        CoreWebView2PdfToolbarItems.MoreSettings |
+                        CoreWebView2PdfToolbarItems.Print |
+                        CoreWebView2PdfToolbarItems.Rotate |
+                        CoreWebView2PdfToolbarItems.FullScreen;
+                }
+            };
+
 
             // Event-Handler für den Abbrechen-Button
             btnCancel.Click += (s, e) =>
@@ -236,6 +253,8 @@ namespace RunTrack
                     _pemodel.AktualisierePDF();
                 }
             };
+
+            
         }
 
         // Methode zum Speichern der Daten
