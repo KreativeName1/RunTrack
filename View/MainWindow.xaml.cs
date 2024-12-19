@@ -72,9 +72,7 @@ namespace RunTrack
 
             // Überprüfen, ob Vorname und Nachname eingegeben wurden
             if (ValidateInputs())
-            {
-                Mouse.OverrideCursor = Cursors.Wait;
-
+            {-
                 using (var db = new LaufDBContext())
                 {
                     // Suchen Sie den Benutzer in der Datenbank, Vorname und Nachname werden in Kleinbuchstaben verglichen
