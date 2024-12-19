@@ -28,6 +28,7 @@ namespace RunTrack
                 if (e.Key == Key.F11) ChangeState();
             };
 
+
             // Fügt ein Ereignis hinzu, das auf Größenänderungen des Fensters reagiert
             this.SizeChanged += MetroWindow_SizeChanged;
 
@@ -47,6 +48,7 @@ namespace RunTrack
             {
                 WindowState = WindowState.Normal;
                 WindowStyle = WindowStyle.SingleBorderWindow;
+                ResizeMode = ResizeMode.CanResize;
                 this.IgnoreTaskbarOnMaximize = false;
                 this.ShowTitleBar = true;
             }
@@ -54,10 +56,12 @@ namespace RunTrack
             {
                 WindowState = WindowState.Maximized;
                 WindowStyle = WindowStyle.None;
+                ResizeMode = ResizeMode.NoResize;
                 this.IgnoreTaskbarOnMaximize = true;
                 this.ShowTitleBar = false;
             }
         }
+
 
         // Ereignishandler für Größenänderungen des Fensters
         private void MetroWindow_SizeChanged(object sender, SizeChangedEventArgs e)
