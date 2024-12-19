@@ -30,7 +30,7 @@ namespace RunTrack
                 if (format != null)
                 {
 
-                    if (new Popup().Display($"Möchten Sie das Format '{format.Name.ToUpper()}' wirklich löschen?", "Bestätigung", PopupType.Warning, PopupButtons.YesNo) == true)
+                    if (new Popup().Display("Bestätigung", $"Möchten Sie das Format '{format.Name.ToUpper()}' wirklich löschen?", PopupType.Warning, PopupButtons.YesNo) == true)
                     {
                         using (var db = new LaufDBContext())
                         {
