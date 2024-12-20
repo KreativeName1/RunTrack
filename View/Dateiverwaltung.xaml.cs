@@ -263,6 +263,13 @@ namespace RunTrack
                                     File.Delete(Path.Combine("Dateien", fileName));
                                     _dvmodel.LstFiles.RemoveAt(i);
 
+                                    // Alle anderen Dateien löschen
+                                    foreach (var file in _dvmodel.LstFiles.ToList())
+                                    {
+                                        File.Delete(Path.Combine("Dateien", file.FileName));
+                                        _dvmodel.LstFiles.Remove(file);
+                                    }
+
                                     // Logout nach Datenbanklöschung
                                     if (logout)
                                     {
@@ -325,6 +332,7 @@ namespace RunTrack
                 }
             }
         }
+
 
         // Klick auf die "Select All" Checkbox
         private void SelectAllCheckBox_Click(object sender, RoutedEventArgs e)
