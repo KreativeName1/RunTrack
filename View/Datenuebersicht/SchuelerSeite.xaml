@@ -39,7 +39,7 @@
                 </DataTemplate>
             </GroupBox.HeaderTemplate>
             <Grid>
-				<DataGrid x:Name="lstSchueler" GridLinesVisibility="All" IsReadOnly="{Binding ReadOnly}" ItemsSource="{Binding CollectionView}" SelectedItem="{Binding SelSchueler}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single">
+                <DataGrid x:Name="lstSchueler" GridLinesVisibility="All" IsReadOnly="{Binding ReadOnly}" ItemsSource="{Binding CollectionView}" SelectedItem="{Binding SelSchueler}" Margin="0,5,0,0" FontFamily="Consolas" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" BorderThickness="1" BorderBrush="Gray">
 					<DataGrid.Resources>
 						<Style TargetType="DataGridColumnHeader">
 							<Setter Property="FontWeight" Value="Bold"/>
