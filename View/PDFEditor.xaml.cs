@@ -255,7 +255,7 @@ namespace RunTrack
                 }
             };
 
-            
+
         }
 
         // Methode zum Speichern der Daten
@@ -388,7 +388,7 @@ namespace RunTrack
 
         private void btnFormateVerwalten_Click(object sender, RoutedEventArgs e)
         {
-           _model?.Navigate(new FormatVerwaltenPage(), true);
+            _model?.Navigate(new FormatVerwaltenPage(), true);
         }
     }
 }

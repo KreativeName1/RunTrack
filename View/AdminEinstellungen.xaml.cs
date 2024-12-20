@@ -110,7 +110,7 @@ namespace RunTrack
                    newPassword.Any(char.IsLower) &&
                    newPassword.Any(char.IsDigit);
         }
-        
+
         // Überprüfen, ob das alte Passwort korrekt ist
         private bool ValidateOldPassword(string oldPassword)
         {
@@ -121,7 +121,7 @@ namespace RunTrack
                 else return false;
             }
         }
-        
+
         // Überprüfen, ob die Eingaben korrekt sind (für das Anlegen eines neuen Admins)
         private bool ValidateInputsAnlegen()
         {

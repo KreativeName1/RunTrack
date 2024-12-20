@@ -31,7 +31,7 @@ namespace RunTrack
             // Deaktiviere Tab-Stop für den Login-Button
             btnLogin.IsTabStop = false;
 
-            
+
         }
 
         // Event-Handler für das Laden des Fensters
@@ -57,7 +57,7 @@ namespace RunTrack
             }
 
 
-            
+
         }
 
         // Event-Handler für den Login-Button

@@ -1,5 +1,4 @@
-﻿using FullControls.Controls;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace RunTrack

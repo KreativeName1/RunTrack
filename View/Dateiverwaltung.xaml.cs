@@ -3,7 +3,6 @@ using RunTrack.Model;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -517,7 +516,7 @@ namespace RunTrack
             else
             {
                 new Popup().Display("Fehler", "Der Ordner 'Dateien' existiert nicht.", PopupType.Error, PopupButtons.Ok);
-                
+
             }
         }
 
