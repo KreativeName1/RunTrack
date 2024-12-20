@@ -39,8 +39,22 @@
 						<StackPanel Orientation="Horizontal" Width="275" Height="35" HorizontalAlignment="Center" VerticalAlignment="Top">
 							<Grid x:Name="newPasswd" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top">
 								<StackPanel Orientation="Horizontal">
-									<Label Content="Passwort:" HorizontalAlignment="Left" FontSize="14" FontFamily="72" Width="125" FontWeight="Bold" Height="26" VerticalAlignment="Center"/>
-									<fc:PasswordBoxPlus x:Name="txtPasswordNew" HorizontalAlignment="Left" BackgroundOnDisabled="#ffffff" ForegroundOnDisabled="#41678D" EnablePeekButton="True" Foreground="Blue" ForegroundOnSelected="Blue" UnderlineBrushOnSelected="#28713E" CornerRadius="3,0,0,3" Width="150" FontSize="14" Padding="5" Height="30" VerticalAlignment="Center" />
+									<Label Content="Passwort:" HorizontalAlignment="Left" FontSize="14" FontFamily="72" Width="95" FontWeight="Bold" Height="26" VerticalAlignment="Center"/>
+                                        <fc:ButtonPlus x:Name="anforderungen" Content="i" Width="30" Height="30" HorizontalAlignment="Center" CornerRadius="3,0,0,3" VerticalAlignment="Bottom" Cursor="Help" FontSize="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Foreground="#007d64" BackgroundOnMouseOver="#fbfbfb" ForegroundOnMouseOver="#fb8633">
+                                            <fc:ButtonPlus.ToolTip>
+                                                <ToolTip>
+                                                    <StackPanel>
+                                                        <TextBlock Text="Passwortanforderungen:" FontWeight="Bold" Margin="0,0,0,1"/>
+                                                        <TextBlock Text="• Mindestens 4 Zeichen" Margin="7.5,0,0,0"/>
+                                                        <TextBlock Text="• Mindestens ein Großbuchstabe" Margin="7.5,0,0,0"/>
+                                                        <TextBlock Text="• Mindestens ein Kleinbuchstabe" Margin="7.5,0,0,0"/>
+                                                        <TextBlock Text="• Mindestens eine Zahl" Margin="7.5,0,0,0"/>
+                                                    </StackPanel>
+                                                </ToolTip>
+                                            </fc:ButtonPlus.ToolTip>
+                                        </fc:ButtonPlus>
+
+                                        <fc:PasswordBoxPlus x:Name="txtPasswordNew" HorizontalAlignment="Left" BackgroundOnDisabled="#ffffff" ForegroundOnDisabled="#41678D" EnablePeekButton="True" Foreground="Blue" ForegroundOnSelected="Blue" UnderlineBrushOnSelected="#28713E" CornerRadius="0,0,0,0" Width="150" FontSize="14" Padding="5" Height="30" VerticalAlignment="Center" />
 								</StackPanel>
 							</Grid>
 						</StackPanel>
