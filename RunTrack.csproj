@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+	<IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net7.0-windows7.0</TargetFramework>
     <Nullable>enable</Nullable>

@@ -105,12 +105,12 @@ namespace RunTrack
             return !string.IsNullOrEmpty(newPassword) && newPassword.Length >= 1;
 #endif
             return !string.IsNullOrEmpty(newPassword) &&
-                   newPassword.Length >= 8 &&
+                   newPassword.Length >= 4 &&
                    newPassword.Any(char.IsUpper) &&
                    newPassword.Any(char.IsLower) &&
-                   newPassword.Any(char.IsDigit) && newPassword.Any(char.IsSymbol);
+                   newPassword.Any(char.IsDigit);
         }
-
+        
         // Überprüfen, ob das alte Passwort korrekt ist
         private bool ValidateOldPassword(string oldPassword)
         {
@@ -121,7 +121,7 @@ namespace RunTrack
                 else return false;
             }
         }
-
+        
         // Überprüfen, ob die Eingaben korrekt sind (für das Anlegen eines neuen Admins)
         private bool ValidateInputsAnlegen()
         {
