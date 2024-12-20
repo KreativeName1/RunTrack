@@ -507,8 +507,9 @@ namespace RunTrack
         // Klick auf den "Open Folder" Button
         private void files_Click(object sender, RoutedEventArgs e)
         {
-            string currentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string folderPath = Path.Combine(currentDirectory, "Dateien");
+            string folderPath = MainModel.BaseFolder + "\\Dateien";  // Pfad zum Dateien-Ordner
+
+            Trace.WriteLine(folderPath);
 
             if (Directory.Exists(folderPath))
             {

@@ -20,7 +20,7 @@ namespace RunTrack
 {
     public class PDFGenerator
     {
-        public static string Pfad = $"Temp/";
+        public static string Pfad = MainModel.BaseFolder + "/Temp/";
         public static PdfDocument? PDFDokument;
         public static Document? Dokument;
         public static string BarcodesPDF(List<Klasse> klassen, Format format)
