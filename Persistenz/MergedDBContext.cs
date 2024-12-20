@@ -8,7 +8,8 @@ namespace RunTrack
     public class MergedDBContext : DbContext
     {
         // Definiert den Pfad zur internen Datenbank
-        private static string _internalDBPath = "internal.db";
+        private static string _internalDBPath = MainModel.BaseFolder + "/Temp/internal.db";
+
         // Initialisiert einen Tracer für das Logging
         private Tracer Tracer = new("LOG_MergedDBContext.txt");
 
@@ -16,6 +17,10 @@ namespace RunTrack
         public MergedDBContext(string[] databases)
         : base(GetDbContextOptions())
         {
+
+            // Ordner für die temporäre Datenbank erstellen
+            if (!System.IO.Directory.Exists(MainModel.BaseFolder + "/Temp")) System.IO.Directory.CreateDirectory(MainModel.BaseFolder + "/Temp");
+
             // Löscht und erstellt die Datenbank neu
             Database.EnsureDeleted();
             Database.EnsureCreated();

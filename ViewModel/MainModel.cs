@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace RunTrack
@@ -74,7 +75,9 @@ namespace RunTrack
             }
         }
 
-        
+        public static string BaseFolder => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RunTrack");
+
+
         // Methode zum Navigieren zu einer neuen Seite mit optionalem Hinzufügen zur Verlaufsliste und Bedingung
         public void Navigate(object page, bool? addToHistory = true, bool? condition = true)
         {

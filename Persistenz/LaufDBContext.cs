@@ -8,14 +8,14 @@ namespace RunTrack
     public class LaufDBContext : DbContext
     {
         // Pfad zur Datenbankdatei
-        private static string _dbPath = "./Dateien/EigeneDatenbank.db";
+        private static string _dbPath = MainModel.BaseFolder + "/Dateien/EigeneDatenbank.db";
 
         // Standardkonstruktor, der die Datenbankoptionen initialisiert
         public LaufDBContext()
               : base(GetDbContextOptions())
         {
             // Erstellt das Verzeichnis, falls es nicht existiert
-            if (!Directory.Exists("./Dateien")) Directory.CreateDirectory("./Dateien");
+            if (!Directory.Exists(MainModel.BaseFolder + "/Dateien")) Directory.CreateDirectory(MainModel.BaseFolder + "/Dateien");
 
             // Erstellt die Datenbank und fügt Testdaten hinzu, falls die Datei nicht existiert oder leer ist
             if (!File.Exists(_dbPath) || new FileInfo(_dbPath).Length == 0)
@@ -173,11 +173,8 @@ namespace RunTrack
         private static DbContextOptions GetDbContextOptions(string? path = null)
         {
             var optionsBuilder = new DbContextOptionsBuilder<LaufDBContext>();
-            optionsBuilder.UseSqlite($"Data Source=Dateien/EigeneDatenbank.db;Pooling=False");
-            if (path != null)
-            {
-                optionsBuilder.UseSqlite($"Data Source={path};Pooling=False");
-            }
+            if (path == null) path = MainModel.BaseFolder + "/Dateien/EigeneDatenbank.db";
+            optionsBuilder.UseSqlite($"Data Source={path};Pooling=False");
             optionsBuilder.EnableSensitiveDataLogging();
             return optionsBuilder.Options;
         }
