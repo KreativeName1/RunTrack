@@ -15,8 +15,8 @@
         </Grid.RowDefinitions>
         <Frame x:Name="ubersicht" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,10,10" HorizontalAlignment="Right">
-            <fc:ButtonPlus x:Name="btnWeiter" Content="Import Bestätigen" Margin="5" VerticalAlignment="Center" Width="130" Cursor="Hand" FontSize="12" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="30"/>
-            <fc:ButtonPlus x:Name="btnCancel" Content="Abbrechen" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="130" Cursor="Hand" FontSize="12" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="30"/>
+            <fc:ButtonPlus x:Name="btnWeiter" Content="Import Bestätigen" IsTabStop="False" Margin="5" VerticalAlignment="Center" Width="130" Cursor="Hand" FontSize="12" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="30"/>
+            <fc:ButtonPlus x:Name="btnCancel" Content="Abbrechen" IsTabStop="False" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="130" Cursor="Hand" FontSize="12" BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="30"/>
         </StackPanel>
         <Rectangle Fill="#a9a9a9" VerticalAlignment="Top" Height="1" Grid.Column="0" Margin="0,0,0,0" Grid.Row="1"/>
 

@@ -19,8 +19,8 @@
             <TextBlock FontSize="32" x:Name="tbTitel" FontWeight="Bold" Margin="10" HorizontalAlignment="Center" Text="Erfolg!"/>
             <TextBlock x:Name="tbMeldung" Margin="0,5,0,15" FontSize="16" Text="Meldung"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <fc:ButtonPlus x:Name="btnSchliessen"  Content="Schließen" Margin="5" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" Cursor="Hand" FontSize="12"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="30"/>
-                <!--<Button x:Name="btnWeitereDatei" Content="Weitere Datei auswählen" Visibility="Collapsed" Click="btnWeitereDatei_Click"/>-->
+                <fc:ButtonPlus x:Name="btnSchliessen" Content="Schließen" IsTabStop="False" Margin="5" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" Cursor="Hand" FontSize="12"  BackgroundOnMouseOver="#879bbe" ForegroundOnMouseOver="White" CornerRadius="5.5" Background="#6C7C98" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Height="30"/>
+                <!--<Button x:Name="btnWeitereDatei" Content="Weitere Datei auswählen" IsTabStop="False" Visibility="Collapsed" Click="btnWeitereDatei_Click"/>-->
 
             </StackPanel>
         </StackPanel>

@@ -17,6 +17,7 @@ namespace RunTrack
             InitializeComponent();
             this.DataContext = this;
             AllowDrop = true; // Erlaubt das Ablegen von Elementen auf diesem Control
+            IsTabStop = false; // Entfernt den Tab-Stop
             PreviewMouseLeftButtonDown += DraggableItem_PreviewMouseLeftButtonDown; // Event-Handler für das Drücken der linken Maustaste
             DragEnter += DraggableItem_DragEnter; // Event-Handler für das Ziehen eines Elements über dieses Control
             Drop += DraggableItem_Drop; // Event-Handler für das Ablegen eines Elements auf diesem Control
