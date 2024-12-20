@@ -50,8 +50,8 @@ namespace RunTrack
         public static List<FileItem> AlleLesen()
         {
             List<FileItem> files = new();
-            Directory.CreateDirectory("Dateien"); // Erstellt das Verzeichnis, falls es nicht existiert
-            string[] filePaths = Directory.GetFiles("Dateien"); // Liest alle Dateipfade im Verzeichnis
+
+            string[] filePaths = Directory.GetFiles(Path.Combine(MainModel.BaseFolder, "Dateien")); // Liest alle Dateipfade im Verzeichnis
             foreach (string filePath in filePaths)
             {
                 FileInfo fi = new(filePath);

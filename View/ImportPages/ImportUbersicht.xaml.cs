@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Data.Entity.Migrations.Design;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -11,6 +12,8 @@ namespace RunTrack
     {
         ImportModel? _imodel;
         MainModel? _model;
+        string _tempPath = MainModel.BaseFolder + "/Temp";
+        string _dateienPath = MainModel.BaseFolder + "/Dateien";
         public ImportUbersicht()
         {
             InitializeComponent();
@@ -25,13 +28,14 @@ namespace RunTrack
                 try
                 {
                     // 1. Lösche Temp/Temp.db, falls vorhanden
-                    if (File.Exists("Temp/Temp.db")) File.Delete("Temp/Temp.db");
+                   
+                    if (File.Exists($"{_tempPath}/Temp.db")) File.Delete($"{_tempPath}/Temp.db");
 
                     // 2. Kopiere EigeneDatenbank.db zu Temp/Temp.db
-                    File.Copy("Dateien/EigeneDatenbank.db", "Temp/Temp.db", true);
+                    File.Copy($"{_dateienPath}/EigeneDatenbank.db", $"{_tempPath}/Temp.db", true);
 
                     // 3. Import-Daten in die temporäre Datenbank einfügen
-                    ImportIntoDB importIntoDB = new(_imodel, "Temp/Temp.db");
+                    ImportIntoDB importIntoDB = new ImportIntoDB(_imodel, $"{_tempPath}/Temp.db");
                 }
                 catch (Exception ex)
                 {
@@ -48,7 +52,7 @@ namespace RunTrack
                     ubersicht.Content = datenuebersicht;
                     DatenuebersichtModel dumodel = FindResource("dumodel") as DatenuebersichtModel ?? new();
                     dumodel.ReadOnly = true;
-                    dumodel.ConnectionString = "Temp/Temp.db";
+                    dumodel.ConnectionString = Path.Combine(MainModel.BaseFolder, "Temp/Temp.db");
                 }
                 catch (Exception ex)
                 {
@@ -68,7 +72,7 @@ namespace RunTrack
                         {
                             try
                             {
-                                ImportIntoDB importIntoDB = new(_imodel, "Dateien/EigeneDatenbank.db");
+                                ImportIntoDB importIntoDb = new ImportIntoDB(_imodel, $"{_dateienPath}/EigeneDatenbank.db");
                                 _model.Navigate(new Import3("Daten erfolgreich importiert", true));
                                 return;
                             }

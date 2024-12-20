@@ -132,7 +132,7 @@ namespace RunTrack
                 return;
             }
 
-            string destPath = Path.Combine("Dateien", Path.GetFileName(fileName));
+            string destPath = Path.Combine(MainModel.BaseFolder, "Dateien", Path.GetFileName(fileName));
 
             // Falls Datei bereits existiert
             if (File.Exists(destPath))
@@ -170,7 +170,6 @@ namespace RunTrack
             });
 
             // Datei in den Dateien-Ordner kopieren
-            Directory.CreateDirectory("Dateien");
             File.Copy(fileName, destPath, true);
 
             if (extension == ".asv" || extension == ".csv")
@@ -266,7 +265,7 @@ namespace RunTrack
                                     // Alle anderen Dateien löschen
                                     foreach (var file in _dvmodel.LstFiles.ToList())
                                     {
-                                        File.Delete(Path.Combine("Dateien", file.FileName));
+                                        File.Delete(Path.Combine(MainModel.BaseFolder, "Dateien", file.FileName));
                                         _dvmodel.LstFiles.Remove(file);
                                     }
 
@@ -358,7 +357,7 @@ namespace RunTrack
             {
                 if (file.IsSelected)  // Wenn die Datei ausgewählt wurde
                 {
-                    string sourcePath = Path.Combine("Dateien", file.FileName ?? string.Empty);  // Pfad zur Datei
+                    string sourcePath = Path.Combine(MainModel.BaseFolder, "Dateien", file.FileName ?? string.Empty);  // Pfad zur Datei
                     SaveFileDialog saveFileDialog = new()  // Dialog zum Speichern der Datei
                     {
                         FileName = file.FileName,
