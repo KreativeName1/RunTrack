@@ -20,9 +20,9 @@ In this project, we also learnt how to work with Git and GitHub.
 
 ## 🚀 Installation
 
-1 **Prerequisites:** Make sure that **.NET Framework 7.0** is installed on your system.
-2 **Download:** Download the latest version from [GitHub Releases](https://github.com/KreativeName1/RunTrack/releases).
-3 **Run:** Start the RunTrack.exe.
+1. **Prerequisites:** Make sure that **.NET Framework 7.0** is installed on your system.
+2. **Download:** Download the latest version from [GitHub Releases](https://github.com/KreativeName1/RunTrack/releases).
+3. **Run:** Start the RunTrack.exe.
 
 ## 🛠️ **Technical details**  
 
@@ -47,11 +47,11 @@ Please provide us with the following information when reporting a bug:
 - If possible, screenshots or steps to reproduce the error.
 
 ## 👩‍💻 Contributors
-- Paul Fischer](https://github.com/Fuxson)
-- Sascha Dierl](https://github.com/KreativeName1)
-- Simon Glisnik](https://github.com/CyberEnte)
-- Giada D'Aleo](https://github.com/GD1900)
-- Niko Neumeier](https://github.com/user10201)
+- [Paul Fischer](https://github.com/Fuxson)
+- [Sascha Dierl](https://github.com/KreativeName1)
+- [Simon Glisnik](https://github.com/CyberEnte)
+- [Giada D'Aleo](https://github.com/GD1900)
+- [Niko Neumeier](https://github.com/user10201)
 
 ## 📜 **Licence**  
 This project is licensed under the [MIT licence](https://opensource.org/licenses/MIT).  
