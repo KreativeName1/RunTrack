@@ -48,9 +48,6 @@ jobs:
           name: app-windows
           path: release
 
-      - name: Rename ZIP File
-        run: mv release/app-windows.zip release/app-windows.zip
-
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
