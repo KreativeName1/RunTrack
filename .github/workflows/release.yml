@@ -49,7 +49,7 @@ jobs:
           path: release
 
       - name: Rename ZIP File
-        run: mv release/app-windows.zip release/app-windows-${{ github.run_number }}.zip
+        run: mv release/app-windows.zip release/app-windows.zip
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
@@ -58,7 +58,7 @@ jobs:
           name: Release v1.0.${{ github.run_number }}
           draft: false
           prerelease: false
-          files: release/app-windows-${{ github.run_number }}.zip
+          files: release/app-windows.zip
           body: |
             This is an automatically generated release for .NET 9.0 on Windows.
             
