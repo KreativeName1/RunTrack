@@ -58,7 +58,7 @@ jobs:
           name: Release v1.0.${{ github.run_number }}
           draft: false
           prerelease: false
-          files: release/app-windows-1_0_${{ github.run_number }}.zip
+          files: release/app-windows-${{ github.run_number }}.zip
           body: |
             This is an automatically generated release for .NET 9.0 on Windows.
             
