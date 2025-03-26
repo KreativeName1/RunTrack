@@ -33,7 +33,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app-windows
-          path: app-windows.zip
+          path: RunTrack_v1.0.${{ github.run_number }}.zip
 
   release:
     needs: build
