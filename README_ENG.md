@@ -20,7 +20,7 @@ In this project, we also learnt how to work with Git and GitHub.
 
 ## 🚀 Installation
 
-1. **Prerequisites:** Make sure that **.NET Framework 7.0** is installed on your system.
+1. **Prerequisites:** Make sure that **.NET Framework 9.0** is installed on your system.
 2. **Download:** Download the latest version from [GitHub Releases](https://github.com/KreativeName1/RunTrack/releases).
 3. **Run:** Start the RunTrack.exe.
 
