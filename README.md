@@ -19,7 +19,7 @@ In diesem Projekt haben wir auch gelernt, wie man mit Git und GitHub zusammenarb
 
 ## 🚀 Installation
 
-1. **Voraussetzungen:**  Stelle sicher, dass auf deinem System **.NET Framework 7.0** installiert ist.
+1. **Voraussetzungen:**  Stelle sicher, dass auf deinem System **.NET Framework 9.0** installiert ist.
 2. **Download:** Lade die neueste Version von [GitHub Releases](https://github.com/KreativeName1/RunTrack/releases) herunter.
 3. **Ausführen:** Starte die RunTrack.exe.
 

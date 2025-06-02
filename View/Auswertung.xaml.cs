@@ -29,9 +29,9 @@ namespace RunTrack
         {
             InitializeComponent();
             // Verzeichnis "Dateien" erstellen, falls es nicht existiert
-            if (!System.IO.Directory.Exists("Dateien")) System.IO.Directory.CreateDirectory("Dateien");
+            if (!Directory.Exists(MainModel.BaseFolder + "/Dateien")) Directory.CreateDirectory(MainModel.BaseFolder + "/Dateien");
             // Alle .db-Dateien im Verzeichnis "Dateien" abrufen
-            _pfade = System.IO.Directory.GetFiles("Dateien", "*.db");
+            _pfade = Directory.GetFiles(Path.Combine(MainModel.BaseFolder, "Dateien"), "*.db");
         }
 
         // Asynchrone Methode zum Kopieren einer Datei
