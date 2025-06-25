@@ -52,6 +52,17 @@ Bitte teile uns folgende Informationen mit, wenn du einen Fehler meldest:
 - [Giada D'Aleo](https://github.com/GD1900)
 - [Niko Neumeier](https://github.com/user10201)
 
+## Screenshots
+![Login](https://github.com/user-attachments/assets/9a8f17cc-ef28-45cf-8035-a4f72f7cbbb6)
+![Scanner](https://github.com/user-attachments/assets/58bbf202-0dd7-493b-b55f-2eb32252ea7a)
+![Auswertung](https://github.com/user-attachments/assets/e714e35c-85b5-4c59-ae1c-0a724ad9388c)
+![Dateien](https://github.com/user-attachments/assets/0e3da8e8-af6c-413e-a85b-52b113e1f186)
+![Einstellungen](https://github.com/user-attachments/assets/86ca97bc-ac31-4e9b-ab32-bb5362313fc8)
+![Verwaltung](https://github.com/user-attachments/assets/8bb98ca0-e76e-4776-9c17-6912d6b71aa7)
+![pdf barcode](https://github.com/user-attachments/assets/3972448c-2f5a-4875-b6e7-4116a12fa6e7)
+
+
+
 ## 📜 **Lizenz**  
 Dieses Projekt steht unter der [MIT-Lizenz](https://opensource.org/licenses/MIT).  
 [![MIT Lizenz](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  
